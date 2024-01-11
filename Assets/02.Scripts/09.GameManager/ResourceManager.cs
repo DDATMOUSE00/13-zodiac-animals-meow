@@ -20,6 +20,17 @@ public class ResourceManager:MonoBehaviour
             Destroy(this.gameObject);
         } 
     }
+    public static ResourceManager Instance
+    {
+        get
+        {
+            if (i == null)
+            {
+                return null;
+            }
+            return i;
+        }
+    }
     public T Load<T>(string path) where T : Object
     {
         return Resources.Load<T>(path);
