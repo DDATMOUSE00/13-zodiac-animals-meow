@@ -2,48 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemManager : MonoBehaviour
 {
     private static ItemManager i;
-    private List<Item> Items;
-    public GameObject InventroyItem;
-    
+    private List<Consumable> Items = new List<Consumable>(); 
+    //나중에 Weapon 추가 
     private void Awake()
     {
         if (i == null)
         {
             i = this;
-            DontDestroyOnLoad(this.gameObject);
-
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
+
     public static ItemManager Instance
     {
         get
         {
             if (i == null)
             {
-                return null;
+                return new ItemManager();
             }
             return i;
         }
     }
 
-    public void AddItem(Item item)
+    public void AddConsumableItem(Consumable item)
     {
         Items.Add(item);
     }
-    public void Remove(Item item)
+    public void RemoveConsumableItem(Consumable item)
     {
         Items.Remove(item);
     }
 
-    public void SetItemData()
+    public void SetItemData() 
     {
         Debug.Log("set item");
         if (Items.Count != 0)
@@ -51,8 +51,13 @@ public class ItemManager : MonoBehaviour
             Transform transform = FindItemTransform().transform;
             foreach (var item in Items)
             {
-                //item1, item2, item2 
-                GameObject obj = ResourceManager.Instance.Instantiate("Item", transform);
+                Debug.Log(item.Name);
+                GameObject obj = ResourceManager.Instance.Instantiate("Prefabs/Item.prefab", transform);
+                var itemBundle = obj.transform.Find("ItemBundle").GetComponent<Text>();
+                var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
+
+                itemBundle.text = item.Bundle;
+                itemIcon.sprite = item.Icon;
             }
         }
     }
@@ -63,14 +68,18 @@ public class ItemManager : MonoBehaviour
         return itemObj;
     }
 
-    public void MakeSOInstance(string name)
+    public void MakeSOInstance(string name, string bundle)
     {
-        Item asset = ScriptableObject.CreateInstance<Item>();
+        Consumable asset = ScriptableObject.CreateInstance<Consumable>();
+
         asset.Name = name;
-        AddItem(asset);
+        asset.Bundle = bundle;
+
+        AddConsumableItem(asset);
  
-        AssetDatabase.CreateAsset(asset, $"Assets/Scripts/Scriptable Object/items/{asset.Name}.asset");
+        AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset");
         AssetDatabase.Refresh();
+
     }
 
 }
