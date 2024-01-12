@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ItemManager : MonoBehaviour
 {
     private static ItemManager i;
-    private List<Consumable> Items = new List<Consumable>(); 
+    public List<Consumable> Items = new List<Consumable>();
+    public Transform ItemContent;
+    public GameObject InventoryItem;
     //나중에 Weapon 추가 
+
+
     private void Awake()
     {
         if (i == null)
@@ -36,6 +41,7 @@ public class ItemManager : MonoBehaviour
 
     public void AddConsumableItem(Consumable item)
     {
+
         Items.Add(item);
     }
     public void RemoveConsumableItem(Consumable item)
@@ -43,21 +49,22 @@ public class ItemManager : MonoBehaviour
         Items.Remove(item);
     }
 
-    public void SetItemData() 
+    public void ListItemData() 
     {
-        Debug.Log("set item");
         if (Items.Count != 0)
         {
             Transform transform = FindItemTransform().transform;
             foreach (var item in Items)
             {
-                Debug.Log(item.Name);
-                GameObject obj = ResourceManager.Instance.Instantiate("Prefabs/Item.prefab", transform);
-                var itemBundle = obj.transform.Find("ItemBundle").GetComponent<Text>();
-                var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
 
-                itemBundle.text = item.Bundle;
-                itemIcon.sprite = item.Icon;
+               
+                GameObject obj = ResourceManager.Instance.Instantiate("Item.prefab", transform);
+                Debug.Log(item.Name);
+                var itemName = obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+               // var itemName= obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+               // var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
+                itemName.text = item.Name;
+               // itemIcon.sprite = item.Icon;
             }
         }
     }
@@ -68,13 +75,12 @@ public class ItemManager : MonoBehaviour
         return itemObj;
     }
 
-    public void MakeSOInstance(string name, string bundle)
+    public void MakeSOInstance(string name)
     {
         Consumable asset = ScriptableObject.CreateInstance<Consumable>();
 
-        asset.Name = name;
-        asset.Bundle = bundle;
 
+        asset.Name = name;
         AddConsumableItem(asset);
  
         AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset");
