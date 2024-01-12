@@ -8,9 +8,10 @@ using TMPro;
 public class ItemManager : MonoBehaviour
 {
     private static ItemManager i;
-    public List<Consumable> Items = new List<Consumable>();
+    public List<Item> Items = new List<Item>(); //consumable  //weapon?  typeof(obj) --> consumable/ weapon?
     public Transform ItemContent;
     public GameObject InventoryItem;
+    public Slot[] slots;
     //나중에 Weapon 추가 
 
 
@@ -39,31 +40,35 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    public void AddConsumableItem(Consumable item)
+    public void AddItem(Item item)
     {
 
         Items.Add(item);
     }
-    public void RemoveConsumableItem(Consumable item)
+    public void RemoveItem(Item item)
     {
         Items.Remove(item);
     }
 
     public void ListItemData() 
     {
+        int idx = 0; 
         if (Items.Count != 0)
         {
-            Transform transform = FindItemTransform().transform;
+           //Transform transform = FindItemTransform().transform;
             foreach (var item in Items)
             {
 
-               
-                GameObject obj = ResourceManager.Instance.Instantiate("Item.prefab", transform);
-                Debug.Log(item.Name);
-                var itemName = obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+                var itemName = slots[idx].transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+                itemName.text = item.Name;
+                Debug.Log(itemName.text);
+                idx++;
+                //GameObject obj = ResourceManager.Instance.Instantiate("Item", transform);
+                //Debug.Log(item.Name);
+                //var itemName = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
                // var itemName= obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
                // var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
-                itemName.text = item.Name;
+               // itemName.text = item.Name;
                // itemIcon.sprite = item.Icon;
             }
         }
@@ -77,11 +82,11 @@ public class ItemManager : MonoBehaviour
 
     public void MakeSOInstance(string name)
     {
-        Consumable asset = ScriptableObject.CreateInstance<Consumable>();
+        Item asset = ScriptableObject.CreateInstance<Item>();
 
 
         asset.Name = name;
-        AddConsumableItem(asset);
+        AddItem(asset);
  
         AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset");
         AssetDatabase.Refresh();

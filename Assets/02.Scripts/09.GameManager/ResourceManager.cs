@@ -24,7 +24,8 @@ public class ResourceManager : MonoBehaviour
         {
             if (I == null)
             {
-                return new ResourceManager();
+                ResourceManager resourceManager = new ResourceManager();
+                return resourceManager;
             }
             return I;
         }
@@ -32,6 +33,7 @@ public class ResourceManager : MonoBehaviour
 
     public T Load<T>(string path) where T : Object
     {
+        Debug.Log(path);
         return Resources.Load<T>(path);
     }
 
@@ -42,8 +44,8 @@ public class ResourceManager : MonoBehaviour
 
     public GameObject Instantiate(string path, Transform parent = null)
     {
-        Debug.Log(path);
-        GameObject prefab = Load<GameObject>($"Prefabs/{path}"); //Resources 에 있는 Prefab 폴더의 prefab 로드 
+
+        GameObject prefab = Load<GameObject>($"Prefabs/{path}.prefab"); //Resources 에 있는 Prefab 폴더의 prefab 로드 
 
         if (prefab == null)
         {
