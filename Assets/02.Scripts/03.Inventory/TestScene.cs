@@ -11,7 +11,6 @@ public class TestScene : MonoBehaviour
         ItemManager.Instance.MakeSOInstance("item2");
        ItemManager.Instance.MakeSOInstance("item3");
         ItemManager.Instance.MakeSOInstance("Item4");
-        ResourceManager.Instance.Test();
         ItemManager.Instance.MakeSOInstance("Item5");
         ItemManager.Instance.ListItemData();
 

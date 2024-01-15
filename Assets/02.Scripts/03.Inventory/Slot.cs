@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour
+
+public class Slot : MonoBehaviour, IDropHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    void IDropHandler.OnDrop(PointerEventData eventData)
     {
-        
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (transform.childCount == 0)
+        {
+            GameObject dropped = eventData.pointerDrag;
+            DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
+            draggableItem.parentAfterDrag = transform;
+        }
     }
 }

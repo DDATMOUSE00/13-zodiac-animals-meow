@@ -52,16 +52,30 @@ public class ItemManager : MonoBehaviour
 
     public void ListItemData() 
     {
-        int idx = 0; 
+        int idx = 0;
+        string parentName = "";
         if (Items.Count != 0)
         {
            //Transform transform = FindItemTransform().transform;
             foreach (var item in Items)
             {
 
-                var itemName = slots[idx].transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+                if(idx == 0)
+                {
+                    parentName = "slot";
+                }
+                else
+                {
+                    parentName = $"slot ({idx})";
+                }
+                GameObject tmp = Resources.Load("Item") as GameObject;
+                GameObject obj = Instantiate(tmp);
+                GameObject parent = GameObject.Find(parentName);
+                obj.transform.SetParent(parent.transform);
+                var itemName = obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+          
                 itemName.text = item.Name;
-                Debug.Log(itemName.text);
+            
                 idx++;
                 //GameObject obj = ResourceManager.Instance.Instantiate("Item", transform);
                 //Debug.Log(item.Name);

@@ -6,3 +6,4 @@ public class Consumable : Item // ¿Á»≠.
 {
     public string bundle;
 }
+

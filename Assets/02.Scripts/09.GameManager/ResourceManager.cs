@@ -37,10 +37,7 @@ public class ResourceManager : MonoBehaviour
         return Resources.Load<T>(path);
     }
 
-    public void Test()
-    {
-        Debug.Log("test");
-    }
+
 
     public GameObject Instantiate(string path, Transform parent = null)
     {
