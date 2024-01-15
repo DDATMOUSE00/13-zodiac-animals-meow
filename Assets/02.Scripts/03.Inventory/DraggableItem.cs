@@ -11,7 +11,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("strat drag");
+      
 
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
@@ -21,16 +21,16 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("dragging");
+        
         transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("drage done");
-        transform.SetParent(parentAfterDrag);
-        image.raycastTarget = true;
+
+
+            transform.SetParent(parentAfterDrag);
+            image.raycastTarget = true;
+
     }
-
-
 }

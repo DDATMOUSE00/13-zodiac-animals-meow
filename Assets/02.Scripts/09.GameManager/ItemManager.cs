@@ -70,20 +70,20 @@ public class ItemManager : MonoBehaviour
                 }
                 GameObject tmp = Resources.Load("Item") as GameObject;
                 GameObject obj = Instantiate(tmp);
+
                 GameObject parent = GameObject.Find(parentName);
                 obj.transform.SetParent(parent.transform);
+
+                obj.transform.localScale = new Vector3(1, 1, 1);
+                obj.transform.position = new Vector3(0, 0, 0);
+
                 var itemName = obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
-          
+                var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
                 itemName.text = item.Name;
+                itemIcon.sprite = item.Icon;
             
                 idx++;
-                //GameObject obj = ResourceManager.Instance.Instantiate("Item", transform);
-                //Debug.Log(item.Name);
-                //var itemName = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
-               // var itemName= obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
-               // var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
-               // itemName.text = item.Name;
-               // itemIcon.sprite = item.Icon;
+
             }
         }
     }
