@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
-public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
    [HideInInspector] public Transform parentAfterDrag;
     public Image image;
+    public TextMeshProUGUI desc;
 
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("click");
+        
+
+    }
     public void OnBeginDrag(PointerEventData eventData)
     {
-      
-
+ 
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
@@ -21,16 +29,13 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
     public void OnDrag(PointerEventData eventData)
     {
-        
         transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-
-
             transform.SetParent(parentAfterDrag);
-            image.raycastTarget = true;
-
+        image.raycastTarget = true;
     }
+
 }

@@ -17,8 +17,19 @@ public class Slot : MonoBehaviour, IDropHandler
         }
         else //swap 
         {
-            GameObject ele = transform.GetChild(0).gameObject;
-            
+            GameObject dropped = eventData.pointerDrag; 
+            DraggableItem draggableItem = dropped.GetComponent<DraggableItem>(); // 현재 끄는 아이템 
+
+
+            GameObject origin = transform.GetChild(0).gameObject;
+            DraggableItem originItem = origin.GetComponent<DraggableItem>();
+            originItem.parentAfterDrag = transform;
+            Transform draggableParent = draggableItem.parentAfterDrag;
+
+            draggableItem.parentAfterDrag = originItem.parentAfterDrag;
+            originItem.parentAfterDrag = draggableParent;
+            transform.GetChild(0).parent = draggableParent; 
+
         }
 
     }
