@@ -9,15 +9,15 @@ public class Resource : MonoBehaviour
 
     private bool isHit = false;
 
-    private Color originalColor;
-    private Color hitColor = Color.red;
+    //private Color originalColor;
+    //private Color hitColor = Color.red;
 
-
-    private float ResourceHP = 2.0f;
+    [SerializeField] private int ResourceHP;
+    private int maxResourceHP = 2;
 
     private void Start()
     {
-        originalColor = GetComponent<Renderer>().material.color;
+        //originalColor = GetComponent<Renderer>().material.color;
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -42,10 +42,14 @@ public class Resource : MonoBehaviour
         //}
     }
 
+    private void OnEnable()
+    {
+        ResourceHP = maxResourceHP;
+    }
+
     private void Die()
     {
         gameObject.SetActive(false);
-        ResourceHP = 2.0f;
         DropItem();
         RandomDropItem();
     }
@@ -59,7 +63,7 @@ public class Resource : MonoBehaviour
 
     public void ResetResource()
     {
-        GetComponent<Renderer>().material.color = originalColor;
+        //GetComponent<Renderer>().material.color = originalColor;
     }
 
     private void DropItem()
