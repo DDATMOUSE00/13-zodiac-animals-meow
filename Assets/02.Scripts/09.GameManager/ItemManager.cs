@@ -12,6 +12,7 @@ public class ItemManager : MonoBehaviour
     public Transform ItemContent;
     public GameObject InventoryItem;
     public Slot[] slots;
+    public GameObject objContainer;
     //나중에 Weapon 추가 
 
 
@@ -100,11 +101,28 @@ public class ItemManager : MonoBehaviour
 
 
         asset.Name = name;
+        asset.Description = name;
         AddItem(asset);
  
         AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset");
         AssetDatabase.Refresh();
 
+    }
+    public void ShowToolTip(Item item, Vector3 pos)
+    {
+        objContainer.SetActive(true);
+        var itemName = objContainer.transform.Find("NameTxt").GetComponent<TextMeshProUGUI>();
+        var itemDesc = objContainer.transform.Find("DescTxt").GetComponent<TextMeshProUGUI>();
+
+        itemName.text = item.Name;
+        itemDesc.text = item.Description;
+        objContainer.transform.position = new Vector3(pos.x+30, pos.y-120, pos.x);
+
+
+    }
+    public void HideToolTip()
+    {
+        objContainer.SetActive(false);
     }
 
 }
