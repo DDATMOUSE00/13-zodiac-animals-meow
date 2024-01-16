@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
         currentVelocity.z = direction.z;
         _Rigidbody.velocity = currentVelocity;
         //var skeleton = GetComponent<SkeletonAnimation>().Skeleton;
-        Debug.Log("움직이는중");
+        //Debug.Log("움직이는중");
 
         if (direction.x < 0)
         {

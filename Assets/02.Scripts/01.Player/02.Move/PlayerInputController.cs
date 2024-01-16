@@ -9,6 +9,6 @@ public class PlayerInputController : PlayerController
     {
         Vector3 moveInput = value.Get<Vector3>().normalized;
         CallMoveEvent(moveInput);
-        Debug.Log(moveInput);
+        //Debug.Log(moveInput);
     }
 }
