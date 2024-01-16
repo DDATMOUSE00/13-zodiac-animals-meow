@@ -4,15 +4,37 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static GameManager Instance;
+    public ObjectPoolManager objectPoolManager;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        Info();
+    }
+
+    private void Info()
+    {
+        objectPoolManager = GetComponentInChildren<ObjectPoolManager>();
+    }
+    
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("Pooling");
+            objectPoolManager.Get(1);
+        }
     }
 }
