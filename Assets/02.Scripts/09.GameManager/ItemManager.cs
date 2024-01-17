@@ -15,6 +15,7 @@ public class ItemManager : MonoBehaviour
     public GameObject InventoryItem;
     public Transform[] slots;
     public GameObject objContainer;
+    public GameObject splitContainer;
     //나중에 Weapon 추가 
 
 
@@ -102,6 +103,7 @@ public class ItemManager : MonoBehaviour
                 {
                     parentName = $"slot ({idx})";
                 }
+
                 GameObject tmp = Resources.Load("Item") as GameObject;
                 GameObject obj = Instantiate(tmp);
 
@@ -113,14 +115,12 @@ public class ItemManager : MonoBehaviour
 
                 var itemName = obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
                 var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
+                var itemQuantity = obj.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
                 itemName.text = item.Name;
+                itemQuantity.text = item.Bundle;
                 itemIcon.sprite = item.Icon;
 
-                if(item.GetType() == typeof(Consumable))
-                {
-                    var itemQuantity = obj.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
-                    itemQuantity.text = "2";
-                }
+  
             
                 idx++;
 
@@ -135,8 +135,22 @@ public class ItemManager : MonoBehaviour
 
         asset.Name = name;
         asset.Description = decription;
-   
-        AddItem(asset);
+        asset.Bundle = "1";
+        Debug.Log(Items.Exists(r => r.Name.Equals(name)));
+
+        if (Items.Exists(r => r.Name.Equals(name)))
+        {
+            Item i = Items.Find(x => x.Name == name);
+            Debug.Log(i.Name);
+            Debug.Log(i.Bundle);
+            int bundle = Int32.Parse(i.Bundle);
+            i.Bundle = (bundle + 1).ToString();
+
+        }
+        else
+        {
+            AddItem(asset);
+        }
 
         AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset");
         AssetDatabase.Refresh();
