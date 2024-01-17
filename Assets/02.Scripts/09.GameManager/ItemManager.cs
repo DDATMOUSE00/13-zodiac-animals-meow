@@ -151,11 +151,7 @@ public class ItemManager : MonoBehaviour
 
     public void MakeSOInstance(string name, string decription)
     {
-        Item asset = ScriptableObject.CreateInstance<Item>();
 
-        asset.Name = name;
-        asset.Description = decription;
-        asset.Bundle = "1";
 
         if (Items.Exists(r => r.Name.Equals(name)))
         {
@@ -167,11 +163,15 @@ public class ItemManager : MonoBehaviour
         }
         else
         {
+            Item asset = ScriptableObject.CreateInstance<Item>();
+            asset.Name = name;
+            asset.Description = decription;
+            asset.Bundle = "1";
             AddItem(asset);
+            AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset");
+            AssetDatabase.Refresh();
         }
 
-        AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset");
-        AssetDatabase.Refresh();
 
     }
     public void ShowToolTip(Item item, Vector3 pos)
