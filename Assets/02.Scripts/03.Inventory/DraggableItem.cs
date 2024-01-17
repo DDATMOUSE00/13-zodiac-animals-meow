@@ -34,7 +34,8 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (SelectedItem == null)
             FindSelectedItem();
-        ItemManager.Instance.splitContainer.SetActive(true);
+        // ItemManager.Instance.splitContainer.SetActive(true);
+        ItemManager.Instance.SplitItem(this.transform, SelectedItem, "1");
     }
 
     public void OnPointerEnter(PointerEventData eventData)

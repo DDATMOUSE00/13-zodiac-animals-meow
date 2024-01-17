@@ -55,12 +55,27 @@ public class ItemManager : MonoBehaviour
         Items.Remove(item);
     }
 
-    public void SplitItem( Item item, string quantity)
+    public void SplitItem(Transform t, Item item, string quantity)
     {
         foreach(var slot in slots)
         {
            if(slot.childCount == 0)
             {
+                /*기존 quantity update*/
+                int orginBundle = Int32.Parse(item.Bundle);
+                int updateBundle = orginBundle - Int32.Parse(quantity);
+
+                if(updateBundle < 1)
+                {
+                    Debug.Log("실패");
+                    break;
+                }
+                item.Bundle = updateBundle.ToString();
+                var originBundle = t.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
+                originBundle.text = item.Bundle;
+
+
+                /*새로운 슬롯아이템*/
                 GameObject tmp = Resources.Load("Item") as GameObject;
                 GameObject obj = Instantiate(tmp);
                 obj.transform.SetParent(slot);
@@ -72,6 +87,8 @@ public class ItemManager : MonoBehaviour
                 itemIcon.sprite = item.Icon;
                 itemQuantity.text = quantity;
 
+                splitContainer.SetActive(false);
+                //---------------------------------
                 break;
                 
             }  
@@ -82,7 +99,10 @@ public class ItemManager : MonoBehaviour
         var item1Quantity = item1.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
         var item2Quantity = item2.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
         int totalQuantity = Int32.Parse(item1Quantity.text) + Int32.Parse(item2Quantity.text);
+        var item1Name = item1.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+        Item selectedItem = Items.Find(x => x.Name == item1Name.text);
         item1Quantity.text = totalQuantity.ToString();
+        selectedItem.Bundle = totalQuantity.ToString();
         
     }
     public void ListItemData() 
@@ -136,13 +156,11 @@ public class ItemManager : MonoBehaviour
         asset.Name = name;
         asset.Description = decription;
         asset.Bundle = "1";
-        Debug.Log(Items.Exists(r => r.Name.Equals(name)));
 
         if (Items.Exists(r => r.Name.Equals(name)))
         {
             Item i = Items.Find(x => x.Name == name);
-            Debug.Log(i.Name);
-            Debug.Log(i.Bundle);
+
             int bundle = Int32.Parse(i.Bundle);
             i.Bundle = (bundle + 1).ToString();
 
