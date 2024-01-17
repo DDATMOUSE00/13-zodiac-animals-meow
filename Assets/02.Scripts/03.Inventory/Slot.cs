@@ -28,7 +28,7 @@ public class Slot : MonoBehaviour, IDropHandler
             Debug.Log(DItem.text);
             if (DItem.text== OItem.text)
             {
-                ItemManager.Instance.StackItem(dropped, origin);
+                ItemManager.Instance.StackItem(origin, dropped);
                 Debug.Log("stack");
                 Destroy(dropped);
             }

@@ -78,7 +78,11 @@ public class ItemManager : MonoBehaviour
     }
     public void StackItem(GameObject item1, GameObject item2)
     {
-
+        var item1Quantity = item1.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
+        var item2Quantity = item2.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
+        int totalQuantity = Int32.Parse(item1Quantity.text) + Int32.Parse(item2Quantity.text);
+        item1Quantity.text = totalQuantity.ToString();
+        
     }
     public void ListItemData() 
     {
