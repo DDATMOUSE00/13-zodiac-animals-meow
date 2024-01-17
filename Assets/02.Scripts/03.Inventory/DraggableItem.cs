@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
    [HideInInspector] public Transform parentAfterDrag;
     public Image image;
@@ -30,29 +30,37 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         image.raycastTarget = true;
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (SelectedItem == null)
+            FindSelectedItem();
+        ItemManager.Instance.SplitItem(SelectedItem, "1");
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
 
+        if (SelectedItem == null)
+            FindSelectedItem();
+        ItemManager.Instance.ShowToolTip(SelectedItem, transform.position);  
+    }
+
+    private void FindSelectedItem()
+    {
         var name = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
-        foreach(Item i in ItemManager.Instance.Items)
+        foreach (Item i in ItemManager.Instance.Items)
         {
-            if(i.Name == name.text)
+            if (i.Name == name.text)
             {
                 SelectedItem = i;
                 break;
-
-    
             }
         }
-       
-        ItemManager.Instance.ShowToolTip(SelectedItem, transform.position);
-       
     }
-
 
         public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Exit");
+
         ItemManager.Instance.HideToolTip();
     }
 }
