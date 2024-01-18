@@ -9,7 +9,7 @@ using System;
 public class ItemManager : MonoBehaviour
 {
     private static ItemManager i;
-    public List<Item> Items = new List<Item>(); //consumable  //weapon?  typeof(obj) --> consumable/ weapon?
+    [SerializeField] public List<Item> Items = new List<Item>(); //consumable  //weapon?  typeof(obj) --> consumable/ weapon?
     public List<Item> StorageItems = new List<Item>();
     public Transform ItemContent;
     public GameObject InventoryItem;
@@ -51,9 +51,23 @@ public class ItemManager : MonoBehaviour
 
         Items.Add(item);
     }
-    public void RemoveItem(Item item) //Drop Item 
+    public bool RemoveItem(Item item) //Drop Item 
     {
-        Items.Remove(item);
+        Item selectedItem = Items.Find(i => i.Name == item.Name);
+        if (selectedItem != null)
+        {
+            bool IsCheckQuantityZero = (Int32.Parse(selectedItem.Quantity) - Int32.Parse(item.Bundle) == 0 ? true : false);
+            if (IsCheckQuantityZero)
+            {
+                Items.Remove(item);
+            }
+            else
+            {
+                item.Quantity = (Int32.Parse(selectedItem.Quantity) - Int32.Parse(item.Bundle)).ToString();
+            }
+            return true;
+        }
+        return false;
     }
 
     public void SplitItem(Transform t, Item item, string quantity)
@@ -159,7 +173,10 @@ public class ItemManager : MonoBehaviour
             Item i = Items.Find(x => x.Name == name);
 
             int bundle = Int32.Parse(i.Bundle);
+            int q = Int32.Parse(i.Quantity);
             i.Bundle = (bundle + 1).ToString();
+            i.Quantity = (q + 1).ToString();
+            
 
         }
         else
@@ -168,6 +185,7 @@ public class ItemManager : MonoBehaviour
             asset.Name = name;
             asset.Description = decription;
             asset.Bundle = "1";
+            asset.Quantity = "1";
             AddItem(asset);
             AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset");
             AssetDatabase.Refresh();

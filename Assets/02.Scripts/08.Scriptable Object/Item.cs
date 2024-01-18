@@ -7,6 +7,7 @@ public class Item :ScriptableObject
     public string Description; // 설명
     public Sprite Icon; // 아이콘 
     public string Bundle;
+    public string Quantity;
 
 }
 // 재화/ 무기 
