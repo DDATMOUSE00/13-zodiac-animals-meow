@@ -16,6 +16,7 @@ public class ItemManager : MonoBehaviour
     public Transform[] slots;
     public GameObject objContainer;
     public GameObject splitContainer;
+   
     //나중에 Weapon 추가 
 
 

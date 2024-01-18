@@ -10,7 +10,11 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
    [HideInInspector] public Transform parentAfterDrag;
     public Image image;
     public TMP_Text desc;
-    private Item SelectedItem;
+
+    public  Item SelectedItem;
+    public static Item clickedItem;
+    public  Transform t;
+    public static Transform selectedT;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -32,31 +36,44 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (SelectedItem == null)
-            FindSelectedItem();
-        // ItemManager.Instance.splitContainer.SetActive(true);
-        ItemManager.Instance.SplitItem(this.transform, SelectedItem, "1");
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (SelectedItem == null)
+                FindSelectedItem();
+
+            selectedT = this.transform;
+            clickedItem = SelectedItem;
+              ItemManager.Instance.splitContainer.SetActive(true);
+          //  ItemManager.Instance.SplitItem(this.transform, SelectedItem, "1");
+        }
+ 
     }
+
 
     public void OnPointerEnter(PointerEventData eventData)
     {
 
         if (SelectedItem == null)
             FindSelectedItem();
+
         ItemManager.Instance.ShowToolTip(SelectedItem, transform.position);  
     }
 
     private void FindSelectedItem()
     {
-        var name = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
-        foreach (Item i in ItemManager.Instance.Items)
-        {
-            if (i.Name == name.text)
+
+            Debug.Log(transform.name);
+            var name = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+            foreach (Item i in ItemManager.Instance.Items)
             {
-                SelectedItem = i;
-                break;
+                if (i.Name == name.text)
+                {
+                    SelectedItem = i;
+                    t = this.transform;
+                    break;
+                }
             }
-        }
+        
     }
 
         public void OnPointerExit(PointerEventData eventData)
