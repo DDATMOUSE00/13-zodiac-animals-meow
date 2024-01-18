@@ -29,14 +29,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ApplyMovment(MovementDirection);
+        ApplyMovement(MovementDirection);
     }
 
     private void Move(Vector3 direction)
     {
         MovementDirection = direction;
     }
-    private void ApplyMovment(Vector3 direction)
+    private void ApplyMovement(Vector3 direction)
     {
         direction = direction * 5;
         Vector3 currentVelocity = _Rigidbody.velocity;
