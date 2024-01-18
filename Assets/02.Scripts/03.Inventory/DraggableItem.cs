@@ -36,13 +36,15 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnPointerClick(PointerEventData eventData)
     {
+
+        if (SelectedItem == null)
+            FindSelectedItem();
+
+        selectedT = this.transform;
+        clickedItem = SelectedItem;
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (SelectedItem == null)
-                FindSelectedItem();
 
-            selectedT = this.transform;
-            clickedItem = SelectedItem;
               ItemManager.Instance.splitContainer.SetActive(true);
           //  ItemManager.Instance.SplitItem(this.transform, SelectedItem, "1");
         }
