@@ -22,7 +22,7 @@ public class BuildingManager : MonoBehaviour
 
         GameObject buildingObject = Instantiate(buildingPrefabs[buildingIndex], position, Quaternion.identity);
         Building building = buildingObject.GetComponent<Building>();
-        building.StartConstruction(5.0f); // ex) 건축 시간 5초
+        //building.StartConstruction(5.0f); // ex) 건축 시간 5초
         buildings.Add(buildingObject);
     }
 
