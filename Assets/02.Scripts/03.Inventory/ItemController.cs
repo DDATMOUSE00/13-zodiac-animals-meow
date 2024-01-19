@@ -14,28 +14,34 @@ public class ItemController : MonoBehaviour
 
     public void DropClickedItem()
     {
-        if (DraggableItem.clickedItem != null)
+        try
         {
-            Debug.Log(DraggableItem.clickedItem.Name);
-            bool isCheckValid = ItemManager.Instance.IsCheckItemInList(DraggableItem.clickedItem);
-            if (isCheckValid && DraggableItem.selectedT.gameObject != null)
+            if (DraggableItem.clickedItem != null)
             {
-                ItemManager.Instance.RemoveItem(DraggableItem.clickedItem);
-                Destroy(DraggableItem.selectedT.gameObject);
-
-                DraggableItem.clickedItem = null;
-                /*
-                for (int i = 0; i < Int32.Parse(DraggableItem.clickedItem.Bundle) ; i++)
+                Debug.Log(DraggableItem.clickedItem.Name);
+                bool isCheckValid = ItemManager.Instance.IsCheckItemInList(DraggableItem.clickedItem);
+                if (isCheckValid && DraggableItem.selectedT.gameObject != null)
                 {
-                    //Instantiate();//prefab;
-                }
-                */
-            }
+                    ItemManager.Instance.RemoveItem(DraggableItem.clickedItem);
+                    Destroy(DraggableItem.selectedT.gameObject);
 
+                    DraggableItem.clickedItem = null;
+                    /*
+                    for (int i = 0; i < Int32.Parse(DraggableItem.clickedItem.Bundle) ; i++)
+                    {
+                        //Instantiate();//prefab;
+                    }*/
+
+                }
+            }
+            else
+            {
+                Debug.Log("버릴 아이템을 선택해주세요");
+            }
         }
-        else
+        catch (ObjectDisposedException e)
         {
-            Debug.Log("버릴 아이템을 선택해주세요");
+            Console.WriteLine("Caught: {0}", e.Message);
         }
 
     }

@@ -67,7 +67,6 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private void FindSelectedItem()
     {
 
-
             var name = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
             foreach (Item i in ItemManager.Instance.Items)
             {
