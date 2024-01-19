@@ -10,6 +10,7 @@ public class ItemManager : MonoBehaviour
 {
     private static ItemManager i;
     public List<Item> Items = new List<Item>(); //consumable  //weapon?  typeof(obj) --> consumable/ weapon?
+    
     public Transform[] slots;
     public GameObject objContainer;
     public GameObject splitContainer;
@@ -205,7 +206,6 @@ public class ItemManager : MonoBehaviour
         itemName.text = item.Name;
         itemDesc.text = item.Description;
         objContainer.transform.position = new Vector3(pos.x+30, pos.y-120, pos.x);
-
 
     }
     public void HideToolTip()
