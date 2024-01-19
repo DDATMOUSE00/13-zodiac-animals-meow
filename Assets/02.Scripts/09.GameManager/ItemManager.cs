@@ -9,17 +9,13 @@ using System;
 public class ItemManager : MonoBehaviour
 {
     private static ItemManager i;
-    [SerializeField] public List<Item> Items = new List<Item>(); //consumable  //weapon?  typeof(obj) --> consumable/ weapon?
-    public List<Item> StorageItems = new List<Item>();
-    public Transform ItemContent;
-    public GameObject InventoryItem;
+    public List<Item> Items = new List<Item>(); //consumable  //weapon?  typeof(obj) --> consumable/ weapon?
     public Transform[] slots;
     public GameObject objContainer;
     public GameObject splitContainer;
+    public GameObject dropBtn;
    
     //나중에 Weapon 추가 
-
-
     private void Awake()
     {
         if (i == null)
@@ -59,7 +55,8 @@ public class ItemManager : MonoBehaviour
             bool IsCheckQuantityZero = (Int32.Parse(selectedItem.Quantity) - Int32.Parse(item.Bundle) == 0 ? true : false);
             if (IsCheckQuantityZero)
             {
-                Items.Remove(item);
+                Debug.Log($"{item.Name} removed");
+              Items.Remove(item);
             }
             else
             {
@@ -67,6 +64,14 @@ public class ItemManager : MonoBehaviour
             }
             return true;
         }
+        return false;
+    }
+    public bool IsCheckItemInList(Item item)
+    {
+        Item selectedItem = Items.Find(i => i.Name == item.Name);
+        if (selectedItem != null)
+            return true;
+
         return false;
     }
 
@@ -190,8 +195,6 @@ public class ItemManager : MonoBehaviour
             AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset");
             AssetDatabase.Refresh();
         }
-
-
     }
     public void ShowToolTip(Item item, Vector3 pos)
     {

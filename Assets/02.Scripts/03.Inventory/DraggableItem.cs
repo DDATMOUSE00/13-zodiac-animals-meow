@@ -11,9 +11,12 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public Image image;
     public TMP_Text desc;
 
+    /*상태창*/
     public  Item SelectedItem;
-    public static Item clickedItem;
     public  Transform t;
+
+    /*버릴때*/
+    public static Item clickedItem;
     public static Transform selectedT;
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -44,11 +47,11 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         clickedItem = SelectedItem;
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-
               ItemManager.Instance.splitContainer.SetActive(true);
           //  ItemManager.Instance.SplitItem(this.transform, SelectedItem, "1");
         }
- 
+
+
     }
 
 
@@ -64,7 +67,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private void FindSelectedItem()
     {
 
-            Debug.Log(transform.name);
+
             var name = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
             foreach (Item i in ItemManager.Instance.Items)
             {
@@ -77,7 +80,6 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             }
         
     }
-
         public void OnPointerExit(PointerEventData eventData)
     {
 

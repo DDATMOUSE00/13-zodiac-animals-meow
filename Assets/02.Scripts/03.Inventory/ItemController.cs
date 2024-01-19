@@ -16,12 +16,14 @@ public class ItemController : MonoBehaviour
     {
         if (DraggableItem.clickedItem != null)
         {
-            
-            bool isCheckValid = ItemManager.Instance.RemoveItem(DraggableItem.clickedItem);
-            if (isCheckValid)
+            Debug.Log(DraggableItem.clickedItem.Name);
+            bool isCheckValid = ItemManager.Instance.IsCheckItemInList(DraggableItem.clickedItem);
+            if (isCheckValid && DraggableItem.selectedT.gameObject != null)
             {
+                ItemManager.Instance.RemoveItem(DraggableItem.clickedItem);
                 Destroy(DraggableItem.selectedT.gameObject);
 
+                DraggableItem.clickedItem = null;
                 /*
                 for (int i = 0; i < Int32.Parse(DraggableItem.clickedItem.Bundle) ; i++)
                 {
