@@ -45,6 +45,7 @@ public class ShopSlot : MonoBehaviour
         else
         {
             //inventory¿¡ ½ï!
+            Debug.Log($"Item : {itemName} Buy");
         }
     }
 
@@ -59,6 +60,8 @@ public class ShopSlot : MonoBehaviour
             //inventory¿¡ ½ï!
         }
     }
+    
+
 
     private void InputNum(int Count)
     {

@@ -10,9 +10,9 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private GameObject uiPrefab; //나중에 버튼으로 변경해 ㅇㅋ?
     [SerializeField] private float space;
     //public ItemData[] itemDatas;
-    [SerializeField] private TextMeshProUGUI itemName;
-    [SerializeField] private Image itemIcon;
-    [SerializeField] private TextMeshProUGUI Description;
+    //[SerializeField] private TextMeshProUGUI itemName;
+    //[SerializeField] private Image itemIcon;
+    //[SerializeField] private TextMeshProUGUI Description;
 
     public List<RectTransform> UiObject = new List<RectTransform>();
 
@@ -23,10 +23,14 @@ public class ShopUI : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 3; i++)
+        for (int j = 0; j < UiObject.Count; ++j)
         {
             AddNewUiObject();
         }
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    AddNewUiObject();
+        //}
     }
 
     public void DisplayItemData()
@@ -49,5 +53,13 @@ public class ShopUI : MonoBehaviour
         }
 
         scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, y);
+    }
+
+    public void InputNem(int num)
+    {
+        for (int i = 0; i < num; i++)
+        {
+            Debug.Log($"아이템 구매 계수 {num}");
+        }
     }
 }
