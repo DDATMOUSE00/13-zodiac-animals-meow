@@ -12,9 +12,14 @@ public class TestScene : MonoBehaviour
        ItemManager.Instance.MakeSOInstance("item3", "item3 desc");
         ItemManager.Instance.MakeSOInstance("Item4", "Item4 desc");
         ItemManager.Instance.MakeSOInstance("Item5", "item5 desc");
-        ItemManager.Instance.MakeSOInstance("item1", "Item1");
+
+
+     ItemManager.Instance.MakeSOInstance("item1", "Item1");
+
         ItemManager.Instance.MakeSOInstance("Item5", "item5 desc");
-        ItemManager.Instance.ListItemData();
+        ItemManager.Instance.MakeSOInstance("Item6", "item6desc");
+
+
 
     }
 

@@ -126,6 +126,37 @@ public class ItemManager : MonoBehaviour
         selectedItem.Bundle = totalQuantity.ToString();
         
     }
+
+    public void AddItemAtEmptySlot(Item item)
+    {
+
+            foreach (var slot in slots)
+            {
+                if (slot.childCount == 0)
+                {
+                    GameObject tmp = Resources.Load("Item") as GameObject;
+                    GameObject obj = Instantiate(tmp);
+
+                    GameObject parent = GameObject.Find(slot.name);
+                    obj.transform.SetParent(parent.transform);
+
+                    obj.transform.localScale = new Vector3(1, 1, 1);
+                    obj.transform.position = new Vector3(0, 0, 0);
+
+                    var itemName = obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+                    var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
+                    var itemQuantity = obj.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
+                    itemName.text = item.Name;
+                    itemQuantity.text = item.Bundle;
+                    itemIcon.sprite = item.Icon;
+
+                    break;
+                }
+     
+            }
+        
+    }
+
     public void ListItemData() 
     {
         int idx = 0;
@@ -135,7 +166,7 @@ public class ItemManager : MonoBehaviour
            //Transform transform = FindItemTransform().transform;
             foreach (var item in Items)
             {
-
+                
                 if(idx == 0)
                 {
                     parentName = "slot";
@@ -169,8 +200,27 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    private void ReplaceItem(Item item)
+    {
+        foreach(var slot in slots)
+        {
+            if (slot.childCount != 0)
+            {
+                Transform obj = slot.GetChild(0);
 
-    public void MakeSOInstance(string name, string decription)
+                var itemName = obj.Find("ItemName").GetComponent<TextMeshProUGUI>();
+
+                if (itemName.text == item.Name)
+                {
+                    var itemQuantity = obj.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
+                    itemQuantity.text = item.Bundle;
+                    break;
+                }
+            }
+
+        }
+    }
+    public Item MakeSOInstance(string name, string decription)
     {
 
 
@@ -182,8 +232,9 @@ public class ItemManager : MonoBehaviour
             int q = Int32.Parse(i.Quantity);
             i.Bundle = (bundle + 1).ToString();
             i.Quantity = (q + 1).ToString();
-            
 
+            ReplaceItem(i);
+            return i;
         }
         else
         {
@@ -195,6 +246,9 @@ public class ItemManager : MonoBehaviour
             AddItem(asset);
             AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset");
             AssetDatabase.Refresh();
+            AddItemAtEmptySlot(asset);
+
+            return asset;
         }
     }
     public void ShowToolTip(Item item, Vector3 pos)
