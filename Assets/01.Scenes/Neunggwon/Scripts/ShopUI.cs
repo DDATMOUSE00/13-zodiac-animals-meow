@@ -7,13 +7,11 @@ using UnityEngine.UI;
 public class ShopUI : MonoBehaviour
 {
     private ScrollRect scrollRect;
-    [SerializeField] private GameObject uiPrefab; //나중에 버튼으로 변경해 ㅇㅋ?
+    [SerializeField] private GameObject uiPrefab; 
     [SerializeField] private float space;
-    //public ItemData[] itemDatas;
-    //[SerializeField] private TextMeshProUGUI itemName;
-    //[SerializeField] private Image itemIcon;
-    //[SerializeField] private TextMeshProUGUI Description;
 
+    [SerializeField] private ShopSlot shopSlot;
+    public List<Item> items = new List<Item>();
     public List<RectTransform> UiObject = new List<RectTransform>();
 
     private void Awake()
@@ -23,19 +21,22 @@ public class ShopUI : MonoBehaviour
 
     private void Start()
     {
-        for (int j = 0; j < UiObject.Count; ++j)
-        {
-            AddNewUiObject();
-        }
-        //for (int i = 0; i < 3; i++)
+        //for (int j = 0; j < items.Count; ++j)
         //{
         //    AddNewUiObject();
         //}
+        for (int i = 0; i < 3; i++)
+        {
+            AddNewUiObject();
+        }
     }
 
-    public void DisplayItemData()
+    public void DisPlayUI()
     {
-        //itemData의 내용을 받아 UI에 보이도록 하자 ㄱㄱ
+        for (int i = 0;i < items.Count; i++)
+        {
+            shopSlot.itemData = items[i];
+        }
     }
 
 
@@ -46,6 +47,7 @@ public class ShopUI : MonoBehaviour
 
         float y = 0f;
 
+        //for (int i = 0; i < items.Count; i++)
         for (int i = 0; i < UiObject.Count; i++)
         {
             UiObject[i].anchoredPosition = new Vector2(0f, -y);
@@ -55,11 +57,11 @@ public class ShopUI : MonoBehaviour
         scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, y);
     }
 
-    public void InputNem(int num)
-    {
-        for (int i = 0; i < num; i++)
-        {
-            Debug.Log($"아이템 구매 계수 {num}");
-        }
-    }
+    //public void InputNem(int num)
+    //{
+    //    for (int i = 0; i < num; i++)
+    //    {
+    //        Debug.Log($"아이템 구매 계수 {num}");
+    //    }
+    //}
 }

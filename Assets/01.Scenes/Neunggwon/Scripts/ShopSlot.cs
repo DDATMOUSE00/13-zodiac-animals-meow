@@ -7,23 +7,29 @@ using UnityEngine.UI;
 
 public class ShopSlot : MonoBehaviour
 {
-    //public ItemData itemData; //아이템 데이터를 받는다!
+    public Item itemData; //아이템 데이터를 받는다!
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI itemDescription;
-    [SerializeField] private TextMeshProUGUI itemPrice;
+    [SerializeField] private TextMeshProUGUI itemCost;
 
     private void Start()
     {
         Setting();
     }
 
+    public Item ItemData(Item _itemData)
+    {
+        itemData = _itemData;
+        return itemData;
+    }
+
     void Setting()
     {
-        //itemName = itemData.name;
-        //itemIcon = itemData.icon;
-        //itemDescription = itemData.description;
-        //itemPrice = itemData.price;
+        itemName.text = itemData.Name;
+        itemIcon.sprite = itemData.Icon;
+        itemDescription.text = itemData.Description;
+        //itemCost = itemData.Cost;
 
         if (0 == 0) // itemType에 따라 세팅해야 할 거 추가 (임시임)
         {
