@@ -9,7 +9,7 @@ public class ItemController : MonoBehaviour
     public TMP_InputField userTxt;
     public void ConfirmSplit()
     {
-        ItemManager.Instance.SplitItem(DraggableItem.selectedT, DraggableItem.clickedItem, userTxt.text);
+        ItemManager.Instance.SplitItem(DraggableItem.selectedT, DraggableItem.clickedItem, Int32.Parse(userTxt.text));
     }
 
     public void DropClickedItem()

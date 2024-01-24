@@ -43,7 +43,7 @@ public class ItemManager : MonoBehaviour
     }
 
 
-    public void AddItem(Item item)
+    private void AddItem(Item item)
     {
 
         Items.Add(item);
@@ -53,7 +53,7 @@ public class ItemManager : MonoBehaviour
         Item selectedItem = Items.Find(i => i.Name == item.Name);
         if (selectedItem != null)
         {
-            bool IsCheckQuantityZero = (Int32.Parse(selectedItem.Quantity) - Int32.Parse(item.Bundle) == 0 ? true : false);
+            bool IsCheckQuantityZero = (selectedItem.Quantity - item.Bundle == 0 ? true : false);
             if (IsCheckQuantityZero)
             {
                 Debug.Log($"{item.Name} removed");
@@ -61,7 +61,7 @@ public class ItemManager : MonoBehaviour
             }
             else
             {
-                item.Quantity = (Int32.Parse(selectedItem.Quantity) - Int32.Parse(item.Bundle)).ToString();
+                item.Quantity = selectedItem.Quantity - item.Bundle;
             }
             return true;
         }
@@ -76,24 +76,24 @@ public class ItemManager : MonoBehaviour
         return false;
     }
 
-    public void SplitItem(Transform t, Item item, string quantity)
+    public void SplitItem(Transform t, Item item, int quantity)
     {
         foreach(var slot in slots)
         {
            if(slot.childCount == 0)
             {
                 /*기존 quantity update*/
-                int orginBundle = Int32.Parse(item.Bundle);
-                int updateBundle = orginBundle - Int32.Parse(quantity);
+                int orginBundle = item.Bundle;
+                int updateBundle = orginBundle - quantity;
 
                 if(updateBundle < 1)
                 {
                     Debug.Log("실패");
                     break;
                 }
-                item.Bundle = updateBundle.ToString();
+                item.Bundle = updateBundle;
                 var originBundle = t.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
-                originBundle.text = item.Bundle;
+                originBundle.text = item.Bundle.ToString();
 
 
                 /*새로운 슬롯아이템*/
@@ -106,7 +106,7 @@ public class ItemManager : MonoBehaviour
                 obj.transform.localScale = new Vector3(1, 1, 1);
                 itemName.text = item.Name;
                 itemIcon.sprite = item.Icon;
-                itemQuantity.text = quantity;
+                itemQuantity.text = quantity.ToString();
 
                 splitContainer.SetActive(false);
                 //---------------------------------
@@ -123,11 +123,11 @@ public class ItemManager : MonoBehaviour
         var item1Name = item1.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
         Item selectedItem = Items.Find(x => x.Name == item1Name.text);
         item1Quantity.text = totalQuantity.ToString();
-        selectedItem.Bundle = totalQuantity.ToString();
+        selectedItem.Bundle = totalQuantity;
         
     }
 
-    public void AddItemAtEmptySlot(Item item)
+    private void AddItemAtEmptySlot(Item item)
     {
 
             foreach (var slot in slots)
@@ -147,7 +147,7 @@ public class ItemManager : MonoBehaviour
                     var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
                     var itemQuantity = obj.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
                     itemName.text = item.Name;
-                    itemQuantity.text = item.Bundle;
+                    itemQuantity.text = item.Bundle.ToString();
                     itemIcon.sprite = item.Icon;
 
                     break;
@@ -189,7 +189,7 @@ public class ItemManager : MonoBehaviour
                 var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
                 var itemQuantity = obj.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
                 itemName.text = item.Name;
-                itemQuantity.text = item.Bundle;
+                itemQuantity.text = item.Bundle.ToString();
                 itemIcon.sprite = item.Icon;
 
   
@@ -213,7 +213,7 @@ public class ItemManager : MonoBehaviour
                 if (itemName.text == item.Name)
                 {
                     var itemQuantity = obj.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
-                    itemQuantity.text = item.Bundle;
+                    itemQuantity.text = item.Bundle.ToString();
                     break;
                 }
             }
@@ -222,16 +222,14 @@ public class ItemManager : MonoBehaviour
     }
     public Item MakeSOInstance(string name, string decription, ItemType type)
     {
-
-
-        if (Items.Exists(r => r.Name.Equals(name)))
+        if (Items.Exists(r => r.Name.Equals(name))) // refactoring --> int로 
         {
-            Item i = Items.Find(x => x.Name == name);
+            Item i = Items.Find(x => x.Name == name); //
 
-            int bundle = Int32.Parse(i.Bundle);
-            int q = Int32.Parse(i.Quantity);
-            i.Bundle = (bundle + 1).ToString();
-            i.Quantity = (q + 1).ToString();
+            int bundle = i.Bundle;// 무거움 -> 리팩토링  
+            int q = i.Quantity; //
+            i.Bundle = (bundle + 1);
+            i.Quantity = (q + 1);
 
             ReplaceItem(i);
             return i;
@@ -241,22 +239,22 @@ public class ItemManager : MonoBehaviour
             Item asset = ScriptableObject.CreateInstance<Item>();
             asset.Name = name;
             asset.Description = decription;
-            asset.Bundle = "1";
-            asset.Quantity = "1";
+            asset.Bundle = 1;
+            asset.Quantity = 1;
             asset.type = type;
             AddItem(asset);
-            AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset");
+            AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset"); //런타임에 저장이 안됨  / json형태로 저장 
             AssetDatabase.Refresh();
             AddItemAtEmptySlot(asset);
 
             return asset;
         }
     }
-    public void ShowToolTip(Item item, Vector3 pos)
+    public void ShowToolTip(Item item, Vector3 pos) //ray cast로 찾아보기 
     {
         objContainer.SetActive(true);
-        var itemName = objContainer.transform.Find("NameTxt").GetComponent<TextMeshProUGUI>();
-        var itemDesc = objContainer.transform.Find("DescTxt").GetComponent<TextMeshProUGUI>();
+        var itemName = objContainer.transform.Find("NameTxt").GetComponent<TextMeshProUGUI>(); 
+        var itemDesc = objContainer.transform.Find("DescTxt").GetComponent<TextMeshProUGUI>(); 
 
         itemName.text = item.Name;
         itemDesc.text = item.Description;
