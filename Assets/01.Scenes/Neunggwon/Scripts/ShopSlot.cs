@@ -7,11 +7,17 @@ using UnityEngine.UI;
 
 public class ShopSlot : MonoBehaviour
 {
+    [Header("#ItemDataInfo")]
     public Item itemData; //아이템 데이터를 받는다!
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI itemDescription;
     [SerializeField] private TextMeshProUGUI itemCost;
+
+    [Header("#InputFeild")]
+    [SerializeField] private GameObject inputFeild;
+    public InputField inputField;
+    public string inputNum = null;
 
     private void Start()
     {
@@ -36,7 +42,7 @@ public class ShopSlot : MonoBehaviour
 
         }
     }
-    private bool ThisEquipItam()
+    private bool ThisEquipItam() //test
     {
         //아이템이 무기인지 확인...
         return false;
@@ -47,34 +53,47 @@ public class ShopSlot : MonoBehaviour
         if (!ThisEquipItam())
         {
             //갯수 입력 UI 뽕!
+            inputFeild.SetActive(true);
         }
         else
         {
             //inventory에 쏙!
+            //InventoryManager
+            //AddItem(this.itemData);
             Debug.Log($"Item : {itemName} Buy");
         }
     }
 
-    public void ButtonSell()
-    {
-        if (!ThisEquipItam())
-        {
-            //갯수 입력 UI 뽕!
-        }
-        else
-        {
-            //inventory에 쏙!
-        }
-    }
+    //public void ButtonSell()
+    //{
+    //    if (!ThisEquipItam())
+    //    {
+    //        //갯수 입력 UI 뽕!
+    //    }
+    //    else
+    //    {
+    //        //inventory에 쏙!
+    //    }
+    //}
     
 
-
-    private void InputNum(int Count)
+    public void InputNum()
     {
-        for (int i = 0; i < Count; i++)
-        {
-            //inventory에 쏙! x Count
-        }
-    }
+        int inputNum = int.Parse(inputField.text);
+        ///<summary>
+        ///임시..
+        ///플레이어 골드 확인
+        /// </summary>
+        
+        //if (PlayerStatus.Gold >= itemData.Cost * inputNum)
+        //{
+        //    PlayerStatus.Gold -= (itemData.Cost * inputNum)
+        //    AddItem(this.itemData, inputNum)
+        //}
+        //else
+        //{
+        //    Debug.Log($"플레이어 골드 부족!!");
+        //}
 
+    }
 }
