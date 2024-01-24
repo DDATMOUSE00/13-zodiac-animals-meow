@@ -220,7 +220,7 @@ public class ItemManager : MonoBehaviour
 
         }
     }
-    public Item MakeSOInstance(string name, string decription)
+    public Item MakeSOInstance(string name, string decription, ItemType type)
     {
 
 
@@ -243,6 +243,7 @@ public class ItemManager : MonoBehaviour
             asset.Description = decription;
             asset.Bundle = "1";
             asset.Quantity = "1";
+            asset.type = type;
             AddItem(asset);
             AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset");
             AssetDatabase.Refresh();
