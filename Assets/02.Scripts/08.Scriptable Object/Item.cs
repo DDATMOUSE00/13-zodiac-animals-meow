@@ -1,5 +1,12 @@
 using UnityEngine;
 
+
+public enum ItemType
+{
+    Resource,
+    Weapon,
+    Consumable
+}
 public class Item :ScriptableObject
 {
     public int ID;
@@ -8,12 +15,8 @@ public class Item :ScriptableObject
     public Sprite Icon; // æ∆¿Ãƒ‹ 
     public string Bundle;
     public string Quantity;
+    public ItemType type;
+  
 
-    public enum ItemType
-    {
-        Resource,
-        Weapon,
-        Consumable
-    }
 
 }
