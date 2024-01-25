@@ -8,11 +8,9 @@ public class ShopUI : MonoBehaviour
 {
     private ScrollRect scrollRect;
     [SerializeField] private GameObject uiPrefab; 
-    [SerializeField] private float space;
 
-    [SerializeField] private ShopSlot shopSlot;
     public List<Item> items = new List<Item>();
-    public List<RectTransform> UiObject = new List<RectTransform>();
+    public List<ShopSlot> shopSlots = new List<ShopSlot>();
 
     private void Awake()
     {
@@ -21,47 +19,23 @@ public class ShopUI : MonoBehaviour
 
     private void Start()
     {
-        //for (int j = 0; j < items.Count; ++j)
-        //{
-        //    AddNewUiObject();
-        //}
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < items.Count; i++)
         {
             AddNewUiObject();
         }
     }
 
-    public void DisPlayUI()
-    {
-        for (int i = 0;i < items.Count; i++)
-        {
-            shopSlot.itemData = items[i];
-        }
-    }
-
-
     public void AddNewUiObject()
     {
-        var newUi = Instantiate(uiPrefab, scrollRect.content).GetComponent<RectTransform>();
-        UiObject.Add(newUi);
+        var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+        shopSlots.Add(newShopSlot);
 
-        float y = 0f;
+        float y = 150f;
 
-        //for (int i = 0; i < items.Count; i++)
-        for (int i = 0; i < UiObject.Count; i++)
+        for (int i = 0; i < shopSlots.Count; i++)
         {
-            UiObject[i].anchoredPosition = new Vector2(0f, -y);
-            y += UiObject[i].sizeDelta.y + space;
+            shopSlots[i].itemData = items[i];
         }
-
-        scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, y);
+        scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20)* items.Count);
     }
-
-    //public void InputNem(int num)
-    //{
-    //    for (int i = 0; i < num; i++)
-    //    {
-    //        Debug.Log($"아이템 구매 계수 {num}");
-    //    }
-    //}
 }

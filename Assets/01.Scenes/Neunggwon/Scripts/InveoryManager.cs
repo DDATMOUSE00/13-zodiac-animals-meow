@@ -7,8 +7,21 @@ using UnityEngine;
 /// </summary>
 public class InveoryManager : MonoBehaviour
 {
+    public static InveoryManager Instance;
     //public Item _itemData;
     //inveotry의 있는 아이템 슬롯 리스트를 가지고 온다.
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void AddItem(Item itemData)
     {
@@ -32,6 +45,7 @@ public class InveoryManager : MonoBehaviour
 
     public void AddItem(Item itemData, int inputNum)
     {
+        Debug.Log($"{itemData},{inputNum}");
         // - 자원 타입
         //만약 있다면 갯수++;
         //없다면 아이템의 슬롯의 갯수만큼 확인하여 슬롯에 비어있는 곳에 쏙!
@@ -41,8 +55,8 @@ public class InveoryManager : MonoBehaviour
             {
                 //아이템 추가
                 Debug.Log("자원 아이템 추가!");
-                //ItemManager.Instance.slots[i]. = itemData;
-                itemData.Quantity = inputNum.ToString();
+                //ItemManager.Instance.slots[i] = itemData;
+                //itemData.Quantity = inputNum.ToString();
             }
             else
             {
@@ -61,11 +75,10 @@ public class InveoryManager : MonoBehaviour
         //아이템의 슬롯의 갯수만큼 확인하여 슬롯중 같은 데이터가 있는지 확인 후 제거;
         for (int i = 0; i < ItemManager.Instance.slots.Length; i++)
         {
-            if (ItemManager.Instance.slots[i] != itemData)
+            if (ItemManager.Instance.slots[i] == itemData)
             {
-                //아이템 추가
-                Debug.Log("자원 아이템 추가!");
-                //ItemManager.Instance.slots[i]. = itemData;
+                //아이템 제거
+                Debug.Log("무기 아이템 제거!");
             }
         }
     }
@@ -77,9 +90,9 @@ public class InveoryManager : MonoBehaviour
 
         for (int i = 0; i < ItemManager.Instance.slots.Length; i++)
         {
-            if (ItemManager.Instance.slots[i] != itemData)
+            if (ItemManager.Instance.slots[i] == itemData)
             {
-                //아이템 추가
+                //아이템 제거
                 Debug.Log("자원 아이템 추가!");
                 //ItemManager.Instance.slots[i]. = itemData;
                 itemData.Quantity = inputNum.ToString();
