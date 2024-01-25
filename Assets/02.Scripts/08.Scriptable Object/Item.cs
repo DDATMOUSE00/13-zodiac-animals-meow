@@ -7,7 +7,7 @@ public enum ItemType
     Consumable
 }
 [System.Serializable]
-public class Item :ScriptableObject
+public class Item
 {
     public int id;
     public string name {get; set;} //¿Ã∏ß 
