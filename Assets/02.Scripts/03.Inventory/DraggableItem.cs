@@ -70,7 +70,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             var name = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
             foreach (Item i in ItemManager.Instance.Items)
             {
-                if (i.Name == name.text)
+                if (i.name == name.text)
                 {
                     SelectedItem = i;
                     t = this.transform;

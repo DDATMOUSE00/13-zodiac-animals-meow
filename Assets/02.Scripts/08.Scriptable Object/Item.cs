@@ -6,14 +6,15 @@ public enum ItemType
     Weapon,
     Consumable
 }
+[System.Serializable]
 public class Item :ScriptableObject
 {
-    public int ID;
-    public string Name {get; set;} //이름 
-    public string Description { get; set; } // 설명
-    public Sprite Icon; // 아이콘   // id - sprite를 연결 - 딕셔너리로 전달 
-    public int Bundle;
-    public int Quantity;
+    public int id;
+    public string name {get; set;} //이름 
+    public string description { get; set; } // 설명
+    public Sprite icon; // 아이콘   // id - sprite를 연결 - 딕셔너리로 전달 
+    public int bundle;
+    public int quantity;
     public ItemType type;
 
 }

@@ -26,9 +26,9 @@ public class ShopSlot : MonoBehaviour
 
     void Setting()
     {
-        itemName.text = itemData.Name;
-        itemIcon.sprite = itemData.Icon;
-        itemDescription.text = itemData.Description;
+        itemName.text = itemData.name;
+        itemIcon.sprite = itemData.icon;
+        itemDescription.text = itemData.description;
         //itemCost = itemData.Cost;
 
         if (0 == 0) // itemType에 따라 세팅해야 할 거 추가 (임시임)

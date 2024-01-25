@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
+
 public class ItemManager : MonoBehaviour
 {
     private static ItemManager i;
@@ -50,18 +51,18 @@ public class ItemManager : MonoBehaviour
     }
     public bool RemoveItem(Item item) //Drop Item 
     {
-        Item selectedItem = Items.Find(i => i.Name == item.Name);
+        Item selectedItem = Items.Find(i => i.name == item.name);
         if (selectedItem != null)
         {
-            bool IsCheckQuantityZero = (selectedItem.Quantity - item.Bundle == 0 ? true : false);
+            bool IsCheckQuantityZero = (selectedItem.quantity - item.bundle == 0 ? true : false);
             if (IsCheckQuantityZero)
             {
-                Debug.Log($"{item.Name} removed");
+                Debug.Log($"{item.name} removed");
               Items.Remove(item);
             }
             else
             {
-                item.Quantity = selectedItem.Quantity - item.Bundle;
+                item.quantity = selectedItem.quantity - item.bundle;
             }
             return true;
         }
@@ -69,7 +70,7 @@ public class ItemManager : MonoBehaviour
     }
     public bool IsCheckItemInList(Item item)
     {
-        Item selectedItem = Items.Find(i => i.Name == item.Name);
+        Item selectedItem = Items.Find(i => i.name == item.name);
         if (selectedItem != null)
             return true;
 
@@ -83,7 +84,7 @@ public class ItemManager : MonoBehaviour
            if(slot.childCount == 0)
             {
                 /*기존 quantity update*/
-                int orginBundle = item.Bundle;
+                int orginBundle = item.bundle;
                 int updateBundle = orginBundle - quantity;
 
                 if(updateBundle < 1)
@@ -91,9 +92,9 @@ public class ItemManager : MonoBehaviour
                     Debug.Log("실패");
                     break;
                 }
-                item.Bundle = updateBundle;
+                item.bundle = updateBundle;
                 var originBundle = t.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
-                originBundle.text = item.Bundle.ToString();
+                originBundle.text = item.bundle.ToString();
 
 
                 /*새로운 슬롯아이템*/
@@ -104,8 +105,8 @@ public class ItemManager : MonoBehaviour
                 var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
                 var itemQuantity = obj.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
                 obj.transform.localScale = new Vector3(1, 1, 1);
-                itemName.text = item.Name;
-                itemIcon.sprite = item.Icon;
+                itemName.text = item.name;
+                itemIcon.sprite = item.icon;
                 itemQuantity.text = quantity.ToString();
 
                 splitContainer.SetActive(false);
@@ -121,9 +122,9 @@ public class ItemManager : MonoBehaviour
         var item2Quantity = item2.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
         int totalQuantity = Int32.Parse(item1Quantity.text) + Int32.Parse(item2Quantity.text);
         var item1Name = item1.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
-        Item selectedItem = Items.Find(x => x.Name == item1Name.text);
+        Item selectedItem = Items.Find(x => x.name == item1Name.text);
         item1Quantity.text = totalQuantity.ToString();
-        selectedItem.Bundle = totalQuantity;
+        selectedItem.bundle = totalQuantity;
         
     }
 
@@ -146,9 +147,9 @@ public class ItemManager : MonoBehaviour
                     var itemName = obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
                     var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
                     var itemQuantity = obj.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
-                    itemName.text = item.Name;
-                    itemQuantity.text = item.Bundle.ToString();
-                    itemIcon.sprite = item.Icon;
+                    itemName.text = item.name;
+                    itemQuantity.text = item.bundle.ToString();
+                    itemIcon.sprite = item.icon;
 
                     break;
                 }
@@ -188,9 +189,9 @@ public class ItemManager : MonoBehaviour
                 var itemName = obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
                 var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
                 var itemQuantity = obj.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
-                itemName.text = item.Name;
-                itemQuantity.text = item.Bundle.ToString();
-                itemIcon.sprite = item.Icon;
+                itemName.text = item.name;
+                itemQuantity.text = item.bundle.ToString();
+                itemIcon.sprite = item.icon;
 
   
             
@@ -210,10 +211,10 @@ public class ItemManager : MonoBehaviour
 
                 var itemName = obj.Find("ItemName").GetComponent<TextMeshProUGUI>();
 
-                if (itemName.text == item.Name)
+                if (itemName.text == item.name)
                 {
                     var itemQuantity = obj.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
-                    itemQuantity.text = item.Bundle.ToString();
+                    itemQuantity.text = item.bundle.ToString();
                     break;
                 }
             }
@@ -222,14 +223,14 @@ public class ItemManager : MonoBehaviour
     }
     public Item MakeSOInstance(string name, string decription, ItemType type)
     {
-        if (Items.Exists(r => r.Name.Equals(name))) // refactoring --> int로 
+        if (Items.Exists(r => r.name.Equals(name))) // refactoring --> int로 
         {
-            Item i = Items.Find(x => x.Name == name); //
+            Item i = Items.Find(x => x.name == name); //
 
-            int bundle = i.Bundle;// 무거움 -> 리팩토링  
-            int q = i.Quantity; //
-            i.Bundle = (bundle + 1);
-            i.Quantity = (q + 1);
+            int bundle = i.bundle;// 무거움 -> 리팩토링  
+            int q = i.quantity; //
+            i.bundle = (bundle + 1);
+            i.quantity = (q + 1);
 
             ReplaceItem(i);
             return i;
@@ -237,13 +238,13 @@ public class ItemManager : MonoBehaviour
         else
         {
             Item asset = ScriptableObject.CreateInstance<Item>();
-            asset.Name = name;
-            asset.Description = decription;
-            asset.Bundle = 1;
-            asset.Quantity = 1;
+            asset.name = name;
+            asset.description = decription;
+            asset.bundle = 1;
+            asset.quantity = 1;
             asset.type = type;
             AddItem(asset);
-            AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.Name}.asset"); //런타임에 저장이 안됨  / json형태로 저장 
+            AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.name}.asset"); //런타임에 저장이 안됨  / json형태로 저장 
             AssetDatabase.Refresh();
             AddItemAtEmptySlot(asset);
 
@@ -256,8 +257,8 @@ public class ItemManager : MonoBehaviour
         var itemName = objContainer.transform.Find("NameTxt").GetComponent<TextMeshProUGUI>(); 
         var itemDesc = objContainer.transform.Find("DescTxt").GetComponent<TextMeshProUGUI>(); 
 
-        itemName.text = item.Name;
-        itemDesc.text = item.Description;
+        itemName.text = item.name;
+        itemDesc.text = item.description;
         objContainer.transform.position = new Vector3(pos.x+30, pos.y-120, pos.x);
 
     }

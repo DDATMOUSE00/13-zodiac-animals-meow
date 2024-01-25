@@ -18,7 +18,7 @@ public class ItemController : MonoBehaviour
         {
             if (DraggableItem.clickedItem != null)
             {
-                Debug.Log(DraggableItem.clickedItem.Name);
+                Debug.Log(DraggableItem.clickedItem.name);
                 bool isCheckValid = ItemManager.Instance.IsCheckItemInList(DraggableItem.clickedItem);
                 if (isCheckValid && DraggableItem.selectedT.gameObject != null)
                 {
