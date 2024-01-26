@@ -41,7 +41,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
 
         if (SelectedItem == null)
-            FindSelectedItem();
+            SelectedItem = ItemManager.Instance.FindSelectedItem();
 
         selectedT = this.transform;
         clickedItem = SelectedItem;
@@ -58,28 +58,48 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnPointerEnter(PointerEventData eventData)
     {
 
-        if (SelectedItem == null)
-            FindSelectedItem();
+
+            SelectedItem= ItemManager.Instance.FindSelectedItem();
 
         ItemManager.Instance.ShowToolTip(SelectedItem, transform.position);  
     }
 
-    private void FindSelectedItem()
-    {
+    /*
+     
+ private void FindSelectedItem()
+ {
 
-            var name = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
-            foreach (Item i in ItemManager.Instance.Items)
-            {
-                if (i.name == name.text)
-                {
-                    SelectedItem = i;
-                    t = this.transform;
-                    break;
-                }
-            }
-        
-    }
-        public void OnPointerExit(PointerEventData eventData)
+     var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+     RaycastHit hit;
+     Physics.Raycast(ray, out hit,100);
+     Debug.Log(hit.transform);
+     if (Physics.Raycast(ray, out hit))
+     {
+         Debug.Log(hit);
+         var selection = hit.transform;
+         var selectioNRenderer = selection.GetComponent<Renderer>();
+         if (selectioNRenderer != null)
+         {
+
+         }
+     }
+
+     
+    var name = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+         foreach (Item i in ItemManager.Instance.Items)
+         {
+             if (i.name == name.text)
+             {
+                 SelectedItem = i;
+                 t = this.transform;
+                 break;
+             }
+         }
+     
+}
+       */
+
+    public void OnPointerExit(PointerEventData eventData)
     {
 
         ItemManager.Instance.HideToolTip();

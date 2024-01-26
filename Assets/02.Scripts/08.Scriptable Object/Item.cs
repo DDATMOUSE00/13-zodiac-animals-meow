@@ -15,6 +15,7 @@ public class Item
     public Sprite icon; // 아이콘   // id - sprite를 연결 - 딕셔너리로 전달 
     public int bundle;
     public int quantity;
+    public string parentName;
     public ItemType type;
 
 }

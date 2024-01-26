@@ -5,19 +5,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-
+using UnityEngine.EventSystems;
 
 public class ItemManager : MonoBehaviour
 {
     private static ItemManager i;
     public List<Item> Items = new List<Item>(); //consumable  //weapon?  typeof(obj) --> consumable/ weapon?
     
+    // items 저장 / 이벤트가 발생하면 json으로? 변환. 
+    //파밍할때마다 이벤트 invoke 
+
     public Transform[] slots;
     public GameObject objContainer;
     public GameObject splitContainer;
     public GameObject dropBtn;
-   
+
+    private int id = 0;
+
+    private PointerEventData pointerEventData;
+    private List<RaycastResult> raycastResults;
     //나중에 Weapon 추가 
+
+    //1. 변했는지 안변했는지 먼저 체크 
+    //2. 변했으면 / 인벤토리를 끄거나 저장버튼을 눌렀을떄 
+    //3. 일시적 변화 --> 임시파일에 따로 저장. 시간마다 저장 
+
     private void Awake()
     {
         if (i == null)
@@ -29,6 +41,7 @@ public class ItemManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
 
     public static ItemManager Instance
@@ -43,7 +56,6 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-
     private void AddItem(Item item)
     {
 
@@ -51,7 +63,7 @@ public class ItemManager : MonoBehaviour
     }
     public bool RemoveItem(Item item) //Drop Item 
     {
-        Item selectedItem = Items.Find(i => i.name == item.name);
+        Item selectedItem = Items.Find(i => i.id == item.id);
         if (selectedItem != null)
         {
             bool IsCheckQuantityZero = (selectedItem.quantity - item.bundle == 0 ? true : false);
@@ -70,7 +82,7 @@ public class ItemManager : MonoBehaviour
     }
     public bool IsCheckItemInList(Item item)
     {
-        Item selectedItem = Items.Find(i => i.name == item.name);
+        Item selectedItem = Items.Find(i => i.id == item.id);
         if (selectedItem != null)
             return true;
 
@@ -128,35 +140,7 @@ public class ItemManager : MonoBehaviour
         
     }
 
-    private void AddItemAtEmptySlot(Item item)
-    {
 
-            foreach (var slot in slots)
-            {
-                if (slot.childCount == 0)
-                {
-                    GameObject tmp = Resources.Load("Item") as GameObject;
-                    GameObject obj = Instantiate(tmp);
-
-                    GameObject parent = GameObject.Find(slot.name);
-                    obj.transform.SetParent(parent.transform);
-
-                    obj.transform.localScale = new Vector3(1, 1, 1);
-                    obj.transform.position = new Vector3(0, 0, 0);
-
-                    var itemName = obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
-                    var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
-                    var itemQuantity = obj.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
-                    itemName.text = item.name;
-                    itemQuantity.text = item.bundle.ToString();
-                    itemIcon.sprite = item.icon;
-
-                    break;
-                }
-     
-            }
-        
-    }
 
     public void ListItemData() 
     {
@@ -221,37 +205,90 @@ public class ItemManager : MonoBehaviour
 
         }
     }
-    public Item MakeSOInstance(string name, string decription, ItemType type)
+    public void MakeNewItem(string name, string decription, ItemType type)
     {
-        if (Items.Exists(r => r.name.Equals(name))) // refactoring --> int로 
-        {
-            Item i = Items.Find(x => x.name == name); //
 
-            int bundle = i.bundle;// 무거움 -> 리팩토링  
-            int q = i.quantity; //
+        Item i = Items.Find(x => x.name== name);
+        if (i != null) 
+        {
+
+            int bundle = i.bundle;
+            int q = i.quantity; 
             i.bundle = (bundle + 1);
             i.quantity = (q + 1);
-
             ReplaceItem(i);
-            return i;
         }
         else
         {
-            Item asset = ScriptableObject.CreateInstance<Item>();
-            asset.name = name;
-            asset.description = decription;
-            asset.bundle = 1;
-            asset.quantity = 1;
-            asset.type = type;
-            AddItem(asset);
-            AssetDatabase.CreateAsset(asset, $"Assets/02.Scripts/08.Scriptable Object/ItemSO/{asset.name}.asset"); //런타임에 저장이 안됨  / json형태로 저장 
-            AssetDatabase.Refresh();
-            AddItemAtEmptySlot(asset);
+            AddItemAtEmptySlot(name, decription, type);
 
-            return asset;
         }
     }
-    public void ShowToolTip(Item item, Vector3 pos) //ray cast로 찾아보기 
+    private void AddItemAtEmptySlot(string name, string decription, ItemType type)
+    {
+        foreach (var slot in slots)
+        {
+            if (slot.childCount == 0)
+            {
+                
+                GameObject obj = ResourceManager.Instance.Instantiate("Item");
+                Item tmp = new Item();
+                tmp.name = name;
+                tmp.description = decription;
+                tmp.bundle = 1;
+                tmp.quantity = 1;
+                tmp.type = type;
+                tmp.id = id;
+                tmp.parentName = slot.name;
+                id++;
+                AddItem(tmp);
+       
+
+                GameObject parent = GameObject.Find(slot.name);
+                obj.transform.SetParent(parent.transform);
+
+                obj.transform.localScale = new Vector3(1, 1, 1);
+                obj.transform.position = new Vector3(0, 0, 0);
+
+                var itemName = obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+                var itemQuantity = obj.transform.Find("ItemBundle").GetComponent<TextMeshProUGUI>();
+                itemName.text = name;
+               // itemQuantity.text = "1";
+                break;
+            }
+        }
+    }
+
+
+    Item res;
+    public Item FindSelectedItem()
+    {
+    
+
+        pointerEventData = new PointerEventData(EventSystem.current);  // UI상에서 이벤트는 onpointer계열로 처리.//EventSystem 기반 
+        pointerEventData.position = Input.mousePosition; //그중에서 마우스포지션
+        //지금 마우스 포지션에 있는것
+        raycastResults = new List<RaycastResult>();
+        
+        // 현재 마우스 위치에서 RaycastAll 실행
+        EventSystem.current.RaycastAll(pointerEventData, raycastResults);
+        GameObject selectedT = raycastResults[0].gameObject;
+
+        Debug.Log(selectedT.transform.parent.name);
+        foreach (var i in Items)
+        {
+            if (i.parentName == selectedT.transform.parent.name)
+            {
+                res = i;
+                break;
+            }
+ 
+        }
+        return res;
+
+    }
+
+     public void ShowToolTip(Item item, Vector3 pos)
     {
         objContainer.SetActive(true);
         var itemName = objContainer.transform.Find("NameTxt").GetComponent<TextMeshProUGUI>(); 

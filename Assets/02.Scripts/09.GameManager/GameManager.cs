@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
         Info();
     }
 
+    
     private void Info()
     {
         objectPoolManager = GetComponentInChildren<ObjectPoolManager>();

@@ -7,16 +7,19 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    public DataManager I;
+    public static DataManager I;
     private void Awake()
     {
         I = this;
     }
 
+
+
     public void SaveData<T>(T obj, string fileName, string path = Literals.JSON_PATH)
     {
-        string jsonSting = JsonConvert.SerializeObject(obj, Formatting.Indented);
-        File.WriteAllText($"{path}{fileName}.json", jsonSting);
+        string jsonString = JsonConvert.SerializeObject(obj, Formatting.Indented);
+        Debug.Log(jsonString);
+        File.WriteAllText($"{path}{fileName}.json", jsonString);
     }
 
 

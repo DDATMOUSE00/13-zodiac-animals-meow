@@ -33,16 +33,13 @@ public class ResourceManager : MonoBehaviour
 
     public T Load<T>(string path) where T : Object
     {
-        Debug.Log(path);
         return Resources.Load<T>(path);
     }
-
-
 
     public GameObject Instantiate(string path, Transform parent = null)
     {
 
-        GameObject prefab = Load<GameObject>($"Prefabs/{path}.prefab"); //Resources 에 있는 Prefab 폴더의 prefab 로드 
+        GameObject prefab = Load<GameObject>($"{path}"); //Resources 에 있는 Prefab 폴더의 prefab 로드 
 
         if (prefab == null)
         {
@@ -50,7 +47,7 @@ public class ResourceManager : MonoBehaviour
             return null;
         }
 
-        return Object.Instantiate(prefab, parent);
+        return Instantiate(prefab, parent);
     }
 
     public void Destroy(GameObject obj)
