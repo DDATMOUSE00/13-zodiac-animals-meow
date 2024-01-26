@@ -39,7 +39,7 @@ public class Shop : MonoBehaviour
             {
                 shopSlots[i].itemData = items[i];
             }
-            scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * items.Count);
+            scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * shopSlots.Count);
         }
         else
         {

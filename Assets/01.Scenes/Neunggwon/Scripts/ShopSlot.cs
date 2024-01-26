@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+//using static UnityEngine.Rendering.DebugUI;
 
 
 public class ShopSlot : MonoBehaviour
@@ -22,10 +23,26 @@ public class ShopSlot : MonoBehaviour
 
     [SerializeField] private Button InputFeild_ExitButton;
 
+    private void OnEnable()
+    {
+        //Setting();
+        if (inputFeild_Obj == null)
+        {
+            inputFeild_Obj = GameObject.Find("input_Num_UI_Test");
+        }
+        inputField = inputFeild_Obj.gameObject.GetComponentInChildren<TMP_InputField>();
+    }
+
     private void Start()
     {
+
+
         Setting();
+        //inputFeild_Obj = GameObject.Find("input_Num_UI_Panel");
+        //inputField = inputFeild_Obj.gameObject.GetComponentInChildren<TMP_InputField>();
+        inputFeild_Obj.SetActive(false);
     }
+
 
     //public Item ItemData(Item _itemData)
     //{
@@ -47,7 +64,7 @@ public class ShopSlot : MonoBehaviour
     }
     private bool ThisEquipItam() //test
     {
-        Debug.Log($"ItemType : {itemData.type}");
+        //Debug.Log($"ItemType : {itemData.type}");
         //아이템이 무기인지 확인...
         if (itemData.type == ItemType.Weapon)
         {
@@ -66,7 +83,8 @@ public class ShopSlot : MonoBehaviour
             //갯수 입력 UI 뽕!
             //inputFeild.SetActive(true);
             //_ShopButton.InputFeild();
-            ShopButtonUI.Instance.InputFeild();
+            //ShopButtonUI.Instance.InputFeild();
+            InputFeild();
             Debug.Log($"Item : {itemData.ID} Buy");
         }
         else
@@ -91,40 +109,53 @@ public class ShopSlot : MonoBehaviour
     //}
 
 
-    public void InputNum()
-    {
-        //int inputNum = int.Parse(inputField.text);
-        ///<summary>
-        ///임시..
-        ///플레이어 골드 확인
-        /// </summary>
+    //public void InputNum()
+    //{
+    //    //int inputNum = int.Parse(inputField.text);
+    //    ///<summary>
+    //    ///임시..
+    //    ///플레이어 골드 확인
+    //    /// </summary>
 
-        //if (PlayerStatus.Gold >= itemData.Cost * inputNum)
-        //{
-        //    PlayerStatus.Gold -= (itemData.Cost * inputNum)
-        //    AddItem(this.itemData, inputNum)
-        //}
-        //else
-        //{
-        //    Debug.Log($"플레이어 골드 부족!!");
-        //}
+    //    //if (PlayerStatus.Gold >= itemData.Cost * inputNum)
+    //    //{
+    //    //    PlayerStatus.Gold -= (itemData.Cost * inputNum)
+    //    //    AddItem(this.itemData, inputNum)
+    //    //}
+    //    //else
+    //    //{
+    //    //    Debug.Log($"플레이어 골드 부족!!");
+    //    //}
 
-    }
+    //}
 
     public void InputFeild()
     {
         //아이템의 타입의 따라 
         inputFeild_Obj.SetActive(true);
+        inputField.onEndEdit.AddListener(delegate { EndEditEvent(inputField); });
+
+    }
+
+    public void EndEditEvent(TMP_InputField inputField)
+    {
+        string _inputNum = inputField.text;
+        Debug.Log($" itemData.ID : {itemData}.{itemData.ID}");
+        Debug.Log($" itemData,Quantity :{_inputNum}");
+
+        //InveoryManager.Instance.AddItem(itemData, _inputNum);
+        inputField.onEndEdit.RemoveAllListeners();
+        inputFeild_Obj.SetActive(false);
     }
 
     public void OnEndEditEvent(string _inputNum)
     {
-        //textMeshProUGUI.text = _inputNum;
-        //int inputNum = int.Parse(textMeshProUGUI.text);
-        int inputNum = int.Parse(_inputNum);
-        Debug.Log($" {itemData.ID},{inputNum}");
+        //Item ThisItem = this.itemData;
 
-        InveoryManager.Instance.AddItem(itemData, inputNum);
+        Debug.Log($" itemData.ID : {itemData}.{itemData.ID}");
+        Debug.Log($" itemData,Quantity :{_inputNum}");
+
+        //InveoryManager.Instance.AddItem(itemData, _inputNum);
     }
 
     public void Btn_InputNumUI_Exit()

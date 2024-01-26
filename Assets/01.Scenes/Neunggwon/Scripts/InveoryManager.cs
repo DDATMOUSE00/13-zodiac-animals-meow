@@ -43,9 +43,12 @@ public class InveoryManager : MonoBehaviour
         }
     }
 
-    public void AddItem(Item itemData, int inputNum)
+    public void AddItem(Item itemData, string inputNum)
     {
-        Debug.Log($"{itemData},{inputNum}");
+        int _inputNum = int.Parse(inputNum);
+        //Debug.Log($"{itemData},{inputNum}");
+        Debug.Log($" itemData.ID : {itemData}.{itemData.ID}, itemData,Quantity :{inputNum}");
+
         // - 자원 타입
         //만약 있다면 갯수++;
         //없다면 아이템의 슬롯의 갯수만큼 확인하여 슬롯에 비어있는 곳에 쏙!
@@ -55,12 +58,14 @@ public class InveoryManager : MonoBehaviour
             {
                 //아이템 추가
                 Debug.Log("자원 아이템 추가!");
+                Debug.Log($" itemData.ID : {itemData}.{itemData.ID}, itemData,Quantity :{inputNum}");
                 //ItemManager.Instance.slots[i] = itemData;
                 //itemData.Quantity = inputNum.ToString();
+                break;
             }
             else
             {
-                for (int j = 0; j == inputNum; j++)
+                for (int j = 0; j == _inputNum; j++)
                 {
                     //ItemManager.Instance.slots[i].
                     Debug.Log("자원 아이템 더하기!!");

@@ -46,7 +46,7 @@ public class ShopButtonUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             OnShopButton();
-            Debug.Log("OnShop");
+            //Debug.Log("OnShop");
         }
     }
 
@@ -56,7 +56,7 @@ public class ShopButtonUI : MonoBehaviour
         Outline_weaponShopButton.enabled = true;
         Shop_PotionDisplay.SetActive(false);
         Outline_potionShopButton.enabled = false;
-        Debug.Log("Shop_WeaponDisplay.SetActive(true)");
+        //Debug.Log("Shop_WeaponDisplay.SetActive(true)");
     }
 
     public void DisplayPotionShop()
@@ -65,7 +65,7 @@ public class ShopButtonUI : MonoBehaviour
         Outline_weaponShopButton.enabled = false;
         Shop_PotionDisplay.SetActive(true);
         Outline_potionShopButton.enabled = true;
-        Debug.Log("hop_PotionDisplay.SetActive(true)");
+        //Debug.Log("hop_PotionDisplay.SetActive(true)");
     }
 
     public void OnShopButton()
@@ -93,17 +93,25 @@ public class ShopButtonUI : MonoBehaviour
     {
         //아이템의 타입의 따라 
         inputFeild_Obj.SetActive(true);
+        inputField.onEndEdit.AddListener(delegate { ChangdInputField(inputField); });
+
     }
-    
-    public void OnEndEditEvent(string _inputNum)
+
+    public void ChangdInputField(TMP_InputField inputField)
     {
-        textMeshProUGUI.text = _inputNum;
-        Debug.Log($" {textMeshProUGUI.text}");
+        Debug.Log(inputField.name + "UI");
+
     }
+
+    //public void OnEndEditEvent(string _inputNum)
+    //{
+    //    textMeshProUGUI.text = _inputNum;
+    //    Debug.Log($" {textMeshProUGUI.text}");
+    //}
 
     public void InputNumUI_Exit()
     {
         inputFeild_Obj.SetActive(false);
-        textMeshProUGUI.text = "inputEnter";
+        //textMeshProUGUI.text = "inputEnter";
     }
 }
