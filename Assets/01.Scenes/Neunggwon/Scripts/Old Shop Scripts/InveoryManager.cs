@@ -61,6 +61,7 @@ public class InveoryManager : MonoBehaviour
                 Debug.Log($" itemData.ID : {itemData}.{itemData.ID}, itemData,Quantity :{inputNum}");
                 //ItemManager.Instance.slots[i] = itemData;
                 //itemData.Quantity = inputNum.ToString();
+                //AddItemAtEmptySlot()
                 break;
             }
             else

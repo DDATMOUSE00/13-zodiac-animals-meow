@@ -28,27 +28,17 @@ public class ShopSlot : MonoBehaviour
         //Setting();
         if (inputFeild_Obj == null)
         {
-            inputFeild_Obj = GameObject.Find("input_Num_UI_Test");
+            inputFeild_Obj = GameObject.Find("input_Num_UI_Panel");
         }
         inputField = inputFeild_Obj.gameObject.GetComponentInChildren<TMP_InputField>();
     }
 
     private void Start()
     {
-
-
         Setting();
-        //inputFeild_Obj = GameObject.Find("input_Num_UI_Panel");
-        //inputField = inputFeild_Obj.gameObject.GetComponentInChildren<TMP_InputField>();
         inputFeild_Obj.SetActive(false);
     }
 
-
-    //public Item ItemData(Item _itemData)
-    //{
-    //    itemData = _itemData;
-    //    return itemData;
-    //}
 
     void Setting()
     {
@@ -107,34 +97,13 @@ public class ShopSlot : MonoBehaviour
     //        //inventory에 쏙!
     //    }
     //}
-
-
-    //public void InputNum()
-    //{
-    //    //int inputNum = int.Parse(inputField.text);
-    //    ///<summary>
-    //    ///임시..
-    //    ///플레이어 골드 확인
-    //    /// </summary>
-
-    //    //if (PlayerStatus.Gold >= itemData.Cost * inputNum)
-    //    //{
-    //    //    PlayerStatus.Gold -= (itemData.Cost * inputNum)
-    //    //    AddItem(this.itemData, inputNum)
-    //    //}
-    //    //else
-    //    //{
-    //    //    Debug.Log($"플레이어 골드 부족!!");
-    //    //}
-
-    //}
+    
 
     public void InputFeild()
     {
         //아이템의 타입의 따라 
         inputFeild_Obj.SetActive(true);
         inputField.onEndEdit.AddListener(delegate { EndEditEvent(inputField); });
-
     }
 
     public void EndEditEvent(TMP_InputField inputField)
@@ -144,19 +113,28 @@ public class ShopSlot : MonoBehaviour
         Debug.Log($" itemData,Quantity :{_inputNum}");
 
         //InveoryManager.Instance.AddItem(itemData, _inputNum);
+        if (!inputFeild_Obj.activeInHierarchy)
+        {
+            inputField.onEndEdit.RemoveAllListeners();
+        }
+        inputFeild_Obj.SetActive(false);
+    }
+
+    public void ExitButton()
+    {
         inputField.onEndEdit.RemoveAllListeners();
         inputFeild_Obj.SetActive(false);
     }
 
-    public void OnEndEditEvent(string _inputNum)
-    {
-        //Item ThisItem = this.itemData;
+    //public void OnEndEditEvent(string _inputNum)
+    //{
+    //    //Item ThisItem = this.itemData;
 
-        Debug.Log($" itemData.ID : {itemData}.{itemData.ID}");
-        Debug.Log($" itemData,Quantity :{_inputNum}");
+    //    Debug.Log($" itemData.ID : {itemData}.{itemData.ID}");
+    //    Debug.Log($" itemData,Quantity :{_inputNum}");
 
-        //InveoryManager.Instance.AddItem(itemData, _inputNum);
-    }
+    //    //InveoryManager.Instance.AddItem(itemData, _inputNum);
+    //}
 
     public void Btn_InputNumUI_Exit()
     {

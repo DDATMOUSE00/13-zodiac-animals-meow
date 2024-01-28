@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,17 +12,23 @@ public class Shop : MonoBehaviour
     public List<Item> items = new List<Item>();
     public List<ShopSlot> shopSlots = new List<ShopSlot>();
 
+    //Inventory의 정보도 가지고 오자!
+    public bool IsBuyShop;
+
     private void Awake()
     {
         scrollRect = GetComponent<ScrollRect>();
     }
-
-    private void Start()
+    private void OnEnable()
     {
-        for (int i = 0; i < items.Count - 1; i++)
+        for (int i = 0; i < items.Count; i++)
         {
             AddNewUiObject();
         }
+    }
+
+    private void Start()
+    {
     }
 
     public void AddNewUiObject()

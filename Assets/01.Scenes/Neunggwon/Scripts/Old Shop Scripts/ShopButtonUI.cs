@@ -41,6 +41,11 @@ public class ShopButtonUI : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        DisplayWeaponShop();
+    }
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
@@ -111,6 +116,8 @@ public class ShopButtonUI : MonoBehaviour
 
     public void InputNumUI_Exit()
     {
+        Debug.Log("ExitEvent!!");
+        inputField.onEndEdit.RemoveAllListeners();
         inputFeild_Obj.SetActive(false);
         //textMeshProUGUI.text = "inputEnter";
     }
