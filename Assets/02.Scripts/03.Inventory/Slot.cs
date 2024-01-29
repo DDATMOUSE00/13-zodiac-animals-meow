@@ -5,6 +5,8 @@ using TMPro;
 
 public class Slot : MonoBehaviour, IDropHandler
 {
+    public Item itemData;
+    public int bundle;
     void IDropHandler.OnDrop(PointerEventData eventData)
     {
 

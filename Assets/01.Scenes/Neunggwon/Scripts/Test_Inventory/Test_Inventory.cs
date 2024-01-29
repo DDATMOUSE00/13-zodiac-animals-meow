@@ -4,28 +4,15 @@ using UnityEngine;
 
 public class Test_Inventory : MonoBehaviour
 {
-    public static Test_Inventory Instence;
-    public Slot[] slots = new Slot[20];
-
-    private void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
-        if (Instence == null)
-        {
-            Instence = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        
     }
 
-    public void SelectItem(TestSlot slotData)
+    // Update is called once per frame
+    void Update()
     {
-        string SelectItemName = slotData.itemData.name;
-        int selectItemCount = slotData.Count;
-
-        Debug.Log(SelectItemName);
-        Debug.Log(selectItemCount);
+        
     }
-
 }

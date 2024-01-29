@@ -24,18 +24,18 @@ public class Shop1 : MonoBehaviour
 
     //public void AddNewShopSlot()
     //{
-    //    if (shopSlots.Count < items.Count)
+    //    if (shopSlots.bundle < items.bundle)
     //    {
     //        var newShopSlot = Instantiate(shopSlot_Prefab, scrollRect.content).GetComponent<ShopSlot1>();
     //        shopSlots.Add(newShopSlot);
 
     //        float y = 150f;
 
-    //        for (int i = 0; i < shopSlots.Count; i++)
+    //        for (int i = 0; i < shopSlots.bundle; i++)
     //        {
     //            shopSlots[i].itemData = items[i];
     //        }
-    //        scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * shopSlots.Count);
+    //        scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * shopSlots.bundle);
     //    }
     //    else
     //    {
