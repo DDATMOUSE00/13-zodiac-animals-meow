@@ -15,6 +15,11 @@ public class PlayerInputController : PlayerController
         CallMoveEvent(moveInput);
         //Debug.Log(moveInput);
     }
+    public void OnRoll(InputValue value)
+    {
+        bool IsRollPressed = value.isPressed;
+        CallRollEvent();
+    }
     public void OnAttack(InputValue value)
     {
         bool IsAttackPressed = value.isPressed;
