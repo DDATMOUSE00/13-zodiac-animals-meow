@@ -263,8 +263,6 @@ public class ItemManager : MonoBehaviour
     Item res;
     public Item FindSelectedItem()
     {
-    
-
         pointerEventData = new PointerEventData(EventSystem.current);  // UI상에서 이벤트는 onpointer계열로 처리.//EventSystem 기반 
         pointerEventData.position = Input.mousePosition; //그중에서 마우스포지션
         //지금 마우스 포지션에 있는것
@@ -274,7 +272,9 @@ public class ItemManager : MonoBehaviour
         EventSystem.current.RaycastAll(pointerEventData, raycastResults);
         GameObject selectedT = raycastResults[0].gameObject;
 
-        Debug.Log(selectedT.transform.parent.name);
+        //item1 -> parentName : slot 
+        //item1(나눠진것) -> parentName: slot5 / x 
+        //
         foreach (var i in Items)
         {
             if (i.parentName == selectedT.transform.parent.name)
@@ -285,7 +285,6 @@ public class ItemManager : MonoBehaviour
  
         }
         return res;
-
     }
 
      public void ShowToolTip(Item item, Vector3 pos)

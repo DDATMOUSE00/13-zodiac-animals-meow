@@ -48,7 +48,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         if (eventData.button == PointerEventData.InputButton.Right)
         {
               ItemManager.Instance.splitContainer.SetActive(true);
-          //  ItemManager.Instance.SplitItem(this.transform, SelectedItem, "1");
+
         }
 
 
@@ -59,7 +59,8 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
 
 
-            SelectedItem= ItemManager.Instance.FindSelectedItem();
+       
+        SelectedItem= ItemManager.Instance.FindSelectedItem();
 
         ItemManager.Instance.ShowToolTip(SelectedItem, transform.position);  
     }
