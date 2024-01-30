@@ -37,6 +37,4 @@ public class UIManager : MonoBehaviour
             if (SceneManager.GetActiveScene().buildIndex == 0) Destroy(this);
         }
     }
-
-
 }

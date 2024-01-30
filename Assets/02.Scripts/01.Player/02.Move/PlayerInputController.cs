@@ -5,15 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputController : PlayerController
 {
-    public void Awake()
-    {
-        ;
-    }
     public void OnMove(InputValue value)
     {
         Vector3 moveInput = value.Get<Vector3>().normalized;
         CallMoveEvent(moveInput);
-        //Debug.Log(moveInput);
     }
     public void OnRoll(InputValue value)
     {
@@ -24,5 +19,10 @@ public class PlayerInputController : PlayerController
     {
         bool IsAttackPressed = value.isPressed;
         CallAttackEvent();
+    }
+    public void OnLook(InputValue value)
+    {
+        Vector2 Aim = value.Get<Vector2>();
+        CallLookEvent(Aim);
     }
 }
