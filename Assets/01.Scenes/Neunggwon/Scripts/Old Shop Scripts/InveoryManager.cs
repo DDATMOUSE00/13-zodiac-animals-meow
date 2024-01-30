@@ -33,9 +33,9 @@ public class InveoryManager : MonoBehaviour
 
         // - 무기 타입
         //아이템의 슬롯의 갯수만큼 확인하여 슬롯에 비어있는 곳에 쏙!
-        for (int i = 0; i < ItemManager.Instance.slots.Length; i++)
+        for (int i = 0; i < ItemManager.I.slots.Length; i++)
         {
-            if (ItemManager.Instance.slots[i] != itemData)
+            if (ItemManager.I.slots[i] != itemData)
             {
                 //아이템 추가
                 Debug.Log("무기 아이템 추가!");
@@ -47,18 +47,18 @@ public class InveoryManager : MonoBehaviour
     {
         int _inputNum = int.Parse(inputNum);
         //Debug.Log($"{itemData},{inputNum}");
-        Debug.Log($" itemData.ID : {itemData}.{itemData.ID}, itemData,Quantity :{inputNum}");
+        Debug.Log($" itemData.ID : {itemData}.{itemData.id}, itemData,Quantity :{inputNum}");
 
         // - 자원 타입
         //만약 있다면 갯수++;
         //없다면 아이템의 슬롯의 갯수만큼 확인하여 슬롯에 비어있는 곳에 쏙!
-        for (int i = 0; i < ItemManager.Instance.slots.Length; i++)
+        for (int i = 0; i < ItemManager.I.slots.Length; i++)
         {
-            if (ItemManager.Instance.slots[i] != itemData)
+            if (ItemManager.I.slots[i] != itemData)
             {
                 //아이템 추가
                 Debug.Log("자원 아이템 추가!");
-                Debug.Log($" itemData.ID : {itemData}.{itemData.ID}, itemData,Quantity :{inputNum}");
+                Debug.Log($" itemData.ID : {itemData}.{itemData.id}, itemData,Quantity :{inputNum}");
                 //ItemManager.Instance.slots[i] = itemData;
                 //itemData.Quantity = inputNum.ToString();
                 //AddItemAtEmptySlot()
@@ -79,9 +79,9 @@ public class InveoryManager : MonoBehaviour
     {
         // - 무기 타입
         //아이템의 슬롯의 갯수만큼 확인하여 슬롯중 같은 데이터가 있는지 확인 후 제거;
-        for (int i = 0; i < ItemManager.Instance.slots.Length; i++)
+        for (int i = 0; i < ItemManager.I.slots.Length; i++)
         {
-            if (ItemManager.Instance.slots[i] == itemData)
+            if (ItemManager.I.slots[i] == itemData)
             {
                 //아이템 제거
                 Debug.Log("무기 아이템 제거!");
@@ -94,14 +94,14 @@ public class InveoryManager : MonoBehaviour
         // - 자원 타입
         //아이템의 슬롯의 갯수만큼 확인하여 슬롯중 같은 데이터가 있는지 확인, 갯수 확인 후 제거 및, count--;
 
-        for (int i = 0; i < ItemManager.Instance.slots.Length; i++)
+        for (int i = 0; i < ItemManager.I.slots.Length; i++)
         {
-            if (ItemManager.Instance.slots[i] == itemData)
+            if (ItemManager.I.slots[i] == itemData)
             {
                 //아이템 제거
                 Debug.Log("자원 아이템 추가!");
                 //ItemManager.Instance.slots[i]. = itemData;
-                itemData.Quantity = inputNum.ToString();
+               // itemData.Quantity = inputNum.ToString();
             }
             else
             {

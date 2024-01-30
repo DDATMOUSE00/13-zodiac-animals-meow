@@ -22,7 +22,7 @@ public class SlotManager : MonoBehaviour
 
         for (int i = 0; i < slots.Count; i++)
         {
-            if (_itemData.ID == slots[i].itemData.ID)
+            if (_itemData.id == slots[i].itemData.id)
             {
                 selecItem_Quantity += slots[i].bundle;
             }

@@ -4232,12 +4232,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 556657413}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &556657415 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 876685016196899799, guid: 4ca5b2ddb26da16419909e71c5fb7cd8,
-    type: 3}
-  m_PrefabInstance: {fileID: 556657413}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &567112100
 GameObject:
   m_ObjectHideFlags: 0
@@ -5751,6 +5745,7 @@ GameObject:
   - component: {fileID: 949858397}
   - component: {fileID: 949858396}
   - component: {fileID: 949858395}
+  - component: {fileID: 949858398}
   m_Layer: 5
   m_Name: Test_Inventory
   m_TagString: Untagged
@@ -5846,6 +5841,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &949858398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949858393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1992535c19693274d846d7f3cb6d9a72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &967236439
 GameObject:
   m_ObjectHideFlags: 0
@@ -7673,6 +7680,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2b373901586f64d95b12d9f30ddc36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerMaxSM: 0
+  PlayerSM: 0
+  slider: {fileID: 0}
 --- !u!114 &1408769951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10878,31 +10888,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1941500007}
-  - component: {fileID: 1941500006}
+  - component: {fileID: 1941500008}
   m_Layer: 0
   m_Name: ItemManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1941500006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1941500005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06860aaacec008a408d0208e0eaacdb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Items: []
-  slots: []
-  objContainer: {fileID: 556657415}
-  splitContainer: {fileID: 1228436398}
-  dropBtn: {fileID: 2121357925}
+  m_IsActive: 1
 --- !u!4 &1941500007
 Transform:
   m_ObjectHideFlags: 0
@@ -10918,6 +10911,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1941500008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941500005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6823a6c2e8b715a429137dfd82c420e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
+  slots: []
 --- !u!1 &1959526294
 GameObject:
   m_ObjectHideFlags: 0

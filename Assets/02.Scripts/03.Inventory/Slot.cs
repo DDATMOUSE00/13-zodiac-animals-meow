@@ -5,8 +5,8 @@ using TMPro;
 
 public class Slot : MonoBehaviour, IDropHandler
 {
-    public Item itemData;
-    public int bundle;
+    //public Item itemData;
+    //public int bundle;
     void IDropHandler.OnDrop(PointerEventData eventData)
     {
 
@@ -25,7 +25,7 @@ public class Slot : MonoBehaviour, IDropHandler
             GameObject origin = transform.GetChild(0).gameObject;
             DraggableItem originItem = origin.GetComponent<DraggableItem>();
 
-            if (origin != null && dropped != null)
+           /* if (origin != null && dropped != null)
             {
                 var DItem = dropped.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
 
@@ -33,12 +33,12 @@ public class Slot : MonoBehaviour, IDropHandler
 
                 if (DItem.text == OItem.text)
                 {
-                    ItemManager.Instance.StackItem(origin, dropped);
+                  //  ItemManager.I.StackItem(origin, dropped);
                     Debug.Log("stack");
                     Destroy(dropped);
                 }
                 else
-                {
+                {*/
 
                     originItem.parentAfterDrag = transform;
                     Transform draggableParent = draggableItem.parentAfterDrag;
@@ -46,8 +46,8 @@ public class Slot : MonoBehaviour, IDropHandler
                     draggableItem.parentAfterDrag = originItem.parentAfterDrag;
                     originItem.parentAfterDrag = draggableParent;
                     transform.GetChild(0).SetParent(draggableParent);
-                }
-            }
+                //}
+         //   }
 
         }
 

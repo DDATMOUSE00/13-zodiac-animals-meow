@@ -23,7 +23,6 @@ public class Test_Slot : MonoBehaviour
     }
     private void Start()
     {
-
         Setting(itemData);
     }
     private void Update()

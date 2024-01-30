@@ -42,9 +42,9 @@ public class ShopSlot : MonoBehaviour
 
     void Setting()
     {
-        itemName.text = itemData.Name;
-        itemIcon.sprite = itemData.Icon;
-        itemDescription.text = itemData.Description;
+        itemName.text = itemData.name;
+        itemIcon.sprite = itemData.icon;
+        itemDescription.text = itemData.description;
         //itemCost = itemData.Cost;
 
         if (0 == 0) // itemType에 따라 세팅해야 할 거 추가 (임시임)
@@ -75,7 +75,7 @@ public class ShopSlot : MonoBehaviour
             //_ShopButton.InputFeild();
             //ShopButtonUI.Instance.InputFeild();
             InputFeild();
-            Debug.Log($"Item : {itemData.ID} Buy");
+            Debug.Log($"Item : {itemData.id} Buy");
         }
         else
         {
@@ -109,7 +109,7 @@ public class ShopSlot : MonoBehaviour
     public void EndEditEvent(TMP_InputField inputField)
     {
         string _inputNum = inputField.text;
-        Debug.Log($" itemData.ID : {itemData}.{itemData.ID}");
+        Debug.Log($" itemData.ID : {itemData}.{itemData.id}");
         Debug.Log($" itemData,Quantity :{_inputNum}");
 
         //InveoryManager.Instance.AddItem(itemData, _inputNum);
