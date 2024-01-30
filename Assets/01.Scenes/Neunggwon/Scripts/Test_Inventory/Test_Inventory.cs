@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Test_Inventory : MonoBehaviour
 {
+    public List<Item> items = new List<Item>();
     // Start is called before the first frame update
     void Start()
     {

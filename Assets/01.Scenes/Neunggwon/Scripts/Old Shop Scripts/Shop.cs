@@ -19,10 +19,18 @@ public class Shop : MonoBehaviour
     {
         scrollRect = GetComponent<ScrollRect>();
     }
-    //private void OnEnable()
-    //{
-        
-    //}
+    private void OnEnable()
+    {
+
+    }
+
+    private void GetInventory()
+    {
+        //items가 inventory의 List를 바라보도록 하자!!
+        Test_Inventory inventory = new Test_Inventory();
+        items = inventory.items;
+    }
+
 
     private void Start()
     {
