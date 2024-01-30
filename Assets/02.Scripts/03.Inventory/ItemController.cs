@@ -6,6 +6,7 @@ using System;
 
 public class ItemController : MonoBehaviour
 {
+    /*
     public TMP_InputField userTxt;
     public void ConfirmSplit()
     {
@@ -30,7 +31,7 @@ public class ItemController : MonoBehaviour
                     for (int i = 0; i < Int32.Parse(DraggableItem.clickedItem.Bundle) ; i++)
                     {
                         //Instantiate();//prefab;
-                    }*/
+                    }
 
                 }
             }
@@ -45,6 +46,7 @@ public class ItemController : MonoBehaviour
         }
 
     }
+*/
 
 
 }

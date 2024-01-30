@@ -4,20 +4,32 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
-public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,IPointerClickHandler
 {
-   [HideInInspector] public Transform parentAfterDrag;
+    [Header("UI")]
     public Image image;
-    public TMP_Text desc;
+    public TMP_Text countText;
 
-    /*상태창*/
-    public  Item SelectedItem;
-    public  Transform t;
+    [HideInInspector] public Transform parentAfterDrag;
+    [HideInInspector] public int bundle = 1;
+    [HideInInspector] public Item item;
 
-    /*버릴때*/
-    public static Item clickedItem;
-    public static Transform selectedT;
+    public void InitializeItem(Item newItem)
+    {
+        item = newItem;
+        image.sprite = item.icon;
+        RefreshCount();
+    }
+
+    public void RefreshCount()
+    {
+        countText.text = bundle.ToString();
+        bool textActive = bundle > 1;
+
+        countText.gameObject.SetActive(textActive);
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -37,34 +49,16 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         image.raycastTarget = true;
     }
 
+
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("click");
+        Debug.Log(transform.parent.name);
+        //ItemManager.I.GetSelectedItem();
+     }
 
-        if (SelectedItem == null)
-            FindSelectedItem();
-
-        selectedT = this.transform;
-        clickedItem = SelectedItem;
-        if (eventData.button == PointerEventData.InputButton.Right)
-        {
-              ItemManager.Instance.splitContainer.SetActive(true);
-          //  ItemManager.Instance.SplitItem(this.transform, SelectedItem, "1");
-        }
-
-
-    }
-
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-
-        if (SelectedItem == null)
-            FindSelectedItem();
-
-        ItemManager.Instance.ShowToolTip(SelectedItem, transform.position);  
-    }
-
-    private void FindSelectedItem()
+/*
+      private void FindSelectedItem()
     {
 
             var name = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
@@ -79,9 +73,18 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             }
         
     }
-        public void OnPointerExit(PointerEventData eventData)
-    {
-
-        ItemManager.Instance.HideToolTip();
     }
+
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        ItemManager.I.ShowToolTip(item, transform.position);  
+    }
+
+  
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        ItemManager.I.HideToolTip();
+    }
+    */
 }
