@@ -59,8 +59,11 @@ public class ItemManager : MonoBehaviour
             DraggableItem itemInNewSlot = slot.GetComponentInChildren<DraggableItem>();
             if(itemInNewSlot == null )
             {
+
                 SpawnNewItem(item, slot);
-                itemList.Add(item);
+       
+                if(!itemList.Contains(item))
+                    itemList.Add(item);
                 return true;
             }
  
