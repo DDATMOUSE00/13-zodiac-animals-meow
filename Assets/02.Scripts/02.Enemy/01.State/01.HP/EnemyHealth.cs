@@ -7,12 +7,12 @@ public class EnemyHealth : MonoBehaviour
 {
     public int EnemyMaxHP;
     public int EnemyHP;
-    private PlayerWeapon PAttack;
+    private PlayerAttack PAttack;
 
     private void Awake()
     {
-        PAttack = GetComponent<PlayerWeapon>();
-        EnemyMaxHP = 100;
+        PAttack = GetComponent<PlayerAttack>();
+        EnemyMaxHP = 10000;
     }
     private void Start()
     {

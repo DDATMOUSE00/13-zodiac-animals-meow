@@ -1,74 +1,172 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+using Spine;
+using Spine.Unity;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.UIElements;
 
-//public class PlayerAttack : MonoBehaviour
-//{
-//    private PlayerController _controller;
-//    //private Animator animator;
+public class PlayerAttack : MonoBehaviour
+{
+    public Transform AttackStart;
+    private PlayerController _controller;
+    private PlayerMovement _movement;
+    public bool IsAttack { get; set; }
+    private int ComboCount;
+    private float ComboTimer;
+    public float ComboTimeLimit = 1.0f;
+    private bool IsCombo;
+    public int MaxComboCount = 3;
 
-//    public int MinDamage = 10;
-//    public int MaxDamage = 20;
-//    public int PlayerDMG;
-//    public bool IsAttack { get; set; }
 
-//    public float AttackDelay = 1f;
+    public int MinDamage = 10;
+    public int MaxDamage = 20;
 
-//    private void Update()
-//    {
-//        PlayerDMG = Random.Range(MinDamage, MaxDamage + 1);
-//    }
-//    private void Awake()
-//    {
-//        _controller = GetComponent<PlayerController>();
-//        //animator = GetComponent<Animator>();
-//    }
-//    private void Start()
-//    {
-//        _controller.OnAttackEvent += AttackCheck;
-//    }
+    //공격속도
+    public float AttackDelay = 0.5f;
 
-//    private void AttackCheck()
-//    {
-//        if (!IsAttack)
-//        {
-//            IsAttack = true;
-//            Attack();
-//            //animator.SetBool("IsAttack", true);
-//            Debug.Log("공격체크: " + PlayerDMG);
-//        }
-//    }
-//        private void Attack()
-//    {
-//        Debug.Log("공격체크2: " + PlayerDMG);
-//        Invoke("EndAttack", AttackDelay);
-//    }
+    //공격범위
+    public Vector3 AttackRange;
 
-//    private void EndAttack()
-//    {
-//        IsAttack = false;
-//        //animator.SetBool("IsAttack", false);
-//    }
+    //공격 방향 전환을 위해
+    private Vector2 AimDirection = Vector2.zero;
 
-//    private void RealAttack()
-//    {
-//        // Ray를 생성
-//        Ray ray = new Ray(transform.position, transform.forward);
-//        RaycastHit HitRange;
+    private SkeletonAnimation Anim;
 
-//        // Raycast를 통해 어떤 물체와 충돌했는지 확인
-//        if (Physics.Raycast(ray, out HitRange))
-//        {
-//            // 충돌한 물체의 GameObject 가져오기
-//            GameObject HitObject = HitRange.collider.gameObject;
+    private void Awake()
+    {
+        _controller = GetComponent<PlayerController>();
+        _movement = GetComponent<PlayerMovement>();
+        Anim = GetComponentInChildren<SkeletonAnimation>();
+    }
+    private void Start()
+    {
+        _controller.OnAttackEvent += AttackCheck;
+        _controller.OnLookEvent += Look;
+        ComboCount = 0;
+        ComboTimer = 0f;
+        IsAttack = false;
+        IsCombo = false;
+    }
+    private void Update()
+    {
+        //콤보어택
+        if (IsCombo)
+        {
+            ComboTimer += Time.deltaTime;
 
-//            // 만약 충돌한 물체가 Enemy라면 데미지를 적용
-//            EnemyHealth EnemyHealth = HitObject.GetComponent<EnemyHealth>();
-//            if (EnemyHealth != null)
-//            {
-//                // 데미지 적용
-//                EnemyHealth.EnemyHit();
-//            }
-//        }
-//    }
-//}
+            if (ComboTimer >= ComboTimeLimit)
+            {
+                // 콤보 시간이 지나면 콤보 초기화
+                ComboCount = 0;
+                IsCombo = false;
+                ComboTimer = 0f;
+                IsAttack = false;
+            }
+        }
+
+        //애니메이션
+        if (IsAttack)
+        {
+            if (!_movement.IsRolling && ComboCount == 1)
+            {
+                if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_attack_01"))
+                {
+                    Anim.AnimationState.SetAnimation(0, "sd_attack_01", false);
+                }
+            }
+            if (!_movement.IsRolling && ComboCount == 2)
+            {
+                if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_attack_02"))
+                {
+                    Anim.AnimationState.SetAnimation(0, "sd_attack_02", false);
+                }
+            }
+            if (!_movement.IsRolling && ComboCount == 3)
+            {
+                if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_attack_03"))
+                {
+                    Anim.AnimationState.SetAnimation(0, "sd_attack_03", false);
+                }
+            }
+        }
+    }
+
+    private void Look(Vector2 PlayerAim)
+    {
+        //공격 방향
+        AimDirection = PlayerAim;
+    }
+
+    public void AttackCheck()
+    {
+        if (IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && IsCombo)
+        {
+            ComboCount++;
+            ComboTimer = 0f;
+            Attack();
+            Debug.Log("콤보공격");
+        }
+
+        if (!IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling)
+        {
+            IsAttack = true;
+            ComboCount++;
+            IsCombo = true;
+            ComboTimer = 0f;
+            Attack();
+            Debug.Log("콤보공격");
+        }
+    }
+    private void Attack()
+    {
+        //필요없으면 제거 공격방향
+        //왼쪽으로 많이 땡겨야하는 버그있음
+        Vector2 PlayerAim = AimDirection.normalized;
+        if (PlayerAim.x < 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (PlayerAim.x > 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+
+        //공격 가능하면 공격
+        RealAttack();
+    }
+
+    private void RealAttack()
+    {
+        //범위 찾기
+        Collider[] HitColliders = Physics.OverlapBox(AttackStart.position, AttackRange / 2f);
+        foreach (Collider collider in HitColliders)
+        {
+            if (collider.CompareTag("Enemy"))
+            {
+                //데미지 계산
+                EnemyHealth enemyHealth = collider.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    int playerDamage = Random.Range(MinDamage, MaxDamage + 1);
+                    enemyHealth.EnemyHit(playerDamage);
+                }
+            }
+        }
+        Invoke("EndAttack", AttackDelay);
+    }
+
+    private void EndAttack()
+    {
+        //다시 공격 가능한 상태로 만들기
+        IsAttack = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        //크기와 위치 표시
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(AttackStart.position, AttackRange);
+    }
+}
