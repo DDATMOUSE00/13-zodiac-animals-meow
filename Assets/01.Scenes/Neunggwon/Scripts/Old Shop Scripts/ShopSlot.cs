@@ -45,9 +45,9 @@ public class ShopSlot : MonoBehaviour
 
     void Setting()
     {
-        itemName.text = itemData.Name;
-        itemIcon.sprite = itemData.Icon;
-        itemDescription.text = itemData.Description;
+        itemName.text = itemData.name;
+        itemIcon.sprite = itemData.icon;
+        itemDescription.text = itemData.description;
         //itemCost = itemData.Cost;
     }
     private bool ThisEquipItam() //test
@@ -81,14 +81,14 @@ public class ShopSlot : MonoBehaviour
             //inputFeild.SetActive(true);
             //ShopButtonUI.Instance.InputFeild();
             InputFeild();
-            Debug.Log($"Item : {itemData.ID} Buy");
+            Debug.Log($"Item : {itemData.id} Buy");
         }
         else
         {
             //inventory에 쏙!
             //InventoryManager
             InveoryManager.Instance.AddItem(itemData);
-            Debug.Log($"Item : {itemData.ID} Buy");
+            Debug.Log($"Item : {itemData.id} Buy");
         }
     }
 
@@ -102,7 +102,7 @@ public class ShopSlot : MonoBehaviour
         {
             //inventory에서 찾아서 버리기
             //InveoryManager.Instance.RemoveItem(itemData);
-            Debug.Log($"Item : {itemData.ID} Sell");
+            Debug.Log($"Item : {itemData.id} Sell");
         }
     }
 
@@ -121,7 +121,7 @@ public class ShopSlot : MonoBehaviour
     public void EndEditEvent(TMP_InputField inputField)
     {
         string _inputNum = inputField.text;
-        Debug.Log($" itemData.ID : {itemData}.{itemData.ID} x {_inputNum} ");
+        Debug.Log($" itemData.ID : {itemData}.{itemData.id} x {_inputNum} ");
         //Debug.Log($" itemData,Quantity :{_inputNum}");
 
         //InveoryManager.Instance.AddItem(itemData, _inputNum);
