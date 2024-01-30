@@ -20,6 +20,7 @@ public class ShopButtonUI : MonoBehaviour
     [SerializeField] private GameObject Shop;
     [SerializeField] private GameObject Shop_WeaponDisplay;
     [SerializeField] private GameObject Shop_PotionDisplay;
+    [SerializeField] private GameObject Shop_SellDisplay;
 
     [Header("#InputFeild")]
     [SerializeField] private GameObject inputFeild_Obj;
@@ -43,7 +44,7 @@ public class ShopButtonUI : MonoBehaviour
 
     private void Start()
     {
-        DisplayWeaponShop();
+        //DisplayWeaponShop();
     }
 
     public void Update()
@@ -98,7 +99,7 @@ public class ShopButtonUI : MonoBehaviour
     {
         //아이템의 타입의 따라 
         inputFeild_Obj.SetActive(true);
-        inputField.onEndEdit.AddListener(delegate { ChangdInputField(inputField); });
+        //inputField.onEndEdit.AddListener(delegate { ChangdInputField(inputField); });
 
     }
 

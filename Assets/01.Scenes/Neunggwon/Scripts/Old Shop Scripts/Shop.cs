@@ -12,24 +12,38 @@ public class Shop : MonoBehaviour
     public List<Item> items = new List<Item>();
     public List<ShopSlot> shopSlots = new List<ShopSlot>();
 
-    //Inventory의 정보도 가지고 오자!
-    public bool IsBuyShop;
+    //Inventory의 slot의 정보를 가지고 오자!
+    public bool IsSellShop;
 
     private void Awake()
     {
         scrollRect = GetComponent<ScrollRect>();
     }
-    private void OnEnable()
-    {
-        for (int i = 0; i < items.Count; i++)
-        {
-            AddNewUiObject();
-        }
-    }
+    //private void OnEnable()
+    //{
+        
+    //}
 
     private void Start()
     {
+        if (!IsSellShop)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                AddNewUiObject();
+                //shopSlots[i].ButtonBuy();
+            }
+        }
+        else
+        {
+            //for (int i = 0; i < Inventory.Instance.slots.Count; i++)
+            //{
+            //    AddNewUiObject();
+            //}
+            Debug.Log("Inventory의 Slots의 정보를 가지고 오자!!");
+        }
     }
+
 
     public void AddNewUiObject()
     {

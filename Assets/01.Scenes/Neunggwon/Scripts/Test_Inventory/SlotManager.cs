@@ -7,7 +7,7 @@ public class SlotManager : MonoBehaviour
 {
     //public Item itemData;
     public static SlotManager Instance;
-    public List<Test_Slot> slots = new List<Test_Slot>();
+    public List<Slot> slots = new List<Slot>();
 
     private void Awake()
     {

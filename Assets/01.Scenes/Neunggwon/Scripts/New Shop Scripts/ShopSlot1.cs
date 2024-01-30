@@ -68,7 +68,7 @@ public class ShopSlot1 : MonoBehaviour
 
     //    //InveoryManager.Instance.AddItem(itemData, _inputNum);
     //    inputField.onEndEdit.RemoveAllListeners();
-    //    inputFeild_Obj.SetActive(false);
+    //    inputField_Obj.SetActive(false);
     //}
 
     //public void OnEndEditEvent(string _inputNum)
@@ -83,6 +83,6 @@ public class ShopSlot1 : MonoBehaviour
 
     //public void Btn_InputNumUI_Exit()
     //{
-    //    inputFeild_Obj.SetActive(false);
+    //    inputField_Obj.SetActive(false);
     //}
 }
