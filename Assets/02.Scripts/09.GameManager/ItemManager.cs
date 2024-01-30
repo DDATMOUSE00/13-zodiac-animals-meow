@@ -5,25 +5,39 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Collections.Generic;
 
 public class ItemManager : MonoBehaviour
 {
     public static ItemManager I;
 
     public List<DraggableItem> items = new List<DraggableItem>();
+    public List<Item> itemList = new List<Item>();
     public Slot[] slots;
     public GameObject objContainer;
     public GameObject splitContainer;
     public GameObject dropBtn;
-   
-    //나중에 Weapon 추가 
+
+    int selectedSlot = -1;
 
 
+    private void Start()
+    {
+        selectedSlot = 0;
+    }
     void Awake()
     {
         I = this;
     }
 
+    public void ChangeSelectedSlot(int newValue)
+    {
+        if (selectedSlot >= 0)
+            slots[selectedSlot].DeSelect();
+
+        slots[newValue].Select();
+        selectedSlot = newValue;
+    }
     public bool AddItem(Item item) 
     {
         for (int i = 0; i < slots.Length; i++)
@@ -46,7 +60,7 @@ public class ItemManager : MonoBehaviour
             if(itemInNewSlot == null )
             {
                 SpawnNewItem(item, slot);
-                Debug.Log(slot);
+                itemList.Add(item);
                 return true;
             }
  
@@ -66,6 +80,38 @@ public class ItemManager : MonoBehaviour
         inventoryItem.InitializeItem(item);
     }
 
+
+    public Item GetSelectedItem()
+    {
+        Slot slot = slots[selectedSlot];
+        DraggableItem itemInNewSlot = slot.GetComponentInChildren<DraggableItem>();
+        if (itemInNewSlot != null)
+        {
+            return itemInNewSlot.item;
+        }
+
+        return null;
+    }
+
+    public void UseSelectedItem()
+    {
+        Slot slot = slots[selectedSlot];
+        DraggableItem itemInNewSlot = slot.GetComponentInChildren<DraggableItem>();
+
+        Item item = itemInNewSlot.item;
+        itemInNewSlot.bundle--;
+        if (itemInNewSlot.bundle <= 0)
+        {
+            Destroy(itemInNewSlot.gameObject);
+            itemList.Remove(item);
+
+        }
+        else
+        {
+            itemInNewSlot.RefreshCount();
+           
+        }
+    }
     /*
     public bool RemoveItem(Item item) //Drop Item 
     {

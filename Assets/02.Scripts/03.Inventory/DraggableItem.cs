@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,IPointerClickHandler
 {
     [Header("UI")]
     public Image image;
@@ -49,22 +49,15 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         image.raycastTarget = true;
     }
 
-    /*
+
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("click");
+        Debug.Log(transform.parent.name);
+        //ItemManager.I.GetSelectedItem();
+     }
 
-        if (SelectedItem == null)
-            FindSelectedItem();
-
-        selectedT = this.transform;
-        clickedItem = SelectedItem;
-        if (eventData.button == PointerEventData.InputButton.Right)
-        {
-              ItemManager.Instance.splitContainer.SetActive(true);
-          //  ItemManager.Instance.SplitItem(this.transform, SelectedItem, "1");
-        }
-
-
+/*
       private void FindSelectedItem()
     {
 

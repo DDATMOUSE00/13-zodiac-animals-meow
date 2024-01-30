@@ -11,13 +11,6 @@ public class TestScript : MonoBehaviour
     {
 
         bool res = ItemManager.I.AddItem(itemsToPickup[id]);
-        if (res)
-        {
-            Debug.Log("Item Added");
-        }
-        else
-        {
-            Debug.Log("Inventory is full");
-        }
+
     }
 }

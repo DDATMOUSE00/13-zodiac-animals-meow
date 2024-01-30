@@ -2,11 +2,26 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.UI;
 
 public class Slot : MonoBehaviour, IDropHandler
 {
     //public Item itemData;
     //public int bundle;
+
+    public Image image;
+    public Color selectedColor, notSelectedColor;
+
+
+    public void Select()
+    {
+        image.color = selectedColor;
+    }
+    public void DeSelect()
+    {
+        image.color = notSelectedColor;
+    }
+
     void IDropHandler.OnDrop(PointerEventData eventData)
     {
 
