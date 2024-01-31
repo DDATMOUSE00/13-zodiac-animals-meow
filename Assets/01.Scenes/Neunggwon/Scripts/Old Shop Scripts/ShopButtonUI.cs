@@ -22,7 +22,7 @@ public class ShopButtonUI : MonoBehaviour
     [SerializeField] private GameObject Shop_PotionDisplay;
     [SerializeField] private GameObject Shop_SellDisplay;
 
-    [Header("#InputFeild")]
+    [Header("#InputField")]
     [SerializeField] private GameObject inputFeild_Obj;
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private TextMeshProUGUI textMeshProUGUI;
@@ -59,18 +59,18 @@ public class ShopButtonUI : MonoBehaviour
     public void DisplayWeaponShop()
     {
         Shop_WeaponDisplay.SetActive(true);
-        Outline_weaponShopButton.enabled = true;
+        //Outline_weaponShopButton.enabled = true;
         Shop_PotionDisplay.SetActive(false);
-        Outline_potionShopButton.enabled = false;
+        //Outline_potionShopButton.enabled = false;
         //Debug.Log("Shop_WeaponDisplay.SetActive(true)");
     }
 
     public void DisplayPotionShop()
     {
         Shop_WeaponDisplay.SetActive(false);
-        Outline_weaponShopButton.enabled = false;
+        //Outline_weaponShopButton.enabled = false;
         Shop_PotionDisplay.SetActive(true);
-        Outline_potionShopButton.enabled = true;
+        //Outline_potionShopButton.enabled = true;
         //Debug.Log("hop_PotionDisplay.SetActive(true)");
     }
 
@@ -93,7 +93,7 @@ public class ShopButtonUI : MonoBehaviour
     }
 
     /// <summary>
-    /// InputFeild
+    /// InputField
     /// </summary>
     public void InputFeild()
     {

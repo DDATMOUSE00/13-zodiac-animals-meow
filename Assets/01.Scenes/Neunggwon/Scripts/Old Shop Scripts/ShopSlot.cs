@@ -9,24 +9,31 @@ using UnityEngine.UI;
 
 public class ShopSlot : MonoBehaviour
 {
+    [Header("#bool")]
+    public bool IsSellShop;
+    public string String_sellCount;
+    public int Int_sellCount;
     [Header("#ItemDataInfo")]
     public Item itemData; //아이템 데이터를 받는다!
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI itemDescription;
-    [SerializeField] private TextMeshProUGUI itemCost;
+    [SerializeField] private TextMeshProUGUI itemPrice;
+    [SerializeField] private TextMeshProUGUI itemCount = null;
     public Button shopSlotButton;
 
-    [Header("#InputFeild")]
-    [SerializeField] private GameObject inputField_Obj;
-    [SerializeField] private TMP_InputField inputField;
+    [Header("#InputField")]
+    //[SerializeField] private GameObject inputField_UI;
+    //[SerializeField] private GameObject inputField_Obj;
+    //[SerializeField] private TMP_InputField inputField;
     //[SerializeField] private TextMeshProUGUI textMeshProUGUI;
 
     [SerializeField] private Button InputFeild_ExitButton;
 
     private void Awake()
     {
-        shopSlotButton = GetComponent<Button>();
+        //shopSlotButton = GetComponent<Button>();
+
     }
     private void OnEnable()
     {
@@ -35,11 +42,12 @@ public class ShopSlot : MonoBehaviour
 
     private void Start()
     {
-        
+
         Setting();
-        BuySet(); //test
-        inputField_Obj = GameObject.Find("input_Num_UI_Panel");
-        inputField = inputField_Obj.gameObject.GetComponentInChildren<TMP_InputField>();
+        //inputField_UI = GameObject.Find("Input_Field_UI");
+        ////inputField_Obj = GameObject.Find("input_Num_UI_Panel");
+        //inputField_Obj = inputField_UI.gameObject.GetComponentInChildren<GameObject>();
+        //inputField = inputField_UI.gameObject.GetComponentInChildren<TMP_InputField>();
     }
 
 
@@ -48,7 +56,49 @@ public class ShopSlot : MonoBehaviour
         itemName.text = itemData.name;
         itemIcon.sprite = itemData.icon;
         itemDescription.text = itemData.description;
-        //itemCost = itemData.Cost;
+        if (IsSellShop) //판매
+        {
+            //판매 아이템은 Count 및 가격 조정
+            itemPrice.text = (itemData.price / 2).ToString("#,##0G");
+            shopSlotButton.onClick.AddListener(ButtonSell);
+
+            itemCount.text = itemCount.ToString();
+            for (int i = 0; i < ItemManager.I.items.Count; i++)
+            {
+
+                if (itemData == ItemManager.I.items[i].item)
+                {
+                    if (ItemManager.I.items[i].item.type != ItemType.Weapon)
+                    {
+                        itemCount.text = ItemManager.I.items[i].countText.ToString();
+                        //sellCount = int.Parse(itemCount.ToString());
+                        String_sellCount = ItemManager.I.items[i].countText.ToString();
+                        Int_sellCount = int.Parse(String_sellCount);
+                        Debug.Log($"itemCount.text : {ItemManager.I.items[i].countText.ToString()}");
+                        Debug.Log($"itemCount.text : {itemCount.text}");
+                        Debug.Log($"itemCount.text : {String_sellCount}");
+                        Debug.Log($"itemCount.text : {Int_sellCount}");
+
+                    }
+                    else
+                    {
+                        itemCount.text = string.Empty;
+                    }
+                }
+            }
+            //SellSet();
+        }
+        else  //구매
+        {
+            //구매 아이템은 아이템의 데이터 그대로 받기!
+            itemPrice.text = itemData.price.ToString("#,##0G");
+            shopSlotButton.onClick.AddListener(ButtonBuy);
+
+            itemCount.text = string.Empty;
+
+            //BuySet();
+        }
+
     }
     private bool ThisEquipItam() //test
     {
@@ -63,37 +113,32 @@ public class ShopSlot : MonoBehaviour
             return false;
         }
     }
-    public void BuySet()
-    {
-        shopSlotButton.onClick.AddListener(ButtonBuy);
-    }
-
-    public void SellSet()
-    {
-        shopSlotButton.onClick.AddListener(ButtonSell);
-    }
 
     public void ButtonBuy()
     {
+        Shop.Instance.SelectItem(itemData);
         if (!ThisEquipItam())
         {
-            //갯수 입력 UI 뽕!
             //inputFeild.SetActive(true);
-            //ShopButtonUI.Instance.InputFeild();
-            InputFeild();
-            Debug.Log($"Item : {itemData.id} Buy");
+            //ShopButtonUI.Instance.InputField();
+            //InputField();
+            Shop.Instance.InputField();
+            //Debug.Log($"Item : {itemData.id} Buy {itemData.type}");
         }
         else
         {
             //inventory에 쏙!
             //InventoryManager
-            InveoryManager.Instance.AddItem(itemData);
-            Debug.Log($"Item : {itemData.id} Buy");
+            //Shop.Instance.SelectItem(itemData);
+            ItemManager.I.AddItem(itemData);
+            Shop.Instance.GetInventorySlot();
+            //Debug.Log($"Item : {itemData.id} Buy {itemData.type}");
         }
     }
 
     public void ButtonSell()
     {
+        Shop.Instance.SelectItem(itemData);
         if (!ThisEquipItam())
         {
             //갯수 입력 UI 뽕!
@@ -101,42 +146,46 @@ public class ShopSlot : MonoBehaviour
         else
         {
             //inventory에서 찾아서 버리기
-            //InveoryManager.Instance.RemoveItem(itemData);
             Debug.Log($"Item : {itemData.id} Sell");
         }
     }
 
 
-    public void InputFeild()
-    {
-        if (inputField_Obj == null)
-        {
-            inputField_Obj = GameObject.Find("input_Num_UI_Panel");
-        }
-        //아이템의 타입의 따라 
-        inputField_Obj.SetActive(true);
-        inputField.onEndEdit.AddListener(delegate { EndEditEvent(inputField); });
-    }
+    //public void InputField()
+    //{
+    //    if (inputField_Obj == null)
+    //    {
+    //        //inputField_Obj = GameObject.Find("input_Num_UI_Panel");
+    //    }
+    //    //아이템의 타입의 따라 
+    //    //inputField_Obj.SetActive(true);
+    //    inputField.onEndEdit.AddListener(delegate { EndEditEvent(inputField); });
+    //}
 
-    public void EndEditEvent(TMP_InputField inputField)
-    {
-        string _inputNum = inputField.text;
-        Debug.Log($" itemData.ID : {itemData}.{itemData.id} x {_inputNum} ");
-        //Debug.Log($" itemData,Quantity :{_inputNum}");
+    //public void EndEditEvent(TMP_InputField inputField)
+    //{
+    //    string _inputNum = inputField.text;
+    //    int int_inputNum = int.Parse(_inputNum);
+    //    Debug.Log($" itemData.ID : {itemData}.{itemData.id} x {_inputNum} ");
 
-        //InveoryManager.Instance.AddItem(itemData, _inputNum);
-        inputField_Obj.SetActive(false);
-        if (!inputField_Obj.activeInHierarchy)
-        {
-            inputField.onEndEdit.RemoveAllListeners();
-        }
-    }
+    //    //InveoryManager.Instance.AddItem(itemData, _inputNum);
+    //    for (int i = 0; i < int_inputNum; i++)
+    //    {
+    //        ItemManager.I.AddItem(itemData);
+    //    }
 
-    public void ExitButton()
-    {
-        inputField.onEndEdit.RemoveAllListeners();
-        inputField_Obj.SetActive(false);
-    }
+    //    //inputField_Obj.SetActive(false);
+    //    //if (!inputField_Obj.activeInHierarchy)
+    //    //{
+    //    //    inputField.onEndEdit.RemoveAllListeners();
+    //    //}
+    //}
+
+    //public void ExitButton()
+    //{
+    //    inputField.onEndEdit.RemoveAllListeners();
+    //    //inputField_Obj.SetActive(false);
+    //}
 
     //public void OnEndEditEvent(string _inputNum)
     //{
