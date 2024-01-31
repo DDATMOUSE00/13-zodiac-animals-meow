@@ -22,8 +22,9 @@ public class GameManager : MonoBehaviour
     private void Info()
     {
         objectPoolManager = GetComponentInChildren<ObjectPoolManager>();
+
     }
-    
+
     void Start()
     {
         
@@ -31,10 +32,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("Pooling");
-            objectPoolManager.Get(1);
-        }
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    Debug.Log("Pooling");
+        //    objectPoolManager.Get(1);
+        //}
     }
 }

@@ -2,17 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     //테스트용 적 데미지
-    public int EnemyDMG = 1;
+    public int EnemyDMG = 10;
     //체력
-    public int PlayerHP = 10;
+    public int PlayerMaxHP;
+    public int PlayerHP;
 
+    public Slider slider;
+
+    private void Awake()
+    {
+        PlayerMaxHP = 100;
+    }
+
+    private void Start()
+    {
+        PlayerHP = PlayerMaxHP;
+        UIMaxHealth(PlayerHP);
+    }
 
     private void Update()
     {
+        if (slider != null)
+        {
+            UIHealth(PlayerHP);
+        }
+
         //T버튼 누르면 피격 테스트
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -20,10 +39,20 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("Player HP: " + PlayerHP);
         }
     }
-    private void Awake()
+
+    public void UIMaxHealth(int PlayerHP)
     {
-        ;
+        //HP UI
+        //Debug.Log(slider);
+        slider.maxValue = PlayerHP;
+        slider.value = PlayerHP;
     }
+    public void UIHealth(int PlayerHP)
+    {
+        //HP UI
+        slider.value = PlayerHP;
+    }
+
 
     public void PlayerHit()
     {

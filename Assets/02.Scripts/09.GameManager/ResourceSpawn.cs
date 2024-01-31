@@ -7,9 +7,8 @@ public class ResourceSpawn : MonoBehaviour
     [SerializeField] private GameObject[] resourcesPrefabs;
 
     [SerializeField] private Transform[] resourcesSpawnPoints;
-    //[SerializeField] private GameObject[] resourcesSpawnPoints;
 
-    [SerializeField] private GameObject[] resourcesCount;
+    private GameObject[] resourcesCount;
 
     [SerializeField] private int currentResourcesCount = 0;
     [SerializeField] private int maxResourcesCount = 20;
@@ -17,7 +16,7 @@ public class ResourceSpawn : MonoBehaviour
     [SerializeField] private int spawnRadius = 5;
 
     [SerializeField] private float spawnDelay;
-    [SerializeField] private float maxSpawnDelay = 10f;
+    [SerializeField] private float maxSpawnDelay = 3f;
 
     private void Awake()
     {
@@ -26,11 +25,6 @@ public class ResourceSpawn : MonoBehaviour
         //{
         //    resourcesSpawnPoints = transform.GetChild(i).gameObject;
         //}
-    }
-
-    private void Start()
-    {
-        Debug.Log($"chiled °¹¼ö : {resourcesSpawnPoints.Length}");
     }
 
     void Update()
@@ -69,7 +63,8 @@ public class ResourceSpawn : MonoBehaviour
 
         //int randomX = transform.position.x + Random.Range(-spawnRadius, spawnRadius);
         //int randomZ = transform.position.z + Random.Range(-spawnRadius, spawnRadius);
-        Vector3 spawnPoint = new Vector3(transform.position.x + randomX, 0, transform.position.z + randomZ);
+        //Vector3 spawnPoint = new Vector3(transform.position.x + randomX, 0, transform.position.z + randomZ);
+        Vector3 spawnPoint = new Vector3(randomX, 0,randomZ);
 
         //int randomSpawnPoint = Random.Range(0, resourcesSpawnPoints.Length);
         //int randomResources = Random.Range(0, resourcesPrefabs.Length);

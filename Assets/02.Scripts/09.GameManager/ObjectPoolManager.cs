@@ -31,11 +31,19 @@ public class ObjectPoolManager : MonoBehaviour
             {
                 GameObject obj = Instantiate(prefabs[j], transform);
                 obj.SetActive(false);
+                //CreateNewObject(obj.name, obj);
                 pools[j].Add(obj);
             }
         }
     }
 
+    GameObject CreateNewObject(string objName ,GameObject Perfab)
+    {
+        var obj = Instantiate(Perfab, transform);
+        obj.name = objName + "Pool";
+        obj.SetActive(false);
+        return obj;
+    }
 
     public GameObject Get(int index)
     {
@@ -57,9 +65,7 @@ public class ObjectPoolManager : MonoBehaviour
             pools[index].Add(select);
         }
 
-
-
         return select;
     }
+    
 }
-

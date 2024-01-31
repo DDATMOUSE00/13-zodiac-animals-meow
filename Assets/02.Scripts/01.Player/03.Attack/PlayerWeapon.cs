@@ -1,94 +1,95 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
+//using Spine.Unity;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEngine.UIElements;
 
-public class PlayerWeapon : MonoBehaviour
-{
-    public bool IsAttack { get; set; }
-    public float AttackDistance;
+//public class PlayerWeapon : MonoBehaviour
+//{
+//    //public SkeletonAnimation Anim;
+//    public Transform AttackStart;
 
-    public int MinDamage = 10;
-    public int MaxDamage = 20;
-    public int PlayerDMG { get; set; }
+//    public bool IsAttack { get; set; }
 
-    public float AttackDelay = 1f;
+//    public int MinDamage = 10;
+//    public int MaxDamage = 20;
 
-    private Animator animator;
+//    public float AttackDelay = 1f;
 
+//    //공격범위
+//    public Vector3 AttackRange;
 
-    //공격범위
-    public GameObject AttackRange;
+//    //공격 방향 전환을 위해
+//    private Vector2 Aim = Vector2.zero;
 
-    //[Header("Resource")]
-    //public bool DoResources;
+//    private void Awake()
+//    {
+//        //Anim = GetComponent<SkeletonAnimation>();
+//    }
 
-    //[Header("Enemy")]
-    //public bool DoDamage;
-    //public int damage;
+//    private void Look(Vector3 PlayerAim)
+//    {
+//        //공격 방향
+//        Aim = PlayerAim;
+//    }
 
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
-    private void Update()
-    {
-        ;
-    }
+//    public void AttackCheck()
+//    {
+//        // 공격 가능한지 체크
+//        if (!IsAttack)
+//        {
+//            IsAttack = true;
+//            Attack();
+//            //animator.SetBool("IsAttack", true);
+//        }
+//    }
 
-    public void AttackCheck()
-    {
-        if (!IsAttack)
-        {
-            PlayerDMG = Random.Range(MinDamage, MaxDamage + 1);
-            IsAttack = true;
-            Attack();
-            animator.SetBool("IsAttack", true);
-            Debug.Log("공격체크: " + PlayerDMG);
-        }
-    }
-    private void Attack()
-    {
-        Debug.Log("공격체크2: " + PlayerDMG);
-        Invoke("EndAttack", AttackDelay);
-    }
+//    private void Attack()
+//    {
+//        //공격 가능하면 공격
+//        RealAttack();
+//    }
 
-    private void EndAttack()
-    {
-        IsAttack = false;
-        animator.SetBool("IsAttack", false);
-    }
+//    private void RealAttack()
+//    {
+//        //범위 찾기
+//        Collider[] HitColliders = Physics.OverlapBox(AttackStart.position, AttackRange / 2f);
+//        foreach (Collider collider in HitColliders)
+//        {
+//            if (collider.CompareTag("Enemy"))
+//            {
+//                //데미지 계산
+//                EnemyHealth enemyHealth = collider.GetComponent<EnemyHealth>();
+//                if (enemyHealth != null)
+//                {
+//                    int playerDamage = Random.Range(MinDamage, MaxDamage + 1);
+//                    enemyHealth.EnemyHit(playerDamage);
+//                }
+//            }
+//        }
+//        Invoke("EndAttack", AttackDelay);
 
-    public void RealAttack()
-    {
-        Vector3 rayOrigin = AttackRange.transform.position;
-        Vector3 rayDirection = transform.forward;
+//        //공격 방향전환 만드는중
+//        //if (direction.x < 0)
+//        //{
+//        //    transform.localScale = new Vector3(1, 1, 1);
+//        //}
+//        //else if (direction.x > 0)
+//        //{
+//        //    transform.localScale = new Vector3(-1, 1, 1);
+//        //}
+//    }
 
-        Ray IsAttackRange = new Ray(rayOrigin, rayDirection);
+//    private void EndAttack()
+//    {
+//        //다시 공격 가능한 상태로 만들기
+//        IsAttack = false;
+//    }
 
-        //디버그
-        Vector3 rayEnd = rayOrigin + rayDirection * AttackDistance;
-        Debug.DrawLine(rayOrigin, rayEnd, Color.red, 2.0f);
-
-        RaycastHit HitRange;
-        Debug.Log("리얼어택 : " + PlayerDMG);
-
-        // Raycast를 통해 어떤 물체와 충돌했는지 확인
-        if (Physics.Raycast(IsAttackRange, out HitRange, AttackDistance))
-        {
-            // 충돌한 물체의 GameObject 가져오기
-            GameObject HitObject = HitRange.collider.gameObject;
-
-            // 만약 충돌한 물체가 Enemy라면 데미지를 적용
-            if (HitObject.CompareTag("Enemy"))
-            {
-                EnemyHealth EnemyHealth = HitObject.GetComponent<EnemyHealth>();
-                if (EnemyHealth != null)
-                {
-                    // 데미지 적용
-                    EnemyHealth.EnemyHit(PlayerDMG);
-                }
-            }
-        }
-    }
-}
+//    private void OnDrawGizmosSelected()
+//    {
+//        //크기와 위치 표시
+//        Gizmos.color = Color.green;
+//        Gizmos.DrawWireCube(AttackStart.position, AttackRange);
+//    }
+//}
