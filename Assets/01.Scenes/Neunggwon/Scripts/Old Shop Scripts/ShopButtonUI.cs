@@ -22,7 +22,7 @@ public class ShopButtonUI : MonoBehaviour
     [SerializeField] private GameObject Shop_PotionDisplay;
     [SerializeField] private GameObject Shop_SellDisplay;
 
-    [Header("#InputFeild")]
+    [Header("#InputField")]
     [SerializeField] private GameObject inputFeild_Obj;
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private TextMeshProUGUI textMeshProUGUI;
@@ -36,10 +36,10 @@ public class ShopButtonUI : MonoBehaviour
         {
             Instance = this;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
     private void Start()
@@ -93,7 +93,7 @@ public class ShopButtonUI : MonoBehaviour
     }
 
     /// <summary>
-    /// InputFeild
+    /// InputField
     /// </summary>
     public void InputFeild()
     {

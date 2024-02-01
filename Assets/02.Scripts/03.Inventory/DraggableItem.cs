@@ -13,7 +13,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public TMP_Text countText;
 
     [HideInInspector] public Transform parentAfterDrag;
-    [HideInInspector] public int bundle = 1;
+    public int bundle = 1;
     [HideInInspector] public Item item;
 
     public void InitializeItem(Item newItem)
