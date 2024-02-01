@@ -32,13 +32,13 @@ public class ShopSlot : MonoBehaviour
 
     void Setting()
     {
-        itemName.text = itemData.name;
+        itemName.text = itemData.itemName;
         itemIcon.sprite = itemData.icon;
-        itemDescription.text = itemData.description;
+        itemDescription.text = itemData.itemDescription;
         if (IsSellShop) //판매
         {
             //판매 아이템은 Count 및 가격 조정
-            Debug.Log("IsSellShop_Setting");
+           // Debug.Log("IsSellShop_Setting");
             itemPrice.text = (itemData.price / 2).ToString("#,##0G");
             shopSlotButton.onClick.AddListener(ButtonSell);
 

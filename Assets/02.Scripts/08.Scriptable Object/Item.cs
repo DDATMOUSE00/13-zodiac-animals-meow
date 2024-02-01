@@ -4,8 +4,8 @@ using UnityEngine;
 public class Item :ScriptableObject
 {
     public int id;
-    public string name {get; set;} //이름 
-    public string description { get; set; } // 설명
+    public string itemName; //이름 
+    public string itemDescription;  // 설명
     public Sprite icon; // 아이콘 
     public ItemType type;
     public int price;

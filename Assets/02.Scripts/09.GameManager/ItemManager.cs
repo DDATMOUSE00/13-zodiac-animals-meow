@@ -18,7 +18,6 @@ public class ItemManager : MonoBehaviour
     public GameObject objContainer;
     public GameObject splitContainer;
     public GameObject dropBtn;
-    public GameObject inventory;
 
     int selectedSlot = -1;
 
@@ -30,21 +29,6 @@ public class ItemManager : MonoBehaviour
     void Awake()
     {
         I = this;
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            if (inventory.activeInHierarchy)
-            {
-                inventory.SetActive(false);
-            }
-            else
-            {
-                inventory.SetActive(true);
-            }
-        }
     }
 
     public void ChangeSelectedSlot(int newValue)
@@ -76,6 +60,7 @@ public class ItemManager : MonoBehaviour
         if (type == "sell")
         {
             itemDic[id] = itemDic[id] - quantity;
+
         }
         else if (type == "buy")
         {

@@ -15,6 +15,7 @@ public class Shop : MonoBehaviour
     public bool IsSellShop;
     public string type;
     private ScrollRect scrollRect;
+    private Item itemInInventory;
     [SerializeField] private GameObject uiPrefab;
 
     [Header("#Shop_List")]
@@ -49,6 +50,7 @@ public class Shop : MonoBehaviour
     }
     public void OnEnable()
     {
+        ShowInventorySlot();
         //GetInventorySlot();
     }
 
@@ -57,22 +59,62 @@ public class Shop : MonoBehaviour
         if (!IsSellShop)
         {
             type = "buy";
+            ShowInventorySlot();
             for (int i = 0; i < items.Count; i++)
             {
                 AddNewUiObject();
+
                 //shopSlots[i].ButtonBuy();
             }
         }
         else
         {
             type = "sell";
-            GetInventorySlot();
+            // GetInventorySlot();
+            ShowInventorySlot();
             //Debug.Log("Inventory의 Slots의 정보를 가지고 오자!!");
         }
         ExitButton();
     }
+    
 
-    public void GetInventorySlot()
+    private Item FindItem(int key)
+    {
+
+        for(int i =0; i < ItemManager.I.itemList.Count; i++)
+        {
+            if (ItemManager.I.itemList[i].id == key)
+            {
+                itemInInventory= ItemManager.I.itemList[i];
+                break;
+            }
+        }
+        return itemInInventory;
+    }
+    public void ShowInventorySlot()
+    {
+        List<int> keyList = new List<int>(ItemManager.I.itemDic.Keys);
+        
+        if (keyList.Count != 0 && shopSlots.Count < keyList.Count)
+        {
+            Debug.Log(keyList.Count);
+            for (int i = 0; i < keyList.Count; i++)
+            {
+                Item item = FindItem(keyList[i]);
+
+                //Debug.Log($"{item.name} - { keyList[i]}");
+                int bundle = ItemManager.I.itemDic[keyList[i]];
+
+                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+                newShopSlot.itemData = item;
+                newShopSlot.itemCount.text = bundle.ToString();
+                shopSlots.Add(newShopSlot);
+
+            }
+        }
+     
+    }
+    public void GetInventorySlot() 
     {
         if (IsSellShop)
         {
@@ -213,7 +255,7 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void EndEditEvent(TMP_InputField inputField)
+    public void EndEditEvent(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
     {
         int int_inputNum = int.Parse(inputField.text);
         if (!cancel)
@@ -238,6 +280,7 @@ public class Shop : MonoBehaviour
 
     public void ExitButton()
     {
+
         inputField.onEndEdit.RemoveAllListeners();
         cancel = true;
         //Debug.Log("InputField_Exit");
