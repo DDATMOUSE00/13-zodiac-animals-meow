@@ -28,6 +28,7 @@ public class Shop : MonoBehaviour
 
     [Header("#SlotList")]
     public List<ShopSlot> shopSlots = new List<ShopSlot>();
+    public List<int> inventorySlotKeyList = new List<int>();
 
     public Item selectItem;
 
@@ -50,9 +51,13 @@ public class Shop : MonoBehaviour
     }
     public void OnEnable()
     {
-        ShowInventorySlot();
-        //GetInventorySlot();
+        if (IsSellShop)
+        {
+            ShowInventorySlot();
+            //GetInventorySlot();
+        }
     }
+
 
     private void Start()
     {
@@ -94,25 +99,39 @@ public class Shop : MonoBehaviour
     public void ShowInventorySlot()
     {
         List<int> keyList = new List<int>(ItemManager.I.itemDic.Keys);
-        
-        if (keyList.Count != 0 && shopSlots.Count < keyList.Count)
+
+        if (keyList.Count != 0)
         {
-            Debug.Log(keyList.Count);
             for (int i = 0; i < keyList.Count; i++)
             {
                 Item item = FindItem(keyList[i]);
-
-                //Debug.Log($"{item.name} - { keyList[i]}");
                 int bundle = ItemManager.I.itemDic[keyList[i]];
 
-                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
-                newShopSlot.itemData = item;
-                newShopSlot.itemCount.text = bundle.ToString();
-                shopSlots.Add(newShopSlot);
+                if (!inventorySlotKeyList.Contains(keyList[i]))
+                {
+                    var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+                    newShopSlot.itemData = item;
+                    newShopSlot.itemCount.text = bundle.ToString();
+                    shopSlots.Add(newShopSlot);
+                    inventorySlotKeyList.Add(keyList[i]);
+                    Debug.Log($"{item.itemName} - {bundle}");
+                }
+                else
+                {
+                    foreach(var shopSlot in shopSlots)
+                    {
+                        if(shopSlot.itemData == item)
+                        {
+                            shopSlot.itemCount.text = bundle.ToString();
+                            break;
+                        }
 
+                    }
+                    Debug.Log($"{item.itemName} - {bundle}");
+                }
             }
+
         }
-     
     }
     public void GetInventorySlot() 
     {
