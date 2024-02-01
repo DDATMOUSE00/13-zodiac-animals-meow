@@ -1,12 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Craft
 {
     public string craftName;            // 이름
+    public string craftDes;             // 설명
+    public Sprite craftImg;              // 이미지
     public GameObject go_Prefab;        // 실제 설치될 프리팹
     public GameObject go_PreviewPrefab; // 미리보기 프리팹
 }
@@ -19,8 +23,16 @@ public class CraftManual : MonoBehaviour
     [SerializeField]
     private GameObject go_BaseUI; // 기본 베이스 UI
 
+    // UI탭
+    private int tabNumber = 0;
+    private int page = 1;
+    private int selectedSlotNumber;
+    private Craft[] craft_SelectedTab;
+
     [SerializeField]
-    private Craft[] craft_building_01;  // 빌딩용 탭
+    private Craft[] craft_Building;  // 빌딩용 탭
+    [SerializeField]
+    private Craft[] craft_stone;
 
     private GameObject go_Preview;  // 미리보기 프리팹을 담을 변수
     private GameObject go_Prefab;   // 실제 생성 될 프리팹을 담을 변수
@@ -35,10 +47,83 @@ public class CraftManual : MonoBehaviour
     [SerializeField]
     private float range;
 
+    // 필요한 UI Slot 요소
+    [SerializeField]
+    private GameObject[] go_Slots;
+
+    // 변경되는 부분
+    [SerializeField]
+    private Image[] slot_Img;
+    [SerializeField]
+    private TextMeshProUGUI[] slotName_Tex;
+    [SerializeField]
+    private TextMeshProUGUI[] slotDesc_Tex;
+
+    private void Start()
+    {
+        tabNumber = 0;
+        page = 1;
+
+        // 기본값으로 Building 셋팅
+        TabSlotSetting(craft_Building);
+    }
+
+    public void TabSetting(int _tabNumber)
+    {
+        tabNumber = _tabNumber;
+        page = 1;
+
+        switch(_tabNumber)
+        {
+            case 0:
+                // 빌딩 셋팅
+                TabSlotSetting(craft_Building);
+                break;
+            case 1:
+                // 스톤 셋팅
+                TabSlotSetting(craft_stone);
+                break;
+        }
+    }
+
+    private void ClearSlot()
+    {
+        for(int i = 0; i < go_Slots.Length; i++)
+        {
+            slot_Img[i].sprite = null;
+            slotName_Tex[i].text = "";
+            slotDesc_Tex[i].text = "";
+            go_Slots[i].SetActive(false);
+        }
+    }
+
+    private void TabSlotSetting(Craft[] craftTab)
+    {
+        // 초기화
+        ClearSlot();
+
+        craft_SelectedTab = craftTab;
+
+        int startSlotNumber = (page - 1) * go_Slots.Length; // 4의 배수
+
+        for(int i = startSlotNumber; i < craft_SelectedTab.Length; i++)
+        {
+            if (i == page * go_Slots.Length)
+                break;
+
+            go_Slots[i - startSlotNumber].SetActive(true);
+
+            slot_Img[i - startSlotNumber].sprite = craftTab[i].craftImg;
+            slotName_Tex[i - startSlotNumber].text = craftTab[i].craftName;
+            slotDesc_Tex[i - startSlotNumber].text = craftTab[i].craftDes;
+        }
+    }
     public void SlotClick(int _slotNumber)
     {
-        go_Preview = Instantiate(craft_building_01[_slotNumber].go_PreviewPrefab, tf_Player.position + tf_Player.forward, Quaternion.identity);
-        go_Prefab = craft_building_01[_slotNumber].go_Prefab;
+        selectedSlotNumber = _slotNumber + (page - 1) * go_Slots.Length;
+
+        go_Preview = Instantiate(craft_SelectedTab[selectedSlotNumber].go_PreviewPrefab, tf_Player.position + tf_Player.forward, Quaternion.identity);
+        go_Prefab = craft_SelectedTab[selectedSlotNumber].go_Prefab;
         isPreviewActivated = true;
         go_BaseUI.SetActive(false);
     }
@@ -57,7 +142,7 @@ public class CraftManual : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
             Build();
     }
-
+        
     private void Build()
     {
         if(isPreviewActivated && go_Preview.GetComponentInChildren<PreviewObject>().isBuildable())
