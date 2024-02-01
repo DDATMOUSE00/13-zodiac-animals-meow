@@ -10,8 +10,9 @@ using System.Collections.Generic;
 public class ItemManager : MonoBehaviour
 {
     public static ItemManager I;
-
     public List<DraggableItem> items = new List<DraggableItem>();
+
+    public Dictionary<int, int> itemDic = new Dictionary<int, int>();
     public List<Item> itemList = new List<Item>();
     public Slot[] slots;
     public GameObject objContainer;
@@ -38,6 +39,33 @@ public class ItemManager : MonoBehaviour
         slots[newValue].Select();
         selectedSlot = newValue;
     }
+    public void UpdateItemsList()
+    {
+        for(int i = 0; i < slots.Length; i++)
+        {
+            Slot slot = slots[i];
+
+            DraggableItem itemInNewSlot = slot.GetComponentInChildren<DraggableItem>();
+
+            if(itemInNewSlot != null)
+            {
+                items.Add(itemInNewSlot);
+            }
+        }
+    }
+
+    public void UpdateBundle(int id, int quantity, string type) {
+
+        if (type == "sell")
+        {
+            itemDic[id] = itemDic[id] - quantity;
+        }
+        else if (type == "buy")
+        {
+            itemDic[id] = itemDic[id] + quantity;
+        }
+    }
+
     public bool AddItem(Item item) 
     {
         for (int i = 0; i < slots.Length; i++)
@@ -49,6 +77,7 @@ public class ItemManager : MonoBehaviour
             {
                 itemInNewSlot.bundle++;
                 itemInNewSlot.RefreshCount();
+                itemDic[item.id] = itemInNewSlot.bundle; 
                 return true;
             }
         }
@@ -61,9 +90,21 @@ public class ItemManager : MonoBehaviour
             {
 
                 SpawnNewItem(item, slot);
-       
-                if(!itemList.Contains(item))
+
+                if (!itemList.Contains(item))
+                {
                     itemList.Add(item);
+                    itemDic.Add(item.id, 1);  
+
+                }
+                else
+                {
+                    int v = itemDic[item.id];
+                    v++;
+                    itemDic[item.id] = v;
+                }
+                
+
                 return true;
             }
  
