@@ -456,7 +456,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2033,7 +2033,7 @@ GameObject:
   - component: {fileID: 454569994}
   - component: {fileID: 454569993}
   m_Layer: 5
-  m_Name: buildingName_Tex (1)
+  m_Name: buildingDes_Tex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2968,6 +2968,7 @@ GameObject:
   - component: {fileID: 669107572}
   - component: {fileID: 669107574}
   - component: {fileID: 669107573}
+  - component: {fileID: 669107575}
   m_Layer: 5
   m_Name: Slot_Base (1)
   m_TagString: Untagged
@@ -3036,6 +3037,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 669107571}
   m_CullTransparentMesh: 1
+--- !u!114 &669107575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669107571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 669107573}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1073628059}
+        m_TargetAssemblyTypeName: CraftManual, Assembly-CSharp
+        m_MethodName: SlotClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &672430138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3544,7 +3601,7 @@ GameObject:
   - component: {fileID: 735378246}
   - component: {fileID: 735378245}
   m_Layer: 5
-  m_Name: buildingName_Tex (1)
+  m_Name: buildingDes_Tex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3851,7 +3908,7 @@ GameObject:
   - component: {fileID: 776150226}
   - component: {fileID: 776150225}
   m_Layer: 5
-  m_Name: buildingName_Tex (1)
+  m_Name: buildingDes_Tex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4383,7 +4440,7 @@ GameObject:
   - component: {fileID: 938937724}
   - component: {fileID: 938937723}
   m_Layer: 5
-  m_Name: buildingName_Tex (1)
+  m_Name: buildingDes_Tex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5338,8 +5395,21 @@ MonoBehaviour:
   - {fileID: 669107571}
   - {fileID: 130130397}
   - {fileID: 1224261947}
-  slotName_Tex: []
-  slotDesc_Tex: []
+  slot_Img:
+  - {fileID: 1080023215}
+  - {fileID: 727335519}
+  - {fileID: 96249218}
+  - {fileID: 1226108534}
+  slotName_Tex:
+  - {fileID: 686675550}
+  - {fileID: 1506057395}
+  - {fileID: 1163777797}
+  - {fileID: 1047245965}
+  slotDesc_Tex:
+  - {fileID: 776150225}
+  - {fileID: 938937723}
+  - {fileID: 735378245}
+  - {fileID: 454569993}
 --- !u!1 &1080023213
 GameObject:
   m_ObjectHideFlags: 0
@@ -5949,6 +6019,7 @@ GameObject:
   - component: {fileID: 1224261948}
   - component: {fileID: 1224261950}
   - component: {fileID: 1224261949}
+  - component: {fileID: 1224261951}
   m_Layer: 5
   m_Name: Slot_Base (3)
   m_TagString: Untagged
@@ -6017,6 +6088,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224261947}
   m_CullTransparentMesh: 1
+--- !u!114 &1224261951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224261947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 669107573}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1073628059}
+        m_TargetAssemblyTypeName: CraftManual, Assembly-CSharp
+        m_MethodName: SlotClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1226108532
 GameObject:
   m_ObjectHideFlags: 0
