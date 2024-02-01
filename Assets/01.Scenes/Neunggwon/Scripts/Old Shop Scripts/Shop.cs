@@ -1,3 +1,4 @@
+using Spine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,13 +13,21 @@ public class Shop : MonoBehaviour
     public static Shop Instance;
     [Header("#Bool")]
     public bool IsSellShop;
-    
+    public string type;
     private ScrollRect scrollRect;
     [SerializeField] private GameObject uiPrefab;
 
+    [Header("#Shop_List")]
     public List<Item> items = new List<Item>();
+
+    [Header("#Shop_InventoryList")]
+    //public List<DraggableItem> draggedItems = new List<DraggableItem>();    //test
+    public Dictionary<int, int> inventoryItems = new Dictionary<int, int>();
+    public int inSlotCount;
+
+    [Header("#SlotList")]
     public List<ShopSlot> shopSlots = new List<ShopSlot>();
-    //public List<Item> inventoryItems = ItemManager.I.itemList;
+
     public Item selectItem;
 
     [Header("#InputField")]
@@ -35,43 +44,19 @@ public class Shop : MonoBehaviour
         {
             Instance = this;
         }
-        
+
         scrollRect = GetComponent<ScrollRect>();
     }
-    
-      
-    private void OnEnable()
+    public void OnEnable()
     {
-        if (IsSellShop)
-        {
-            GetInventorySlot();
-        }
-        //if (IsSellShop)
-        //{
-        //    //ItemManager itemManager = new ItemManager();
-        //    //items = itemManager.itemList;
-        //    //items = ItemManager.I.itemList;
-        //    //for (int i = 0; i < items.Count; i++)
-        //    //{
-        //    //    AddNewUiObject();
-        //    //    //shopSlots[i].ButtonBuy();
-        //    //}
-        //    Debug.Log("Inventory의 Slots의 정보를 가지고 오자!!");
-        //}
+        //GetInventorySlot();
     }
-
-    private void GetInventory()
-    {
-        //items가 inventory의 List를 바라보도록 하자!!
-        ItemManager itemManager = new ItemManager();
-        items = itemManager.itemList;
-    }
-
 
     private void Start()
     {
         if (!IsSellShop)
         {
+            type = "buy";
             for (int i = 0; i < items.Count; i++)
             {
                 AddNewUiObject();
@@ -80,6 +65,7 @@ public class Shop : MonoBehaviour
         }
         else
         {
+            type = "sell";
             GetInventorySlot();
             //Debug.Log("Inventory의 Slots의 정보를 가지고 오자!!");
         }
@@ -88,11 +74,53 @@ public class Shop : MonoBehaviour
 
     public void GetInventorySlot()
     {
-        
-        items = ItemManager.I.itemList;
-        for (int i = 0; i < items.Count; i++)
+        if (IsSellShop)
         {
-            AddNewUiObject();
+            //인벤토리의 slots을 뺑이한다. DraggableItem을 찾는다.
+            //for (int i = 0; i < ItemManager.I.slots.Length; i++)
+            //{
+            //    int inventoryInslotItemLenght = 0;
+            //    if (ItemManager.I.slots[i].GetComponentInChildren<DraggableItem>())
+            //    {
+            //        inventoryInslotItemLenght++;
+            //        if (shopSlots.Count < inventoryInslotItemLenght)
+            //        {
+            //            Debug.Log($"{inventoryInslotItemLenght}");
+            //            var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+            //            shopSlots.Add(newShopSlot);
+
+            //            float y = 100f;
+
+            //            for (int j = 0; j < inventoryInslotItemLenght; j++)
+            //            {
+            //                if (ItemManager.I.slots[j].GetComponentInChildren<DraggableItem>())
+            //                shopSlots[j].itemData = ItemManager.I.slots[j].GetComponentInChildren<DraggableItem>().item;
+            //                shopSlots[j].itemCount = ItemManager.I.slots[j].GetComponentInChildren<DraggableItem>().countText;
+            //            }
+            //            scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * shopSlots.Count);
+            //        }
+            //        else
+            //        {
+            //            Debug.Log("Shop에 아이템이 부족합니다.");
+            //        }
+            //    }
+            //}
+            foreach (KeyValuePair<int, int> Test_inventoryItems in ItemManager.I.itemDic)
+            {
+                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+                shopSlots.Add(newShopSlot);
+                float y = 100f;
+
+                for (int j = 0; j < shopSlots.Count; j++)
+                {
+                    if (ItemManager.I.slots[j].GetComponentInChildren<DraggableItem>() != null)
+                    {
+                        shopSlots[j].itemData = ItemManager.I.slots[j].GetComponentInChildren<DraggableItem>().item;
+                        shopSlots[j].itemCount = ItemManager.I.slots[j].GetComponentInChildren<DraggableItem>().countText;
+                    }
+                }
+                scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * shopSlots.Count);
+            }
         }
     }
 
@@ -112,35 +140,36 @@ public class Shop : MonoBehaviour
                     shopSlots[i].itemData = items[i];
                 }
                 scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * shopSlots.Count);
-                Debug.Log("Shop_아이템 추가");
             }
             else
             {
                 Debug.Log("Shop에 아이템이 부족합니다.");
             }
         }
-        else
-        {
-            // 추가되는 아이템이 무기이면 새롭게 생성!, 
-            if (shopSlots.Count < items.Count)
-            {
-                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
-                shopSlots.Add(newShopSlot);
+        //else
+        //{
+        //    // 추가되는 아이템이 무기이면 새롭게 생성!, 
 
-                float y = 100f;
+            
 
-                for (int i = 0; i < shopSlots.Count; i++)
-                {
-                    shopSlots[i].itemData = items[i];
-                }
-                scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * shopSlots.Count);
-                Debug.Log("ShopInventory_아이템 추가");
-            }
-            else
-            {
-                Debug.Log("Inventory에 아이템이 부족합니다.");
-            }
-        }
+        //    if (shopSlots.Count < inSlotCount)
+        //    {
+        //        var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+        //        shopSlots.Add(newShopSlot);
+
+        //        float y = 100f;
+        //        for (int i = 0; i < shopSlots.Count; i++)
+        //        {
+        //            shopSlots[i].itemData = ItemManager.I.slots[i].GetComponentInChildren<DraggableItem>().item;
+        //        }
+        //        scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * shopSlots.Count);
+        //        Debug.Log("ShopInventory_아이템 추가");
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("Inventory에 아이템이 부족합니다.");
+        //    }
+        //}
     }
 
     public void RemoveItem()
@@ -163,39 +192,40 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public int SelecItemCount()
-    {
 
-        return 0;
-    }
-    
     public void SelectItem(Item item)
     {
         selectItem = item;
-        Debug.Log($"SelectItem :{selectItem.id}");
+        //Debug.Log($"SelectItem :{selectItem.id}");
     }
 
     public void InputField()
     {
-        //if (inputField_Obj == null)
-        //{
-        //    inputField_Obj = GameObject.Find("input_Num_UI_Panel");
-        //}
         //아이템의 타입의 따라 
         inputField_Obj.SetActive(true);
-        inputField.onEndEdit.AddListener(delegate { EndEditEvent(inputField); });
+        if (!IsSellShop)
+        {
+            inputField.onEndEdit.AddListener(delegate { EndEditEvent(inputField); });
+        }
+        else
+        {
+
+        }
     }
 
     public void EndEditEvent(TMP_InputField inputField)
     {
-        string _inputNum = inputField.text;
-        int int_inputNum = int.Parse(_inputNum);
+        int int_inputNum = int.Parse(inputField.text);
         if (!cancel)
         {
-            for (int i = 0; i < int_inputNum; i++)
+            if (!IsSellShop)
             {
-                ItemManager.I.AddItem(selectItem);
+                for (int i = 0; i < int_inputNum; i++)
+                {
+                    ItemManager.I.AddItem(selectItem);
+                }
             }
+            
         }
         else
         {
@@ -203,16 +233,15 @@ public class Shop : MonoBehaviour
             inputField.onEndEdit.RemoveAllListeners();
         }
 
-        Debug.Log($" itemData.ID : {selectItem}.{selectItem.id} x {_inputNum} ");
+        Debug.Log($" itemData.ID : {selectItem}.{selectItem.id} x {int_inputNum} / {type} ");
         ExitButton();
     }
 
     public void ExitButton()
     {
-        GetInventorySlot();
         inputField.onEndEdit.RemoveAllListeners();
         cancel = true;
-        Debug.Log("InputField_Exit");
+        //Debug.Log("InputField_Exit");
         inputField_Obj.SetActive(false);
         if (!inputField_Obj.activeInHierarchy)
         {

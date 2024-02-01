@@ -36,10 +36,10 @@ public class ShopButtonUI : MonoBehaviour
         {
             Instance = this;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
     private void Start()
@@ -59,18 +59,18 @@ public class ShopButtonUI : MonoBehaviour
     public void DisplayWeaponShop()
     {
         Shop_WeaponDisplay.SetActive(true);
-        //Outline_weaponShopButton.enabled = true;
+        Outline_weaponShopButton.enabled = true;
         Shop_PotionDisplay.SetActive(false);
-        //Outline_potionShopButton.enabled = false;
+        Outline_potionShopButton.enabled = false;
         //Debug.Log("Shop_WeaponDisplay.SetActive(true)");
     }
 
     public void DisplayPotionShop()
     {
         Shop_WeaponDisplay.SetActive(false);
-        //Outline_weaponShopButton.enabled = false;
+        Outline_weaponShopButton.enabled = false;
         Shop_PotionDisplay.SetActive(true);
-        //Outline_potionShopButton.enabled = true;
+        Outline_potionShopButton.enabled = true;
         //Debug.Log("hop_PotionDisplay.SetActive(true)");
     }
 
