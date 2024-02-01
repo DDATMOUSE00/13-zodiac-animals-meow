@@ -225,7 +225,6 @@ public class Shop : MonoBehaviour
                     ItemManager.I.AddItem(selectItem);
                 }
             }
-            
         }
         else
         {
