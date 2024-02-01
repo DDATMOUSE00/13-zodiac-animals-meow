@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7759292469651805256}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,9 @@ GameObject:
   - component: {fileID: 7759292470125074988}
   - component: {fileID: 9174210620230232469}
   - component: {fileID: -826406472946011611}
-  m_Layer: 0
+  - component: {fileID: 8643493194195044392}
+  - component: {fileID: 3012996056212396122}
+  m_Layer: 7
   m_Name: Bush 1 Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,6 +125,54 @@ MonoBehaviour:
   _lightAffectedRenderers:
   - {fileID: 7759292470998409812}
   - {fileID: 7759292470576372903}
+--- !u!65 &8643493194195044392
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7759292470125074990}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 0.59}
+  m_Center: {x: 0, y: 0.43, z: 0}
+--- !u!54 &3012996056212396122
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7759292470125074990}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7759292470576372953
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,7 +183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7759292470576372952}
   - component: {fileID: 7759292470576372903}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7759292470819393385}
   - component: {fileID: 7759292470819393384}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +351,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7759292470998409813}
   - component: {fileID: 7759292470998409812}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,6 +438,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Leaf Particles
+      objectReference: {fileID: 0}
+    - target: {fileID: 782005568822417169, guid: e98128221820fdf46b8f6f0251cfef59,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4224888799684098208, guid: e98128221820fdf46b8f6f0251cfef59,
         type: 3}
