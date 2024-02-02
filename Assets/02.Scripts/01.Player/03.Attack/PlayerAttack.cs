@@ -122,7 +122,6 @@ public class PlayerAttack : MonoBehaviour
     }
     private void Attack()
     {
-
         //필요없으면 제거 공격방향
         //왼쪽으로 많이 땡겨야하는 버그있음
         Vector2 PlayerAim = AimDirection.normalized;
@@ -155,8 +154,8 @@ public class PlayerAttack : MonoBehaviour
                 EnemyHealth enemyHealth = collider.GetComponent<EnemyHealth>();
                 if (enemyHealth != null)
                 {
-                    int playerDamage = Random.Range(MinDamage, MaxDamage + 1);
-                    enemyHealth.EnemyHit(playerDamage);
+                    int PlayerDamage = Random.Range(MinDamage, MaxDamage + 1);
+                    enemyHealth.EnemyHit(PlayerDamage);
                 }
             }
 
