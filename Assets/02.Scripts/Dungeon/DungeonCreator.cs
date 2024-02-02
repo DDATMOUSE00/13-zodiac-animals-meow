@@ -13,6 +13,17 @@ public class DungeonCreator : MonoBehaviour
     public int corridorWidth;
     public Material material;
 
+    [Range(0.0f, 0.3f)]
+    public float roomBottomCornerModifier;
+    [Range(0.7f, 1f)]
+    public float roomTopCornerModifier;
+    [Range(0, 2)]
+    public int roomOffset;
+    public GameObject wallVertical, wallHorizontal;
+    List<Vector3Int> possibleDoorVerticalPosition;
+    List<Vector3Int> possibleDoorHorizontalPosition;
+    List<Vector3Int> possibleWallHorizontalPosition;
+    List<Vector3Int> possibleWallVerticalPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -22,13 +33,40 @@ public class DungeonCreator : MonoBehaviour
 
     private void CreateDungeon()
     {
+
+        DestroyAllChildren();
         DungeonGenerator generator = new DungeonGenerator(dungeonWidth, dungeonLength);
-        var listOfRooms = generator.CalculateRooms(maxIterations, roomWidthMin, roomLengthMin);
-    
+        var listOfRooms = generator.CalculateDungeon(maxIterations, roomWidthMin, roomLengthMin, roomBottomCornerModifier, roomTopCornerModifier,roomOffset, corridorWidth);
+
+        GameObject wallParent = new GameObject("wallParent");
+        wallParent.transform.parent = transform;
+        possibleDoorHorizontalPosition = new List<Vector3Int>();
+        possibleDoorVerticalPosition = new List<Vector3Int>();
+        possibleWallHorizontalPosition = new List<Vector3Int>();
+        possibleWallVerticalPosition = new List<Vector3Int>();
+
         for (int i =0; i < listOfRooms.Count; i++)
         {
             CreateMesh(listOfRooms[i].BottomLeftAreaCorner, listOfRooms[i].TopRightAreaCorner);
         }
+        CreateWalls(wallParent);
+    }
+
+    private void CreateWalls(GameObject wallParent)
+    {
+        foreach( var wall in possibleWallHorizontalPosition)
+        {
+            CreateWall(wallParent, wall, wallHorizontal);
+        }
+        foreach (var wall in possibleWallVerticalPosition)
+        {
+            CreateWall(wallParent, wall, wallVertical);
+        }
+    }
+
+    private void CreateWall(GameObject wallParent, Vector3Int wall, GameObject wallPrefab)
+    {
+        Instantiate(wallPrefab, wall, Quaternion.identity,wallParent.transform);
     }
 
     private void CreateMesh(Vector2 bottomLeftCorner, Vector2 topRightCorner)
@@ -73,8 +111,54 @@ public class DungeonCreator : MonoBehaviour
         dungeonFloor.transform.localScale = Vector3.one;
         dungeonFloor.GetComponent<MeshFilter>().mesh = mesh;
         dungeonFloor.GetComponent<MeshRenderer>().material = material;
+        dungeonFloor.transform.parent = transform;
 
+        for (int row = (int)bottomLeftV.x; row < (int)bottomRightV.x; row++)
+        {
+            var wallPosition = new Vector3(row, 0, bottomLeftV.z);
+            AddWallPositionToList(wallPosition, possibleWallHorizontalPosition, possibleDoorHorizontalPosition) ;
+        }
+
+        for (int row = (int)topLeftV.x; row < (int)topRightCorner.x; row++)
+        {
+            var wallPosition = new Vector3(row, 0, topRightV.z);
+            AddWallPositionToList(wallPosition, possibleWallHorizontalPosition, possibleDoorHorizontalPosition);
+        }
+        for (int col = (int)bottomLeftV.z; col < (int)topLeftV.z; col++)
+        {
+            var wallPosition = new Vector3(bottomLeftV.x, 0, col);
+            AddWallPositionToList(wallPosition, possibleWallVerticalPosition, possibleDoorVerticalPosition);
+        }
+        for (int col = (int)bottomRightV.z; col < (int)topRightV.z; col++)
+        {
+            var wallPosition = new Vector3(bottomRightV.x, 0, col);
+            AddWallPositionToList(wallPosition, possibleWallVerticalPosition, possibleDoorVerticalPosition);
+        }
 
     }
 
+    private void AddWallPositionToList(Vector3 wallPosition, List<Vector3Int> walls, List<Vector3Int> doors)
+    {
+        Vector3Int point = Vector3Int.CeilToInt(wallPosition);
+        if (walls.Contains(point))
+        {
+            doors.Add(point);
+            walls.Remove(point);
+        }
+        else
+        {
+            walls.Add(point);
+        }
+    }
+
+    private void DestroyAllChildren()
+    {
+     while(transform.childCount != 0)
+        {
+            foreach(Transform item in transform)
+            {
+                DestroyImmediate(item.gameObject);
+            }
+        } 
+    }
 }

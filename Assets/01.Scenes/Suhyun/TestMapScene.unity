@@ -187,7 +187,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 91027324}
   m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 11, z: -25}
+  m_LocalPosition: {x: 30, y: 41, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -360,7 +360,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115036479}
   m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 11, z: -25}
+  m_LocalPosition: {x: 30, y: 41, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1038,7 +1038,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224928860}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -99.17525, y: 10.696396, z: 171.29765}
+  m_LocalPosition: {x: -50, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1064,6 +1064,13 @@ MonoBehaviour:
   maxIterations: 2
   corridorWidth: 5
   material: {fileID: 2100000, guid: 1bc19cd694c6d8045a6c3ac70ecc7a6c, type: 2}
+  roomBottomCornerModifier: 0.1
+  roomTopCornerModifier: 0
+  roomOffset: 1
+  wallVertical: {fileID: 8267313434677244549, guid: 660de991c6e96574594b49018232048b,
+    type: 3}
+  wallHorizontal: {fileID: 8267313434677244549, guid: 660de991c6e96574594b49018232048b,
+    type: 3}
 --- !u!1 &1317043354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1607,7 +1614,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1741159831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1761,7 +1768,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741159830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 30, y: 30, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
