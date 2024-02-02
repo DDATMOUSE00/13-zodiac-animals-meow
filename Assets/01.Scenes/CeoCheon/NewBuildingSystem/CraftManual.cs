@@ -1,3 +1,4 @@
+using Spine.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,9 @@ public class Craft
 {
     public string craftName;            // 이름
     public string craftDes;             // 설명
-    public Sprite craftImg;              // 이미지
+    public Sprite craftImg;             // 이미지
+    public string[] craftNeedItem;      // 필요한 아이템
+    public int[] craftNeedItemCount;    // 필요한 아이템의 개수
     public GameObject go_Prefab;        // 실제 설치될 프리팹
     public GameObject go_PreviewPrefab; // 미리보기 프리팹
 }
@@ -40,12 +43,16 @@ public class CraftManual : MonoBehaviour
     [SerializeField]
     private Transform tf_Player;  // 플레이어 위치
 
+    #region Raycast
     // Raycast 필요 변수 선언
     private RaycastHit hitInfo;
     [SerializeField]
     private LayerMask layerMask;
     [SerializeField]
     private float range;
+    #endregion
+
+    #region Slot UI
 
     // 필요한 UI Slot 요소
     [SerializeField]
@@ -58,6 +65,13 @@ public class CraftManual : MonoBehaviour
     private TextMeshProUGUI[] slotName_Tex;
     [SerializeField]
     private TextMeshProUGUI[] slotDesc_Tex;
+    [SerializeField]
+    private TextMeshProUGUI[] slotNeedItem_Tex;
+
+    #endregion
+
+    #region Inventor와 연동 ******
+    #endregion
 
     private void Start()
     {
@@ -93,8 +107,28 @@ public class CraftManual : MonoBehaviour
             slot_Img[i].sprite = null;
             slotName_Tex[i].text = "";
             slotDesc_Tex[i].text = "";
+            slotNeedItem_Tex[i].text = "";
             go_Slots[i].SetActive(false);
         }
+    }
+    public void RightPageSetting()
+    {
+        if (page < (craft_SelectedTab.Length / go_Slots.Length) + 1)
+            page++;
+        else
+            page = 1;
+
+        TabSlotSetting(craft_SelectedTab);
+    }
+
+    public void LeftPageSetting()
+    {
+        if (page != 1)
+            page--;
+        else
+            page = (craft_SelectedTab.Length / go_Slots.Length) + 1;
+
+        TabSlotSetting(craft_SelectedTab);
     }
 
     private void TabSlotSetting(Craft[] craftTab)
@@ -116,16 +150,33 @@ public class CraftManual : MonoBehaviour
             slot_Img[i - startSlotNumber].sprite = craftTab[i].craftImg;
             slotName_Tex[i - startSlotNumber].text = craftTab[i].craftName;
             slotDesc_Tex[i - startSlotNumber].text = craftTab[i].craftDes;
+
+            for(int j = 0; j < craft_SelectedTab[i].craftNeedItem.Length; j++ )
+            {
+                slotNeedItem_Tex[i - startSlotNumber].text += craft_SelectedTab[i].craftNeedItem[j];
+                slotNeedItem_Tex[i - startSlotNumber].text += "x" + craft_SelectedTab[i].craftNeedItemCount[j] + "\n";
+            }
         }
     }
     public void SlotClick(int _slotNumber)
     {
         selectedSlotNumber = _slotNumber + (page - 1) * go_Slots.Length;
 
+        if (!CheckResource())
+            return;
+
         go_Preview = Instantiate(craft_SelectedTab[selectedSlotNumber].go_PreviewPrefab, tf_Player.position + tf_Player.forward, Quaternion.identity);
         go_Prefab = craft_SelectedTab[selectedSlotNumber].go_Prefab;
         isPreviewActivated = true;
         go_BaseUI.SetActive(false);
+    }
+
+    private bool CheckResource()
+    {
+        for(int i = 0; i<)
+        {
+
+        }
     }
 
     void Update()
@@ -172,6 +223,7 @@ public class CraftManual : MonoBehaviour
         }
     }
 
+    #region Tab window
     private void Window()
     {
         if (!isActivated)
@@ -208,4 +260,5 @@ public class CraftManual : MonoBehaviour
         isActivated = false;
         go_BaseUI.SetActive(false);
     }
+    #endregion
 }
