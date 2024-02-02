@@ -9,37 +9,31 @@ public class Resource : MonoBehaviour
 
     private bool isHit = false;
 
-    //private Color originalColor;
-    //private Color hitColor = Color.red;
+    private Color originalColor;
 
     [SerializeField] private int ResourceHP;
     private int maxResourceHP = 2;
 
-    private void Start()
-    {
-        //originalColor = GetComponent<Renderer>().material.color;
-    }
 
-    private void OnTriggerEnter(Collider collision)
+    public void Hit()
     {
-        Debug.Log("¶§·È´Ù.");
-        //if (collision.gameObject.CompareTag("PlayerWeapon") && !isHit)
-        //{
-        //    Debug.Log("¶§·È´Ù.");
-        //    if (ResourceHP > 0)
-        //    {
-        //        isHit = true;
-        //        ResourceHP--;
-        //        GetComponent<Renderer>().material.color = hitColor;
-        //        Debug.Log(ResourceHP);
+        Debug.Log("ÀÚ¿ø ‹šÂî");
+        if (!isHit)
+        {
+            if (ResourceHP > 0)
+            {
+                isHit = true;
+                ResourceHP--;
+                //GetComponent<Renderer>().material.color = hitColor;
+                Debug.Log(ResourceHP);
 
-        //        StartCoroutine(CoResetColorAfterDelay(0.2f));
-        //    }
-        //    else
-        //    {
-        //        Die();
-        //    }
-        //}
+                StartCoroutine(CoResetColorAfterDelay());
+            }
+            else
+            {
+                Die();
+            }
+        }
     }
 
     private void OnEnable()
@@ -54,16 +48,10 @@ public class Resource : MonoBehaviour
         RandomDropItem();
     }
 
-    private IEnumerator CoResetColorAfterDelay(float delay)
+    private IEnumerator CoResetColorAfterDelay()
     {
-        yield return new WaitForSeconds(delay);
+        yield return YieldInstructionCache.WaitForSeconds(0.2f);
         isHit = false;
-        ResetResource();
-    }
-
-    public void ResetResource()
-    {
-        //GetComponent<Renderer>().material.color = originalColor;
     }
 
     private void DropItem()

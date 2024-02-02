@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.UIElements;
+using static UnityEditor.Progress;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -157,6 +158,13 @@ public class PlayerAttack : MonoBehaviour
                     int playerDamage = Random.Range(MinDamage, MaxDamage + 1);
                     enemyHealth.EnemyHit(playerDamage);
                 }
+            }
+
+            if (collider.CompareTag("Resource"))
+            {
+                Debug.Log("자원 공격!");
+                Resource targetResource = collider.GetComponent<Resource>();
+                targetResource.Hit();
             }
         }
         Invoke("EndAttack", AttackDelay);
