@@ -75,8 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7421357923420993754, guid: b79f22cd227d76c4b9c9986dcf0514f0,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: f479602ade3b95741aedf572d86de91c, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,7 +105,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4, y: 2.59, z: 0.3}
+  m_Size: {x: 3.04, y: 3.27, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1100800412686903233
 MonoBehaviour:
@@ -134,7 +133,7 @@ GameObject:
   - component: {fileID: 7379585365167235180}
   - component: {fileID: 6668585059673185338}
   m_Layer: 4
-  m_Name: Building_Preview
+  m_Name: Building02_Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

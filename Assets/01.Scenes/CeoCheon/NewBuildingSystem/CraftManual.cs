@@ -12,6 +12,7 @@ public class Craft
     public string craftName;            // 이름
     public string craftDes;             // 설명
     public Sprite craftImg;             // 이미지
+    public int[] craftItemId;           // 필요한 아이템 ID
     public string[] craftNeedItem;      // 필요한 아이템
     public int[] craftNeedItemCount;    // 필요한 아이템의 개수
     public GameObject go_Prefab;        // 실제 설치될 프리팹
@@ -71,15 +72,9 @@ public class CraftManual : MonoBehaviour
 
     #endregion
 
-    #region Inventory와 연동 ******  [MERGE INVENTORY]
-    private Test_Inventory myinventory;
-    #endregion
 
     private void Start()
     {
-        // [MERGE INVENTORY]
-        myinventory = FindObjectOfType<Test_Inventory>();
-
         tabNumber = 0;
         page = 1;
 
@@ -168,10 +163,11 @@ public class CraftManual : MonoBehaviour
         selectedSlotNumber = _slotNumber + (page - 1) * go_Slots.Length;
 
         // Resource가 없다면.
+        /*
         if (!CheckResource(selectedSlotNumber))
             ShowPopup(go_PopupUI_noResource);
             return;
-
+        */
         go_Preview = Instantiate(craft_SelectedTab[selectedSlotNumber].go_PreviewPrefab, tf_Player.position + tf_Player.forward, Quaternion.identity);
         go_Prefab = craft_SelectedTab[selectedSlotNumber].go_Prefab;
         isPreviewActivated = true;
@@ -183,18 +179,20 @@ public class CraftManual : MonoBehaviour
     {
         for(int i = 0; i < craft_SelectedTab[_selectedSlotNumber].craftNeedItem.Length; i++)
         {
-            if(myinventory)
-            {
+            int neededItemId = craft_SelectedTab[_selectedSlotNumber].craftItemId[i]; // 필요한 아이템의 ID
+            int neededItemCount = craft_SelectedTab[_selectedSlotNumber].craftNeedItemCount[i]; // 필요한 아이템의 개수
 
+            if (ItemManager.I.itemDic[neededItemId] >= neededItemCount)
+            {
+                return true;
             }
         }
-
-        return true;
+        return true;     
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Tab) && !isPreviewActivated)
+        if(Input.GetKeyDown(KeyCode.B) && !isPreviewActivated)
             Window();
 
         if(isPreviewActivated)
