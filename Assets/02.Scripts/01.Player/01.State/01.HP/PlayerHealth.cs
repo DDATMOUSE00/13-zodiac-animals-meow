@@ -35,7 +35,6 @@ public class PlayerHealth : MonoBehaviour
         //T버튼 누르면 피격 테스트
         if (Input.GetKeyDown(KeyCode.T))
         {
-            PlayerHit();
             Debug.Log("Player HP: " + PlayerHP);
         }
     }
@@ -54,7 +53,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
 
-    public void PlayerHit()
+    public void PlayerHit(int EnemyDamage)
     {
         //플레이어가 맞았을 때 HP 닳는 양과 죽음처리
         if (PlayerHP > 0)
@@ -69,6 +68,8 @@ public class PlayerHealth : MonoBehaviour
                 Die();
             }
         }
+
+
     }
     private void Die()
     {

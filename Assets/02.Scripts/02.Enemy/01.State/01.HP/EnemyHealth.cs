@@ -18,13 +18,13 @@ public class EnemyHealth : MonoBehaviour
     {
         EnemyHP = EnemyMaxHP;
     }
-    public void EnemyHit(int Damage)
+    public void EnemyHit(int PlayerDamage)
     {
         //몬스터가 맞았을 때 HP 닳는 양과 죽음처리
         if (EnemyHP > 0)
         {
             // HP 감소
-            EnemyHP -= Damage;
+            EnemyHP -= PlayerDamage;
             //Debug.Log("몬스터 최대체력 : " + EnemyMaxHP);
             Debug.Log("몬스터 현재체력 : " + EnemyHP);
             // HP가 0 이하일 경우 Die

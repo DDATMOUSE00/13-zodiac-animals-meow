@@ -152,6 +152,7 @@ public class PlayerMovement : MonoBehaviour
                 yield return new WaitForFixedUpdate();
             }
         }
+
         IsRolling = false;
 
         //필요없어지면 제거
