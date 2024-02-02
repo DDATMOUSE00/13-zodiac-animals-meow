@@ -322,7 +322,7 @@ Transform:
   m_Children:
   - {fileID: 7181111047780184457}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &4528674691672460801
 SortingGroup:
@@ -411,7 +411,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72f32602fee5e543b7cb2ebe5a46986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemprefab: {fileID: 0}
+  itemprefab: {fileID: 3611454901610100875, guid: 81343acb9f48aa24bbc611a58e1053c7,
+    type: 3}
   randomItemprefab: {fileID: 0}
   ResourceHP: 0
 --- !u!54 &-827690535268523749
