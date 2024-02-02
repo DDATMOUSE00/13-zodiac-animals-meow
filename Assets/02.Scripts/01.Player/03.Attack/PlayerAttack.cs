@@ -116,19 +116,24 @@ public class PlayerAttack : MonoBehaviour
             IsCombo = true;
             ComboTimer = 0f;
             Attack();
-            Debug.Log("콤보공격");
+            Debug.Log("그냥공격");
         }
     }
     private void Attack()
     {
+
         //필요없으면 제거 공격방향
         //왼쪽으로 많이 땡겨야하는 버그있음
         Vector2 PlayerAim = AimDirection.normalized;
-        if (PlayerAim.x < 0)
+
+        float normalizedX = (Input.mousePosition.x / Screen.width) * 2 - 1;
+        //Debug.Log(PlayerAim.x);
+        //Debug.Log(normalizedX);
+        if (normalizedX < 0)
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
-        else if (PlayerAim.x > 0)
+        else if (normalizedX > 0)
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6330283270039726381}
   - component: {fileID: 6186760738704218760}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8478035693686101164}
   - component: {fileID: 8015988902269031447}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 717066599356298053}
   - component: {fileID: 6749482092782466680}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4673823619507579887}
   - component: {fileID: 4708017244014472777}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 2699441409875868016}
   - component: {fileID: 9166589047129678869}
   - component: {fileID: 2624917724361141604}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Leaf Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5200,7 +5200,8 @@ GameObject:
   - component: {fileID: 9175108142588689547}
   - component: {fileID: 8213331020865751349}
   - component: {fileID: 5667391177534070066}
-  m_Layer: 0
+  - component: {fileID: 2937066261918886284}
+  m_Layer: 7
   m_Name: ResourceObject_Bush_Green_00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5221,7 +5222,7 @@ Transform:
   m_Children:
   - {fileID: 6330283270039726381}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &6990594687404422079
 SortingGroup:
@@ -5292,9 +5293,36 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 4.09, y: 5.88, z: 0.69}
   m_Center: {x: 0, y: 1.48, z: 0}
+--- !u!54 &2937066261918886284
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8215364714818171213}
+  serializedVersion: 4
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
