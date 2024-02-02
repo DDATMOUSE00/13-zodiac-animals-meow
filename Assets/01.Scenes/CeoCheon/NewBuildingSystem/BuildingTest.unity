@@ -1044,7 +1044,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -372.79993, y: -2.2}
+  m_AnchoredPosition: {x: 100.2, y: -2.2}
   m_SizeDelta: {x: 200, y: 108.76}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &236984643
@@ -5697,6 +5697,9 @@ MonoBehaviour:
   - craftName: "\uBE4C\uB529_01"
     craftDes: "\uBE4C\uB529_01 \uC785\uB2C8\uB2E4."
     craftImg: {fileID: 21300000, guid: 6424333357274c041bab16bbffd1d500, type: 3}
+    craftNeedItem:
+    - "\uB3CC"
+    craftNeedItemCount: 00000000
     go_Prefab: {fileID: 6304037476598348317, guid: 4be6aff615e262c4daf4dd67e7cc6e50,
       type: 3}
     go_PreviewPrefab: {fileID: 6304037476598348317, guid: 3cefeb2323487d24dab7eb8404467036,
@@ -5705,6 +5708,10 @@ MonoBehaviour:
   - craftName: "\uC2A4\uD1A4_01"
     craftDes: "\uC2A4\uD1A4_01 \uC785\uB2C8\uB2E4."
     craftImg: {fileID: 21300000, guid: a8a524439af76b34488b1bb0efbc18af, type: 3}
+    craftNeedItem:
+    - "\uB098\uBB47\uC78E"
+    - "\uB3CC"
+    craftNeedItemCount: 0300000002000000
     go_Prefab: {fileID: 6304037476598348317, guid: 4be6aff615e262c4daf4dd67e7cc6e50,
       type: 3}
     go_PreviewPrefab: {fileID: 6304037476598348317, guid: 3cefeb2323487d24dab7eb8404467036,
@@ -5712,34 +5719,29 @@ MonoBehaviour:
   - craftName: "\uC2A4\uD1A4_02"
     craftDes: "\uC2A4\uD1A4_02 \uC785\uB2C8\uB2E4."
     craftImg: {fileID: 21300000, guid: dcf9c044c8a6b2d4e989d100626180af, type: 3}
+    craftNeedItem:
+    - "\uB3CC"
+    craftNeedItemCount: 03000000
     go_Prefab: {fileID: 6304037476598348317, guid: 4be6aff615e262c4daf4dd67e7cc6e50,
       type: 3}
     go_PreviewPrefab: {fileID: 6304037476598348317, guid: 3cefeb2323487d24dab7eb8404467036,
       type: 3}
-  - craftName: "\uC2A4\uD1A4_02"
-    craftDes: "\uC2A4\uD1A4_02 \uC785\uB2C8\uB2E4."
+  - craftName: "\uC2A4\uD1A4_03"
+    craftDes: "\uC2A4\uD1A4_03 \uC785\uB2C8\uB2E4."
     craftImg: {fileID: 21300000, guid: dcf9c044c8a6b2d4e989d100626180af, type: 3}
+    craftNeedItem:
+    - "\uB3CC"
+    craftNeedItemCount: 01000000
     go_Prefab: {fileID: 6304037476598348317, guid: 4be6aff615e262c4daf4dd67e7cc6e50,
       type: 3}
     go_PreviewPrefab: {fileID: 6304037476598348317, guid: 3cefeb2323487d24dab7eb8404467036,
       type: 3}
-  - craftName: "\uC2A4\uD1A4_02"
-    craftDes: "\uC2A4\uD1A4_02 \uC785\uB2C8\uB2E4."
+  - craftName: "\uC2A4\uD1A4_04"
+    craftDes: "\uC2A4\uD1A4_04 \uC785\uB2C8\uB2E4."
     craftImg: {fileID: 21300000, guid: dcf9c044c8a6b2d4e989d100626180af, type: 3}
-    go_Prefab: {fileID: 6304037476598348317, guid: 4be6aff615e262c4daf4dd67e7cc6e50,
-      type: 3}
-    go_PreviewPrefab: {fileID: 6304037476598348317, guid: 3cefeb2323487d24dab7eb8404467036,
-      type: 3}
-  - craftName: "\uC2A4\uD1A4_02"
-    craftDes: "\uC2A4\uD1A4_02 \uC785\uB2C8\uB2E4."
-    craftImg: {fileID: 21300000, guid: dcf9c044c8a6b2d4e989d100626180af, type: 3}
-    go_Prefab: {fileID: 6304037476598348317, guid: 4be6aff615e262c4daf4dd67e7cc6e50,
-      type: 3}
-    go_PreviewPrefab: {fileID: 6304037476598348317, guid: 3cefeb2323487d24dab7eb8404467036,
-      type: 3}
-  - craftName: "\uC2A4\uD1A4_02"
-    craftDes: "\uC2A4\uD1A4_02 \uC785\uB2C8\uB2E4."
-    craftImg: {fileID: 21300000, guid: dcf9c044c8a6b2d4e989d100626180af, type: 3}
+    craftNeedItem:
+    - "\uB3CC"
+    craftNeedItemCount: 01000000
     go_Prefab: {fileID: 6304037476598348317, guid: 4be6aff615e262c4daf4dd67e7cc6e50,
       type: 3}
     go_PreviewPrefab: {fileID: 6304037476598348317, guid: 3cefeb2323487d24dab7eb8404467036,
@@ -5769,6 +5771,7 @@ MonoBehaviour:
   - {fileID: 938937723}
   - {fileID: 735378245}
   - {fileID: 454569993}
+  slotNeedItem_Tex: []
 --- !u!1 &1080023213
 GameObject:
   m_ObjectHideFlags: 0
