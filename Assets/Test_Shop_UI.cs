@@ -13,7 +13,7 @@ public class Test_Shop_UI : MonoBehaviour
     [SerializeField] private GameObject Shop_PotionDisplay;
     //[SerializeField] private Button Shop_ExitButton;
 
-    [Header("#InputField")]
+    [Header("#BuyInputField")]
     [SerializeField] private GameObject inputFeild_Obj;
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private Button InputFeild_ExitButton;

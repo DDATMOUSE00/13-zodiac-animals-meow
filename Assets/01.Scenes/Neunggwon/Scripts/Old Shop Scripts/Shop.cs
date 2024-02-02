@@ -21,24 +21,23 @@ public class Shop : MonoBehaviour
     [Header("#Shop_List")]
     public List<Item> items = new List<Item>();
 
-    [Header("#Shop_InventoryList")]
-    //public List<DraggableItem> draggedItems = new List<DraggableItem>();    //test
-    public Dictionary<int, int> inventoryItems = new Dictionary<int, int>();
-    public int inSlotCount;
-
     [Header("#SlotList")]
     public List<ShopSlot> shopSlots = new List<ShopSlot>();
     public List<int> inventorySlotKeyList = new List<int>();
 
     public Item selectItem;
+    public ShopSlot selectShopSlot;
 
-    [Header("#InputField")]
+
+    [Header("#BuyInputField")]
     //[SerializeField] private GameObject inputField_UI;
     [SerializeField] private GameObject inputField_Obj;
     [SerializeField] private TMP_InputField inputField;
 
     [SerializeField] private Button InputFeild_ExitButton;
     public bool cancel = false;
+
+    //public Shop InventoryShop;
 
     private void Awake()
     {
@@ -54,7 +53,6 @@ public class Shop : MonoBehaviour
         if (IsSellShop)
         {
             ShowInventorySlot();
-            //GetInventorySlot();
         }
     }
 
@@ -64,33 +62,28 @@ public class Shop : MonoBehaviour
         if (!IsSellShop)
         {
             type = "buy";
-            ShowInventorySlot();
             for (int i = 0; i < items.Count; i++)
             {
                 AddNewUiObject();
-
-                //shopSlots[i].ButtonBuy();
             }
         }
         else
         {
             type = "sell";
-            // GetInventorySlot();
             ShowInventorySlot();
-            //Debug.Log("Inventory의 Slots의 정보를 가지고 오자!!");
         }
         ExitButton();
     }
-    
+
 
     private Item FindItem(int key)
     {
 
-        for(int i =0; i < ItemManager.I.itemList.Count; i++)
+        for (int i = 0; i < ItemManager.I.itemList.Count; i++)
         {
             if (ItemManager.I.itemList[i].id == key)
             {
-                itemInInventory= ItemManager.I.itemList[i];
+                itemInInventory = ItemManager.I.itemList[i];
                 break;
             }
         }
@@ -104,6 +97,7 @@ public class Shop : MonoBehaviour
         {
             for (int i = 0; i < keyList.Count; i++)
             {
+                //Debug.Log(keyList.Count);
                 Item item = FindItem(keyList[i]);
                 int bundle = ItemManager.I.itemDic[keyList[i]];
 
@@ -111,16 +105,16 @@ public class Shop : MonoBehaviour
                 {
                     var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
                     newShopSlot.itemData = item;
-                    newShopSlot.itemCount.text = bundle.ToString();
+                    newShopSlot.Int_Count = bundle;
                     shopSlots.Add(newShopSlot);
                     inventorySlotKeyList.Add(keyList[i]);
                     Debug.Log($"{item.itemName} - {bundle}");
                 }
                 else
                 {
-                    foreach(var shopSlot in shopSlots)
+                    foreach (var shopSlot in shopSlots)
                     {
-                        if(shopSlot.itemData == item)
+                        if (shopSlot.itemData == item)
                         {
                             shopSlot.itemCount.text = bundle.ToString();
                             break;
@@ -129,59 +123,10 @@ public class Shop : MonoBehaviour
                     }
                     Debug.Log($"{item.itemName} - {bundle}");
                 }
+                //selectShopSlot.Setting();
+                scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (100 + 20) * shopSlots.Count);
             }
 
-        }
-    }
-    public void GetInventorySlot() 
-    {
-        if (IsSellShop)
-        {
-            //인벤토리의 slots을 뺑이한다. DraggableItem을 찾는다.
-            //for (int i = 0; i < ItemManager.I.slots.Length; i++)
-            //{
-            //    int inventoryInslotItemLenght = 0;
-            //    if (ItemManager.I.slots[i].GetComponentInChildren<DraggableItem>())
-            //    {
-            //        inventoryInslotItemLenght++;
-            //        if (shopSlots.Count < inventoryInslotItemLenght)
-            //        {
-            //            Debug.Log($"{inventoryInslotItemLenght}");
-            //            var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
-            //            shopSlots.Add(newShopSlot);
-
-            //            float y = 100f;
-
-            //            for (int j = 0; j < inventoryInslotItemLenght; j++)
-            //            {
-            //                if (ItemManager.I.slots[j].GetComponentInChildren<DraggableItem>())
-            //                shopSlots[j].itemData = ItemManager.I.slots[j].GetComponentInChildren<DraggableItem>().item;
-            //                shopSlots[j].itemCount = ItemManager.I.slots[j].GetComponentInChildren<DraggableItem>().countText;
-            //            }
-            //            scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * shopSlots.Count);
-            //        }
-            //        else
-            //        {
-            //            Debug.Log("Shop에 아이템이 부족합니다.");
-            //        }
-            //    }
-            //}
-            foreach (KeyValuePair<int, int> Test_inventoryItems in ItemManager.I.itemDic)
-            {
-                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
-                shopSlots.Add(newShopSlot);
-                float y = 100f;
-
-                for (int j = 0; j < shopSlots.Count; j++)
-                {
-                    if (ItemManager.I.slots[j].GetComponentInChildren<DraggableItem>() != null)
-                    {
-                        shopSlots[j].itemData = ItemManager.I.slots[j].GetComponentInChildren<DraggableItem>().item;
-                        shopSlots[j].itemCount = ItemManager.I.slots[j].GetComponentInChildren<DraggableItem>().countText;
-                    }
-                }
-                scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * shopSlots.Count);
-            }
         }
     }
 
@@ -207,51 +152,69 @@ public class Shop : MonoBehaviour
                 Debug.Log("Shop에 아이템이 부족합니다.");
             }
         }
-        //else
-        //{
-        //    // 추가되는 아이템이 무기이면 새롭게 생성!, 
-
-            
-
-        //    if (shopSlots.Count < inSlotCount)
-        //    {
-        //        var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
-        //        shopSlots.Add(newShopSlot);
-
-        //        float y = 100f;
-        //        for (int i = 0; i < shopSlots.Count; i++)
-        //        {
-        //            shopSlots[i].itemData = ItemManager.I.slots[i].GetComponentInChildren<DraggableItem>().item;
-        //        }
-        //        scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * shopSlots.Count);
-        //        Debug.Log("ShopInventory_아이템 추가");
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("Inventory에 아이템이 부족합니다.");
-        //    }
-        //}
     }
 
-    public void RemoveItem()
+    //public void RemoveItem(int ID, int Value)
+    //{
+    //    //
+    //    Debug.Log($"ID : {ID}, Value : {Value}");
+    //    List<int> keyList = new List<int>(ItemManager.I.itemDic.Keys);
+    //    for (int i = 0; i < keyList.Count; i++)
+    //    {
+    //        if (keyList[i] == ID)
+    //        {
+    //            ItemManager.I.itemDic[ID] -= Value;
+    //            if (ItemManager.I.itemDic[ID] == 0)
+    //            {
+    //                //ItemManager.I.itemDic.Remove(ID);
+    //                Debug.Log("ItemManager.I.itemDic_RemoveAt");
+    //            }
+    //        }
+    //    }
+    //    Debug.Log($"{ItemManager.I.itemDic[ID]}");
+    //    //슬롯의 ItemData가 없으면 없어짐.
+    //    for (int i = 0; i < shopSlots.Count; i++)
+    //    {
+    //        if (shopSlots[i].Int_Count <= 0)
+    //        {
+    //            shopSlots.RemoveAt(i);
+    //            Debug.Log("shopSlots_RemoveAt");
+    //        }
+    //    }
+    //}
+
+    public void RemoveSlot(int id, int value)
     {
-        for (int i = 0; i < shopSlots.Count; i++)
+        if (selectShopSlot.Int_Count >= value)
         {
-            if (shopSlots[i].itemData == selectItem)
+            for (int i =0;  i < ItemManager.I.slots.Length; i++)
             {
-                if (selectItem.type == ItemType.Weapon)
+                var inventorySlotItem = ItemManager.I.slots[i].GetComponentInChildren<DraggableItem>();
+
+                if (inventorySlotItem.item == selectItem)
                 {
-                    //제거하자.
-                }
-                else
-                {
-                    //item.count가 입력한 값보다 작으면 Debug 호출
-                    //item.count가 입력한 값보다 크면 --;
-                    //같으면 Remove([i]);
+                    inventorySlotItem.bundle -= value;
+                    selectShopSlot.Int_Count = inventorySlotItem.bundle;
+                    selectShopSlot.Setting();
+                    inventorySlotItem.RefreshCount();
+                    if (inventorySlotItem.bundle <= 0)
+                    {
+                        Debug.Log("제거");
+                        //selectShopSlot.Clear();
+                    }
+                    Debug.Log(inventorySlotItem.bundle);
+                    break;
                 }
             }
         }
+        else
+        {
+            Debug.Log("다시 입력해 주세요.");
+        }
+
     }
+
+
 
 
     public void SelectItem(Item item)
@@ -260,40 +223,61 @@ public class Shop : MonoBehaviour
         //Debug.Log($"SelectItem :{selectItem.id}");
     }
 
-    public void InputField()
+    public void SelectSlot(ShopSlot _slot)
     {
-        //아이템의 타입의 따라 
-        inputField_Obj.SetActive(true);
-        if (!IsSellShop)
-        {
-            inputField.onEndEdit.AddListener(delegate { EndEditEvent(inputField); });
-        }
-        else
-        {
-
-        }
+        selectShopSlot = _slot;
     }
 
-    public void EndEditEvent(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
+    public void BuyInputField()
+    {
+        inputField_Obj.SetActive(true);
+
+        inputField.onEndEdit.AddListener(delegate { EndEditBuy(inputField); });
+        Debug.Log("delegate - EndEditBuy");
+
+    }
+
+    public void SellInputField()
+    {
+        inputField_Obj.SetActive(true);
+
+        inputField.onEndEdit.AddListener(delegate { EndEditSell(inputField); });
+        Debug.Log("delegate - EndEditSell");
+    }
+
+    public void EndEditBuy(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
     {
         int int_inputNum = int.Parse(inputField.text);
         if (!cancel)
         {
-            if (!IsSellShop)
+
+            for (int i = 0; i < int_inputNum; i++)
             {
-                for (int i = 0; i < int_inputNum; i++)
-                {
-                    ItemManager.I.AddItem(selectItem);
-                }
+                ItemManager.I.AddItem(selectItem);
             }
+            Debug.Log($" itemData.ID : {selectItem}.{selectItem.id} x {int_inputNum} / {type} ");
         }
         else
         {
-            Debug.Log("입력 캔슬");
             inputField.onEndEdit.RemoveAllListeners();
         }
+        inputField.onEndEdit.RemoveAllListeners();
+        ExitButton();
+    }
 
-        Debug.Log($" itemData.ID : {selectItem}.{selectItem.id} x {int_inputNum} / {type} ");
+    public void EndEditSell(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
+    {
+        int int_inputNum = int.Parse(inputField.text);
+        if (!cancel)
+        {
+            RemoveSlot(selectShopSlot.itemData.id, int_inputNum);
+            Debug.Log($" RemoveItem({selectItem.id}, {int_inputNum})");
+            //Debug.Log($" itemData.ID : {selectItem}.{selectItem.id} x {int_inputNum} / {type} ");
+        }
+        else
+        {
+            inputField.onEndEdit.RemoveAllListeners();
+        }
         ExitButton();
     }
 

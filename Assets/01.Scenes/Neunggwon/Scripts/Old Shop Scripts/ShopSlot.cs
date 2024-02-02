@@ -12,7 +12,8 @@ public class ShopSlot : MonoBehaviour
 {
     [Header("#bool")]
     public bool IsSellShop;
-    public string String_sellCount;
+    public string type;
+    //public string String_sellCount;
     public int Int_Count = 1;
     [Header("#ItemDataInfo")]
     public Item itemData; //아이템 데이터를 받는다!
@@ -30,7 +31,7 @@ public class ShopSlot : MonoBehaviour
     }
 
 
-    void Setting()
+    public void Setting()
     {
         itemName.text = itemData.itemName;
         itemIcon.sprite = itemData.icon;
@@ -43,7 +44,7 @@ public class ShopSlot : MonoBehaviour
             shopSlotButton.onClick.AddListener(ButtonSell);
 
             itemCount.text = Int_Count.ToString();
-            
+            type = "sell";
         }
         else  //구매
         {
@@ -52,10 +53,19 @@ public class ShopSlot : MonoBehaviour
             shopSlotButton.onClick.AddListener(ButtonBuy);
 
             itemCount.text = string.Empty;
-
+            type = "buy";
         }
+        //Debug.Log($"{type}");
         bool textActive = Int_Count > 1;
         itemCount.gameObject.SetActive(textActive);
+    }
+
+    public void Clear()
+    {
+        itemPrice.text = string.Empty;
+        itemCount.text = string.Empty;
+
+        Destroy(gameObject);
     }
 
     private bool ThisEquipItam() //test
@@ -73,9 +83,10 @@ public class ShopSlot : MonoBehaviour
     public void ButtonBuy()
     {
         Shop.Instance.SelectItem(itemData);
+        Shop.Instance.SelectSlot(this);
         if (!ThisEquipItam())
         {
-            Shop.Instance.InputField();
+            Shop.Instance.BuyInputField();
             //Debug.Log($"Item : {itemData.id} Buy {itemData.type}");
         }
         else
@@ -88,17 +99,24 @@ public class ShopSlot : MonoBehaviour
     public void ButtonSell()
     {
         Shop.Instance.SelectItem(itemData);
+        Shop.Instance.SelectSlot(this);
         if (!ThisEquipItam())
         {
-            Shop.Instance.InputField();
+            Shop.Instance.SellInputField();
             //갯수 입력 UI 뽕!
         }
         else
         {
             //inventory에서 찾아서 버리기
-            ItemManager.I.UpdateBundle(itemData.id, 1, "sell");
-
+            //ItemManager.I.UpdateBundle(itemData.id, 1, type);
+            //Shop.Instance.RemoveItem(itemData.id, 1);
+            Shop.Instance.RemoveSlot(itemData.id, 1);
             Debug.Log($"Item : {itemData.id} Sell");
+        }
+
+        if (Int_Count <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

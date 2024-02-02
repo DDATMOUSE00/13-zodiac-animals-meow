@@ -11,10 +11,12 @@ public class ShopButtonUI : MonoBehaviour
     [Header("#Button")]
     [SerializeField] private Button weaponShopButton;
     [SerializeField] private Button potionShopButton;
+    [SerializeField] private Button SellShopButton;
     [SerializeField] private Button ExitButton;
 
     [SerializeField] private Outline Outline_weaponShopButton;
     [SerializeField] private Outline Outline_potionShopButton;
+    [SerializeField] private Outline Outline_SellShopButton;
 
     [Header("#Display_Shop")]
     [SerializeField] private GameObject Shop;
@@ -22,13 +24,6 @@ public class ShopButtonUI : MonoBehaviour
     [SerializeField] private GameObject Shop_PotionDisplay;
     [SerializeField] private GameObject Shop_SellDisplay;
 
-    [Header("#InputField")]
-    [SerializeField] private GameObject inputFeild_Obj;
-    [SerializeField] private TMP_InputField inputField;
-    [SerializeField] private TextMeshProUGUI textMeshProUGUI;
-
-    [SerializeField] private Button InputFeild_ExitButton;
-    //public int inputNum;
 
     private void Awake()
     {
@@ -36,10 +31,6 @@ public class ShopButtonUI : MonoBehaviour
         {
             Instance = this;
         }
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
     }
 
     private void Start()
@@ -52,7 +43,6 @@ public class ShopButtonUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             OnShopButton();
-            //Debug.Log("OnShop");
         }
     }
 
@@ -62,7 +52,8 @@ public class ShopButtonUI : MonoBehaviour
         Outline_weaponShopButton.enabled = true;
         Shop_PotionDisplay.SetActive(false);
         Outline_potionShopButton.enabled = false;
-        //Debug.Log("Shop_WeaponDisplay.SetActive(true)");
+        Shop_SellDisplay.SetActive(false);
+        Outline_SellShopButton.enabled = false;
     }
 
     public void DisplayPotionShop()
@@ -71,8 +62,23 @@ public class ShopButtonUI : MonoBehaviour
         Outline_weaponShopButton.enabled = false;
         Shop_PotionDisplay.SetActive(true);
         Outline_potionShopButton.enabled = true;
-        //Debug.Log("hop_PotionDisplay.SetActive(true)");
+        Shop_SellDisplay.SetActive(false);
+        Outline_SellShopButton.enabled = false;
+
     }
+
+    public void DisplaySellShop()
+    {
+        Shop_PotionDisplay.SetActive(false);
+        Outline_weaponShopButton.enabled = false;
+        Shop_WeaponDisplay.SetActive(false);
+        Outline_potionShopButton.enabled = false;
+        Shop_SellDisplay.SetActive(true);
+        Outline_SellShopButton.enabled = true;
+    }
+
+
+
 
     public void OnShopButton()
     {
@@ -90,36 +96,5 @@ public class ShopButtonUI : MonoBehaviour
             Shop.SetActive(true);
             DisplayWeaponShop();
         }
-    }
-
-    /// <summary>
-    /// InputField
-    /// </summary>
-    public void InputFeild()
-    {
-        //아이템의 타입의 따라 
-        inputFeild_Obj.SetActive(true);
-        //inputField.onEndEdit.AddListener(delegate { ChangdInputField(inputField); });
-
-    }
-
-    public void ChangdInputField(TMP_InputField inputField)
-    {
-        Debug.Log(inputField.name + "UI");
-
-    }
-
-    //public void OnEndEditEvent(string _inputNum)
-    //{
-    //    textMeshProUGUI.text = _inputNum;
-    //    Debug.Log($" {textMeshProUGUI.text}");
-    //}
-
-    public void InputNumUI_Exit()
-    {
-        Debug.Log("ExitEvent!!");
-        inputField.onEndEdit.RemoveAllListeners();
-        inputFeild_Obj.SetActive(false);
-        //textMeshProUGUI.text = "inputEnter";
     }
 }
