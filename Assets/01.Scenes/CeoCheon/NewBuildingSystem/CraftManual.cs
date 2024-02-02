@@ -25,6 +25,7 @@ public class CraftManual : MonoBehaviour
 
     [SerializeField]
     private GameObject go_BaseUI; // 기본 베이스 UI
+    private GameObject go_PopupUI_noResource;
 
     // UI탭
     private int tabNumber = 0;
@@ -70,11 +71,15 @@ public class CraftManual : MonoBehaviour
 
     #endregion
 
-    #region Inventor와 연동 ******
+    #region Inventory와 연동 ******  [MERGE INVENTORY]
+    private Test_Inventory myinventory;
     #endregion
 
     private void Start()
     {
+        // [MERGE INVENTORY]
+        myinventory = FindObjectOfType<Test_Inventory>();
+
         tabNumber = 0;
         page = 1;
 
@@ -162,7 +167,9 @@ public class CraftManual : MonoBehaviour
     {
         selectedSlotNumber = _slotNumber + (page - 1) * go_Slots.Length;
 
-        if (!CheckResource())
+        // Resource가 없다면.
+        if (!CheckResource(selectedSlotNumber))
+            ShowPopup(go_PopupUI_noResource);
             return;
 
         go_Preview = Instantiate(craft_SelectedTab[selectedSlotNumber].go_PreviewPrefab, tf_Player.position + tf_Player.forward, Quaternion.identity);
@@ -171,12 +178,18 @@ public class CraftManual : MonoBehaviour
         go_BaseUI.SetActive(false);
     }
 
-    private bool CheckResource()
+    // [MERGE INVENTORY]
+    private bool CheckResource(int _selectedSlotNumber)
     {
-        for(int i = 0; i<)
+        for(int i = 0; i < craft_SelectedTab[_selectedSlotNumber].craftNeedItem.Length; i++)
         {
+            if(myinventory)
+            {
 
+            }
         }
+
+        return true;
     }
 
     void Update()
@@ -260,5 +273,27 @@ public class CraftManual : MonoBehaviour
         isActivated = false;
         go_BaseUI.SetActive(false);
     }
+    private void ShowPopup(GameObject popup)
+    {
+        popup.SetActive(true);
+    }
     #endregion
+
+    #region Inventory에 추가할 것
+    /* 아이템이 몇개인지 받아오는 함수
+    public int GetItemCount(string _itemName)
+    {
+        int temp = SearchSlotItem(slots, _itemName);
+
+        return temp != 0 ? temp : SearchSlotItem();
+    }
+    
+    private int SearchSlotItem(Slot[] _slots, string _itemName)
+    {
+        ItemManager.I.itemDic
+    }
+     */
+    #endregion
+
 }
+
