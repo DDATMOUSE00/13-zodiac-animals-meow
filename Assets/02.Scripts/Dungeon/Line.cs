@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class Line
 {
     Orientation orientation;
@@ -11,7 +8,6 @@ public class Line
     {
         this.orientation = orientation;
         this.coordinates = coordinates;
-
     }
 
     public Orientation Orientation { get => orientation; set => orientation = value; }
