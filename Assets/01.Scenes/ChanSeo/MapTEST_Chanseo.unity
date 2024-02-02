@@ -1569,7 +1569,7 @@ MonoBehaviour:
   disableRenderingOnOverride: 1
   updateTiming: 1
   unscaledTime: 0
-  _animationName: sd_attack_01
+  _animationName: sd_idle_sword
   loop: 1
   timeScale: 1
 --- !u!23 &353004043
@@ -6335,7 +6335,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1720653997}
-  - component: {fileID: 1720653999}
   - component: {fileID: 1720653998}
   m_Layer: 3
   m_Name: AttackRange
@@ -6413,27 +6412,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &1720653999
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1720653996}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7f4852be4984d2a40980adcc51a27c5c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1724408901
 GameObject:
   m_ObjectHideFlags: 0
@@ -7606,6 +7584,7 @@ MonoBehaviour:
   PlayerMaxHP: 100
   PlayerHP: 100
   slider: {fileID: 1628217064}
+  IsInvincible: 0
 --- !u!114 &2029084928
 MonoBehaviour:
   m_ObjectHideFlags: 0
