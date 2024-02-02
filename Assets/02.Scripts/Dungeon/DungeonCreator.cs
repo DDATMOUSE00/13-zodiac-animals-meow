@@ -49,7 +49,7 @@ public class DungeonCreator : MonoBehaviour
         {
             CreateMesh(listOfRooms[i].BottomLeftAreaCorner, listOfRooms[i].TopRightAreaCorner);
         }
-        CreateWalls(wallParent);
+        //CreateWalls(wallParent);
     }
 
     private void CreateWalls(GameObject wallParent)
