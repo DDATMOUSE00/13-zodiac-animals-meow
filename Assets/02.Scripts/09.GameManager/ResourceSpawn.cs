@@ -11,9 +11,9 @@ public class ResourceSpawn : MonoBehaviour
     private GameObject[] resourcesCount;
 
     [SerializeField] private int currentResourcesCount = 0;
-    [SerializeField] private int maxResourcesCount = 20;
+    [SerializeField] private int maxResourcesCount = 60;
 
-    [SerializeField] private int spawnRadius = 5;
+    private int spawnRadius = 20;
 
     [SerializeField] private float spawnDelay;
     [SerializeField] private float maxSpawnDelay = 3f;
@@ -57,7 +57,7 @@ public class ResourceSpawn : MonoBehaviour
 
     void ResourceSpawnPoint()
     {
-        spawnRadius = 5;
+        spawnRadius = 20;
         int randomX = Random.Range(-spawnRadius, spawnRadius);
         int randomZ = Random.Range(-spawnRadius, spawnRadius);
 
@@ -71,6 +71,7 @@ public class ResourceSpawn : MonoBehaviour
 
         //Instantiate(resourcesPrefabs[randomResources], resourcesSpawnPoints[randomSpawnPoint].position + spawnPoint, Quaternion.identity);
         GameObject Resource = GameManager.Instance.objectPoolManager.Get(Random.Range(0, GameManager.Instance.objectPoolManager.prefabs.Length));
-        Resource.transform.position = resourcesSpawnPoints[Random.Range(1, resourcesSpawnPoints.Length)].position + spawnPoint;
+        //Resource.transform.position = resourcesSpawnPoints[Random.Range(1, resourcesSpawnPoints.Length)].position + spawnPoint;
+        Resource.transform.position = transform.position + spawnPoint;
     }
 }

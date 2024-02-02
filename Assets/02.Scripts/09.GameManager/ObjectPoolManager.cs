@@ -10,8 +10,8 @@ public class ObjectPoolManager : MonoBehaviour
 
     List<GameObject>[] pools;
 
-    private int initialPoolSize = 10;
-    private int maxPoolSize = 30;
+    private int initialPoolSize = 30;
+    private int maxPoolSize = 50;
 
     private void Awake()
     {
