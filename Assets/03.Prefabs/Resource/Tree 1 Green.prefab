@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6059835176388933582}
   - component: {fileID: 5353744460289553446}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1184765051815224646}
   - component: {fileID: 2855209797334113834}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1569392289764878073}
   - component: {fileID: 4624156444271837106}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2056595797311538650}
   - component: {fileID: 8133094852431441987}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,7 +348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5350079878199232496}
   - component: {fileID: 3227363595887353535}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8452554435620761041}
   - component: {fileID: 3108265473617191937}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,7 +523,7 @@ GameObject:
   - component: {fileID: 5750617937355435984}
   - component: {fileID: 5855642183963566917}
   - component: {fileID: 6188390466708572864}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tree 1 Green
   m_TagString: Resource
   m_Icon: {fileID: 0}
@@ -680,7 +680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4284180800016336812}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -715,7 +715,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6988466959504116402}
   - component: {fileID: 444546095051050696}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -800,7 +800,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1146459893007603896}
   - component: {fileID: 5390791774526179739}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -885,7 +885,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4327820176760660154}
   - component: {fileID: 4467625732088461244}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -971,7 +971,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9042944849014496073}
   - component: {fileID: 307420810137204635}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1057,6 +1057,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Leaf Particles
+      objectReference: {fileID: 0}
+    - target: {fileID: 782005568822417169, guid: e98128221820fdf46b8f6f0251cfef59,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4224888799684098208, guid: e98128221820fdf46b8f6f0251cfef59,
         type: 3}
