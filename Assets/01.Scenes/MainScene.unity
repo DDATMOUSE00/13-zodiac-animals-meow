@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 37116079}
   - component: {fileID: 37116078}
   - component: {fileID: 37116077}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Vlige (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1844,7 +1844,7 @@ GameObject:
   - component: {fileID: 729097472}
   - component: {fileID: 729097471}
   - component: {fileID: 729097470}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2405,6 +2405,139 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057437774}
   m_CullTransparentMesh: 1
+--- !u!1001 &1141704537
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 565693570119789684, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_Name
+      value: BuildingUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 565693570119789684, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7705517471579820556, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
+        type: 3}
+      propertyPath: tf_Player
+      value: 
+      objectReference: {fileID: 939765137}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 000d2e2572ee32945958ea7f5b7ac4d0, type: 3}
 --- !u!1001 &1155612236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3021,7 +3154,7 @@ GameObject:
   - component: {fileID: 1330533427}
   - component: {fileID: 1330533426}
   - component: {fileID: 1330533425}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3672,7 +3805,7 @@ GameObject:
   - component: {fileID: 1655603200}
   - component: {fileID: 1655603199}
   - component: {fileID: 1655603198}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ResourceFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4234,12 +4367,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -4463,7 +4596,7 @@ GameObject:
   - component: {fileID: 2137719804}
   - component: {fileID: 2137719803}
   - component: {fileID: 2137719802}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Vlige
   m_TagString: Untagged
   m_Icon: {fileID: 0}
