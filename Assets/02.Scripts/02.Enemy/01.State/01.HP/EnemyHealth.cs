@@ -8,15 +8,18 @@ public class EnemyHealth : MonoBehaviour
     public int EnemyMaxHP;
     public int EnemyHP;
     private PlayerAttack PAttack;
+    public Animator Anim;
+    public bool IsDead;
 
     private void Awake()
     {
         PAttack = GetComponent<PlayerAttack>();
-        EnemyMaxHP = 10000;
+        Anim = transform.GetChild(0).GetComponent<Animator>();
     }
     private void Start()
     {
         EnemyHP = EnemyMaxHP;
+        IsDead = false;
     }
     public void EnemyHit(int PlayerDamage)
     {
@@ -39,7 +42,13 @@ public class EnemyHealth : MonoBehaviour
     private void Die()
     {
         // 몬스터
-        Destroy(gameObject);
+        Anim.SetBool("IsDead", true);
+        IsDead = true;
         Debug.Log("몬스터 사망");
+        Invoke("RealDie", 2f);
+    }
+    private void RealDie()
+    {
+        Destroy(gameObject);
     }
 }
