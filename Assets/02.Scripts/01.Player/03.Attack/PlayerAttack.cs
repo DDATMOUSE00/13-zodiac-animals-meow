@@ -109,7 +109,7 @@ public class PlayerAttack : MonoBehaviour
             ComboCount++;
             ComboTimer = 0f;
             Attack();
-            Debug.Log("콤보공격");
+            //Debug.Log("콤보공격");
         }
 
         if (!IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && !_Health.IsInvincible)
@@ -119,7 +119,7 @@ public class PlayerAttack : MonoBehaviour
             IsCombo = true;
             ComboTimer = 0f;
             Attack();
-            Debug.Log("그냥공격");
+            //Debug.Log("그냥공격");
         }
     }
     private void Attack()
