@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     private SkeletonAnimation Anim;
-
+    private PlayerMovement _PlayerMovement;
 
     //테스트용 적 데미지
     public int EnemyDMG = 10;
@@ -25,6 +25,7 @@ public class PlayerHealth : MonoBehaviour
     {
         PlayerMaxHP = 100;
         Anim = GetComponentInChildren<SkeletonAnimation>();
+        _PlayerMovement = GetComponentInChildren<PlayerMovement>();
     }
 
     private void Start()
@@ -64,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void PlayerHit(int EnemyDamage)
     {
-        if (!IsInvincible)
+        if (!IsInvincible && !_PlayerMovement.IsRolling)
         {
             //플레이어가 맞았을 때 HP 닳는 양과 죽음처리
             if (PlayerHP > 0)

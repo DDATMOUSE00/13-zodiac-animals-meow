@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     public Transform AttackStart;
     private PlayerController _controller;
     private PlayerMovement _movement;
+    private PlayerHealth _Health;
     public bool IsAttack { get; set; }
     private int ComboCount;
     private float ComboTimer;
@@ -25,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
     public int MaxDamage = 20;
 
     //공격속도
-    public float AttackDelay = 0.5f;
+    public float AttackDelay = 1f;
 
     //공격범위
     public Vector3 AttackRange;
@@ -40,6 +41,7 @@ public class PlayerAttack : MonoBehaviour
         _controller = GetComponent<PlayerController>();
         _movement = GetComponent<PlayerMovement>();
         Anim = GetComponentInChildren<SkeletonAnimation>();
+        _Health = GetComponentInChildren<PlayerHealth>();
     }
     private void Start()
     {
@@ -68,7 +70,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         //애니메이션
-        if (IsAttack)
+        if (IsAttack && !_Health.IsInvincible)
         {
             if (!_movement.IsRolling && ComboCount == 1)
             {
@@ -102,7 +104,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void AttackCheck()
     {
-        if (IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && IsCombo)
+        if (IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && IsCombo && !_Health.IsInvincible)
         {
             ComboCount++;
             ComboTimer = 0f;
@@ -110,7 +112,7 @@ public class PlayerAttack : MonoBehaviour
             Debug.Log("콤보공격");
         }
 
-        if (!IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling)
+        if (!IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && !_Health.IsInvincible)
         {
             IsAttack = true;
             ComboCount++;

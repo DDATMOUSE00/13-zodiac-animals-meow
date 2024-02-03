@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     //구르기
     public bool IsRolling;
     private float RollingTime = 0.5f; //구르는 시간
-    private float RollSpeed = 10.0f; //구르는 속도
+    private float RollSpeed = 20.0f; //구르는 속도
 
     //플레이어 스테미너
     public int PlayerMaxSM;
@@ -63,18 +63,18 @@ public class PlayerMovement : MonoBehaviour
         //애니메이션
         if (!IsRolling && !PlayerAttack.IsAttack && !_Health.IsInvincible)
         {
-            if (IsMoving && !PlayerAttack.IsAttack && !_Health.IsInvincible)
-            {
-                if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_run"))
-                {
-                    Anim.AnimationState.SetAnimation(0, "sd_run", true);
-                }
-            }
-            else
+            if (!IsMoving && !PlayerAttack.IsAttack && !_Health.IsInvincible)
             {
                 if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_idle_sword"))
                 {
                     Anim.AnimationState.SetAnimation(0, "sd_idle_sword", true);
+                }
+            }
+            else if (IsMoving && !PlayerAttack.IsAttack && !_Health.IsInvincible)
+            {
+                if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_run"))
+                {
+                    Anim.AnimationState.SetAnimation(0, "sd_run", true);
                 }
             }
         }
@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
             if (!PlayerAttack.IsAttack)
             {
                 //이동
-                direction = direction * 7;
+                direction = direction * 10;
                 Vector3 currentVelocity = _Rigidbody.velocity;
                 currentVelocity.x = direction.x;
                 currentVelocity.z = direction.z;
@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
     //구르기
     private void Roll()
     {
-        if (!IsRolling)
+        if (!IsRolling && !_Health.IsInvincible)
         {
             StartCoroutine(RollCoroutine());
         }
