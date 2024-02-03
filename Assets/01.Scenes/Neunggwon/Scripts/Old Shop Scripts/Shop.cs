@@ -28,7 +28,6 @@ public class Shop : MonoBehaviour
     public Item selectItem;
     public ShopSlot selectShopSlot;
 
-
     [Header("#BuyInputField")]
     //[SerializeField] private GameObject inputField_UI;
     [SerializeField] private GameObject inputField_Obj;
@@ -36,8 +35,6 @@ public class Shop : MonoBehaviour
 
     [SerializeField] private Button InputFeild_ExitButton;
     public bool cancel = false;
-
-    //public Shop InventoryShop;
 
     private void Awake()
     {
@@ -48,6 +45,7 @@ public class Shop : MonoBehaviour
 
         scrollRect = GetComponent<ScrollRect>();
     }
+
     public void OnEnable()
     {
         if (IsSellShop)
@@ -55,7 +53,6 @@ public class Shop : MonoBehaviour
             ShowInventorySlot();
         }
     }
-
 
     private void Start()
     {

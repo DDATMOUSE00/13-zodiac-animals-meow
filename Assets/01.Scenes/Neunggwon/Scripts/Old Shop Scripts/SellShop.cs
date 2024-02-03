@@ -7,8 +7,6 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class SellShop : MonoBehaviour
 {
-    public static SellShop Instance;
-
     [SerializeField] private GameObject uiPrefab;
 
     public ScrollRect scrollRect;
@@ -30,10 +28,6 @@ public class SellShop : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
         scrollRect = GetComponentInChildren<ScrollRect>();
     }
 

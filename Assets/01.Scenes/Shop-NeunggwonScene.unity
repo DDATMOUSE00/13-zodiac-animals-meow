@@ -7281,7 +7281,6 @@ MonoBehaviour:
   resourcesSpawnPoints: []
   currentResourcesCount: 0
   maxResourcesCount: 20
-  spawnRadius: 5
   spawnDelay: 0
   maxSpawnDelay: 3
 --- !u!4 &1859781323
@@ -8931,6 +8930,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Test_Wood_ItemObject
       objectReference: {fileID: 0}
+    - target: {fileID: 3611454901610100875, guid: b5c5d0956e7c79d43a0c8ead5ca536c0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7124156715115806189, guid: b5c5d0956e7c79d43a0c8ead5ca536c0,
         type: 3}
       propertyPath: m_RootOrder
@@ -8989,5 +8993,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 737221974420738375, guid: b5c5d0956e7c79d43a0c8ead5ca536c0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: b5c5d0956e7c79d43a0c8ead5ca536c0, type: 3}

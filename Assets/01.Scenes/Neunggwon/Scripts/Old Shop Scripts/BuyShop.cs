@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class BuyShop : MonoBehaviour
 {
-    public static BuyShop Instance;
-
     public ScrollRect scrollRect;
     public bool weaponShop;
     public string type;
@@ -34,10 +32,6 @@ public class BuyShop : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
         scrollRect = GetComponentInChildren<ScrollRect>();
     }
     private void Start()
