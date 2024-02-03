@@ -13,13 +13,13 @@ public class PlayerMovement : MonoBehaviour
     private PlayerAttack PlayerAttack;
     private Vector3 MovementDirection = Vector3.zero;
     private Rigidbody _Rigidbody;
+    private PlayerHealth _Health;
     public bool IsMoving;
-
 
     //구르기
     public bool IsRolling;
     private float RollingTime = 0.5f; //구르는 시간
-    private float RollSpeed = 10.0f; //구르는 속도
+    private float RollSpeed = 20.0f; //구르는 속도
 
     //플레이어 스테미너
     public int PlayerMaxSM;
@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
         _Rigidbody = GetComponent<Rigidbody>();
         Anim = GetComponentInChildren<SkeletonAnimation>();
         PlayerAttack = GetComponent<PlayerAttack>();
+        _Health = GetComponent<PlayerHealth>();
         PlayerMaxSM = 100;
     }
     private void Start()
@@ -48,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(SMRecoveryCoroutine());
         //스테미너 UI
         UIMaxSM(PlayerSM);
+
     }
 
     private void Update()
@@ -59,20 +61,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //애니메이션
-        if (!IsRolling && !PlayerAttack.IsAttack)
+        if (!IsRolling && !PlayerAttack.IsAttack && !_Health.IsInvincible)
         {
-            if (IsMoving && !PlayerAttack.IsAttack)
-            {
-                if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_run"))
-                {
-                    Anim.AnimationState.SetAnimation(0, "sd_run", true);
-                }
-            }
-            else
+            if (!IsMoving && !PlayerAttack.IsAttack && !_Health.IsInvincible)
             {
                 if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_idle_sword"))
                 {
                     Anim.AnimationState.SetAnimation(0, "sd_idle_sword", true);
+                }
+            }
+            else if (IsMoving && !PlayerAttack.IsAttack && !_Health.IsInvincible)
+            {
+                if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_run"))
+                {
+                    Anim.AnimationState.SetAnimation(0, "sd_run", true);
                 }
             }
         }
@@ -99,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
             if (!PlayerAttack.IsAttack)
             {
                 //이동
-                direction = direction * 7;
+                direction = direction * 10;
                 Vector3 currentVelocity = _Rigidbody.velocity;
                 currentVelocity.x = direction.x;
                 currentVelocity.z = direction.z;
@@ -120,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
     //구르기
     private void Roll()
     {
-        if (!IsRolling)
+        if (!IsRolling && !_Health.IsInvincible)
         {
             StartCoroutine(RollCoroutine());
         }
@@ -132,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
         if (PlayerSM >= 20)
         {
             Anim.AnimationState.SetAnimation(0, "sd_rolling", false);
-            Debug.Log("구르기 이벤트");
+            //Debug.Log("구르기 이벤트");
             PlayerSM -= 20;
             //이동 방향에 따라 구르는 방향 결정
             Vector3 RollDirection = Vector3.zero;
@@ -154,16 +156,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         IsRolling = false;
-
-        //필요없어지면 제거
-        //if (IsMoving)
-        //{
-        //    Anim.AnimationState.AddAnimation(0, "sd_run", true, 0);
-        //}
-        //else
-        //{
-        //    Anim.AnimationState.AddAnimation(0, "sd_idle_sword", true, 0);
-        //}
     }
 
 

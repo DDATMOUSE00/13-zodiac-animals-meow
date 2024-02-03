@@ -16,6 +16,7 @@ public class EnemyAttack : MonoBehaviour
     public Transform AttackStart;
     public Vector3 AttackRange;
     public BoxCollider AttackRangeBox;
+    public Animator Anim;
 
     private Vector3 MovementDirection = Vector3.zero;
     private Rigidbody _Rigidbody;
@@ -37,11 +38,12 @@ public class EnemyAttack : MonoBehaviour
     public float AttackDelay = 1f;
 
 
-    private void Start()
+    private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         _Rigidbody = GetComponent<Rigidbody>();
         currentState = MonsterState.Idle;
+        Anim = transform.GetChild(0).GetComponent<Animator>();
     }
 
     private void Update()
@@ -74,6 +76,8 @@ public class EnemyAttack : MonoBehaviour
         {
             case MonsterState.Idle:
                 //아무것도 안 함
+                Anim.SetBool("IsMove", false);
+                Anim.SetBool("IsAttack", false);
                 IsAttack = false;
                 IsMoving = false;
                 break;
@@ -81,6 +85,7 @@ public class EnemyAttack : MonoBehaviour
                 //플레이어를 향해 이동
                 if (!IsAttack)
                 {
+                    Anim.SetBool("IsMove", true);
                     Vector3 directionToPlayer = (player.position - transform.position).normalized;
                     Move(directionToPlayer);
                 }
@@ -90,6 +95,7 @@ public class EnemyAttack : MonoBehaviour
                 if (!IsAttack)
                 {
                     IsAttack = true;
+                    Anim.SetBool("IsAttack", true);
                     Invoke("Attack", AttackTime);
                 }
                 break;
