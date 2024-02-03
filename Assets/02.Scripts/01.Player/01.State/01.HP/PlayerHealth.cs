@@ -90,7 +90,7 @@ public class PlayerHealth : MonoBehaviour
     public void Invisible()
     {
         //公利
-        Debug.Log("公利");
+        //Debug.Log("公利");
         IsInvincible = true;
     
         Invoke("DisInvisible", 0.5f);
@@ -98,7 +98,7 @@ public class PlayerHealth : MonoBehaviour
     public void DisInvisible()
     {
         //公利 秦力
-        Debug.Log("公利 秦力");
+        //Debug.Log("公利 秦力");
         IsInvincible = false;
     }
 

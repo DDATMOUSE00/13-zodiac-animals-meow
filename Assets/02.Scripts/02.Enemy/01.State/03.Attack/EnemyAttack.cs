@@ -132,7 +132,7 @@ public class EnemyAttack : MonoBehaviour
     private void Attack()
     {
         //공격
-        if (IsAttack)
+        if (IsAttack && !_Health.IsDead)
         {
             //몬스터 공격 사거리
             Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRange / 2f);
