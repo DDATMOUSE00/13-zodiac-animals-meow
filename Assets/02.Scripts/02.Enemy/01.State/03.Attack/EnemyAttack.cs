@@ -17,6 +17,7 @@ public class EnemyAttack : MonoBehaviour
     public Vector3 AttackRange;
     public BoxCollider AttackRangeBox;
     public Animator Anim;
+    public EnemyHealth _Health;
 
     private Vector3 MovementDirection = Vector3.zero;
     private Rigidbody _Rigidbody;
@@ -32,7 +33,7 @@ public class EnemyAttack : MonoBehaviour
     public int MaxDamage = 8;
 
     //공격시전속도
-    public float AttackTime = 2;
+    public float AttackTime = 1;
 
     //공격속도
     public float AttackDelay = 1f;
@@ -44,6 +45,7 @@ public class EnemyAttack : MonoBehaviour
         _Rigidbody = GetComponent<Rigidbody>();
         currentState = MonsterState.Idle;
         Anim = transform.GetChild(0).GetComponent<Animator>();
+        _Health = GetComponent<EnemyHealth>();
     }
 
     private void Update()
@@ -83,7 +85,7 @@ public class EnemyAttack : MonoBehaviour
                 break;
             case MonsterState.Chase:
                 //플레이어를 향해 이동
-                if (!IsAttack)
+                if (!IsAttack && !_Health.IsDead)
                 {
                     Anim.SetBool("IsMove", true);
                     Vector3 directionToPlayer = (player.position - transform.position).normalized;
@@ -92,11 +94,13 @@ public class EnemyAttack : MonoBehaviour
                 break;
             case MonsterState.Attack:
                 //플레이어 공격
-                if (!IsAttack)
+                if (!IsAttack && !_Health.IsDead)
                 {
                     IsAttack = true;
-                    Anim.SetBool("IsAttack", true);
+                    IsMoving = false;
+                    Anim.SetBool("IsMove", false);
                     Invoke("Attack", AttackTime);
+                    StartCoroutine(DelayAnimation());
                 }
                 break;
         }
@@ -116,11 +120,11 @@ public class EnemyAttack : MonoBehaviour
         // 이동 방향에 따라 몬스터의 좌우 방향을 조정
         if (direction.x < 0 && !IsAttack)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(3, 3, 3);
         }
         else if (direction.x > 0 && !IsAttack)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-3, 3, 3);
         }
     }
 
@@ -145,6 +149,7 @@ public class EnemyAttack : MonoBehaviour
                     }
                 }
             }
+            Anim.SetBool("IsAttack", false);
         }
         Invoke("EndAttack", AttackDelay);
     }
@@ -153,6 +158,13 @@ public class EnemyAttack : MonoBehaviour
     {
         //다시 공격 가능한 상태로 만들기
         IsAttack = false;
+    }
+    IEnumerator DelayAnimation()
+    {
+        //애니메이션
+        yield return YieldInstructionCache.WaitForSeconds(1f);
+        Anim.SetBool("IsAttack", true);
+
     }
 
     private void OnDrawGizmosSelected()
