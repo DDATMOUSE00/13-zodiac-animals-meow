@@ -40,7 +40,9 @@ public class BuyShop : MonoBehaviour
         {
             AddNewUiObject();
         }
+        
     }
+    
 
     public void AddNewUiObject()
     {

@@ -45,7 +45,7 @@ public class Resource : MonoBehaviour
     {
         gameObject.SetActive(false);
         DropItem();
-        RandomDropItem();
+        //RandomDropItem();
     }
 
     private IEnumerator CoResetColorAfterDelay()
