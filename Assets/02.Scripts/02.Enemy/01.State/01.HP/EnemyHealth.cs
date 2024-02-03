@@ -29,25 +29,19 @@ public class EnemyHealth : MonoBehaviour
             // HP 감소
             EnemyHP -= PlayerDamage;
             //Debug.Log("몬스터 최대체력 : " + EnemyMaxHP);
-            Debug.Log("몬스터 현재체력 : " + EnemyHP);
+            //Debug.Log("몬스터 현재체력 : " + EnemyHP);
             // HP가 0 이하일 경우 Die
             if (EnemyHP <= 0)
             {
-                Die();
+                IsDead = true;
+                Anim.SetBool("IsDead", true);
+                Invoke("Die", 2f);
                 //Debug.Log("몬스터 최대체력 : " + EnemyMaxHP);
-                Debug.Log("몬스터 현재체력 : " + EnemyHP);
+                //Debug.Log("몬스터 현재체력 : " + EnemyHP);
             }
         }
     }
     private void Die()
-    {
-        // 몬스터
-        Anim.SetBool("IsDead", true);
-        IsDead = true;
-        Debug.Log("몬스터 사망");
-        Invoke("RealDie", 2f);
-    }
-    private void RealDie()
     {
         Destroy(gameObject);
     }
