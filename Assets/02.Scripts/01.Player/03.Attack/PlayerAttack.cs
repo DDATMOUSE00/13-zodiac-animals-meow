@@ -163,7 +163,7 @@ public class PlayerAttack : MonoBehaviour
 
             if (collider.CompareTag("Resource"))
             {
-                Debug.Log("자원 공격!");
+              //  Debug.Log("자원 공격!");
                 Resource targetResource = collider.GetComponent<Resource>();
                 targetResource.Hit();
             }

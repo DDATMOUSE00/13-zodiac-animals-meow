@@ -17,7 +17,7 @@ public class Resource : MonoBehaviour
 
     public void Hit()
     {
-        Debug.Log("ÀÚ¿ø ‹šÂî");
+       // Debug.Log("ÀÚ¿ø ‹šÂî");
         if (!isHit)
         {
             if (ResourceHP > 0)
@@ -25,7 +25,7 @@ public class Resource : MonoBehaviour
                 isHit = true;
                 ResourceHP--;
                 //GetComponent<Renderer>().material.color = hitColor;
-                Debug.Log(ResourceHP);
+             //   Debug.Log(ResourceHP);
 
                 StartCoroutine(CoResetColorAfterDelay());
             }

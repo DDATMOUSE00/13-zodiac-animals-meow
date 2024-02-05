@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,IPointerClickHandler
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("UI")]
     public Image image;
@@ -50,12 +50,6 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("click");
-        Debug.Log(transform.parent.name);
-        //ItemManager.I.GetSelectedItem();
-     }
 
     /*
           private void FindSelectedItem()
@@ -78,6 +72,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
            */
     public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log("mouse enter");
         ItemManager.I.ShowToolTip(this, transform.position);  
     }
 

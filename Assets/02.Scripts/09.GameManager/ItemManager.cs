@@ -12,7 +12,7 @@ public class ItemManager : MonoBehaviour
     public static ItemManager I;
     public List<DraggableItem> items = new List<DraggableItem>();
 
-
+    public DescOfItemConatiner descbox = new DescOfItemConatiner();
 
     public Dictionary<int, int> itemDic = new Dictionary<int, int>();
     public List<Item> itemList = new List<Item>();
@@ -81,7 +81,19 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-   
+    public void RefreshInventorySlot()
+    {
+        foreach (var s in slots)
+        {
+            DraggableItem dragItem = s.GetComponentInChildren<DraggableItem>();
+            if (dragItem != null)
+            {
+                dragItem.bundle = itemDic[dragItem.item.id];
+                dragItem.RefreshCount();
+            }
+        }
+    }
+
 
     public bool AddItem(Item item)
     {
@@ -98,6 +110,8 @@ public class ItemManager : MonoBehaviour
                 return true;
             }
         }
+
+      
         for (int i = 0; i < slots.Length; i++)
         {
             Slot slot = slots[i];
@@ -138,8 +152,10 @@ public class ItemManager : MonoBehaviour
     {
         Item item = findItemWithId(draggableItem.item.id);
         objContainer.SetActive(true);
-       
+      
+       objContainer.transform.position = new Vector3(position.x , position.y-200 , position.z);
 
+        descbox.Setting(item);
     }
     public void HideToolTip()
     {
@@ -166,28 +182,6 @@ public class ItemManager : MonoBehaviour
         }
 
         return null;
-    }
-    public void SplitItem(DraggableItem item, string text)
-    {
-        int usrTxt = Int32.Parse(text);
-        Item selectedItem = item.item;
-        foreach(var i in itemList)
-        {
-            if(i.id == selectedItem.id)
-            {
-                if(itemDic[selectedItem.id] > usrTxt)
-                {
-                    itemDic[selectedItem.id] -= usrTxt;
-                    item.bundle = itemDic[selectedItem.id];
-                    item.RefreshCount();
-                }
-                else
-                {
-                    Debug.Log("cannot split the item");
-                }
-            }
-
-        }
     }
     public void UseSelectedItem()
     {
