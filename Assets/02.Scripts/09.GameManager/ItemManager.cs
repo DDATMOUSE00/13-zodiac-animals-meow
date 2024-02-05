@@ -12,6 +12,8 @@ public class ItemManager : MonoBehaviour
     public static ItemManager I;
     public List<DraggableItem> items = new List<DraggableItem>();
 
+
+
     public Dictionary<int, int> itemDic = new Dictionary<int, int>();
     public List<Item> itemList = new List<Item>();
     public Slot[] slots;
@@ -31,6 +33,17 @@ public class ItemManager : MonoBehaviour
         I = this;
     }
 
+    private Item findItemWithId(int id)
+    {
+        foreach(var i in itemList)
+        {
+            if(i.id == id)
+            {
+                return i;
+            }
+        }
+        return null;
+    }
     public void ChangeSelectedSlot(int newValue)
     {
         if (selectedSlot >= 0)
@@ -67,6 +80,8 @@ public class ItemManager : MonoBehaviour
             itemDic[id] = itemDic[id] + quantity;
         }
     }
+
+   
 
     public bool AddItem(Item item)
     {
@@ -117,6 +132,20 @@ public class ItemManager : MonoBehaviour
 
     }
 
+
+
+    public void ShowToolTip(DraggableItem draggableItem, Vector3 position)
+    {
+        Item item = findItemWithId(draggableItem.item.id);
+        objContainer.SetActive(true);
+       
+
+    }
+    public void HideToolTip()
+    {
+        objContainer.SetActive(false);
+    }
+
     private void SpawnNewItem(Item item, Slot slot)
     {
         GameObject itemPrefab = Resources.Load("DraggableItem") as GameObject;
@@ -138,7 +167,28 @@ public class ItemManager : MonoBehaviour
 
         return null;
     }
+    public void SplitItem(DraggableItem item, string text)
+    {
+        int usrTxt = Int32.Parse(text);
+        Item selectedItem = item.item;
+        foreach(var i in itemList)
+        {
+            if(i.id == selectedItem.id)
+            {
+                if(itemDic[selectedItem.id] > usrTxt)
+                {
+                    itemDic[selectedItem.id] -= usrTxt;
+                    item.bundle = itemDic[selectedItem.id];
+                    item.RefreshCount();
+                }
+                else
+                {
+                    Debug.Log("cannot split the item");
+                }
+            }
 
+        }
+    }
     public void UseSelectedItem()
     {
         Slot slot = slots[selectedSlot];

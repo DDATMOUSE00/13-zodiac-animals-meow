@@ -57,28 +57,28 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         //ItemManager.I.GetSelectedItem();
      }
 
-/*
-      private void FindSelectedItem()
-    {
+    /*
+          private void FindSelectedItem()
+        {
 
-            var name = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
-            foreach (Item i in ItemManager.Instance.Items)
-            {
-                if (i.Name == name.text)
+                var name = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+                foreach (Item i in ItemManager.Instance.Items)
                 {
-                    SelectedItem = i;
-                    t = this.transform;
-                    break;
+                    if (i.Name == name.text)
+                    {
+                        SelectedItem = i;
+                        t = this.transform;
+                        break;
+                    }
                 }
-            }
-        
-    }
-    }
 
+        }
+        }
 
+           */
     public void OnPointerEnter(PointerEventData eventData)
     {
-        ItemManager.I.ShowToolTip(item, transform.position);  
+        ItemManager.I.ShowToolTip(this, transform.position);  
     }
 
   
@@ -86,5 +86,5 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         ItemManager.I.HideToolTip();
     }
-    */
+ 
 }

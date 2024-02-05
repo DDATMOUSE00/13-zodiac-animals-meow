@@ -6,13 +6,14 @@ using System;
 
 public class ItemController : MonoBehaviour
 {
-    /*
+    
     public TMP_InputField userTxt;
+    private DraggableItem item;
     public void ConfirmSplit()
     {
-        ItemManager.Instance.SplitItem(DraggableItem.selectedT, DraggableItem.clickedItem, userTxt.text);
+        ItemManager.I.SplitItem(item, userTxt.text);
     }
-
+    /*
     public void DropClickedItem()
     {
         try
@@ -27,7 +28,7 @@ public class ItemController : MonoBehaviour
                     Destroy(DraggableItem.selectedT.gameObject);
 
                     DraggableItem.clickedItem = null;
-                    /*
+                   
                     for (int i = 0; i < Int32.Parse(DraggableItem.clickedItem.Bundle) ; i++)
                     {
                         //Instantiate();//prefab;
@@ -46,7 +47,7 @@ public class ItemController : MonoBehaviour
         }
 
     }
-*/
+    */
 
 
 }
