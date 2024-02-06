@@ -65,10 +65,9 @@ public class Test_Shop_UI : MonoBehaviour
         //Outline_potionShopButton.enabled = true;
     }
 
-    //public void InputNumUI_Exit()
-    //{
-    //    Debug.Log("ExitEvent!!");
-    //    inputField.onEndEdit.RemoveAllListeners();
-    //    inputFeild_Obj.SetActive(false);
-    //}
+    public void InputNumUI_Exit()
+    {
+        inputField.onEndEdit.RemoveAllListeners();
+        inputFeild_Obj.SetActive(false);
+    }
 }

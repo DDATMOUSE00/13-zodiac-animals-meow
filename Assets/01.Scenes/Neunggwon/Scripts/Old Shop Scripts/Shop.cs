@@ -6,6 +6,8 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
+using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 //using static UnityEngine.Rendering.DebugUI;
 
 public class Shop : MonoBehaviour
@@ -29,7 +31,6 @@ public class Shop : MonoBehaviour
     public ShopSlot selectShopSlot;
 
     [Header("#BuyInputField")]
-    //[SerializeField] private GameObject inputField_UI;
     [SerializeField] private GameObject inputField_Obj;
     [SerializeField] private TMP_InputField inputField;
 
@@ -194,12 +195,14 @@ public class Shop : MonoBehaviour
                     selectShopSlot.Int_Count = inventorySlotItem.bundle;
                     selectShopSlot.Setting();
                     inventorySlotItem.RefreshCount();
-                    if (inventorySlotItem.bundle <= 0)
+                    if (inventorySlotItem.bundle == 0)
                     {
                         Debug.Log("제거");
-                        //selectShopSlot.Clear();
+                        selectShopSlot.Clear();
+                        //ItemManager.I.UseSelectedItem();
                     }
                     Debug.Log(inventorySlotItem.bundle);
+                    Debug.Log($"{inventorySlotItem.item.itemName} - {inventorySlotItem.bundle}");
                     break;
                 }
             }
@@ -210,6 +213,50 @@ public class Shop : MonoBehaviour
         }
 
     }
+
+
+    //Test
+    public void RemoveSlot1(int id, int value)
+    {
+        Debug.Log($"selectShopSlot.itemData.id {selectShopSlot.itemData.id}");
+        if (selectShopSlot.Int_Count >= value)
+        {
+            for (int i = 0; i < ItemManager.I.itemDic.Count; i++)
+            {
+                var inventoryItem = ItemManager.I.itemDic[i];
+                if (ItemManager.I.itemDic.ContainsKey(selectShopSlot.itemData.id))
+                {
+                    Debug.Log($"{selectShopSlot.itemData.id},{inventoryItem}");
+                    inventoryItem -= value;
+                    selectShopSlot.Int_Count = inventoryItem;
+                    selectShopSlot.Setting();
+
+                }
+                Debug.Log(inventoryItem);
+                //Debug.Log($"{inventoryItem} - {inventoryItem}");
+            }
+            InventroySetting();
+        }
+        else
+        {
+            Debug.Log("갯수가 부족합니다.");
+        }
+    }
+
+    public void InventroySetting()
+    {
+        for ( int i = 0; i < ItemManager.I.slots.Length; i++)
+        {
+            var inventorySlotItem = ItemManager.I.slots[i].GetComponentInChildren<DraggableItem>();
+            if (inventorySlotItem.item.id == selectShopSlot.itemData.id)
+            {
+                inventorySlotItem.RefreshCount();
+            }
+        }
+    }
+
+
+    //Test
 
 
 
@@ -267,8 +314,8 @@ public class Shop : MonoBehaviour
         int int_inputNum = int.Parse(inputField.text);
         if (!cancel)
         {
-            RemoveSlot(selectShopSlot.itemData.id, int_inputNum);
-            Debug.Log($" RemoveItem({selectItem.id}, {int_inputNum})");
+            RemoveSlot1(selectShopSlot.itemData.id, int_inputNum);
+            Debug.Log($" RemoveItem({selectShopSlot.itemData.id}, {int_inputNum})");
             //Debug.Log($" itemData.ID : {selectItem}.{selectItem.id} x {int_inputNum} / {type} ");
         }
         else

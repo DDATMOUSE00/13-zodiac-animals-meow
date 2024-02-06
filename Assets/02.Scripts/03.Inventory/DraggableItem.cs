@@ -27,7 +27,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         countText.text = bundle.ToString();
         bool textActive = bundle > 1;
-
+        Debug.Log(bundle);
         countText.gameObject.SetActive(textActive);
     }
 

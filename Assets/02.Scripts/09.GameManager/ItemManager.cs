@@ -139,6 +139,27 @@ public class ItemManager : MonoBehaviour
         return null;
     }
 
+    public void RefreshInventorySlot()
+    {
+        foreach (var s in slots)
+        {
+            DraggableItem dragItem = s.GetComponentInChildren<DraggableItem>();
+            if (dragItem != null)
+            {
+                if (itemDic[dragItem.item.id] > 0)
+                {
+                    dragItem.bundle = itemDic[dragItem.item.id];
+                    dragItem.RefreshCount();
+                }
+                else if (itemDic[dragItem.item.id] <= 0)
+                {
+                    Destroy(dragItem.gameObject);
+                }
+            }
+        }
+    }
+
+
     public void UseSelectedItem()
     {
         Slot slot = slots[selectedSlot];
