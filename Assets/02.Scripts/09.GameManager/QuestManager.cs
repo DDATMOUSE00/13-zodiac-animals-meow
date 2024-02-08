@@ -14,7 +14,7 @@ public class QuestManager : MonoBehaviour
     public GameObject questUI;
     public GameObject backBtn;
 
-    private int PlayerLevel = 1; // 나중에 바깥에서 가져올 정보.
+    private int PlayerLevel = 2; // 나중에 바깥에서 가져올 정보.
  
     private void Awake()
     {
@@ -103,6 +103,11 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    public void GetQuest(string id)
+    {
+        Quest quest = allQuests[id];
+        quest.state = QuestState.IN_PROGRESS;
+    }
     public void RefreshProgressingQuest()
     {
         if(QuestContainerUI.childCount != 0)
@@ -113,7 +118,11 @@ public class QuestManager : MonoBehaviour
         {
             if (q.state == QuestState.IN_PROGRESS)
             {
-
+                GameObject questPrefab = Resources.Load("QuestSlot") as GameObject;
+                GameObject newQuest = Instantiate(questPrefab, QuestContainerUI);
+                QuestSlot qslot = newQuest.GetComponent<QuestSlot>();
+                qslot.quest = q;
+                qslot.Setting();
             }
         }
     }

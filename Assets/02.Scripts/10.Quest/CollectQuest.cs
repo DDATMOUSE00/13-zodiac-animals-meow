@@ -9,8 +9,6 @@ public class CollectQuest : QuestStep
     private int originalQuantityOfTargetItem;
     private int itemToCollect;
 
-
-
     public void SettingCollectQuest(int id, int number)
     {
         itemIDToCollect = id;

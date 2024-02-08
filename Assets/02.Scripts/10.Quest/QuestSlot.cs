@@ -22,4 +22,10 @@ public class QuestSlot : MonoBehaviour
 
     }
 
+    public void GetQuest()
+    {
+        QuestManager.I.GetQuest(quest.q.QuestId);
+        Destroy(this.gameObject);
+    }
+
 }
