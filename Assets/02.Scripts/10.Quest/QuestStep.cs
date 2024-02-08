@@ -5,13 +5,13 @@ using UnityEngine;
 public abstract class QuestStep : MonoBehaviour
 {
     private bool isFinished = false;
-    protected void FinishQuestStep()
+    protected void FinishQuestStep(GameObject obj)
     {
         if (!isFinished)
         {
             isFinished = true;
-           
-            //Destroy(this.gameObject);
+      
+            Destroy(obj);
         }
     }
 }

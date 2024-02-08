@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce920efe427423d4bb1d65bc324bee3c, type: 3}
   m_Name: QuestInfo
   m_EditorClassIdentifier: 
-  QuestId: 1
   QuestName: "\uC544\uC774\uD15C \uBAA8\uC73C\uAE30"
   QuestDesc: 
+  questPrefabs:
+  - {fileID: 2673422770498867929, guid: 58c45e8141af5da4ab79adda0d34e155, type: 3}
   levelRequirement: 1
   goldReward: 50
-  experienceReward: 100

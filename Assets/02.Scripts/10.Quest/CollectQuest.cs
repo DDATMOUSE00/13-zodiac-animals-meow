@@ -40,13 +40,12 @@ public class CollectQuest : QuestStep
     {
         if (IsQuestCompleted())
         {
-            Debug.Log("true");
-            FinishQuestStep();
+           // Debug.Log("This gameObject is: " + this.gameObject); 
+            FinishQuestStep(gameObject);
             
         }
         else
         {
-            Debug.Log("false");
             Debug.Log($"{itemToCollect - ItemManager.I.itemDic[itemIDToCollect]}개 더 모으기");
         }
     }
