@@ -13,6 +13,7 @@ public class QuestManager : MonoBehaviour
     public Transform QuestContainerUI;
     public GameObject questUI;
     public GameObject backBtn;
+    public GameObject completeBtn;
 
     private int PlayerLevel = 2; // 나중에 바깥에서 가져올 정보.
  
@@ -87,6 +88,8 @@ public class QuestManager : MonoBehaviour
     {
         if (QuestContainerUI.childCount != 0)
             ClearAllChildUnderContent();
+
+
         questUI.SetActive(true);
         backBtn.SetActive(false);
         List<Quest> tmp = allQuests.Values.ToList();
@@ -101,12 +104,20 @@ public class QuestManager : MonoBehaviour
                 qslot.Setting();
             }
         }
+     
     }
 
     public void GetQuest(string id)
     {
         Quest quest = allQuests[id];
         quest.state = QuestState.IN_PROGRESS;
+    }
+
+    public void CompleteQuest(string id)
+    {
+        Quest quest = allQuests[id];
+        if(quest.state == QuestState.CAN_FINISH)
+            quest.state = QuestState.FINISHED;
     }
     public void RefreshProgressingQuest()
     {
@@ -118,13 +129,15 @@ public class QuestManager : MonoBehaviour
         {
             if (q.state == QuestState.IN_PROGRESS)
             {
-                GameObject questPrefab = Resources.Load("QuestSlot") as GameObject;
+                GameObject questPrefab = Resources.Load("ProcessingQuestSlot") as GameObject;
                 GameObject newQuest = Instantiate(questPrefab, QuestContainerUI);
-                QuestSlot qslot = newQuest.GetComponent<QuestSlot>();
+                ProcessingQuestSlot qslot = newQuest.GetComponent<ProcessingQuestSlot>();
                 qslot.quest = q;
                 qslot.Setting();
             }
         }
+
     }
+
 }
 

@@ -7,7 +7,7 @@ public class CollectQuest : QuestStep
 
     private int itemIDToCollect;
     private int originalQuantityOfTargetItem;
-    private int itemToCollect;
+    public int itemToCollect;
 
     public void SettingCollectQuest(int id, int number)
     {
@@ -38,7 +38,6 @@ public class CollectQuest : QuestStep
     {
         if (IsQuestCompleted())
         {
-           // Debug.Log("This gameObject is: " + this.gameObject); 
             FinishQuestStep(gameObject);
             
         }

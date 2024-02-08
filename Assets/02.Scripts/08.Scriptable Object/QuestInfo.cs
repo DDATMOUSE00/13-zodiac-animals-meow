@@ -11,7 +11,7 @@ public class QuestInfo : ScriptableObject
     [Header("General")]
     public string QuestName;
     public string QuestDesc;
-    public QuestStep[] questPrefabs;
+    public QuestStep questPrefabs;
 
     [Header("Requirements")]
     public int levelRequirement;
