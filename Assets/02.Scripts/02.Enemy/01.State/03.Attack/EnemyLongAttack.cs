@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class EnemyLongAttack : MonoBehaviour
@@ -14,7 +15,8 @@ public class EnemyLongAttack : MonoBehaviour
     public MonsterState currentState = MonsterState.Idle;
     public Transform Player;
     public Transform AttackStart;
-    public Vector3 AttackRange;
+    //public Vector3 AttackRange;
+    public Vector3 AttackRangeSize;
     public BoxCollider AttackRangeBox;
     public Animator Anim;
     public EnemyHealth _Health;
@@ -62,11 +64,11 @@ public class EnemyLongAttack : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, Player.position);
 
         //몬스터 공격 사거리
-        Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRange / 2f);
+        Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRangeSize / 2f);
 
 
         //플레이어와의 거리에 따라 상태 변경
-        if (distanceToPlayer <= AttackRange.magnitude / 2f)
+        if (distanceToPlayer <= AttackRangeSize.magnitude / 2f)
         {
             //공격 사거리 안에 들어오면 공격
             currentState = MonsterState.Attack;
@@ -139,17 +141,28 @@ public class EnemyLongAttack : MonoBehaviour
 
     private void Attack()
     {
+        Vector3 direction = Player.position - transform.position;
+        if (direction.x < 0)
+        {
+            transform.localScale = new Vector3(3, 3, 3);
+        }
+        else if (direction.x > 0)
+        {
+            transform.localScale = new Vector3(-3, 3, 3);
+        }
+        //Debug.Log(direction);
+
         if (!_Health.IsDead)
         {
             //공격
             {
-                Debug.Log("원거리 공격");
+                //Debug.Log("원거리 공격");
                 //총알 프리팹사용
                 GameObject bullet = Instantiate(Bullet, BulletPoint.position, BulletPoint.rotation);
                 //Player의 좌표를 가져와서 총알을 발사 방향으로 사용
-                Vector3 direction = Player.position - BulletPoint.position;
+                Vector3 Playerdirection = Player.position - BulletPoint.position;
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();
-                rb.AddForce(direction.normalized * BulletSpeed, ForceMode.Impulse);
+                rb.AddForce(Playerdirection.normalized * BulletSpeed, ForceMode.Impulse);
             }
         }
         Invoke("EndAttack", AttackDelay);
@@ -157,6 +170,7 @@ public class EnemyLongAttack : MonoBehaviour
 
     private void EndAttack()
     {
+        currentState = MonsterState.Idle;
         //다시 공격 가능한 상태로 만들기
         IsAttack = false;
     }
@@ -165,7 +179,6 @@ public class EnemyLongAttack : MonoBehaviour
         //애니메이션
         yield return YieldInstructionCache.WaitForSeconds(1f);
         Anim.SetBool("IsAttack", true);
-
     }
 
     private void OnDrawGizmosSelected()
@@ -180,6 +193,6 @@ public class EnemyLongAttack : MonoBehaviour
 
 
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(AttackStart.position, AttackRange);
+        Gizmos.DrawWireCube(AttackStart.position, AttackRangeSize);
     }
 }

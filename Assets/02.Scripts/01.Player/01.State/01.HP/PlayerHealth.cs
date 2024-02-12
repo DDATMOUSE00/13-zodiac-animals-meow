@@ -1,6 +1,7 @@
 using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.UI;
@@ -10,8 +11,10 @@ public class PlayerHealth : MonoBehaviour
     private SkeletonAnimation Anim;
     private PlayerMovement _PlayerMovement;
 
-    //테스트용 적 데미지
-    public int EnemyDMG = 10;
+    //피격 데미지UI
+    public GameObject HitDamageText;
+    public Transform HitDamagePoint;
+
     //체력
     public int PlayerMaxHP;
     public int PlayerHP;
@@ -42,17 +45,11 @@ public class PlayerHealth : MonoBehaviour
             UIHealth(PlayerHP);
         }
 
-        //T버튼 누르면 피격 테스트
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Debug.Log("Player HP: " + PlayerHP);
-        }
     }
 
     public void UIMaxHealth(int PlayerHP)
     {
         //HP UI
-        //Debug.Log(slider);
         slider.maxValue = PlayerHP;
         slider.value = PlayerHP;
     }
@@ -67,12 +64,15 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!IsInvincible && !_PlayerMovement.IsRolling)
         {
+            GameObject HitUI = Instantiate(HitDamageText);
+            HitUI.transform.position = HitDamagePoint.position;
+            HitUI.GetComponent<HitDamageUI>().EnemyDamage = EnemyDamage;
             //플레이어가 맞았을 때 HP 닳는 양과 죽음처리
             if (PlayerHP > 0)
             {
                 // HP 감소
                 //EnemyDMG = 적 공격력 추가해야됨
-                PlayerHP -= EnemyDMG;
+                PlayerHP -= EnemyDamage;
                 if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_damage"))
                 {
                     Anim.AnimationState.SetAnimation(0, "sd_damage", false);
@@ -87,6 +87,7 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
+
     public void Invisible()
     {
         //무적
