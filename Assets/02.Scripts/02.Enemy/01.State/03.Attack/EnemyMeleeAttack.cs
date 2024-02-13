@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyMeleeAttack : MonoBehaviour
 {
     public enum MonsterState
     {
@@ -15,7 +15,6 @@ public class EnemyAttack : MonoBehaviour
     public Transform player;
     public Transform AttackStart;
     public Vector3 AttackRange;
-    public BoxCollider AttackRangeBox;
     public Animator Anim;
     public EnemyHealth _Health;
 
@@ -25,17 +24,18 @@ public class EnemyAttack : MonoBehaviour
     public bool IsAttack;
     public bool IsMoving;
 
-    public float ChaseRange = 20f;
-    public float chaseMaxRange = 20f;
+    public float ChaseRange = 10f;
+    public float ChaseMaxRange = 20f;
     public float MoveSpeed = 5f;
 
+    //데미지
     public int MinDamage = 5;
     public int MaxDamage = 8;
 
-    //공격시전속도
-    public float AttackTime = 1;
+    //공격선딜레이
+    public float AttackTime = 2;
 
-    //공격속도
+    //재공격 시간
     public float AttackDelay = 1f;
 
 
@@ -68,7 +68,7 @@ public class EnemyAttack : MonoBehaviour
             //플레이어가 추적범위안에 들어오면 Chase상태
             currentState = MonsterState.Chase;
         }
-        else if (currentState == MonsterState.Chase && distanceToPlayer > chaseMaxRange)
+        else if ((currentState == MonsterState.Chase || currentState == MonsterState.Attack) && distanceToPlayer > ChaseMaxRange)
         {
             currentState = MonsterState.Idle;
         }
@@ -175,7 +175,7 @@ public class EnemyAttack : MonoBehaviour
 
         //attackRange를 그립니다.
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, chaseMaxRange);
+        Gizmos.DrawWireSphere(transform.position, ChaseMaxRange);
 
 
         Gizmos.color = Color.green;
