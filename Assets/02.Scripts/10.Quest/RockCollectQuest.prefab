@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9184433402574725438}
   - component: {fileID: 2673422770498867929}
   m_Layer: 0
-  m_Name: CollectQuest
+  m_Name: RockCollectQuest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2673422770498867929
 MonoBehaviour:
@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c357c85c222d125459367d695351ea73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemIDToCollect: 0
+  itemNumberToComplete: 2

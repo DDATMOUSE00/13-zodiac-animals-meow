@@ -102,15 +102,33 @@ public class QuestManager : MonoBehaviour
                 QuestSlot qslot = newQuest.GetComponent<QuestSlot>();
                 qslot.quest = q;
                 qslot.Setting();
+
+
             }
         }
      
     }
 
+    public void CheckCollectQuestProcess(string id)
+    {
+        Debug.Log($"Check collect Quest -{id}");
+        Quest quest = allQuests[id];
+       
+
+        quest.state = QuestState.CAN_FINISH;
+    }
+
+
     public void GetQuest(string id)
     {
         Quest quest = allQuests[id];
         quest.state = QuestState.IN_PROGRESS;
+        QuestStep obj = Instantiate(quest.q.questPrefabs);
+        if (quest.q.QuestType == QuestType.COLLECT)
+        {
+            CollectQuest cQuest = obj.GetComponent<CollectQuest>();
+            cQuest.SettingCollectQuest(quest);
+        }  
     }
 
     public void CompleteQuest(string id)
@@ -127,7 +145,7 @@ public class QuestManager : MonoBehaviour
         List<Quest> tmp = allQuests.Values.ToList();
         foreach (var q in tmp)
         {
-            if (q.state == QuestState.IN_PROGRESS)
+            if (q.state == QuestState.IN_PROGRESS || q.state == QuestState.CAN_FINISH)
             {
                 GameObject questPrefab = Resources.Load("ProcessingQuestSlot") as GameObject;
                 GameObject newQuest = Instantiate(questPrefab, QuestContainerUI);

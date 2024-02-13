@@ -11,13 +11,16 @@ public class QuestInfo : ScriptableObject
     [Header("General")]
     public string QuestName;
     public string QuestDesc;
+    public QuestType QuestType;
     public QuestStep questPrefabs;
+
+    public int ItemId;
+    public int ItemQuantityToComplete;
 
     [Header("Requirements")]
     public int levelRequirement;
 
     [Header("Rewards")]
-
     public int goldReward;
 
     private void OnValidate()

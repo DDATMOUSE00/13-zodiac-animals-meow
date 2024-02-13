@@ -5,15 +5,17 @@ using UnityEngine;
 public class CollectQuest : QuestStep
 {
 
-    private int itemIDToCollect;
+    private Quest quest;
+    public int itemIDToCollect;
     private int originalQuantityOfTargetItem;
-    public int itemToCollect;
+    public int itemNumberToComplete;
 
-    public void SettingCollectQuest(int id, int number)
+    public void SettingCollectQuest(Quest q)
     {
-        itemIDToCollect = id;
-        itemToCollect = number;
-        if (ItemManager.I.itemDic.ContainsKey(id))
+        quest = q;
+        Debug.Log($"setting {itemIDToCollect}, {q.q.QuestName}");
+      
+        if (ItemManager.I.itemDic.ContainsKey(itemIDToCollect))
         {
             originalQuantityOfTargetItem = ItemManager.I.itemDic[itemIDToCollect];
         }
@@ -21,13 +23,18 @@ public class CollectQuest : QuestStep
         {
             originalQuantityOfTargetItem = 0;
         }
+    }
 
+    public float UpdateProcess()
+    {
+        return ItemManager.I.itemDic[itemIDToCollect] / originalQuantityOfTargetItem;
     }
 
     private bool IsQuestCompleted()
     {
+        Debug.Log(itemIDToCollect);
         if(ItemManager.I.itemDic.ContainsKey(itemIDToCollect) && 
-            ItemManager.I.itemDic[itemIDToCollect] - originalQuantityOfTargetItem >= itemToCollect)
+            ItemManager.I.itemDic[itemIDToCollect] - originalQuantityOfTargetItem >= itemNumberToComplete)
         {
             return true;
         }
@@ -36,14 +43,17 @@ public class CollectQuest : QuestStep
   
     public void CheckProgress()
     {
+        Debug.Log($"check progress- {IsQuestCompleted()} ");
+        Debug.Log(quest.q.QuestName);
         if (IsQuestCompleted())
         {
+            quest.state = QuestState.CAN_FINISH;
             FinishQuestStep(gameObject);
             
         }
         else
         {
-            Debug.Log($"{itemToCollect - ItemManager.I.itemDic[itemIDToCollect]}개 더 모으기");
+            Debug.Log($"{itemNumberToComplete - ItemManager.I.itemDic[itemIDToCollect]}개 더 모으기");
         }
     }
 }
