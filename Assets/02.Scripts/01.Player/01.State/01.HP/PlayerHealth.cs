@@ -5,11 +5,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 public class PlayerHealth : MonoBehaviour
 {
     private SkeletonAnimation Anim;
     private PlayerMovement _PlayerMovement;
+
+    //체력UI
+    public TextMeshProUGUI MinHPTEXT;
+    public TextMeshProUGUI MaxHPTEXT;
 
     //피격 데미지UI
     public GameObject HitDamageText;
@@ -34,8 +39,10 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         PlayerHP = PlayerMaxHP;
-        UIMaxHealth(PlayerHP);
+        UIMaxHealth(PlayerMaxHP);
         IsInvincible = false;
+        MinHPTEXT.text = PlayerHP.ToString();
+        MaxHPTEXT.text = PlayerMaxHP.ToString();
     }
 
     private void Update()

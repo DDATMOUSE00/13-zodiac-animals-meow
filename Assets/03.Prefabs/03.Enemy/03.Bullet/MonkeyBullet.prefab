@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 344284189768445167}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8796572831630064746
 BoxCollider:
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinDamage: 5
   MaxDamage: 8
-  BulletTime: 2
+  BulletTime: 5
 --- !u!1 &5581032654846513178
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,7 +170,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 4cfc3acdbd5127e4a88f7f2a06acc757, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

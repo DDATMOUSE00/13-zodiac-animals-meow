@@ -107,10 +107,11 @@ public class EnemyLongAttack : MonoBehaviour
                 if (!IsAttack && !_Health.IsDead)
                 {
                     IsAttack = true;
+                    Anim.SetBool("IsAttack", true);
+                    Invoke("Attack", AttackTime);
                     IsMoving = false;
                     Anim.SetBool("IsMove", false);
-                    Invoke("Attack", AttackTime);
-                    StartCoroutine(DelayAnimation());
+                    //StartCoroutine(DelayAnimation());
                 }
                 break;
         }
@@ -121,18 +122,18 @@ public class EnemyLongAttack : MonoBehaviour
         MovementDirection = direction;
         IsMoving = (direction != Vector3.zero);
 
-        // 이동 방향 벡터에 이동 속도를 곱하여 실제 이동량을 계산
+        //시간당 이동량
         Vector3 movement = direction * MoveSpeed * Time.deltaTime;
 
-        // 몬스터를 이동량만큼 이동시킴
+        //몬스터 이동
         _Rigidbody.MovePosition(transform.position + movement);
 
-        // 이동 방향에 따라 몬스터의 좌우 방향을 조정
-        if (direction.x < 0 && !IsAttack)
+        //이동 방향 좌우 반전
+        if (direction.x < 0)
         {
             transform.localScale = new Vector3(3, 3, 3);
         }
-        else if (direction.x > 0 && !IsAttack)
+        else if (direction.x > 0)
         {
             transform.localScale = new Vector3(-3, 3, 3);
         }
@@ -150,7 +151,7 @@ public class EnemyLongAttack : MonoBehaviour
         {
             transform.localScale = new Vector3(-3, 3, 3);
         }
-        //Debug.Log(direction);
+
 
         if (!_Health.IsDead)
         {
@@ -159,27 +160,46 @@ public class EnemyLongAttack : MonoBehaviour
                 //Debug.Log("원거리 공격");
                 //총알 프리팹사용
                 GameObject bullet = Instantiate(Bullet, BulletPoint.position, BulletPoint.rotation);
-                //Player의 좌표를 가져와서 총알을 발사 방향으로 사용
+                //Player 좌표로 공격
                 Vector3 Playerdirection = Player.position - BulletPoint.position;
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();
                 rb.AddForce(Playerdirection.normalized * BulletSpeed, ForceMode.Impulse);
             }
+
         }
+        //StartCoroutine(MoveRandomDirection());
+
         Invoke("EndAttack", AttackDelay);
     }
 
     private void EndAttack()
     {
-        currentState = MonsterState.Idle;
         //다시 공격 가능한 상태로 만들기
         IsAttack = false;
+        IsMoving = true;
+        Anim.SetBool("IsMove", true);
     }
-    IEnumerator DelayAnimation()
-    {
-        //애니메이션
-        yield return YieldInstructionCache.WaitForSeconds(1f);
-        Anim.SetBool("IsAttack", true);
-    }
+
+    //랜덤한 방향으로 이동
+    //사용X
+    //IEnumerator MoveRandomDirection()
+    //{
+    //    yield return new WaitForSeconds(0.1f); //0.1초 대기
+
+    //    // 랜덤 방향 생성
+    //    Vector3 direction = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized * 30;
+
+    //    // 해당 방향으로 이동
+    //    Move(direction);
+    //    Debug.Log("정상작동");
+    //}
+
+    //IEnumerator DelayAnimation()
+    //{
+    //    //애니메이션
+    //    yield return YieldInstructionCache.WaitForSeconds(1f);
+    //    Anim.SetBool("IsAttack", true);
+    //}
 
     private void OnDrawGizmosSelected()
     {
@@ -196,3 +216,5 @@ public class EnemyLongAttack : MonoBehaviour
         Gizmos.DrawWireCube(AttackStart.position, AttackRangeSize);
     }
 }
+
+
