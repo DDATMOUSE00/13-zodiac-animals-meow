@@ -14,14 +14,17 @@ public class ProcessingQuestSlot : MonoBehaviour
     public TMP_Text progress;
     public Button confirmBtn;
     private int itemIDToCollect;
-    //private int originalQuantityOfTargetItem;
+    private int originalQuantityOfTargetItem;
     private int itemNumberToComplete;
 
     public void Setting()
     {
-        itemIDToCollect = quest.q.ItemId;
-        itemNumberToComplete = quest.q.ItemQuantityToComplete;
-
+        if (quest.q.QuestType == QuestType.COLLECT)
+        {
+            itemIDToCollect = quest.q.ItemId;
+            itemNumberToComplete = quest.q.ItemQuantityToComplete;
+            //originalQuantityOfTargetItem = SettingCollectQuest(quest);
+        }
         QName.text = quest.q.QuestName;
         QDesc.text = quest.q.QuestDesc;
         Lv.text = $"Lv. {quest.q.levelRequirement}";
@@ -50,7 +53,9 @@ public class ProcessingQuestSlot : MonoBehaviour
         {
             progress.text = "100%";
             confirmBtn.enabled = true;
+                
         }
+
         if(quest.q.QuestType == QuestType.COLLECT && ItemManager.I.itemDic.ContainsKey(itemIDToCollect))
         {
             progress.text = $"{((float)(ItemManager.I.itemDic[itemIDToCollect] ) / itemNumberToComplete) * 100 }%";
@@ -86,6 +91,11 @@ public class ProcessingQuestSlot : MonoBehaviour
     public void CompleteQuest(string id)
     {
         QuestManager.I.CompleteQuest(id);
+        if(quest.q.QuestType== QuestType.COLLECT)
+        {
+            ItemManager.I.itemDic[itemIDToCollect] -= itemNumberToComplete;
+            ItemManager.I.RefreshInventorySlot();
+        }
         Destroy(this.gameObject);
     }
 }

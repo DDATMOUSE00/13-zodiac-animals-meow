@@ -124,18 +124,24 @@ public class QuestManager : MonoBehaviour
         Quest quest = allQuests[id];
         quest.state = QuestState.IN_PROGRESS;
         QuestStep obj = Instantiate(quest.q.questPrefabs);
-        if (quest.q.QuestType == QuestType.COLLECT)
+      /*  if (quest.q.QuestType == QuestType.COLLECT)
         {
             CollectQuest cQuest = obj.GetComponent<CollectQuest>();
             cQuest.SettingCollectQuest(quest);
-        }  
+        }
+      */
     }
 
     public void CompleteQuest(string id)
     {
         Quest quest = allQuests[id];
-        if(quest.state == QuestState.CAN_FINISH)
+        if (quest.state == QuestState.CAN_FINISH)
+        {
             quest.state = QuestState.FINISHED;
+           
+        }
+
+
     }
     public void RefreshProgressingQuest()
     {

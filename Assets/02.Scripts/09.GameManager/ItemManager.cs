@@ -88,12 +88,18 @@ public class ItemManager : MonoBehaviour
             DraggableItem dragItem = s.GetComponentInChildren<DraggableItem>();
             if (dragItem != null)
             {
-                dragItem.bundle = itemDic[dragItem.item.id];
-                dragItem.RefreshCount();
+                if (itemDic[dragItem.item.id] > 0)
+                {
+                    dragItem.bundle = itemDic[dragItem.item.id];
+                    dragItem.RefreshCount();
+                }
+                else if (itemDic[dragItem.item.id] <= 0)
+                {
+                    Destroy(dragItem.gameObject);
+                }
             }
         }
     }
-
 
     public bool AddItem(Item item)
     {

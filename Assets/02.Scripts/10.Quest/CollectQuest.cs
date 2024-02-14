@@ -9,19 +9,20 @@ public class CollectQuest : QuestStep
     public int itemIDToCollect;
     private int originalQuantityOfTargetItem;
     public int itemNumberToComplete;
+    
 
-    public void SettingCollectQuest(Quest q)
+    public int SettingCollectQuest(Quest q)
     {
         quest = q;
         Debug.Log($"setting {itemIDToCollect}, {q.q.QuestName}");
       
         if (ItemManager.I.itemDic.ContainsKey(itemIDToCollect))
         {
-            originalQuantityOfTargetItem = ItemManager.I.itemDic[itemIDToCollect];
+            return ItemManager.I.itemDic[itemIDToCollect];
         }
         else
         {
-            originalQuantityOfTargetItem = 0;
+            return 0;
         }
     }
     /*
