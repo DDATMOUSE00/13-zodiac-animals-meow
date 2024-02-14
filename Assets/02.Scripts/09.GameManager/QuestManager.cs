@@ -152,6 +152,7 @@ public class QuestManager : MonoBehaviour
                 ProcessingQuestSlot qslot = newQuest.GetComponent<ProcessingQuestSlot>();
                 qslot.quest = q;
                 qslot.Setting();
+               // qslot.UpdateProgress();
             }
         }
 

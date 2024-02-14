@@ -14,13 +14,14 @@ public class ProcessingQuestSlot : MonoBehaviour
     public TMP_Text progress;
     public Button confirmBtn;
     private int itemIDToCollect;
-    private int originalQuantityOfTargetItem;
+    //private int originalQuantityOfTargetItem;
     private int itemNumberToComplete;
 
     public void Setting()
     {
         itemIDToCollect = quest.q.ItemId;
         itemNumberToComplete = quest.q.ItemQuantityToComplete;
+
         QName.text = quest.q.QuestName;
         QDesc.text = quest.q.QuestDesc;
         Lv.text = $"Lv. {quest.q.levelRequirement}";
@@ -28,9 +29,23 @@ public class ProcessingQuestSlot : MonoBehaviour
         progress.text = "0%";
        // confirmBtn.enabled = false;
     }
+    public int SettingCollectQuest(Quest q)
+    {
+        quest = q;
+        Debug.Log($"setting {itemIDToCollect}, {q.q.QuestName}");
 
+        if (ItemManager.I.itemDic.ContainsKey(itemIDToCollect))
+        {
+            return ItemManager.I.itemDic[itemIDToCollect];
+        }
+        else
+        {
+            return  0;
+        }
+    }
     public void UpdateProgress()
     {
+        Debug.Log("update progress");
         if(quest.state == QuestState.CAN_FINISH)
         {
             progress.text = "100%";
@@ -39,14 +54,14 @@ public class ProcessingQuestSlot : MonoBehaviour
 
         if(quest.q.QuestType == QuestType.COLLECT)
         {
-
+            progress.text = $"{((ItemManager.I.itemDic[itemIDToCollect] ) / itemNumberToComplete)}%";
         }
     }
     private bool IsQuestCompleted()
     {
         Debug.Log(itemIDToCollect);
         if (ItemManager.I.itemDic.ContainsKey(itemIDToCollect) &&
-            ItemManager.I.itemDic[itemIDToCollect] - originalQuantityOfTargetItem >= itemNumberToComplete)
+            ItemManager.I.itemDic[itemIDToCollect] >= itemNumberToComplete)
         {
             return true;
         }
@@ -56,19 +71,17 @@ public class ProcessingQuestSlot : MonoBehaviour
     public void CheckProgress()
     {
         Debug.Log($"check progress- {IsQuestCompleted()} ");
-        Debug.Log(quest.q.QuestName);
         if (IsQuestCompleted())
         {
             quest.state = QuestState.CAN_FINISH;
-            Debug.Log("finish");
-           // FinishQuestStep(gameObject);
+            CompleteQuest(quest.q.QuestId);
 
         }
-     
+
     }
-    public void CompleteQuest()
+    public void CompleteQuest(string id)
     {
-        QuestManager.I.CompleteQuest(quest.q.QuestId);
+        QuestManager.I.CompleteQuest(id);
         Destroy(this.gameObject);
     }
 }
