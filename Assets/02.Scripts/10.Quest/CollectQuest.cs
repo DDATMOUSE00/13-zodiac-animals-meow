@@ -24,36 +24,37 @@ public class CollectQuest : QuestStep
             originalQuantityOfTargetItem = 0;
         }
     }
+    /*
+public float UpdateProcess()
+{
+    return ItemManager.I.itemDic[itemIDToCollect] / originalQuantityOfTargetItem;
+}
 
-    public float UpdateProcess()
+private bool IsQuestCompleted()
+{
+    Debug.Log(itemIDToCollect);
+    if(ItemManager.I.itemDic.ContainsKey(itemIDToCollect) && 
+        ItemManager.I.itemDic[itemIDToCollect] - originalQuantityOfTargetItem >= itemNumberToComplete)
     {
-        return ItemManager.I.itemDic[itemIDToCollect] / originalQuantityOfTargetItem;
+        return true;
     }
+    return false;
+}
 
-    private bool IsQuestCompleted()
+public void CheckProgress()
+{
+    Debug.Log($"check progress- {IsQuestCompleted()} ");
+    Debug.Log(quest.q.QuestName);
+    if (IsQuestCompleted())
     {
-        Debug.Log(itemIDToCollect);
-        if(ItemManager.I.itemDic.ContainsKey(itemIDToCollect) && 
-            ItemManager.I.itemDic[itemIDToCollect] - originalQuantityOfTargetItem >= itemNumberToComplete)
-        {
-            return true;
-        }
-        return false;
+        quest.state = QuestState.CAN_FINISH;
+        FinishQuestStep(gameObject);
+
     }
-  
-    public void CheckProgress()
+    else
     {
-        Debug.Log($"check progress- {IsQuestCompleted()} ");
-        Debug.Log(quest.q.QuestName);
-        if (IsQuestCompleted())
-        {
-            quest.state = QuestState.CAN_FINISH;
-            FinishQuestStep(gameObject);
-            
-        }
-        else
-        {
-            Debug.Log($"{itemNumberToComplete - ItemManager.I.itemDic[itemIDToCollect]}개 더 모으기");
-        }
+        Debug.Log($"{itemNumberToComplete - ItemManager.I.itemDic[itemIDToCollect]}개 더 모으기");
     }
+}
+*/
 }

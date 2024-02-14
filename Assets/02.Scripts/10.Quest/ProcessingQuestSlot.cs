@@ -27,7 +27,7 @@ public class ProcessingQuestSlot : MonoBehaviour
         Lv.text = $"Lv. {quest.q.levelRequirement}";
         Reward.text = $"{quest.q.goldReward} G";
         progress.text = "0%";
-       // confirmBtn.enabled = false;
+       confirmBtn.enabled = false;
     }
     public int SettingCollectQuest(Quest q)
     {
@@ -45,16 +45,20 @@ public class ProcessingQuestSlot : MonoBehaviour
     }
     public void UpdateProgress()
     {
-        Debug.Log("update progress");
+
         if(quest.state == QuestState.CAN_FINISH)
         {
             progress.text = "100%";
             confirmBtn.enabled = true;
         }
-
-        if(quest.q.QuestType == QuestType.COLLECT)
+        if(quest.q.QuestType == QuestType.COLLECT && ItemManager.I.itemDic.ContainsKey(itemIDToCollect))
         {
-            progress.text = $"{((ItemManager.I.itemDic[itemIDToCollect] ) / itemNumberToComplete)}%";
+            progress.text = $"{((float)(ItemManager.I.itemDic[itemIDToCollect] ) / itemNumberToComplete) * 100 }%";
+            if(progress.text == "100%")
+            {
+                quest.state = QuestState.CAN_FINISH;
+                confirmBtn.enabled = true;
+            }
         }
     }
     private bool IsQuestCompleted()
