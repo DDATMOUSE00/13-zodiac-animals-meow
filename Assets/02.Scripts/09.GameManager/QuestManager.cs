@@ -8,7 +8,7 @@ public class QuestManager : MonoBehaviour
 {
 
     public static QuestManager I; 
-    private Dictionary<int, List<Quest>> questList;
+    //private Dictionary<int, List<Quest>> questList;
     public Dictionary<string, Quest> allQuests;
     public Transform QuestContainerUI;
     public GameObject questUI;
@@ -45,6 +45,7 @@ public class QuestManager : MonoBehaviour
         }
         return AllQuests;
     }
+    /*
     private Dictionary<int, List<Quest>> CreateQuestLIst()
     {
         QuestInfo[] allQuests = Resources.LoadAll<QuestInfo>("Quests");
@@ -76,7 +77,7 @@ public class QuestManager : MonoBehaviour
         }
         return null;
     }
-
+    */
     private void ClearAllChildUnderContent()
     {
         foreach(Transform t in QuestContainerUI)
