@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public Transform targetPoint; //이동 할 위치
+    public GameObject targetPoint; //이동 할 위치
 
-
-
+    void OnTriggerEnter(Collider other)
+    {
+        other.transform.position = targetPoint.transform.position;
+    }
 }

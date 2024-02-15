@@ -24,10 +24,11 @@ public class DungeonGenerator_test2 : MonoBehaviour
     {
         currentRoomCount = Random.Range(minRooms, maxRooms);
         rooms = new Room[dungeonWidth, dungeonHeight];
-        //GenerateDungeon();
         GenerateTestDungeon();
 
         AddDoorsToAllRooms();
+
+        AllConnecteDoors();
     }
 
     void GenerateTestDungeon()
@@ -142,7 +143,6 @@ public class DungeonGenerator_test2 : MonoBehaviour
         return furthestRoom;
     }
 
-    // 맨해튼 거리 계산 함수
     int GetManhattanDistance(Vector2Int a, Vector2Int b)
     {
         return Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y);
@@ -165,67 +165,6 @@ public class DungeonGenerator_test2 : MonoBehaviour
 
         return unvisitedNeighbors;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //void GenerateDungeon()
-    //{
-    //    // 던전의 중앙에 StartRoom을 생성합니다.
-    //    Vector2Int startCoordinate = new Vector2Int(dungeonWidth / 2, dungeonHeight / 2);
-    //    CreateRoom(startCoordinate, StartRoom);
-
-    //    // DFS 알고리즘을 사용하여 방을 생성합니다.
-    //    Stack<Room> stack = new Stack<Room>();
-    //    Room startRoom = rooms[startCoordinate.x, startCoordinate.y];
-    //    startRoom.visited = true;
-    //    stack.Push(startRoom);
-    //    Room furthestRoom = startRoom;
-    //    int furthestRoomDistance = 0;
-    //    int roomCount = 1;
-
-    //    while (stack.Count > 0 && roomCount < currentRoomCount)
-    //    {
-    //        Room currentRoom = stack.Peek();
-    //        List<Vector2Int> unvisitedNeighbors = GetUnvisitedNeighborCoordinates(currentRoom);
-
-    //        if (unvisitedNeighbors.Count > 0)
-    //        {
-    //            Vector2Int selectedNeighborCoordinate = unvisitedNeighbors[Random.Range(0, unvisitedNeighbors.Count)];
-    //            CreateRoom(selectedNeighborCoordinate, RoomPrefabs[Random.Range(0, RoomPrefabs.Length)]);
-    //            Room selectedNeighbor = rooms[selectedNeighborCoordinate.x, selectedNeighborCoordinate.y];
-    //            selectedNeighbor.visited = true;
-    //            stack.Push(selectedNeighbor);
-    //            roomCount++;
-
-    //            int currentDistance = stack.Count;
-    //            if (currentDistance > furthestRoomDistance)
-    //            {
-    //                furthestRoom = selectedNeighbor;
-    //                furthestRoomDistance = currentDistance;
-    //            }
-    //        }
-    //        else
-    //        {
-    //            stack.Pop();
-    //        }
-    //    }
-
-    //    // 가장 먼 방을 BossRoom으로 변경합니다.
-    //    ChangeRoomToBossRoom(furthestRoom);
-    //    AddDoorsToAllRooms();
-    //}
-
     void CreateRoom(Vector2Int coordinate, GameObject roomPrefab)
     {
         if (rooms[coordinate.x, coordinate.y] == null)
@@ -288,6 +227,7 @@ public class DungeonGenerator_test2 : MonoBehaviour
     ///Room마다 door 추가하는 함수 
     /// </summary>
 
+    #region Room마다 door 추가
     void AddDoorsToAllRooms()
     {
         for (int x = 0; x < dungeonWidth; x++)
@@ -330,8 +270,74 @@ public class DungeonGenerator_test2 : MonoBehaviour
             }
         }
     }
+    #endregion
+
     ///<summary>
     /// 문을 연결해 주는 함수..
     ///</summary>
 
+    #region 문연결 코드
+    void AllConnecteDoors()
+    {
+        for (int x = 0; x < dungeonWidth; x++)
+        {
+            for (int y = 0; y < dungeonHeight; y++)
+            {
+                if (rooms[x, y] != null)
+                {
+                    ConnectDoors(rooms[x, y]);
+                }
+            }
+        }
+    }
+
+    void ConnectDoors(Room room)
+    {
+        int x = room.coordinates.x;
+        int y = room.coordinates.y;
+
+        // 주변의 방을 확인합니다.
+        Room[] neighbors = new Room[4] {
+        rooms[x, y+1], // 위
+        rooms[x, y-1], // 아래
+        rooms[x-1, y], // 왼쪽
+        rooms[x+1, y]  // 오른쪽
+    };
+
+        for (int i = 0; i < 4; i++)
+        {
+            Room neighborRoom = neighbors[i];
+            if (neighborRoom != null)
+            {
+                // 주변의 방이 있는지 확인부터
+                Door door1 = room.doors[i] != null ? room.doors[i].GetComponent<Door>() : null;
+                Door door2 = null;
+
+                // 반대 방향의 문을 가지고 옴
+                switch (i)
+                {
+                    case 0: // 위
+                        door2 = neighborRoom.doors[1] != null ? neighborRoom.doors[1].GetComponent<Door>() : null;
+                        break;
+                    case 1: // 아래
+                        door2 = neighborRoom.doors[0] != null ? neighborRoom.doors[0].GetComponent<Door>() : null;
+                        break;
+                    case 2: // 왼쪽
+                        door2 = neighborRoom.doors[3] != null ? neighborRoom.doors[3].GetComponent<Door>() : null;
+                        break;
+                    case 3: // 오른쪽
+                        door2 = neighborRoom.doors[2] != null ? neighborRoom.doors[2].GetComponent<Door>() : null;
+                        break;
+                }
+
+                // 문의 targetPoint를 서로 연결합니다.
+                if (door1 != null && door2 != null)
+                {
+                    door1.targetPoint = door2.gameObject;
+                    door2.targetPoint = door1.gameObject;
+                }
+            }
+        }
+    }
+    #endregion
 }
