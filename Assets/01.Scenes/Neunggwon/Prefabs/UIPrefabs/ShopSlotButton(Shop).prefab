@@ -709,7 +709,7 @@ GameObject:
   - component: {fileID: 5972989177519938298}
   - component: {fileID: 25801585309051059}
   - component: {fileID: 5211067806237774239}
-  - component: {fileID: 2371913229087899976}
+  - component: {fileID: 3042592176452375860}
   m_Layer: 5
   m_Name: ShopSlotButton(Shop)
   m_TagString: Untagged
@@ -847,7 +847,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2371913229087899976
+--- !u!114 &3042592176452375860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -856,10 +856,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8780694605568843911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77407b89dce759c4ab2ff55fef971914, type: 3}
+  m_Script: {fileID: 11500000, guid: e0a7393dc58438f438a803c95626d9f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsSellShop: 0
+  type: buy
+  Int_Count: 1
   itemData: {fileID: 0}
   itemIcon: {fileID: 5183907071354993228}
   itemName: {fileID: 8722913649122507431}
@@ -867,4 +869,3 @@ MonoBehaviour:
   itemPrice: {fileID: 1356472920472890624}
   itemCount: {fileID: 8150737012664717235}
   shopSlotButton: {fileID: 5211067806237774239}
-  InputFeild_ExitButton: {fileID: 0}

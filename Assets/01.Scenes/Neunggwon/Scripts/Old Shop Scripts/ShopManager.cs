@@ -12,4 +12,9 @@ public class ShopManager : MonoBehaviour
     {
         Instance = this;
     }
+
+    public void ShowInventorySlotManager()
+    {
+        sellShop.ShowInventorySlot();
+    }
 }

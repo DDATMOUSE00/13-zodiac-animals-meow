@@ -17,17 +17,18 @@ public class BuyShop : MonoBehaviour
     [Header("#Shop_InventoryList")]
 
     [Header("#SlotList")]
-    public List<ShopSlot> shopSlots = new List<ShopSlot>();
+    public List<ShopSlot_Test> shopSlots = new List<ShopSlot_Test>();
     public List<int> inventorySlotKeyList = new List<int>();
 
     public Item selectItem;
+    public ShopSlot_Test selectShopSlot;
 
     [Header("#BuyInputField")]
     //[SerializeField] private GameObject inputField_UI;
     [SerializeField] private GameObject inputField_Obj;
     [SerializeField] private TMP_InputField inputField;
 
-    public bool cancel = false;
+    private bool cancel = false;
 
 
     private void Awake()
@@ -50,7 +51,7 @@ public class BuyShop : MonoBehaviour
         {
             if (shopSlots.Count < items.Count)
             {
-                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot_Test>();
                 shopSlots.Add(newShopSlot);
 
                 float y = 100f;
@@ -68,42 +69,40 @@ public class BuyShop : MonoBehaviour
         }
     }
 
-    public void SelectItem(Item item)
+    public void SelectSlot(ShopSlot_Test _slot)
     {
-        selectItem = item;
-        //Debug.Log($"SelectItem :{selectItem.id}");
+        selectShopSlot = _slot;
+        selectItem = selectShopSlot.itemData;
     }
 
-    public void InputField()
+    public void BuyInputField()
     {
-        //아이템의 타입의 따라 
         inputField_Obj.SetActive(true);
-        if (!weaponShop)
-        {
-            inputField.onEndEdit.AddListener(delegate { EndEditEvent(inputField); });
-        }
+
+        inputField.onEndEdit.AddListener(delegate { EndEditBuy(inputField); });
+        Debug.Log("delegate - EndEditBuy");
+
     }
 
-    public void EndEditEvent(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
+    public void EndEditBuy(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
     {
         int int_inputNum = int.Parse(inputField.text);
         if (!cancel)
         {
-            if (!weaponShop)
+
+            for (int i = 0; i < int_inputNum; i++)
             {
-                for (int i = 0; i < int_inputNum; i++)
-                {
-                    ItemManager.I.AddItem(selectItem);
-                }
+                ItemManager.I.AddItem(selectItem);
             }
+            Debug.Log($" itemData.ID : {selectItem}.{selectItem.id} x {int_inputNum} / {type} ");
         }
         else
         {
             inputField.onEndEdit.RemoveAllListeners();
         }
-
-        Debug.Log($" itemData.ID : {selectItem}.{selectItem.id} x {int_inputNum} / {type} ");
+        inputField.onEndEdit.RemoveAllListeners();
         ExitButton();
+        ShopManager.Instance.ShowInventorySlotManager();
     }
 
     public void ExitButton()
