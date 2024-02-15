@@ -13,7 +13,7 @@ public class InteractWithBuilding : MonoBehaviour
         tr = GetComponent<Transform>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         Ray ray = new Ray();
 
@@ -22,7 +22,7 @@ public class InteractWithBuilding : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, distance, layerMask)) 
         {
-            if(hit.transform != null && Input.GetKey(KeyCode.E))
+            if(hit.transform != null && Input.GetKeyDown(KeyCode.E))
             {
                 Debug.Log("Interact");
                 UIWindowOfBuilding ui = hit.transform.gameObject.GetComponent<UIWindowOfBuilding>();

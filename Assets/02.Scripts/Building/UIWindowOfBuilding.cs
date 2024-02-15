@@ -8,11 +8,14 @@ public class UIWindowOfBuilding : MonoBehaviour
     public GameObject UI;
     public void OpenOrCloseUIWindow()
     {
-        Debug.Log(UI.name);
+        //Debug.Log(UI.name);
         if (UI.name == "QuestUI")
             QuestManager.I.RefreshAllQuest();
-        else
-            UI.SetActive(true);
+        else if (UI.name == "Shop")
+        {
+            Debug.Log($"OBJName : { UI.name}");
+            ShopManager.Instance.OnShopButton();
+        }
     }
 
 
