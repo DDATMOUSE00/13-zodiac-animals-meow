@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public class DungeonGenerator_test2 : MonoBehaviour
@@ -22,36 +24,107 @@ public class DungeonGenerator_test2 : MonoBehaviour
     {
         currentRoomCount = Random.Range(minRooms, maxRooms);
         rooms = new Room[dungeonWidth, dungeonHeight];
-        GenerateDungeon();
-    }
-    void GenerateDungeon()
-    {
-        // 던전의 중앙에 StartRoom을 생성합니다.
-        Vector2Int startCoordinate = new Vector2Int(dungeonWidth / 2, dungeonHeight / 2);
-        CreateRoom(startCoordinate, StartRoom);
+        //GenerateDungeon();
+        GenerateTestDungeon();
 
-        // DFS 알고리즘을 사용하여 방을 생성합니다.
+        AddDoorsToAllRooms();
+    }
+
+    void GenerateTestDungeon()
+    {
+        // 시작 방을 생성합니다.
+        CreateTestRoom(new Vector2Int(dungeonWidth / 2, dungeonHeight / 2), StartRoom);
+        Room startRoom = rooms[dungeonWidth / 2, dungeonHeight / 2];
+
+        // 시작 방을 기준으로 4가지 방향으로 무작위로 방을 생성
+        List<Vector2Int> directions = new List<Vector2Int> { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
+        foreach (Vector2Int direction in directions)
+        {
+            Room currentRoom = startRoom;
+            int currentRoomCount = Random.Range(minRooms, maxRooms + 1);
+
+            for (int i = 0; i < currentRoomCount; i++)
+            {
+                List<Vector2Int> emptyDirections = GetEmptyDirections(currentRoom.coordinates);
+
+                if (emptyDirections.Count == 0)
+                {
+                    break;
+                }
+
+                Vector2Int randomDirection = emptyDirections[Random.Range(0, emptyDirections.Count)];
+                Vector2Int nextRoomCoordinate = currentRoom.coordinates + randomDirection;
+
+                if (IsCoordinateInDungeon(nextRoomCoordinate) && rooms[nextRoomCoordinate.x, nextRoomCoordinate.y] == null)
+                {
+                    CreateTestRoom(nextRoomCoordinate);
+                    currentRoom = rooms[nextRoomCoordinate.x, nextRoomCoordinate.y];
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        Room furthestRoomFromStart = FindFurthestRoom(startRoom);
+        ChangeRoomToBossRoom(furthestRoomFromStart);
+    }
+
+    void CreateTestRoom(Vector2Int coordinates, GameObject roomPrefab = null)
+    {
+        if (roomPrefab == null)
+        {
+            int randomIndex = Random.Range(0, RoomPrefabs.Length);
+            roomPrefab = RoomPrefabs[randomIndex];
+        }
+        
+        GameObject roomInstance = Instantiate(roomPrefab, new Vector3(coordinates.x * roomSize, 0, coordinates.y * roomSize), Quaternion.identity, transform);
+        Room room = roomInstance.GetComponent<Room>();
+        room.coordinates = coordinates;
+        rooms[coordinates.x, coordinates.y] = room;
+    }
+
+
+    List<Vector2Int> GetEmptyDirections(Vector2Int roomCoordinate)
+    {
+        List<Vector2Int> emptyDirections = new List<Vector2Int>();
+        List<Vector2Int> directions = new List<Vector2Int> { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
+
+        foreach (Vector2Int direction in directions)
+        {
+            Vector2Int nextCoordinate = roomCoordinate + direction;
+
+            if (IsCoordinateInDungeon(nextCoordinate) && rooms[nextCoordinate.x, nextCoordinate.y] == null)
+            {
+                emptyDirections.Add(direction);
+            }
+        }
+
+        return emptyDirections;
+    }
+
+
+
+    Room FindFurthestRoom(Room startRoom)
+    {
         Stack<Room> stack = new Stack<Room>();
-        Room startRoom = rooms[startCoordinate.x, startCoordinate.y];
-        startRoom.visited = true;
-        stack.Push(startRoom);
         Room furthestRoom = startRoom;
         int furthestRoomDistance = 0;
-        int roomCount = 1;
+        Dictionary<Room, bool> visited = new Dictionary<Room, bool>();
+        visited[startRoom] = true;
+        stack.Push(startRoom);
 
-        while (stack.Count > 0 && roomCount < currentRoomCount)
+        while (stack.Count > 0)
         {
             Room currentRoom = stack.Peek();
-            List<Vector2Int> unvisitedNeighbors = GetUnvisitedNeighborCoordinates(currentRoom);
+            List<Room> unvisitedNeighbors = GetUnvisitedNeighborRooms(currentRoom, visited);
 
             if (unvisitedNeighbors.Count > 0)
             {
-                Vector2Int selectedNeighborCoordinate = unvisitedNeighbors[Random.Range(0, unvisitedNeighbors.Count)];
-                CreateRoom(selectedNeighborCoordinate, RoomPrefabs[Random.Range(0, RoomPrefabs.Length)]);
-                Room selectedNeighbor = rooms[selectedNeighborCoordinate.x, selectedNeighborCoordinate.y];
-                selectedNeighbor.visited = true;
+                Room selectedNeighbor = unvisitedNeighbors[Random.Range(0, unvisitedNeighbors.Count)];
+                visited[selectedNeighbor] = true;
                 stack.Push(selectedNeighbor);
-                roomCount++;
 
                 int currentDistance = stack.Count;
                 if (currentDistance > furthestRoomDistance)
@@ -66,10 +139,92 @@ public class DungeonGenerator_test2 : MonoBehaviour
             }
         }
 
-        // 가장 먼 방을 BossRoom으로 변경합니다.
-        ChangeRoomToBossRoom(furthestRoom);
-        AddDoorsToAllRooms();
+        return furthestRoom;
     }
+
+    // 맨해튼 거리 계산 함수
+    int GetManhattanDistance(Vector2Int a, Vector2Int b)
+    {
+        return Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y);
+    }
+
+
+    List<Room> GetUnvisitedNeighborRooms(Room room, Dictionary<Room, bool> visited)
+    {
+        Vector2Int[] directions = new Vector2Int[] { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
+        List<Room> unvisitedNeighbors = new List<Room>();
+
+        foreach (var direction in directions)
+        {
+            Vector2Int neighborCoordinate = room.coordinates + direction;
+            if (IsCoordinateInDungeon(neighborCoordinate) && rooms[neighborCoordinate.x, neighborCoordinate.y] != null && !visited.ContainsKey(rooms[neighborCoordinate.x, neighborCoordinate.y]))
+            {
+                unvisitedNeighbors.Add(rooms[neighborCoordinate.x, neighborCoordinate.y]);
+            }
+        }
+
+        return unvisitedNeighbors;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //void GenerateDungeon()
+    //{
+    //    // 던전의 중앙에 StartRoom을 생성합니다.
+    //    Vector2Int startCoordinate = new Vector2Int(dungeonWidth / 2, dungeonHeight / 2);
+    //    CreateRoom(startCoordinate, StartRoom);
+
+    //    // DFS 알고리즘을 사용하여 방을 생성합니다.
+    //    Stack<Room> stack = new Stack<Room>();
+    //    Room startRoom = rooms[startCoordinate.x, startCoordinate.y];
+    //    startRoom.visited = true;
+    //    stack.Push(startRoom);
+    //    Room furthestRoom = startRoom;
+    //    int furthestRoomDistance = 0;
+    //    int roomCount = 1;
+
+    //    while (stack.Count > 0 && roomCount < currentRoomCount)
+    //    {
+    //        Room currentRoom = stack.Peek();
+    //        List<Vector2Int> unvisitedNeighbors = GetUnvisitedNeighborCoordinates(currentRoom);
+
+    //        if (unvisitedNeighbors.Count > 0)
+    //        {
+    //            Vector2Int selectedNeighborCoordinate = unvisitedNeighbors[Random.Range(0, unvisitedNeighbors.Count)];
+    //            CreateRoom(selectedNeighborCoordinate, RoomPrefabs[Random.Range(0, RoomPrefabs.Length)]);
+    //            Room selectedNeighbor = rooms[selectedNeighborCoordinate.x, selectedNeighborCoordinate.y];
+    //            selectedNeighbor.visited = true;
+    //            stack.Push(selectedNeighbor);
+    //            roomCount++;
+
+    //            int currentDistance = stack.Count;
+    //            if (currentDistance > furthestRoomDistance)
+    //            {
+    //                furthestRoom = selectedNeighbor;
+    //                furthestRoomDistance = currentDistance;
+    //            }
+    //        }
+    //        else
+    //        {
+    //            stack.Pop();
+    //        }
+    //    }
+
+    //    // 가장 먼 방을 BossRoom으로 변경합니다.
+    //    ChangeRoomToBossRoom(furthestRoom);
+    //    AddDoorsToAllRooms();
+    //}
 
     void CreateRoom(Vector2Int coordinate, GameObject roomPrefab)
     {
@@ -102,6 +257,12 @@ public class DungeonGenerator_test2 : MonoBehaviour
 
     void ChangeRoomToBossRoom(Room bossRoom)
     {
+        if (bossRoom == null)
+        {
+            Debug.LogError("bossRoom is null. Cannot change to BossRoom.");
+            return;
+        }
+
         Vector2Int bossRoomCoordinate = bossRoom.coordinates;
         Destroy(bossRoom.gameObject);
         CreateBossRoom(bossRoomCoordinate, BossRoom);
@@ -109,7 +270,7 @@ public class DungeonGenerator_test2 : MonoBehaviour
 
     void CreateBossRoom(Vector2Int coordinate, GameObject roomPrefab)
     {
-        GameObject instance = Instantiate(roomPrefab, new Vector3(coordinate.x * roomSize, 0, coordinate.y * roomSize), Quaternion.identity);
+        GameObject instance = Instantiate(roomPrefab, new Vector3(coordinate.x * roomSize, 0, coordinate.y * roomSize), Quaternion.identity,transform);
         Room room = instance.GetComponent<Room>();
         room.coordinates = coordinate;
         room.visited = false;
@@ -169,6 +330,8 @@ public class DungeonGenerator_test2 : MonoBehaviour
             }
         }
     }
-
+    ///<summary>
+    /// 문을 연결해 주는 함수..
+    ///</summary>
 
 }
