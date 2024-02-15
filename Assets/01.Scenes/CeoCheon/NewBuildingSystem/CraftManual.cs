@@ -169,13 +169,14 @@ public class CraftManual : MonoBehaviour
             ShowPopup(go_PopupUI_noResource);
             return;
         */
+     
         go_Preview = Instantiate(craft_SelectedTab[selectedSlotNumber].go_PreviewPrefab, tf_Player.position + tf_Player.forward, Quaternion.identity);
         go_Prefab = craft_SelectedTab[selectedSlotNumber].go_Prefab;
         isPreviewActivated = true;
         go_BaseUI.SetActive(false);
     }
 
-    // [MERGE INVENTORY]
+    // [MERGE INVENTORY] 
     private bool CheckResource(int _selectedSlotNumber)
     {
         for(int i = 0; i < craft_SelectedTab[_selectedSlotNumber].craftNeedItem.Length; i++)
@@ -238,6 +239,7 @@ public class CraftManual : MonoBehaviour
     #region Tab window
     private void Window()
     {
+        Debug.Log(isActivated); 
         if (!isActivated)
         {
             OpenWindow();
