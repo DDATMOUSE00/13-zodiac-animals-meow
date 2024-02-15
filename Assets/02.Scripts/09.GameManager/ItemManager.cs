@@ -12,6 +12,8 @@ public class ItemManager : MonoBehaviour
     public static ItemManager I;
     public List<DraggableItem> items = new List<DraggableItem>();
 
+    public DescOfItemConatiner descbox = new DescOfItemConatiner();
+
     public Dictionary<int, int> itemDic = new Dictionary<int, int>();
     public List<Item> itemList = new List<Item>();
     public Slot[] slots;
@@ -31,6 +33,17 @@ public class ItemManager : MonoBehaviour
         I = this;
     }
 
+    private Item findItemWithId(int id)
+    {
+        foreach(var i in itemList)
+        {
+            if(i.id == id)
+            {
+                return i;
+            }
+        }
+        return null;
+    }
     public void ChangeSelectedSlot(int newValue)
     {
         if (selectedSlot >= 0)
@@ -68,6 +81,26 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    public void RefreshInventorySlot()
+    {
+        foreach (var s in slots)
+        {
+            DraggableItem dragItem = s.GetComponentInChildren<DraggableItem>();
+            if (dragItem != null)
+            {
+                if (itemDic[dragItem.item.id] > 0)
+                {
+                    dragItem.bundle = itemDic[dragItem.item.id];
+                    dragItem.RefreshCount();
+                }
+                else if (itemDic[dragItem.item.id] <= 0)
+                {
+                    Destroy(dragItem.gameObject);
+                }
+            }
+        }
+    }
+
     public bool AddItem(Item item)
     {
         for (int i = 0; i < slots.Length; i++)
@@ -83,6 +116,8 @@ public class ItemManager : MonoBehaviour
                 return true;
             }
         }
+
+      
         for (int i = 0; i < slots.Length; i++)
         {
             Slot slot = slots[i];
@@ -117,6 +152,22 @@ public class ItemManager : MonoBehaviour
 
     }
 
+
+
+    public void ShowToolTip(DraggableItem draggableItem, Vector3 position)
+    {
+        Item item = findItemWithId(draggableItem.item.id);
+        objContainer.SetActive(true);
+      
+       objContainer.transform.position = new Vector3(position.x , position.y-200 , position.z);
+
+        descbox.Setting(item);
+    }
+    public void HideToolTip()
+    {
+        objContainer.SetActive(false);
+    }
+
     private void SpawnNewItem(Item item, Slot slot)
     {
         GameObject itemPrefab = Resources.Load("DraggableItem") as GameObject;
@@ -138,28 +189,6 @@ public class ItemManager : MonoBehaviour
 
         return null;
     }
-
-    public void RefreshInventorySlot()
-    {
-        foreach (var s in slots)
-        {
-            DraggableItem dragItem = s.GetComponentInChildren<DraggableItem>();
-            if (dragItem != null)
-            {
-                if (itemDic[dragItem.item.id] > 0)
-                {
-                    dragItem.bundle = itemDic[dragItem.item.id];
-                    dragItem.RefreshCount();
-                }
-                else if (itemDic[dragItem.item.id] <= 0)
-                {
-                    Destroy(dragItem.gameObject);
-                }
-            }
-        }
-    }
-
-
     public void UseSelectedItem()
     {
         Slot slot = slots[selectedSlot];

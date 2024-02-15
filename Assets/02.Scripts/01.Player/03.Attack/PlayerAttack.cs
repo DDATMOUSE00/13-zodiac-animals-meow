@@ -109,7 +109,7 @@ public class PlayerAttack : MonoBehaviour
             ComboCount++;
             ComboTimer = 0f;
             Attack();
-            Debug.Log("콤보공격");
+            //Debug.Log("콤보공격");
         }
 
         if (!IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && !_Health.IsInvincible)
@@ -119,7 +119,7 @@ public class PlayerAttack : MonoBehaviour
             IsCombo = true;
             ComboTimer = 0f;
             Attack();
-            Debug.Log("그냥공격");
+            //Debug.Log("그냥공격");
         }
     }
     private void Attack()
@@ -163,7 +163,7 @@ public class PlayerAttack : MonoBehaviour
 
             if (collider.CompareTag("Resource"))
             {
-                Debug.Log("자원 공격!");
+              //  Debug.Log("자원 공격!");
                 Resource targetResource = collider.GetComponent<Resource>();
                 targetResource.Hit();
             }

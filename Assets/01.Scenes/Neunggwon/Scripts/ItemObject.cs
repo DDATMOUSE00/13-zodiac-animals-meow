@@ -28,7 +28,7 @@ public class ItemObject : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         TextMeshPro TextUI = interactionText_And_ItemName.GetComponent<TextMeshPro>();
         TextUI.text = $"상호작용 [E] 키 \n {item.itemName}";
-        Debug.Log(TextUI.text);
+    //    Debug.Log(TextUI.text);
         interactionText_And_ItemName.SetActive(false);
     }
 

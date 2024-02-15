@@ -75,6 +75,7 @@ public class CraftManual : MonoBehaviour
 
     private void Start()
     {
+        CloseWindow();
         tabNumber = 0;
         page = 1;
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,IPointerClickHandler
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("UI")]
     public Image image;
@@ -50,35 +50,30 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("click");
-        Debug.Log(transform.parent.name);
-        //ItemManager.I.GetSelectedItem();
-     }
 
-/*
-      private void FindSelectedItem()
-    {
+    /*
+          private void FindSelectedItem()
+        {
 
-            var name = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
-            foreach (Item i in ItemManager.Instance.Items)
-            {
-                if (i.Name == name.text)
+                var name = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+                foreach (Item i in ItemManager.Instance.Items)
                 {
-                    SelectedItem = i;
-                    t = this.transform;
-                    break;
+                    if (i.Name == name.text)
+                    {
+                        SelectedItem = i;
+                        t = this.transform;
+                        break;
+                    }
                 }
-            }
-        
-    }
-    }
 
+        }
+        }
 
+           */
     public void OnPointerEnter(PointerEventData eventData)
     {
-        ItemManager.I.ShowToolTip(item, transform.position);  
+        Debug.Log("mouse enter");
+        ItemManager.I.ShowToolTip(this, transform.position);  
     }
 
   
@@ -86,5 +81,5 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         ItemManager.I.HideToolTip();
     }
-    */
+ 
 }
