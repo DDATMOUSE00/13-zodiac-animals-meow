@@ -13,12 +13,12 @@ public class EnemyBullet : MonoBehaviour
     {
         Destroy(gameObject, BulletTime);
     }
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider Colliders)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (Colliders.gameObject.CompareTag("Player"))
         {
             //데미지 계산
-            PlayerHealth PlayerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            PlayerHealth PlayerHealth = Colliders.gameObject.GetComponent<PlayerHealth>();
             if (PlayerHealth != null)
             {
                 int EnemyDamage = Random.Range(MinDamage, MaxDamage + 1);
@@ -27,12 +27,12 @@ public class EnemyBullet : MonoBehaviour
             }
             Destroy(gameObject);
 
-            Debug.Log("플레이어 투사체 히트");
+            //Debug.Log("플레이어 투사체 히트");
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (Colliders.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            Debug.Log("땅 투사체 히트");
+            //Debug.Log("땅 투사체 히트");
             Destroy(gameObject);
         }
     }

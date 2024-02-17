@@ -14,16 +14,52 @@ public class QuestManager : MonoBehaviour
     public GameObject questUI;
     public GameObject backBtn;
     public GameObject completeBtn;
+    public Dictionary<string, QuestInformation> SavedQuestInfo;
 
     private int PlayerLevel = 2; // 나중에 바깥에서 가져올 정보.
  
     private void Awake()
     {
         I = this;
-    //    questList = CreateQuestLIst();
+        //    questList = CreateQuestLIst();
+        SavedQuestInfo = new Dictionary<string, QuestInformation>();
         allQuests = getAllQuests();
     }
+    public void SaveQuestData()
+    {
+        List<string> keyList = new List<string>(allQuests.Keys);
+        for (int i = 0; i < keyList.Count; i++)
+        {
+            if (!SavedQuestInfo.ContainsKey(keyList[i]))
+            {
+                QuestInformation qinfo = new();
+                qinfo.state = allQuests[keyList[i]].state;
+                qinfo.SOPath = $"Quests/CollectQuest/{allQuests[keyList[i]].q.QInfoName}.asset";
+                SavedQuestInfo.Add(allQuests[keyList[i]].q.QuestId, qinfo);
+            }
+            else
+            {
+                SavedQuestInfo[keyList[i]].state = allQuests[keyList[i]].state;
+            }
+        }
+      
+        DataManager.I.SaveJsonData(SavedQuestInfo, "QuestData");
 
+    }
+    public void LoadQuestData()
+    {
+        SavedQuestInfo = DataManager.I.LoadJsonData<Dictionary<string, QuestInformation>>("QuestData");
+        List<string> keyList = new List<string>(SavedQuestInfo.Keys);
+        for (int i = 0; i < keyList.Count; i++)
+        {
+            Quest q = allQuests[keyList[i]];
+            
+            if (q != null)
+            {
+                q.state = SavedQuestInfo[keyList[i]].state;
+            }
+        }
+    }
     private Dictionary<string, Quest> getAllQuests()
     {
         QuestInfo[] allQuests = Resources.LoadAll<QuestInfo>("Quests");

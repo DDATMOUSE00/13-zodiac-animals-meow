@@ -475,7 +475,7 @@ PrefabInstance:
     - target: {fileID: 1782248861836090119, guid: 29442c7b4e8a6ed4ca143188a9334f61,
         type: 3}
       propertyPath: m_RootOrder
-      value: 23
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 1782248861836090119, guid: 29442c7b4e8a6ed4ca143188a9334f61,
         type: 3}
@@ -1141,7 +1141,7 @@ Transform:
   m_Children:
   - {fileID: 1931638247}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &173861128
 GameObject:
@@ -1845,7 +1845,7 @@ PrefabInstance:
     - target: {fileID: 4947556857377406404, guid: 4df8f481cb9ea5445b9d484f3bdb94fa,
         type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 4947556857377406404, guid: 4df8f481cb9ea5445b9d484f3bdb94fa,
         type: 3}
@@ -2087,7 +2087,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &470807485
 GameObject:
@@ -2118,7 +2118,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &476039548
 GameObject:
@@ -2227,6 +2227,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476039548}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &499145051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 499145052}
+  - component: {fileID: 499145053}
+  m_Layer: 0
+  m_Name: ResourceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &499145052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499145051}
+  m_LocalRotation: {x: 0.24192187, y: -0, z: -0, w: 0.9702957}
+  m_LocalPosition: {x: 83.100006, y: 14.9, z: -29}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &499145053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499145051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3df73ee38933aa48bcba41af9646a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &514305696
 GameObject:
   m_ObjectHideFlags: 0
@@ -2641,7 +2685,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &650709280 stripped
 MonoBehaviour:
@@ -2706,7 +2750,7 @@ PrefabInstance:
     - target: {fileID: 1128227433529495602, guid: 1673823e1806d084faae976472a1eca7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1128227433529495602, guid: 1673823e1806d084faae976472a1eca7,
         type: 3}
@@ -3192,7 +3236,7 @@ PrefabInstance:
     - target: {fileID: 7379585365167235180, guid: 7f5e3e151e1abf945a6292b324cce444,
         type: 3}
       propertyPath: m_RootOrder
-      value: 29
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7379585365167235180, guid: 7f5e3e151e1abf945a6292b324cce444,
         type: 3}
@@ -3407,7 +3451,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
@@ -4043,9 +4087,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 742971500}
-        m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
-        m_MethodName: LoadInventoryData
+      - m_Target: {fileID: 499145053}
+        m_TargetAssemblyTypeName: ResourceManager, Assembly-CSharp
+        m_MethodName: LoadData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4109,7 +4153,7 @@ PrefabInstance:
     - target: {fileID: 7124156715115806189, guid: 81343acb9f48aa24bbc611a58e1053c7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 24
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7124156715115806189, guid: 81343acb9f48aa24bbc611a58e1053c7,
         type: 3}
@@ -4201,7 +4245,7 @@ PrefabInstance:
     - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 1123802750937543955, guid: 000d2e2572ee32945958ea7f5b7ac4d0,
         type: 3}
@@ -5234,7 +5278,7 @@ RectTransform:
   - {fileID: 1942275788}
   - {fileID: 1082912941}
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5421,7 +5465,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1607685778 stripped
 GameObject:
@@ -6586,7 +6630,7 @@ PrefabInstance:
     - target: {fileID: 1626486758618810150, guid: a7533f2e032a8b043aa91c22931ea407,
         type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 1626486758618810150, guid: a7533f2e032a8b043aa91c22931ea407,
         type: 3}
@@ -6901,9 +6945,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 742971500}
-        m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
-        m_MethodName: SaveInventoryData
+      - m_Target: {fileID: 499145053}
+        m_TargetAssemblyTypeName: ResourceManager, Assembly-CSharp
+        m_MethodName: SaveData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7748,7 +7792,7 @@ PrefabInstance:
     - target: {fileID: 3238498866194236638, guid: 62a2144a99c7c1f47a1cae65f4b01a81,
         type: 3}
       propertyPath: m_RootOrder
-      value: 28
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 3238498866194236638, guid: 62a2144a99c7c1f47a1cae65f4b01a81,
         type: 3}
