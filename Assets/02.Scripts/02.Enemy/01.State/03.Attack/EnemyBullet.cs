@@ -27,12 +27,12 @@ public class EnemyBullet : MonoBehaviour
             }
             Destroy(gameObject);
 
-            Debug.Log("플레이어 투사체 히트");
+            //Debug.Log("플레이어 투사체 히트");
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            Debug.Log("땅 투사체 히트");
+            //Debug.Log("땅 투사체 히트");
             Destroy(gameObject);
         }
     }
