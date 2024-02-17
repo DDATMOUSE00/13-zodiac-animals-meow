@@ -1233,6 +1233,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  enemyList: []
+  playerchecking: 0
+  claerchecking: 1
+  startRoom: 1
+  BossRoom: 0
 --- !u!1 &8668774243199440573
 GameObject:
   m_ObjectHideFlags: 0

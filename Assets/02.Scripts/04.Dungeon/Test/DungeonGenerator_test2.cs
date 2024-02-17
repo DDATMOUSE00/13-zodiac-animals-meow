@@ -79,7 +79,7 @@ public class DungeonGenerator_test2 : MonoBehaviour
             int randomIndex = Random.Range(0, RoomPrefabs.Length);
             roomPrefab = RoomPrefabs[randomIndex];
         }
-        
+
         GameObject roomInstance = Instantiate(roomPrefab, new Vector3(coordinates.x * roomSize, 0, coordinates.y * roomSize), Quaternion.identity, transform);
         Room room = roomInstance.GetComponent<Room>();
         room.coordinates = coordinates;
@@ -209,7 +209,7 @@ public class DungeonGenerator_test2 : MonoBehaviour
 
     void CreateBossRoom(Vector2Int coordinate, GameObject roomPrefab)
     {
-        GameObject instance = Instantiate(roomPrefab, new Vector3(coordinate.x * roomSize, 0, coordinate.y * roomSize), Quaternion.identity,transform);
+        GameObject instance = Instantiate(roomPrefab, new Vector3(coordinate.x * roomSize, 0, coordinate.y * roomSize), Quaternion.identity, transform);
         Room room = instance.GetComponent<Room>();
         room.coordinates = coordinate;
         room.visited = false;
@@ -255,10 +255,10 @@ public class DungeonGenerator_test2 : MonoBehaviour
 
         Vector3[] doorPositions = new Vector3[]
         {
-        new Vector3(room.transform.position.x, 0, room.transform.position.z + roomSize / 3), // 위
-        new Vector3(room.transform.position.x, 0, room.transform.position.z - roomSize / 3), // 아래
-        new Vector3(room.transform.position.x - roomSize / 3, 0, room.transform.position.z), // 왼쪽
-        new Vector3(room.transform.position.x + roomSize / 3, 0, room.transform.position.z)  // 오른쪽
+        new Vector3(room.transform.position.x, -35, room.transform.position.z + roomSize / 3), // 위
+        new Vector3(room.transform.position.x, -35, room.transform.position.z - roomSize / 3), // 아래
+        new Vector3(room.transform.position.x - roomSize / 3, -35, room.transform.position.z), // 왼쪽
+        new Vector3(room.transform.position.x + roomSize / 3, -35, room.transform.position.z)  // 오른쪽
         };
 
         for (int i = 0; i < neighborCoordinates.Length; i++)
@@ -267,6 +267,7 @@ public class DungeonGenerator_test2 : MonoBehaviour
             {
                 // doors 배열에 Door 오브젝트를 추가합니다.
                 room.doors[i] = Instantiate(Door, doorPositions[i], Quaternion.Euler(0, 90 * i, 0), room.transform);
+                //room.doors[i].SetActive(false);
             }
         }
     }
@@ -286,6 +287,8 @@ public class DungeonGenerator_test2 : MonoBehaviour
                 if (rooms[x, y] != null)
                 {
                     ConnectDoors(rooms[x, y]);
+                    rooms[x, y].SetDoorDirection();
+                    rooms[x, y].Exit();
                 }
             }
         }
@@ -296,7 +299,7 @@ public class DungeonGenerator_test2 : MonoBehaviour
         int x = room.coordinates.x;
         int y = room.coordinates.y;
 
-        // 주변의 방을 확인합니다.
+        // 주변의 방을 확인
         Room[] neighbors = new Room[4] {
         rooms[x, y+1], // 위
         rooms[x, y-1], // 아래
@@ -304,7 +307,7 @@ public class DungeonGenerator_test2 : MonoBehaviour
         rooms[x+1, y]  // 오른쪽
     };
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < neighbors.Length; i++)
         {
             Room neighborRoom = neighbors[i];
             if (neighborRoom != null)
@@ -330,7 +333,7 @@ public class DungeonGenerator_test2 : MonoBehaviour
                         break;
                 }
 
-                // 문의 targetPoint를 서로 연결합니다.
+                // 문의 targetPoint를 서로 연결
                 if (door1 != null && door2 != null)
                 {
                     door1.targetPoint = door2.gameObject;
