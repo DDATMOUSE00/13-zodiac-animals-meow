@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Room : MonoBehaviour
@@ -16,9 +17,10 @@ public class Room : MonoBehaviour
     public bool startRoom;
     public bool BossRoom;
     public bool enemySpwan;
-
+    
     private void Start()
     {
+        //SetDoorDirection();
         if (startRoom)
         {
             Enter();
