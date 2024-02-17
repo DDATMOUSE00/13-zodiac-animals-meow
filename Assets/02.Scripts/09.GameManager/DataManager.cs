@@ -17,9 +17,12 @@ public class DataManager : MonoBehaviour
 
     public void SaveJsonData<T>(T data, string fileName)
     {
-
-        Debug.Log(data == null);
-        string jsonData = JsonConvert.SerializeObject(data);
+        string jsonData = JsonConvert.SerializeObject(data,Formatting.Indented,
+                new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                }
+            );
 
         string path = GetJsonSavePath(fileName);
         var file = new FileInfo(path);

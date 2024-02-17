@@ -18,6 +18,17 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
+    public void SaveData()
+    {
+        ItemManager.I.SaveInventoryData();
+        QuestManager.I.SaveQuestData();
+    }
+
+    public void LoadData()
+    {
+        ItemManager.I.LoadInventoryData();
+        QuestManager.I.LoadQuestData();
+    }
     public static ResourceManager Instance
     {
         get

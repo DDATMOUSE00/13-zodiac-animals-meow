@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce920efe427423d4bb1d65bc324bee3c, type: 3}
-  m_Name: QuestInfo
+  m_Name: WoodCollectQuest
   m_EditorClassIdentifier: 
-  QuestName: "\uB3CC \uBAA8\uC73C\uAE30"
-  QuestDesc: "\uB3CC\uC744 2\uAC1C \uBAA8\uC544\uBCF4\uC790! "
+  QuestName: "\uB098\uBB34 \uBAA8\uC73C\uAE30"
+  QuestDesc: "\uB098\uBB34\uB97C 1\uAC1C \uBAA8\uC544\uBCF4\uC790 "
   QuestType: 0
-  questPrefabs: {fileID: 2673422770498867929, guid: 58c45e8141af5da4ab79adda0d34e155,
+  questPrefabs: {fileID: 4801915847239745544, guid: b612fbc13f359194f9f5186412c58db1,
     type: 3}
-  ItemId: 0
-  ItemQuantityToComplete: 2
-  levelRequirement: 1
-  goldReward: 50
+  ItemId: 2
+  ItemQuantityToComplete: 1
+  QInfoName: WoodCollectQuest
+  levelRequirement: 2
+  goldReward: 100

@@ -16,6 +16,7 @@ public class QuestInfo : ScriptableObject
 
     public int ItemId;
     public int ItemQuantityToComplete;
+    public string QInfoName;
 
     [Header("Requirements")]
     public int levelRequirement;
@@ -25,9 +26,9 @@ public class QuestInfo : ScriptableObject
 
     private void OnValidate()
     {
-        #if UNITY_EDITOR
-        QuestId= Guid.NewGuid().ToString();
-        UnityEditor.EditorUtility.SetDirty(this);
+#if UNITY_EDITOR
+        QuestId = QuestName;
+       // UnityEditor.EditorUtility.SetDirty(this);
         #endif
     }
 

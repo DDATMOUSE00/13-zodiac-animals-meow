@@ -58,7 +58,13 @@ public class ProcessingQuestSlot : MonoBehaviour
 
         if(quest.q.QuestType == QuestType.COLLECT && ItemManager.I.itemDic.ContainsKey(itemIDToCollect))
         {
-            progress.text = $"{((float)(ItemManager.I.itemDic[itemIDToCollect] ) / itemNumberToComplete) * 100 }%";
+            float progressFloat = ((float)(ItemManager.I.itemDic[itemIDToCollect]) / itemNumberToComplete) * 100;
+            if(progressFloat >= 100)
+            {
+                progressFloat = 100;
+            }
+            progress.text = $"{progressFloat}%";
+
             if(progress.text == "100%")
             {
                 quest.state = QuestState.CAN_FINISH;
