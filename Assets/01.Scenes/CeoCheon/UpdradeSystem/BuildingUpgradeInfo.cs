@@ -11,9 +11,8 @@ public class BuildingUpgradeInfo
     public int Jelly;
     public int Cloud;
     public int UpgradeCost;
-    public int Atk;
-    public int Def;
-    public int Sp;
+    public int Hp;
+    public int Damage;
     public string Sprite;
 }
 
