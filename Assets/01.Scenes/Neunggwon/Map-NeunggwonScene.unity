@@ -313,69 +313,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &222157099
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 222157101}
-  - component: {fileID: 222157100}
-  m_Layer: 0
-  m_Name: Dungeon Generator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &222157100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 222157099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fdc7e3b48e32814cb64a4c7db8cb97f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 50
-  height: 50
-  minRooms: 7
-  maxRooms: 14
-  totalRooms: 0
-  direction:
-  - {x: 0, y: 1, z: 0}
-  - {x: 0, y: -1, z: 0}
-  - {x: 1, y: 0, z: 0}
-  - {x: -1, y: 0, z: 0}
-  newRooms: []
-  roomPrefabs:
-  - {fileID: 5348176542266936894, guid: 514c97d77938e734fa944fd93d9f8574, type: 3}
-  - {fileID: 2704194762748369376, guid: 2c55f1bad8f7a58448061c013b0a90c5, type: 3}
-  - {fileID: 3175922482111565644, guid: 4031e4ddc47ae084581b4030ca5a0da9, type: 3}
-  startRoom: {fileID: 8267966336005172522, guid: 82d0c06e71c0f3149abc20cf5b30974d,
-    type: 3}
-  BossRoom: {fileID: 8267966336005172522, guid: 7fbb594de56629841be01bf4aec9220d,
-    type: 3}
---- !u!4 &222157101
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 222157099}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,7 +926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &712800109
 Transform:
   m_ObjectHideFlags: 0
@@ -1003,7 +940,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &727288206
 GameObject:
@@ -1016,7 +953,7 @@ GameObject:
   - component: {fileID: 727288208}
   - component: {fileID: 727288207}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Dungeon Generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1062,51 +999,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &741668362
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 741668364}
-  - component: {fileID: 741668363}
-  m_Layer: 0
-  m_Name: Test_Dungeon Generator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &741668363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 741668362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdef92fc008cb6d4fadb59d53ceb2c4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &741668364
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 741668362}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &750867396
 GameObject:
@@ -1437,7 +1330,7 @@ PrefabInstance:
     - target: {fileID: 1262271265813640824, guid: 4dbf431f740d18a429f77021c023c3fd,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1262271265813640824, guid: 4dbf431f740d18a429f77021c023c3fd,
         type: 3}
@@ -2082,7 +1975,7 @@ Transform:
   m_Children:
   - {fileID: 538403979}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2022476716
 GameObject:

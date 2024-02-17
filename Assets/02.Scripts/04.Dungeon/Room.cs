@@ -39,8 +39,10 @@ public class Room : MonoBehaviour
                 if (!enemySpwan)
                 {
                     Exit();
-
-                    SpawnEnemy();
+                    for (int i =0; i < 4; i++)
+                    {
+                        SpawnEnemy();
+                    }
                     enemySpwan = true;
                 }
                 else
@@ -112,10 +114,14 @@ public class Room : MonoBehaviour
 
     private void SpawnEnemy()  
     {
-        Debug.Log("利 家券");
+        int randomX = Random.Range(-30, 30);
+        int randomZ = Random.Range(-30, 30);
+        Vector3 spawnPoint = new Vector3(randomX, 0, randomZ);
 
+
+        Debug.Log("利 家券");
         GameObject enemy = DungeonManager.Instance.enemyPool.Get(Random.Range(0, DungeonManager.Instance.enemyPool.prefabs.Length));
-        enemy.transform.position = this.transform.position;
+        enemy.transform.position = this.transform.position + spawnPoint;
         //enemy.SetActive(true);
         //enemysCount++;
     }   
