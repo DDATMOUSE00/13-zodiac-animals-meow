@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBullet : MonoBehaviour
+public class EnemyBossEarthquake : MonoBehaviour
 {
     //데미지
     public int MinDamage = 5;
     public int MaxDamage = 8;
-    public float BulletTime = 2f; //투사체 사라지는 시간
+    public float BulletTime = 1f; //투사체 사라지는 시간
 
     private void Start()
     {
@@ -27,13 +27,7 @@ public class EnemyBullet : MonoBehaviour
             }
             Destroy(gameObject);
 
-            //Debug.Log("플레이어 투사체 히트");
-        }
-
-        if (Colliders.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            //Debug.Log("땅 투사체 히트");
-            Destroy(gameObject);
+            Debug.Log("플레이어 지진 히트");
         }
     }
 }
