@@ -120,11 +120,11 @@ public class EnemyMeleeAttack : MonoBehaviour
         // 이동 방향에 따라 몬스터의 좌우 방향을 조정
         if (direction.x < 0 && !IsAttack)
         {
-            transform.localScale = new Vector3(3, 3, 3);
+            transform.localScale = new Vector3(3, 3, 1);
         }
         else if (direction.x > 0 && !IsAttack)
         {
-            transform.localScale = new Vector3(-3, 3, 3);
+            transform.localScale = new Vector3(-3, 3, 1);
         }
     }
 

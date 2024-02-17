@@ -131,11 +131,11 @@ public class EnemyLongAttack : MonoBehaviour
         //이동 방향 좌우 반전
         if (direction.x < 0)
         {
-            transform.localScale = new Vector3(3, 3, 3);
+            transform.localScale = new Vector3(3, 3, 1);
         }
         else if (direction.x > 0)
         {
-            transform.localScale = new Vector3(-3, 3, 3);
+            transform.localScale = new Vector3(-3, 3, 1);
         }
     }
 
@@ -165,7 +165,6 @@ public class EnemyLongAttack : MonoBehaviour
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();
                 rb.AddForce(Playerdirection.normalized * BulletSpeed, ForceMode.Impulse);
             }
-
         }
         //StartCoroutine(MoveRandomDirection());
 
