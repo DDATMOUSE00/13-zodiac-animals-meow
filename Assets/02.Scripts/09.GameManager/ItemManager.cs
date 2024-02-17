@@ -1,16 +1,12 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using System;
-using System.Collections.Generic;
+
 
 public class ItemManager : MonoBehaviour
 {
     public static ItemManager I;
-    public List<DraggableItem> items = new List<DraggableItem>();
+    public List<Item> totalItems = new List<Item>();
 
     public DescOfItemConatiner descbox = new DescOfItemConatiner();
 
@@ -32,7 +28,17 @@ public class ItemManager : MonoBehaviour
     {
         I = this;
     }
-
+    private Item findItemWithIdInTotalItem(int id)
+    {
+        foreach (var i in totalItems)
+        {
+            if (i.id == id)
+            {
+                return i;
+            }
+        }
+        return null;
+    }
     private Item findItemWithId(int id)
     {
         foreach(var i in itemList)
@@ -62,25 +68,45 @@ public class ItemManager : MonoBehaviour
 
             if (itemInNewSlot != null)
             {
-                items.Add(itemInNewSlot);
+             //   items.Add(itemInNewSlot);
             }
         }
     }
 
-    public void UpdateBundle(int id, int quantity, string type)
+    public void SaveInventoryData()
     {
 
-        if (type == "sell")
-        {
-            itemDic[id] = itemDic[id] - quantity;
+        DataManager.I.SaveJsonData(itemDic, "ItemData");
 
-        }
-        else if (type == "buy")
-        {
-            itemDic[id] = itemDic[id] + quantity;
-        }
     }
 
+    public void LoadInventoryData()
+    {
+
+        itemDic = DataManager.I.LoadJsonData<Dictionary<int, int>>("ItemData");
+        List<int> keyList = new List<int>(itemDic.Keys);
+
+        for(int i = 0; i  < keyList.Count; i++)
+        {
+            Item item = findItemWithIdInTotalItem(keyList[i]);
+            if (item != null)
+            {
+                Debug.Log(item.id);
+                for (int j = 0; j < slots.Length; j++)
+                {
+                    DraggableItem itemInNewSlot = slots[j].GetComponentInChildren<DraggableItem>();
+                    if (itemInNewSlot == null)
+                    {
+                        SpawnLoadItem(item, slots[j]);
+                        break;
+
+                    }
+                }
+            }
+
+
+        }
+    }
     public void RefreshInventorySlot()
     {
         foreach (var s in slots)
@@ -103,6 +129,7 @@ public class ItemManager : MonoBehaviour
 
     public bool AddItem(Item item)
     {
+
         for (int i = 0; i < slots.Length; i++)
         {
             Slot slot = slots[i];
@@ -147,7 +174,6 @@ public class ItemManager : MonoBehaviour
 
         }
 
-
         return false;
 
     }
@@ -174,9 +200,20 @@ public class ItemManager : MonoBehaviour
         GameObject newItem = Instantiate(itemPrefab, slot.transform);
 
         DraggableItem inventoryItem = newItem.GetComponent<DraggableItem>();
-        inventoryItem.InitializeItem(item);
-    }
+       inventoryItem.InitializeItem(item, 0);
 
+    }
+    private void SpawnLoadItem(Item item, Slot slot)
+    {
+        itemList.Add(item);
+        GameObject itemPrefab = Resources.Load("DraggableItem") as GameObject;
+        GameObject newItem = Instantiate(itemPrefab, slot.transform);
+
+        DraggableItem inventoryItem = newItem.GetComponent<DraggableItem>();
+
+        inventoryItem.InitializeItem(item, itemDic[item.id]);
+
+    }
 
     public Item GetSelectedItem()
     {
