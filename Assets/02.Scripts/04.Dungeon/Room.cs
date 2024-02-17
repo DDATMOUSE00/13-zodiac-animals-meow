@@ -19,7 +19,6 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
-        //SetDoorDirection();
         if (startRoom)
         {
             Enter();
@@ -39,7 +38,7 @@ public class Room : MonoBehaviour
                 if (!enemySpwan)
                 {
                     Exit();
-                    for (int i =0; i < 4; i++)
+                    for (int i =0; i < 2; i++)
                     {
                         SpawnEnemy();
                     }
