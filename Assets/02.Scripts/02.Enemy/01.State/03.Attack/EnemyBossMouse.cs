@@ -52,6 +52,18 @@ public class EnemyBossMouse : MonoBehaviour
     public Transform BulletPoint2; //투사체 발사 위치
     public float BulletSpeed = 10f; //투사체 속도
 
+    //지진
+    public GameObject Earthquake; //지진
+    public Transform Earthquakepoint1; //지진 위치
+    public Transform Earthquakepoint2;
+    public Transform Earthquakepoint3;
+    public Transform Earthquakepoint4;
+    public Transform Earthquakepoint5;
+    public Transform Earthquakepoint6;
+    public float EarthquakeSpeed = 15f; //지진속도
+
+    //public SpriteRenderer spriteRenderer;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -59,6 +71,7 @@ public class EnemyBossMouse : MonoBehaviour
         currentState = MonsterState.Idle;
         Anim = transform.GetChild(0).GetComponent<Animator>();
         _Health = GetComponent<EnemyHealth>();
+        //spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -69,25 +82,15 @@ public class EnemyBossMouse : MonoBehaviour
         //몬스터 공격 사거리
         Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRange / 2f);
 
+        //if (IsSpecialAttack1 || IsSpecialAttack2 || IsAttack)
+        //{
+        //    return;
+        //}
 
         //플레이어와의 거리에 따라 상태 변경
-        if (distanceToPlayer <= SpecialAttackRange)
+        if (distanceToPlayer <= SpecialAttackRange && !IsAttack && !IsSpecialAttack1 && !IsSpecialAttack2)
         {
-            int RandomAttack = Random.Range(Minpattern, Maxpattern + 1);
-
-            if (RandomAttack <= 100 && RandomAttack > 60 && !IsAttack &&!IsSpecialAttack2 &&!IsSpecialAttack1)
-            {
-                currentState = MonsterState.Special1;
-            }
-            else if (RandomAttack <= 60 && RandomAttack > 30 && !IsAttack && !IsSpecialAttack1 && !IsSpecialAttack2)
-            {
-                currentState = MonsterState.Special2;
-            }
-            else if (RandomAttack <= 30 && distanceToPlayer <= AttackRange.magnitude / 2f && !IsSpecialAttack1 && !IsSpecialAttack2 && !IsAttack)
-            {
-                //30%확률 + 일반공격범위에 있으면 Attack
-                currentState = MonsterState.Attack;
-            }
+            Invoke("AttackRandom", 2f);
         }
         else if (distanceToPlayer <= ChaseRange && !IsAttack && !IsSpecialAttack1 && !IsSpecialAttack2)
         {
@@ -120,7 +123,7 @@ public class EnemyBossMouse : MonoBehaviour
                 break;
             case MonsterState.Attack:
                 //플레이어 공격
-                if (!IsAttack && !_Health.IsDead)
+                if (!IsAttack && !_Health.IsDead && !IsSpecialAttack1 && !IsSpecialAttack2)
                 {
                     IsSpecialAttack1 = false;
                     IsSpecialAttack2 = false;
@@ -151,11 +154,39 @@ public class EnemyBossMouse : MonoBehaviour
                     IsAttack = false;
                     IsMoving = false;
                     Anim.SetBool("IsMove", false);
-                    Anim.SetBool("IsSpecialAttack", true);
+                    Anim.SetBool("IsSpecialAttack", false);
+                    Anim.SetBool("IsAttack", false);
+                    //spriteRenderer.color = Color.yellow;
+                    StartCoroutine(DelayAnimation2());
                     Invoke("SpecialAttack2", AttackTime);
                 }
                 break;
         }
+    }
+    private void AttackRandom()
+    {
+        StartCoroutine(RealAttackRandom());
+    }
+
+    private IEnumerator RealAttackRandom()
+    {
+        int RandomAttack = Random.Range(Minpattern, Maxpattern + 1);
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        if (RandomAttack <= 100 && RandomAttack > 40 && !IsAttack && !IsSpecialAttack2 && !IsSpecialAttack1)
+        {
+            currentState = MonsterState.Special1;
+        }
+        else if (RandomAttack <= 40 && RandomAttack > 30 && !IsAttack && !IsSpecialAttack1 && !IsSpecialAttack2)
+        {
+            currentState = MonsterState.Special2;
+        }
+        else if (RandomAttack <= 30 && distanceToPlayer <= AttackRange.magnitude / 2f && !IsSpecialAttack1 && !IsSpecialAttack2 && !IsAttack)
+        {
+            //30%확률 + 일반공격범위에 있으면 Attack
+            currentState = MonsterState.Attack;
+        }
+        yield return new WaitForSeconds(4f); //4초간 대기
     }
 
     private void Move(Vector3 direction)
@@ -221,7 +252,7 @@ public class EnemyBossMouse : MonoBehaviour
         {
             StartCoroutine(RealSpecialAttack1());
         }
-        Invoke("EndAttack", AttackDelay);
+        //Invoke("EndAttack", AttackDelay);
     }
 
     //특수공격1
@@ -239,6 +270,7 @@ public class EnemyBossMouse : MonoBehaviour
         rb2.AddForce(Playerdirection2.normalized * BulletSpeed, ForceMode.Impulse);
         IsSpecialAttack1 = false;
         Anim.SetBool("IsSpecialAttack", false);
+        currentState = MonsterState.Idle;
         yield return new WaitForSeconds(1f); //1초간 대기
     }
     private void SpecialAttack2()
@@ -257,16 +289,28 @@ public class EnemyBossMouse : MonoBehaviour
         {
             StartCoroutine(RealSpecialAttack2());
         }
-        Invoke("EndAttack", AttackDelay);
+        //Invoke("EndAttack", AttackDelay);
     }
 
     //특수공격2
     private IEnumerator RealSpecialAttack2()
     {
         Debug.Log("특수공격2");
+
+        Transform[] points = { Earthquakepoint1, Earthquakepoint2, Earthquakepoint3, Earthquakepoint4, Earthquakepoint5, Earthquakepoint6 };
+
+        foreach (Transform point in points)
+        {
+            GameObject earthquake = Instantiate(Earthquake, point.position, point.rotation);
+            Rigidbody rb = earthquake.GetComponent<Rigidbody>();
+            rb.AddForce(Vector3.up * EarthquakeSpeed, ForceMode.Impulse);
+        }
+
         IsSpecialAttack2 = false;
         Anim.SetBool("IsSpecialAttack", false);
-        yield return new WaitForSeconds(1f); //1초간 대기
+        currentState = MonsterState.Idle;
+        //spriteRenderer.color = Color.white;
+        yield return new WaitForSeconds(1f);
     }
 
     private void EndAttack()
@@ -275,6 +319,7 @@ public class EnemyBossMouse : MonoBehaviour
         IsAttack = false;
         IsSpecialAttack1 = false;
         IsSpecialAttack2 = false;
+        currentState = MonsterState.Idle;
     }
     IEnumerator DelayAnimation()
     {
@@ -283,12 +328,12 @@ public class EnemyBossMouse : MonoBehaviour
         Anim.SetBool("IsAttack", true);
     }
 
-    //IEnumerator DelayAnimation2()
-    //{
-    //    //특수 공격 애니메이션 지연
-    //    yield return YieldInstructionCache.WaitForSeconds(1f);
-    //    Anim.SetBool("IsSpecialAttack", true);
-    //}
+    IEnumerator DelayAnimation2()
+    {
+        //지진 공격 애니메이션 지연
+        yield return YieldInstructionCache.WaitForSeconds(3f);
+        Anim.SetBool("IsSpecialAttack", true);
+    }
 
     private void OnDrawGizmosSelected()
     {
