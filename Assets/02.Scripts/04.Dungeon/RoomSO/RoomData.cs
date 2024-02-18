@@ -16,6 +16,7 @@ public class RoomData : ScriptableObject
     public string roomName;
 
     [Header("#Room_Enemys")]
+    public int minEnemyCount;
     public int maxEnemyCount;
     public GameObject[] enemys;
     public GameObject Boss;

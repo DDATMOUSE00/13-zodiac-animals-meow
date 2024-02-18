@@ -6,22 +6,22 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
 
+    public RoomData roomData;
     public Vector2Int coordinates;
     public bool visited = false;
     public GameObject[] doors = new GameObject[4];
     public GameObject[] enemys;
+    private GameObject selecteEnemy;
     public int enemysCount;
 
     public bool playerchecking; //플레이어가 있는지
     public bool claerchecking; //클리어 한 방인지
-    public bool startRoom;
-    public bool BossRoom;
     public bool enemySpwan;
-    
+
     private void Start()
     {
         //SetDoorDirection();
-        if (startRoom)
+        if (roomData.roomType == RoomType.StartRoom)
         {
             Enter();
             enemySpwan = true;
@@ -40,7 +40,7 @@ public class Room : MonoBehaviour
                 if (!enemySpwan)
                 {
                     Exit();
-                    for (int i =0; i < 2; i++)
+                    for (int i = 0; i < Random.Range(roomData.minEnemyCount, roomData.maxEnemyCount); i ++)
                     {
                         SpawnEnemy();
                     }
@@ -113,19 +113,38 @@ public class Room : MonoBehaviour
         }
     }
 
-    private void SpawnEnemy()  
+    private void SpawnEnemy()
     {
-        int randomX = Random.Range(-30, 30);
-        int randomZ = Random.Range(-30, 30);
+        int randomX = Random.Range(-25, 25);
+        int randomZ = Random.Range(-25, 25);
+        //Vector3 spawnPoint = new Vector3(randomX, 0, randomZ);
         Vector3 spawnPoint = new Vector3(randomX, 0, randomZ);
 
-
         Debug.Log("적 소환");
-        GameObject enemy = DungeonManager.Instance.enemyPool.Get(Random.Range(0, DungeonManager.Instance.enemyPool.prefabs.Length));
-        enemy.transform.position = this.transform.position + spawnPoint;
-        //enemy.SetActive(true);
-        //enemysCount++;
-    }   
+
+        //Test
+        //데이터의 있는 몬스터의 이름을 찾아 생성하도록 해보자!!
+        if (roomData.roomType == RoomType.DungeonRoom)
+        {
+            GameObject selectEnemy1 = roomData.enemys[Random.Range(0,roomData.enemys.Length)];
+            var selectEnemy2 = DungeonManager.Instance.enemyPool;
+
+            for (int i = 0; i < selectEnemy2.prefabs.Length; i++)
+            {
+                if (selectEnemy1 == selectEnemy2.prefabs[i])
+                {
+                    GameObject enemy = DungeonManager.Instance.enemyPool.Get(i);
+                    enemy.transform.position = this.transform.position + spawnPoint;
+                }
+            }
+        }
+        else if (roomData.roomType == RoomType.BossRoom)
+        {
+            GameObject bossEnemy = roomData.Boss;
+            Instantiate(bossEnemy, this.transform.position, Quaternion.identity);
+        }
+        
+    }
     // 이 방에 들어올 때 호출됩니다.
     public void Enter()
     {

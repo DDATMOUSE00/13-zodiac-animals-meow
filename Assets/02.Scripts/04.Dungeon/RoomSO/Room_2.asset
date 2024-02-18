@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86c5aec1ad2588e4fb955368e16c6f15, type: 3}
-  m_Name: Room_Boss_Stage1
+  m_Name: Room_2
   m_EditorClassIdentifier: 
-  roomName: Room_Boss_Stage1
-  minEnemyCount: 0
-  maxEnemyCount: 0
-  enemys: []
-  Boss: {fileID: 7620210423648046614, guid: 58fc0e8dd668c1443afa477f451af82d, type: 3}
-  roomType: 1
+  roomName: Room_2
+  minEnemyCount: 2
+  maxEnemyCount: 4
+  enemys:
+  - {fileID: 4187044310870645693, guid: 66b348e10dd1f58488ca3003a4996ce4, type: 3}
+  - {fileID: 5979415346966550337, guid: 0d384f2ab5b5ffd42883f05cdb7b683d, type: 3}
+  Boss: {fileID: 0}
+  roomType: 2

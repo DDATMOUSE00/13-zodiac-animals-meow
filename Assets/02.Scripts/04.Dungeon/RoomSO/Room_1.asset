@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Room_1
   m_EditorClassIdentifier: 
   roomName: Room_1
+  minEnemyCount: 2
   maxEnemyCount: 4
   enemys:
-  - {fileID: 4498209422145137220, guid: 66b348e10dd1f58488ca3003a4996ce4, type: 3}
-  - {fileID: 1697732665507998203, guid: b9ec83d13a3b11a4c83baa6f38a16f77, type: 3}
+  - {fileID: 4187044310870645693, guid: 66b348e10dd1f58488ca3003a4996ce4, type: 3}
+  - {fileID: 1952804586085454972, guid: b9ec83d13a3b11a4c83baa6f38a16f77, type: 3}
+  Boss: {fileID: 0}
   roomType: 2
