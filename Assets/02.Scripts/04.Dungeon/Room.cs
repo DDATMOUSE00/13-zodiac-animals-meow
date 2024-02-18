@@ -8,10 +8,10 @@ public class Room : MonoBehaviour
 
     public RoomData roomData;
     public Vector2Int coordinates;
-    public bool visited = false;
+    [HideInInspector] public bool visited = false;
     public GameObject[] doors = new GameObject[4];
+    public GameObject villigeDoor;
     public GameObject[] enemys;
-    private GameObject selecteEnemy;
     public int enemysCount;
 
     public bool playerchecking; //플레이어가 있는지
@@ -25,6 +25,11 @@ public class Room : MonoBehaviour
         {
             Enter();
             enemySpwan = true;
+        }
+
+        if (roomData.roomType == RoomType.BossRoom)
+        {
+            villigeDoor.SetActive(false);
         }
     }
     private void Update()
@@ -40,7 +45,14 @@ public class Room : MonoBehaviour
                 if (!enemySpwan)
                 {
                     Exit();
-                    for (int i = 0; i < Random.Range(roomData.minEnemyCount, roomData.maxEnemyCount); i ++)
+                    if (roomData.roomType == RoomType.DungeonRoom)
+                    {
+                        for (int i = 0; i < Random.Range(roomData.minEnemyCount, roomData.maxEnemyCount); i++)
+                        {
+                            SpawnEnemy();
+                        }
+                    }
+                    else if (roomData.roomType == RoomType.BossRoom)
                     {
                         SpawnEnemy();
                     }
@@ -121,9 +133,12 @@ public class Room : MonoBehaviour
         Vector3 spawnPoint = new Vector3(randomX, 0, randomZ);
 
         Debug.Log("적 소환");
-
-        //Test
-        //데이터의 있는 몬스터의 이름을 찾아 생성하도록 해보자!!
+        if (roomData.roomType == RoomType.BossRoom)
+        {
+            GameObject bossEnemy = roomData.Boss;
+            Instantiate(bossEnemy, this.transform.position, Quaternion.identity);
+        }
+        
         if (roomData.roomType == RoomType.DungeonRoom)
         {
             GameObject selectEnemy1 = roomData.enemys[Random.Range(0,roomData.enemys.Length)];
@@ -138,11 +153,8 @@ public class Room : MonoBehaviour
                 }
             }
         }
-        else if (roomData.roomType == RoomType.BossRoom)
-        {
-            GameObject bossEnemy = roomData.Boss;
-            Instantiate(bossEnemy, this.transform.position, Quaternion.identity);
-        }
+
+        
         
     }
     // 이 방에 들어올 때 호출됩니다.
@@ -153,6 +165,10 @@ public class Room : MonoBehaviour
             if (door != null)
             {
                 door.SetActive(true);
+                if (roomData.roomType == RoomType.BossRoom)
+                {
+                    villigeDoor.SetActive(true);
+                }
             }
         }
     }
@@ -165,6 +181,7 @@ public class Room : MonoBehaviour
             if (door != null)
             {
                 door.SetActive(false);
+                
             }
         }
     }

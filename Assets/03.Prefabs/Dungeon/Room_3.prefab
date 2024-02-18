@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b97e44dea2199f46a02f925ac8b70d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomData: {fileID: 11400000, guid: 71fcb86c63046574aa74c3a4f12433eb, type: 2}
   coordinates: {x: 0, y: 0}
   visited: 0
   doors:
@@ -335,11 +336,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  enemyList: []
+  villigeDoor: {fileID: 0}
+  enemys: []
+  enemysCount: 0
   playerchecking: 0
   claerchecking: 0
-  startRoom: 0
-  BossRoom: 0
+  enemySpwan: 0
 --- !u!1 &3584599669779920555
 GameObject:
   m_ObjectHideFlags: 0

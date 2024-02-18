@@ -1,19 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour
 {
     public Vector2Int direction;
     public GameObject targetPoint; //이동 할 위치
 
+    [Header("#VilligeDoor")]
+    //public GameObject villageDoor;
+    public bool villageDoorChicking;
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.transform.position = targetPoint.transform.position;
-            DungeonManager.Instance.playerLocation += direction;
-            Debug.Log(DungeonManager.Instance.playerLocation);
+            if (villageDoorChicking)
+            {
+                SceneManager.LoadScene("MainScene");
+            }
+            else
+            {
+                other.transform.position = targetPoint.transform.position;
+                DungeonManager.Instance.playerLocation += direction;
+                Debug.Log(DungeonManager.Instance.playerLocation);
+            }
         }
     }
 
