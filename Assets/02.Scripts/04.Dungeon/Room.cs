@@ -12,6 +12,7 @@ public class Room : MonoBehaviour
     public GameObject[] doors = new GameObject[4];
     public GameObject villigeDoor;
     public GameObject[] enemys;
+    public GameObject resources;
     public int enemysCount;
 
     public bool playerchecking; //플레이어가 있는지
@@ -20,6 +21,7 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
+        resources.SetActive(false);
         //SetDoorDirection();
         if (roomData.roomType == RoomType.StartRoom)
         {
@@ -56,6 +58,7 @@ public class Room : MonoBehaviour
                     {
                         SpawnEnemy();
                     }
+                    ResurcesSpawn();
                     enemySpwan = true;
                 }
                 else
@@ -153,9 +156,27 @@ public class Room : MonoBehaviour
                 }
             }
         }
+    }
 
-        
-        
+    private void ResurcesSpawn()
+    {
+        int value = 25;
+        int minX = -value;
+        int maxX = value;
+        int minZ = -value;
+        int maxZ = value;
+        Debug.Log("자원 생성");
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform child = resources.transform.GetChild(i);
+            Vector3 randomPosition = new Vector3(
+                Random.Range(this.transform.position.x + minX, this.transform.position.x + maxX),
+                -40,
+                Random.Range(this.transform.position.z + minZ, this.transform.position.z + maxZ)
+            );
+            child.position = randomPosition;
+            resources.SetActive(true);
+        }
     }
     // 이 방에 들어올 때 호출됩니다.
     public void Enter()
@@ -168,6 +189,7 @@ public class Room : MonoBehaviour
                 if (roomData.roomType == RoomType.BossRoom)
                 {
                     villigeDoor.SetActive(true);
+                    resources.SetActive(true);
                 }
             }
         }
@@ -181,7 +203,6 @@ public class Room : MonoBehaviour
             if (door != null)
             {
                 door.SetActive(false);
-                
             }
         }
     }
