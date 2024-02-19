@@ -21,8 +21,9 @@ public class PlayerHealth : MonoBehaviour
     public Transform HitDamagePoint;
 
     //Ã¼·Â
-    public int PlayerMaxHP;
-    public int PlayerHP;
+    public int PlayerHP { get; set; }
+
+    public int PlayerMaxHP { get; set; }
 
     public Slider slider;
 

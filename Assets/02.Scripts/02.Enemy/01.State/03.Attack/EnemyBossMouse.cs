@@ -165,12 +165,13 @@ public class EnemyBossMouse : MonoBehaviour
     }
     private void AttackRandom()
     {
-        StartCoroutine(RealAttackRandom());
+        int RandomAttack = Random.Range(Minpattern, Maxpattern + 1);
+        StartCoroutine(RealAttackRandom(RandomAttack));
     }
 
-    private IEnumerator RealAttackRandom()
+    private IEnumerator RealAttackRandom(int RandomAttack)
     {
-        int RandomAttack = Random.Range(Minpattern, Maxpattern + 1);
+        Debug.Log(RandomAttack);
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         if (RandomAttack <= 100 && RandomAttack > 40 && !IsAttack && !IsSpecialAttack2 && !IsSpecialAttack1)

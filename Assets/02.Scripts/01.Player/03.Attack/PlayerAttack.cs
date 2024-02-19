@@ -22,8 +22,8 @@ public class PlayerAttack : MonoBehaviour
     public int MaxComboCount = 3;
 
 
-    public int MinDamage = 10;
-    public int MaxDamage = 20;
+    public int MinDamage { get; set; }
+    public int MaxDamage { get; set; }
 
     //공격속도
     public float AttackDelay = 1f;
@@ -45,6 +45,8 @@ public class PlayerAttack : MonoBehaviour
     }
     private void Start()
     {
+        MinDamage = 10;
+        MaxDamage = 20;
         _controller.OnAttackEvent += AttackCheck;
         _controller.OnLookEvent += Look;
         ComboCount = 0;
