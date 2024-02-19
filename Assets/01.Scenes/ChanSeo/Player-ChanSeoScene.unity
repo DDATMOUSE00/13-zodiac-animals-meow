@@ -1918,8 +1918,6 @@ MonoBehaviour:
   AttackStart: {fileID: 693318108}
   ComboTimeLimit: 0.5
   MaxComboCount: 3
-  MinDamage: 10
-  MaxDamage: 20
   AttackDelay: 0.5
   AttackRange: {x: 6, y: 5, z: 6}
 --- !u!114 &984906243
@@ -1938,8 +1936,6 @@ MonoBehaviour:
   MaxHPTEXT: {fileID: 0}
   HitDamageText: {fileID: 0}
   HitDamagePoint: {fileID: 0}
-  PlayerMaxHP: 100
-  PlayerHP: 100
   slider: {fileID: 0}
   IsInvincible: 0
 --- !u!114 &984906244
@@ -1956,8 +1952,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsMoving: 0
   IsRolling: 0
-  PlayerMaxSM: 100
-  PlayerSM: 0
   slider: {fileID: 0}
 --- !u!114 &984906245
 MonoBehaviour:
@@ -2936,8 +2930,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsMoving: 0
   IsRolling: 0
-  PlayerMaxSM: 100
-  PlayerSM: 0
   slider: {fileID: 0}
 --- !u!114 &1846272989
 MonoBehaviour:
@@ -3054,8 +3046,6 @@ MonoBehaviour:
   MaxHPTEXT: {fileID: 0}
   HitDamageText: {fileID: 0}
   HitDamagePoint: {fileID: 0}
-  PlayerMaxHP: 100
-  PlayerHP: 100
   slider: {fileID: 0}
   IsInvincible: 0
 --- !u!114 &1846272996
@@ -3085,8 +3075,6 @@ MonoBehaviour:
   AttackStart: {fileID: 792154667}
   ComboTimeLimit: 0.5
   MaxComboCount: 3
-  MinDamage: 10
-  MaxDamage: 20
   AttackDelay: 1
   AttackRange: {x: 4, y: 5, z: 6}
 --- !u!1 &1917351505
@@ -3927,8 +3915,6 @@ MonoBehaviour:
   AttackStart: {fileID: 8824305416158870831}
   ComboTimeLimit: 1
   MaxComboCount: 3
-  MinDamage: 10
-  MaxDamage: 20
   AttackDelay: 1
   AttackRange: {x: 4, y: 5, z: 6}
 --- !u!1 &1453638737437061205
@@ -4094,6 +4080,7 @@ GameObject:
   - component: {fileID: 3557656485977703265}
   - component: {fileID: 4372851918967210178}
   - component: {fileID: 3277187788510972578}
+  - component: {fileID: 6185354139652419511}
   - component: {fileID: 4711232794789308903}
   - component: {fileID: 6185354139652419510}
   - component: {fileID: 2938381043037222580}
@@ -4250,8 +4237,6 @@ MonoBehaviour:
   HitDamageText: {fileID: 896372709270788677, guid: 2cd1ab58e4ab9ca4495b4199144bc6d6,
     type: 3}
   HitDamagePoint: {fileID: 5356089510131345629}
-  PlayerMaxHP: 100
-  PlayerHP: 100
   slider: {fileID: 6236543301244165955}
   IsInvincible: 0
 --- !u!114 &2948415179548420425
@@ -4652,8 +4637,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsMoving: 0
   IsRolling: 0
-  PlayerMaxSM: 100
-  PlayerSM: 0
   slider: {fileID: 5973705956704763619}
 --- !u!212 &4774990220649362806
 SpriteRenderer:
@@ -5186,6 +5169,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 221091ba869e625438c6d3f3777bdc48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6185354139652419511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2196074875653195213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcefd4827dd9efd4d8d68b027c173bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6236543301244165955
