@@ -22,8 +22,9 @@ public class PlayerMovement : MonoBehaviour
     private float RollSpeed = 20.0f; //구르는 속도
 
     //플레이어 스테미너
-    public int PlayerMaxSM;
-    public int PlayerSM;
+    public int PlayerSM { get; set; }
+
+    public int PlayerMaxSM { get; set; }
     public Slider slider;
 
     private float SMRecoveryTime = 0.4f; //SM 회복 시간 0.4초

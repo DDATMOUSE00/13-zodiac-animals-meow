@@ -23,7 +23,7 @@ public class EnemyBullet : MonoBehaviour
             {
                 int EnemyDamage = Random.Range(MinDamage, MaxDamage + 1);
                 PlayerHealth.PlayerHit(EnemyDamage);
-                Debug.Log(EnemyDamage);
+                //Debug.Log(EnemyDamage);
             }
             Destroy(gameObject);
 

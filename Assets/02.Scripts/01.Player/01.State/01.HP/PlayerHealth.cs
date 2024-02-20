@@ -13,16 +13,17 @@ public class PlayerHealth : MonoBehaviour
     private PlayerMovement _PlayerMovement;
 
     //체력UI
-    public TextMeshProUGUI MinHPTEXT;
-    public TextMeshProUGUI MaxHPTEXT;
+    //public TextMeshProUGUI MinHPTEXT;
+    //public TextMeshProUGUI MaxHPTEXT;
 
     //피격 데미지UI
     public GameObject HitDamageText;
     public Transform HitDamagePoint;
 
     //체력
-    public int PlayerMaxHP;
-    public int PlayerHP;
+    public int PlayerHP { get; set; }
+
+    public int PlayerMaxHP { get; set; }
 
     public Slider slider;
 
@@ -41,8 +42,8 @@ public class PlayerHealth : MonoBehaviour
         PlayerHP = PlayerMaxHP;
         UIMaxHealth(PlayerMaxHP);
         IsInvincible = false;
-        MinHPTEXT.text = PlayerHP.ToString();
-        MaxHPTEXT.text = PlayerMaxHP.ToString();
+        //MinHPTEXT.text = PlayerHP.ToString();
+        //MaxHPTEXT.text = PlayerMaxHP.ToString();
     }
 
     private void Update()
