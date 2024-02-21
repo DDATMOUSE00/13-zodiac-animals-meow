@@ -23,6 +23,7 @@ public class QuestInfo : ScriptableObject
 
     [Header("Rewards")]
     public int goldReward;
+    public int animalId;
 
     private void OnValidate()
     {

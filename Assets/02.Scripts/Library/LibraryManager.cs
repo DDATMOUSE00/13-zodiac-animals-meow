@@ -30,7 +30,7 @@ public class LibraryManager : MonoBehaviour
         I = this;
     }
 
-    private Book findBookWithId(int id)
+    public Book findBookWithId(int id)
     {
         foreach(var b in totalBooks)
         {
