@@ -37,9 +37,6 @@ public class PlayerManager : MonoBehaviour
         Player.GetComponent<PlayerAttack>().MinDamage = pInfo.minDamage;
         Player.GetComponent<PlayerHealth>().PlayerMaxHP = pInfo.maxHP;
         Player.GetComponent<PlayerMovement>().PlayerMaxSM = pInfo.maxST;
-
-
-
     }
 
 }
