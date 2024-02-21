@@ -13,7 +13,6 @@ public class Test_Room : MonoBehaviour
 
     public bool playerchecking; //플레이어가 있는지
     public bool claerchecking; //클리어 한 방인지
-    public bool BossRoom;
     public bool enemySpwan;
 
     private void Start()
@@ -38,7 +37,7 @@ public class Test_Room : MonoBehaviour
                 if (!enemySpwan)
                 {
                     Exit();
-                    for (int i = 0; i < roomData.maxEnemyCount; i++)
+                    for (int i = 0; i < Random.Range(roomData.minEnemyCount, roomData.maxEnemyCount); i++)
                     {
                         SpawnEnemy();
                     }
@@ -120,9 +119,28 @@ public class Test_Room : MonoBehaviour
 
         Debug.Log("적 소환");
         GameObject enemy = DungeonManager.Instance.enemyPool.Get(Random.Range(0, DungeonManager.Instance.enemyPool.prefabs.Length));
-        enemy.transform.position = this.transform.position + spawnPoint;
-        //enemy.SetActive(true);
-        //enemysCount++;
+        
+        //Test
+        //데이터의 있는 몬스터의 이름을 찾아 생성하도록 해보자!!
+        if (roomData.roomType == RoomType.DungeonRoom)
+        {
+            for (int i = 0; i < roomData.enemys.Length; i++)
+            {
+                for (int j = 0; j < DungeonManager.Instance.enemyPool.prefabs.Length; j++)
+                {
+                    if (roomData.enemys[i].gameObject.name == DungeonManager.Instance.enemyPool.prefabs[j].name)
+                    {
+                        DungeonManager.Instance.enemyPool.Get(j);
+                        enemy.transform.position = this.transform.position + spawnPoint;
+                    }
+                }
+            }
+        }
+        else if (roomData.roomType == RoomType.BossRoom)
+        {
+            GameObject bossEnemy = roomData.Boss;
+            Instantiate(bossEnemy, this.transform.position, Quaternion.identity);
+        }
     }
     // 이 방에 들어올 때 호출됩니다.
     public void Enter()

@@ -16,14 +16,14 @@ public class PlayerManager : MonoBehaviour
 
     public void SavePlayerData()
     {
-
-        int gold = Player.GetComponent<PlayerGold>().Gold;
-        int maxD = Player.GetComponent<PlayerAttack>().MaxDamage;
-
-        int minD = Player.GetComponent<PlayerAttack>().MinDamage;
-        int HP = Player.GetComponent<PlayerHealth>().PlayerMaxHP;
-        int ST = Player.GetComponent<PlayerMovement>().PlayerMaxSM;
-        PlayerInfo pInfo = new PlayerInfo(gold, maxD, minD, HP, ST);
+        int Gold = Player.GetComponent<PlayerGold>().Gold;
+        int MinD = Player.GetComponent<PlayerAttack>().MinDamage;
+        int MaxD = Player.GetComponent<PlayerAttack>().MaxDamage;
+        int HP = Player.GetComponent<PlayerHealth>().PlayerHP;
+        int MaxHP = Player.GetComponent<PlayerHealth>().PlayerMaxHP;
+        int SM = Player.GetComponent<PlayerMovement>().PlayerSM;
+        int MaxSM = Player.GetComponent<PlayerMovement>().PlayerMaxSM;
+        PlayerInfo pInfo = new PlayerInfo(Gold, MinD, MaxD,  HP, MaxHP, SM, MaxSM);
 
         DataManager.I.SaveJsonData(pInfo, "PlayerData");
 
@@ -32,11 +32,13 @@ public class PlayerManager : MonoBehaviour
     {
         pInfo = DataManager.I.LoadJsonData<PlayerInfo>("PlayerData");
 
-        Player.GetComponent<PlayerGold>().Gold = pInfo.gold;
-        Player.GetComponent<PlayerAttack>().MaxDamage = pInfo.maxDamage;
-        Player.GetComponent<PlayerAttack>().MinDamage = pInfo.minDamage;
-        Player.GetComponent<PlayerHealth>().PlayerMaxHP = pInfo.maxHP;
-        Player.GetComponent<PlayerMovement>().PlayerMaxSM = pInfo.maxST;
+        Player.GetComponent<PlayerGold>().Gold = pInfo.Gold;
+        Player.GetComponent<PlayerAttack>().MinDamage = pInfo.MinDamage;
+        Player.GetComponent<PlayerAttack>().MaxDamage = pInfo.MaxDamage;
+        Player.GetComponent<PlayerHealth>().PlayerHP = pInfo.HP;
+        Player.GetComponent<PlayerHealth>().PlayerMaxHP = pInfo.MaxHP;
+        Player.GetComponent<PlayerMovement>().PlayerSM = pInfo.SM;
+        Player.GetComponent<PlayerMovement>().PlayerMaxSM = pInfo.MaxSM;
     }
 
 }
@@ -45,21 +47,22 @@ public class PlayerManager : MonoBehaviour
 [System.Serializable]
 public class PlayerInfo
 {
+    public int Gold;
+    public int MinDamage;
+    public int MaxDamage;
+    public int HP;
+    public int MaxHP;
+    public int SM;
+    public int MaxSM;
 
-    public int gold;
-    public int maxDamage;
-    public int minDamage;
-    public int maxHP;
-    public int maxST;
-
-
-    public PlayerInfo(int pGold, int pMaxD, int pMinD, int pHP, int pST)
+    public PlayerInfo(int pGold, int pMinD, int pMaxD, int pHP, int pMaxHP, int pSM, int pMaxSM)
     {
-        gold = pGold;
-        maxDamage = pMaxD;
-        minDamage = pMinD;
-        maxHP = pHP;
-        maxST = pST;
-
+        Gold = pGold;
+        MinDamage = pMinD;
+        MaxDamage = pMaxD;
+        HP = pHP;
+        MaxHP = pMaxHP;
+        SM = pSM;
+        MaxSM = pMaxSM;
     }
 }

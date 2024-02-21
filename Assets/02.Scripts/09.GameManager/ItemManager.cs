@@ -1,6 +1,8 @@
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 
 public class ItemManager : MonoBehaviour
@@ -243,6 +245,40 @@ public class ItemManager : MonoBehaviour
         {
             itemInNewSlot.RefreshCount();
 
+        }
+    }
+
+    public bool ChekInventoryItem(int id, int value)
+    {
+        if (itemDic.ContainsKey(id))
+        {
+            return itemDic[id] >= value;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void RemoveItem(int id, int value)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            Slot slot = slots[i];
+
+            DraggableItem itemInNewSlot = slot.GetComponentInChildren<DraggableItem>();
+            if (itemInNewSlot != null && itemInNewSlot.item.id == id && itemInNewSlot.item.stackable)
+            {
+                if (itemInNewSlot.bundle >= value)
+                {
+                    Debug.Log($"B-item.{id}/ {itemInNewSlot.bundle}");
+                    itemInNewSlot.bundle -= value;
+                    itemInNewSlot.RefreshCount();
+                    itemDic[id] = itemInNewSlot.bundle;
+                    RefreshInventorySlot();
+                    Debug.Log($"A-item.{id}/ {itemInNewSlot.bundle}");
+                }
+            }
         }
     }
 }

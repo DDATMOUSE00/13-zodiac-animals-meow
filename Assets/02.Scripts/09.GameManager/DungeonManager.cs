@@ -14,7 +14,7 @@ public class DungeonManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        Player = Instantiate(Player, new Vector3(800, -35, 800), Quaternion.identity);
+        //Player = Instantiate(Player, new Vector3(800, -35, 800), Quaternion.identity);
         enemyPool = GetComponentInChildren<EnemyObjectPooling>();
     }
     private void Start()

@@ -21,6 +21,12 @@ public class EnemyHealth : MonoBehaviour
         EnemyHP = EnemyMaxHP;
         IsDead = false;
     }
+
+    private void OnEnable()
+    {
+        EnemyHP = EnemyMaxHP;
+        IsDead = false;
+    }
     public void EnemyHit(int PlayerDamage)
     {
         //몬스터가 맞았을 때 HP 닳는 양과 죽음처리
@@ -43,6 +49,7 @@ public class EnemyHealth : MonoBehaviour
     }
     private void Die()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

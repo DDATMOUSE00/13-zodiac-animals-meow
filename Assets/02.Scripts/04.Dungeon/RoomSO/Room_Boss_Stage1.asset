@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c5aec1ad2588e4fb955368e16c6f15, type: 3}
   m_Name: Room_Boss_Stage1
   m_EditorClassIdentifier: 
-  roomName: Room_1
-  maxEnemyCount: 4
-  enemys:
-  - {fileID: 4498209422145137220, guid: 66b348e10dd1f58488ca3003a4996ce4, type: 3}
-  - {fileID: 1697732665507998203, guid: b9ec83d13a3b11a4c83baa6f38a16f77, type: 3}
+  roomName: Room_Boss_Stage1
+  minEnemyCount: 0
+  maxEnemyCount: 0
+  enemys: []
+  Boss: {fileID: 7620210423648046614, guid: 58fc0e8dd668c1443afa477f451af82d, type: 3}
   roomType: 1
