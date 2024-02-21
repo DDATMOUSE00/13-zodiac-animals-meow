@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class LibraryManager : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class LibraryManager : MonoBehaviour
     private bool[] Books =new bool[12];
     public List<Book> totalBooks = new List<Book>();
     public List<BookSlot> bSlots = new List<BookSlot>();
+    public Slider slider;
+    public TMP_Text cntTxt;
 
     private int cnt = 0;
    
@@ -72,6 +76,8 @@ public class LibraryManager : MonoBehaviour
             b.AddStroyBook();
 
             cnt++;
+            slider.value = cnt;
+            cntTxt.text = $"{cnt}/12";
             
         }
         else
