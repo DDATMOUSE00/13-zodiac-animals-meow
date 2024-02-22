@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     //구르기
     public bool IsRolling;
-    private float RollingTime = 0.5f; //구르는 시간
+    private float RollingTime = 0.667f; //구르는 시간
     private float RollSpeed = 20.0f; //구르는 속도
 
     //플레이어 스테미너
@@ -62,16 +62,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //애니메이션
-        if (!IsRolling && !PlayerAttack.IsAttack && !_Health.IsInvincible && !PlayerAttack.IsSkill)
+        if (!IsRolling && !PlayerAttack.IsAttack && !_Health.IsHit && !PlayerAttack.IsSkill)
         {
-            if (!IsMoving && !PlayerAttack.IsAttack && !_Health.IsInvincible && !PlayerAttack.IsSkill)
+            if (!IsMoving && !PlayerAttack.IsAttack && !_Health.IsHit && !PlayerAttack.IsSkill)
             {
                 if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_idle_sword"))
                 {
                     Anim.AnimationState.SetAnimation(0, "sd_idle_sword", true);
                 }
             }
-            else if (IsMoving && !PlayerAttack.IsAttack && !_Health.IsInvincible && !PlayerAttack.IsSkill)
+            else if (IsMoving && !PlayerAttack.IsAttack && !_Health.IsHit && !PlayerAttack.IsSkill)
             {
                 if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_run"))
                 {
@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        if ()
+        if (_Health.IsHit && !PlayerAttack.IsSkill && !IsRolling)
         {
             if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_damage"))
             {
@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
         IsMoving = (direction != Vector3.zero);
     }
 
-    private void ApplyMovement(Vector3 direction)
+    public void ApplyMovement(Vector3 direction)
     {
         {
             if (!PlayerAttack.IsAttack && !PlayerAttack.IsSkill)
@@ -131,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
     //구르기
     private void Roll()
     {
-        if (!IsRolling && !_Health.IsInvincible)
+        if (!IsRolling && !_Health.IsHit)
         {
             StartCoroutine(RollCoroutine());
         }

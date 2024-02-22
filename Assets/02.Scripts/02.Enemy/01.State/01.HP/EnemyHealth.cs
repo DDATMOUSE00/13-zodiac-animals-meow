@@ -11,6 +11,10 @@ public class EnemyHealth : MonoBehaviour
     public Animator Anim;
     public bool IsDead;
 
+    //데미지 표시 UI
+    public GameObject HitDamageText;
+    public Transform HitDamagePoint;
+
     private void Awake()
     {
         PAttack = GetComponent<PlayerAttack>();
@@ -23,21 +27,21 @@ public class EnemyHealth : MonoBehaviour
     }
     public void EnemyHit(int PlayerDamage)
     {
-        //몬스터가 맞았을 때 HP 닳는 양과 죽음처리
+        //몬스터가 맞을때
         if (EnemyHP > 0)
         {
             // HP 감소
             EnemyHP -= PlayerDamage;
-            //Debug.Log("몬스터 최대체력 : " + EnemyMaxHP);
-            //Debug.Log("몬스터 현재체력 : " + EnemyHP);
+            GameObject HitUI = Instantiate(HitDamageText);
+            HitUI.transform.position = HitDamagePoint.position;
+            HitUI.GetComponent<HitEnemyDamageUI>().PlayerDamage = PlayerDamage;
+
             // HP가 0 이하일 경우 Die
             if (EnemyHP <= 0)
             {
                 IsDead = true;
                 Anim.SetBool("IsDead", true);
                 Invoke("Die", 2f);
-                //Debug.Log("몬스터 최대체력 : " + EnemyMaxHP);
-                //Debug.Log("몬스터 현재체력 : " + EnemyHP);
             }
         }
     }

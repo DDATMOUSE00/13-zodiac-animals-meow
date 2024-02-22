@@ -16,9 +16,10 @@ public class PlayerAttack : MonoBehaviour
     private PlayerHealth _Health;
     public bool IsAttack { get; set; }
     public bool IsSkill;
-    private int ComboCount;
+    public int ComboCount;
     private float ComboTimer;
-    public float ComboTimeLimit = 1.0f;
+    public float ComboTimeLimit;
+    public float ComboTimeLowLimit;
     private bool IsCombo;
     public int MaxComboCount = 3;
     public int SkillCount = 0;
@@ -28,7 +29,7 @@ public class PlayerAttack : MonoBehaviour
     public int MaxDamage { get; set; }
 
     //공격속도
-    public float AttackDelay = 1f;
+    //public float AttackDelay = 1f;
     public float SkillDelay = 2f;
 
     //공격범위
@@ -56,6 +57,8 @@ public class PlayerAttack : MonoBehaviour
         _controller.OnSkillEvent2 += Skill2;
         ComboCount = 0;
         ComboTimer = 0f;
+        ComboTimeLimit = 0.9f; //0.9초안에 공격(후딜)
+        ComboTimeLowLimit = 0.3f; //최소 공격시간(공속)
         IsAttack = false;
         IsCombo = false;
         IsSkill = false;
@@ -71,25 +74,14 @@ public class PlayerAttack : MonoBehaviour
             {
                 // 콤보 시간이 지나면 콤보 초기화
                 ComboCount = 0;
-                IsCombo = false;
                 ComboTimer = 0f;
+                IsCombo = false;
                 IsAttack = false;
             }
         }
 
-        //콤보스킬
-        //if (IsSkill)
-        //{
-        //    ComboTimer += Time.deltaTime;
-
-        //    if(ComboTimer >= SkillDelay)
-        //    {
-        //        IsSkillCombo = true;
-        //    }
-        //}
-
         //애니메이션
-        if (IsAttack && !_Health.IsInvincible && !IsSkill)
+        if (IsAttack && !_Health.IsHit && !IsSkill)
         {
             if (!_movement.IsRolling && ComboCount == 1)
             {
@@ -141,22 +133,24 @@ public class PlayerAttack : MonoBehaviour
 
     public void AttackCheck()
     {
-        if (IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && IsCombo && !_Health.IsInvincible)
+        ComboTimer += Time.deltaTime;
+
+        if (!IsAttack && ComboCount < MaxComboCount && ComboCount == 0 &&!_movement.IsRolling && !_Health.IsHit)
+        {
+            IsAttack = true;
+            IsCombo = true;
+            ComboCount++;
+            //ComboTimer = 0f;
+            Attack();
+            //Debug.Log("그냥공격");
+        }
+
+        if (IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && IsCombo && !_Health.IsHit && ComboTimer <= ComboTimeLimit && ComboTimer >= ComboTimeLowLimit)
         {
             ComboCount++;
             ComboTimer = 0f;
             Attack();
             //Debug.Log("콤보공격");
-        }
-
-        if (!IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && !_Health.IsInvincible)
-        {
-            IsAttack = true;
-            ComboCount++;
-            IsCombo = true;
-            ComboTimer = 0f;
-            Attack();
-            //Debug.Log("그냥공격");
         }
     }
     private void Attack()
@@ -205,7 +199,7 @@ public class PlayerAttack : MonoBehaviour
                 targetResource.Hit();
             }
         }
-        Invoke("EndAttack", AttackDelay);
+        //Invoke("EndAttack", AttackDelay);
     }
 
     private void EndAttack()
@@ -229,7 +223,7 @@ public class PlayerAttack : MonoBehaviour
             }
             IsSkill = true;
             SkillCount = 1;
-            Invoke("RealSkill1", 1.7f);
+            Invoke("RealSkill1", 1.667f);
         }
     }
 
@@ -262,7 +256,7 @@ public class PlayerAttack : MonoBehaviour
             }
             IsSkill = true;
             SkillCount = 2;
-            Invoke("RealSkill2", 1.7f);
+            Invoke("RealSkill2", 1.667f);
         }
     }
 

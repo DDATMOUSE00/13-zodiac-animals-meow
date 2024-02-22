@@ -28,12 +28,10 @@ public class PlayerController : MonoBehaviour
     public void CallSkillEvent1()
     {
         OnSkillEvent1?.Invoke();
-        Debug.Log("스킬 이벤트1");
     }
     public void CallSkillEvent2()
     {
         OnSkillEvent2?.Invoke();
-        Debug.Log("스킬 이벤트2");
     }
 
     public void CallLookEvent(Vector2 PlayerAim)
