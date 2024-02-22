@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
 {
     private SkeletonAnimation Anim;
     private PlayerMovement _PlayerMovement;
+    private PlayerAttack _PlayerAttack;
 
     //眉仿UI
     //public TextMeshProUGUI MinHPTEXT;
@@ -28,20 +29,25 @@ public class PlayerHealth : MonoBehaviour
     public Slider slider;
 
     //公利
-    public bool IsInvincible;
+    public bool IsHit;
+
+    //磷澜
+    public bool IsDead;
 
     private void Awake()
     {
         PlayerMaxHP = 100;
         Anim = GetComponentInChildren<SkeletonAnimation>();
-        _PlayerMovement = GetComponentInChildren<PlayerMovement>();
+        _PlayerMovement = GetComponent<PlayerMovement>();
+        _PlayerAttack = GetComponent<PlayerAttack>();
     }
 
     private void Start()
     {
         PlayerHP = PlayerMaxHP;
         UIMaxHealth(PlayerMaxHP);
-        IsInvincible = false;
+        IsHit = false;
+        IsDead = false;
         //MinHPTEXT.text = PlayerHP.ToString();
         //MaxHPTEXT.text = PlayerMaxHP.ToString();
     }
@@ -53,6 +59,12 @@ public class PlayerHealth : MonoBehaviour
             UIHealth(PlayerHP);
         }
 
+        // HP啊 0 捞窍老 版快 Die
+        if (PlayerHP <= 0)
+        {
+            IsDead = true;
+            Die();
+        }
     }
 
     public void UIMaxHealth(int PlayerHP)
@@ -70,7 +82,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void PlayerHit(int EnemyDamage)
     {
-        if (!IsInvincible && !_PlayerMovement.IsRolling)
+        if (!IsHit && !_PlayerMovement.IsRolling)
         {
             GameObject HitUI = Instantiate(HitDamageText);
             HitUI.transform.position = HitDamagePoint.position;
@@ -79,19 +91,10 @@ public class PlayerHealth : MonoBehaviour
             if (PlayerHP > 0)
             {
                 // HP 皑家
-                //EnemyDMG = 利 傍拜仿 眠啊秦具凳
                 PlayerHP -= EnemyDamage;
-                if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_damage"))
-                {
-                    Anim.AnimationState.SetAnimation(0, "sd_damage", false);
-                    //公利
-                    Invisible();
-                }
-                // HP啊 0 捞窍老 版快 Die
-                if (PlayerHP <= 0)
-                {
-                    Die();
-                }
+
+                //公利
+                Invisible();
             }
         }
     }
@@ -100,15 +103,15 @@ public class PlayerHealth : MonoBehaviour
     {
         //公利
         //Debug.Log("公利");
-        IsInvincible = true;
-    
-        Invoke("DisInvisible", 0.5f);
+        IsHit = true;
+        _PlayerAttack.ComboCount = 0;
+        Invoke("DisInvisible", 0.3f);
     }
     public void DisInvisible()
     {
         //公利 秦力
         //Debug.Log("公利 秦力");
-        IsInvincible = false;
+        IsHit = false;
     }
 
     private void Die()
