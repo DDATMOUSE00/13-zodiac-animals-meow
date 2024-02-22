@@ -15,18 +15,21 @@ public class PlayerAttack : MonoBehaviour
     private PlayerMovement _movement;
     private PlayerHealth _Health;
     public bool IsAttack { get; set; }
+    public bool IsSkill;
     private int ComboCount;
     private float ComboTimer;
     public float ComboTimeLimit = 1.0f;
     private bool IsCombo;
     public int MaxComboCount = 3;
+    public int SkillCount = 0;
 
-
+    //데미지
     public int MinDamage { get; set; }
     public int MaxDamage { get; set; }
 
     //공격속도
     public float AttackDelay = 1f;
+    public float SkillDelay = 2f;
 
     //공격범위
     public Vector3 AttackRange;
@@ -49,10 +52,13 @@ public class PlayerAttack : MonoBehaviour
         MaxDamage = 20;
         _controller.OnAttackEvent += AttackCheck;
         _controller.OnLookEvent += Look;
+        _controller.OnSkillEvent1 += Skill1;
+        _controller.OnSkillEvent2 += Skill2;
         ComboCount = 0;
         ComboTimer = 0f;
         IsAttack = false;
         IsCombo = false;
+        IsSkill = false;
     }
     private void Update()
     {
@@ -71,8 +77,19 @@ public class PlayerAttack : MonoBehaviour
             }
         }
 
+        //콤보스킬
+        //if (IsSkill)
+        //{
+        //    ComboTimer += Time.deltaTime;
+
+        //    if(ComboTimer >= SkillDelay)
+        //    {
+        //        IsSkillCombo = true;
+        //    }
+        //}
+
         //애니메이션
-        if (IsAttack && !_Health.IsInvincible)
+        if (IsAttack && !_Health.IsInvincible && !IsSkill)
         {
             if (!_movement.IsRolling && ComboCount == 1)
             {
@@ -93,6 +110,24 @@ public class PlayerAttack : MonoBehaviour
                 if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_attack_03"))
                 {
                     Anim.AnimationState.SetAnimation(0, "sd_attack_03", false);
+                }
+            }
+        }
+
+        if (IsSkill)
+        {
+            if (!_movement.IsRolling && SkillCount == 1)
+            {
+                if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("skill_01"))
+                {
+                    Anim.AnimationState.SetAnimation(0, "skill_01", false);
+                }
+            }
+            else if (!_movement.IsRolling && SkillCount == 2)
+            {
+                if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("skill_02"))
+                {
+                    Anim.AnimationState.SetAnimation(0, "skill_02", false);
                 }
             }
         }
@@ -128,7 +163,7 @@ public class PlayerAttack : MonoBehaviour
     {
         //필요없으면 제거 공격방향
         //왼쪽으로 많이 땡겨야하는 버그있음
-        Vector2 PlayerAim = AimDirection.normalized;
+        //Vector2 PlayerAim = AimDirection.normalized;
 
         float normalizedX = (Input.mousePosition.x / Screen.width) * 2 - 1;
         //Debug.Log(PlayerAim.x);
@@ -165,7 +200,7 @@ public class PlayerAttack : MonoBehaviour
 
             if (collider.CompareTag("Resource"))
             {
-              //  Debug.Log("자원 공격!");
+                //  Debug.Log("자원 공격!");
                 Resource targetResource = collider.GetComponent<Resource>();
                 targetResource.Hit();
             }
@@ -178,6 +213,76 @@ public class PlayerAttack : MonoBehaviour
         //다시 공격 가능한 상태로 만들기
         IsAttack = false;
     }
+    private void Skill1()
+    {
+        if (SkillCount == 0)
+        {
+            float normalizedX = (Input.mousePosition.x / Screen.width) * 2 - 1;
+
+            if (normalizedX < 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (normalizedX > 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            IsSkill = true;
+            SkillCount = 1;
+            Invoke("RealSkill1", 1.7f);
+        }
+    }
+
+    private void RealSkill1()
+    {
+
+        if (IsSkill && SkillCount == 1)
+        {
+            ;
+            IsSkill = false;
+            SkillCount = 0;
+        }
+        //능력치 상승 로직
+
+    }
+
+    private void Skill2()
+    {
+        if (SkillCount == 0)
+        {
+            float normalizedX = (Input.mousePosition.x / Screen.width) * 2 - 1;
+
+            if (normalizedX < 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (normalizedX > 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            IsSkill = true;
+            SkillCount = 2;
+            Invoke("RealSkill2", 1.7f);
+        }
+    }
+
+    private void RealSkill2()
+    {
+
+        if (IsSkill && SkillCount == 2)
+        {
+            ;
+            IsSkill = false;
+            SkillCount = 0;
+        }
+        //공격 로직
+    }
+
+    //private void EndSkill()
+    //{
+    //    IsSkill = false;
+    //    SkillCount = 0;
+    //}
 
     private void OnDrawGizmosSelected()
     {

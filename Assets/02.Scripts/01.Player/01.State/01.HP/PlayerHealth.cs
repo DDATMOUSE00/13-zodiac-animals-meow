@@ -30,6 +30,9 @@ public class PlayerHealth : MonoBehaviour
     //무적
     public bool IsInvincible;
 
+    //죽음
+    public bool IsDead;
+
     private void Awake()
     {
         PlayerMaxHP = 100;
@@ -42,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
         PlayerHP = PlayerMaxHP;
         UIMaxHealth(PlayerMaxHP);
         IsInvincible = false;
+        IsDead = false;
         //MinHPTEXT.text = PlayerHP.ToString();
         //MaxHPTEXT.text = PlayerMaxHP.ToString();
     }
@@ -90,6 +94,7 @@ public class PlayerHealth : MonoBehaviour
                 // HP가 0 이하일 경우 Die
                 if (PlayerHP <= 0)
                 {
+                    IsDead = true;
                     Die();
                 }
             }
