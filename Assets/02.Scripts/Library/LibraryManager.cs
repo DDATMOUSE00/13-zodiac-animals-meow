@@ -72,7 +72,6 @@ public class LibraryManager : MonoBehaviour
             Books[id] = true;
             BookSlot b = findBookSlotWithId(id);
             Book book = findBookWithId(id);
-            Debug.Log(book.title);
             b.AddStroyBook();
 
             cnt++;
