@@ -18,7 +18,15 @@ public class QuestSlot : MonoBehaviour
         QName.text = quest.q.QuestName;
         QDesc.text = quest.q.QuestDesc;
         Lv.text = $"Lv. {quest.q.levelRequirement}";
-        Reward.text = $"{quest.q.goldReward} G";
+        if (quest.q.QuestType == QuestType.COLLECT)
+        {
+            Reward.text = $"{quest.q.goldReward} G";
+        }
+        else
+        {
+            Book b = LibraryManager.I.findBookWithId(quest.q.animalId);
+            Reward.text = $"{b.title} Ω∫≈‰∏Æ∫œ";
+        }
 
     }
 

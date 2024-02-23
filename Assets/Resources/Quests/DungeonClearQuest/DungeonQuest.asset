@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce920efe427423d4bb1d65bc324bee3c, type: 3}
+  m_Name: DungeonQuest
+  m_EditorClassIdentifier: 
+  QuestName: "\uB358\uC804"
+  QuestDesc: "\uD14C\uC2A4\uD2B8 \uB358\uC804 \uD018\uC2A4\uD2B8"
+  QuestType: 1
+  questPrefabs: {fileID: 0}
+  ItemId: 0
+  ItemQuantityToComplete: 0
+  QInfoName: DungeonQuest
+  levelRequirement: 1
+  goldReward: 0
+  animalId: 0

@@ -6,5 +6,6 @@ public class QuestInformation
 {
     public string SOPath;
     public QuestState state;
+    public QuestType type;
 
 }
