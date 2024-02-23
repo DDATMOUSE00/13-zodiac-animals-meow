@@ -13,21 +13,26 @@ public class BuyShop : MonoBehaviour
 
     [Header("#Shop_List")]
     public List<Item> items = new List<Item>();
+    //public List<Item> selectItems = new List<Item>();
+    public List<Item> selectItems = new List<Item>();
+
+    public int maxShopSloatCount = 3;
 
     [Header("#Shop_InventoryList")]
 
     [Header("#SlotList")]
-    public List<ShopSlot> shopSlots = new List<ShopSlot>();
+    public List<ShopSlot_Test> shopSlots = new List<ShopSlot_Test>();
     public List<int> inventorySlotKeyList = new List<int>();
 
     public Item selectItem;
+    public ShopSlot_Test selectShopSlot;
 
     [Header("#BuyInputField")]
     //[SerializeField] private GameObject inputField_UI;
     [SerializeField] private GameObject inputField_Obj;
     [SerializeField] private TMP_InputField inputField;
 
-    public bool cancel = false;
+    private bool cancel = false;
 
 
     private void Awake()
@@ -36,28 +41,69 @@ public class BuyShop : MonoBehaviour
     }
     private void Start()
     {
-        for (int i = 0; i < items.Count; i++)
+        SetSelecItems();
+    }
+
+    public void SelecItems()
+    {
+        // 셔플 알고리즘
+        for (int i = items.Count - 1; i > 0; i--)
+        {
+            int randIndex = Random.Range(0, i + 1);
+            Item temp = items[i];
+            items[i] = items[randIndex];
+            items[randIndex] = temp;
+        }
+
+        // 셔플된 리스트에서 첫 3개의 원소를 가져옴
+        for (int i = 0; i < maxShopSloatCount; i++)
+        {
+            selectItems.Add(items[i]);
+        }
+    }
+
+    //Reroll
+    #region Reroll
+    public void SetSelecItems()
+    {
+        ClearSelecItems();
+        SelecItems();
+        for (int i = 0; i < maxShopSloatCount; i++)
         {
             AddNewUiObject();
         }
-        
     }
-    
+
+    public void ClearSelecItems()
+    {
+        selectItems.Clear();
+        ClearShopSlots();
+    }
+
+    public void ClearShopSlots()
+    {
+        for (int i = 0; i < shopSlots.Count; i++)
+        {
+            Destroy(shopSlots[i].gameObject);
+        }
+        shopSlots.Clear();
+    }
+    #endregion
 
     public void AddNewUiObject()
     {
         if (!weaponShop)
         {
-            if (shopSlots.Count < items.Count)
+            if (shopSlots.Count < maxShopSloatCount)
             {
-                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot_Test>();
                 shopSlots.Add(newShopSlot);
 
                 float y = 100f;
 
                 for (int i = 0; i < shopSlots.Count; i++)
                 {
-                    shopSlots[i].itemData = items[i];
+                    shopSlots[i].itemData = selectItems[i];
                 }
                 scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * shopSlots.Count);
             }
@@ -68,42 +114,40 @@ public class BuyShop : MonoBehaviour
         }
     }
 
-    public void SelectItem(Item item)
+    public void SelectSlot(ShopSlot_Test _slot)
     {
-        selectItem = item;
-        //Debug.Log($"SelectItem :{selectItem.id}");
+        selectShopSlot = _slot;
+        selectItem = selectShopSlot.itemData;
     }
 
-    public void InputField()
+    public void BuyInputField()
     {
-        //아이템의 타입의 따라 
         inputField_Obj.SetActive(true);
-        if (!weaponShop)
-        {
-            inputField.onEndEdit.AddListener(delegate { EndEditEvent(inputField); });
-        }
+
+        inputField.onEndEdit.AddListener(delegate { EndEditBuy(inputField); });
+        Debug.Log("delegate - EndEditBuy");
+
     }
 
-    public void EndEditEvent(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
+    public void EndEditBuy(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
     {
         int int_inputNum = int.Parse(inputField.text);
         if (!cancel)
         {
-            if (!weaponShop)
+
+            for (int i = 0; i < int_inputNum; i++)
             {
-                for (int i = 0; i < int_inputNum; i++)
-                {
-                    ItemManager.I.AddItem(selectItem);
-                }
+                ItemManager.I.AddItem(selectItem);
             }
+            Debug.Log($" itemData.ID : {selectItem}.{selectItem.id} x {int_inputNum} / {type} ");
         }
         else
         {
             inputField.onEndEdit.RemoveAllListeners();
         }
-
-        Debug.Log($" itemData.ID : {selectItem}.{selectItem.id} x {int_inputNum} / {type} ");
+        inputField.onEndEdit.RemoveAllListeners();
         ExitButton();
+        ShopManager.Instance.ShowInventorySlotManager();
     }
 
     public void ExitButton()

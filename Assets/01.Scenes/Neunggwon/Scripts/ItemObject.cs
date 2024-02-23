@@ -27,15 +27,17 @@ public class ItemObject : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         TextMeshPro TextUI = interactionText_And_ItemName.GetComponent<TextMeshPro>();
-        TextUI.text = $"상호작용 [E] 키 \n {item.itemName}";
-        Debug.Log(TextUI.text);
+        if (item.type != ItemType.Coin)
+        {
+            TextUI.text = $"상호작용 [E] 키 \n {item.itemName}";
+        }
         interactionText_And_ItemName.SetActive(false);
     }
 
     void Update()
     {
         distance = Vector3.Distance(player.transform.position, transform.position);
-        if (distance < range)
+        if (distance < range && item.type != ItemType.Coin)
         {
             interactionText_And_ItemName.SetActive(true);
         }
@@ -49,8 +51,32 @@ public class ItemObject : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            ItemManager.I.AddItem(item);
+            if (item.type != ItemType.Coin)
+            {
+                ItemManager.I.AddItem(item);
+            }
+            else
+            {
+                //Coin += item.pice;
+            }
             Destroy(gameObject);
         }
     }
+
+
+    //public void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.collider.CompareTag("Player"))
+    //    {
+    //        if (item.type != ItemType.Coin)
+    //        {
+    //            ItemManager.I.AddItem(item);
+    //        }
+    //        else
+    //        {
+    ////Coin += item.pice;
+    //        }
+    //        Destroy(gameObject);
+    //    }
+    //}
 }

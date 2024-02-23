@@ -100,6 +100,7 @@ public class ShopSlot : MonoBehaviour
     {
         Shop.Instance.SelectItem(itemData);
         Shop.Instance.SelectSlot(this);
+        Debug.Log(Shop.Instance.selectShopSlot.itemData.id);
         if (!ThisEquipItam())
         {
             Shop.Instance.SellInputField();
@@ -110,7 +111,7 @@ public class ShopSlot : MonoBehaviour
             //inventory에서 찾아서 버리기
             //ItemManager.I.UpdateBundle(itemData.id, 1, type);
             //Shop.Instance.RemoveItem(itemData.id, 1);
-            Shop.Instance.RemoveSlot(itemData.id, 1);
+            Shop.Instance.RemoveSlot1(itemData.id, 1);
             Debug.Log($"Item : {itemData.id} Sell");
         }
 

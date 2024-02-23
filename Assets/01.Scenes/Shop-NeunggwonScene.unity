@@ -2780,6 +2780,7 @@ MonoBehaviour:
   PlayerMaxHP: 100
   PlayerHP: 100
   slider: {fileID: 0}
+  IsInvincible: 0
 --- !u!114 &629463712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3600,6 +3601,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2aeb68a4fcbb5b8459cc45016b4025df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &971377358 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4232557860732132220, guid: 7355517ac9712cb4a89fc2ef9b196b82,
+    type: 3}
+  m_PrefabInstance: {fileID: 3096577562453717261}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &972957810
@@ -7260,7 +7273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1859781322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8609,6 +8622,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3882624570047172141, guid: 7355517ac9712cb4a89fc2ef9b196b82,
+        type: 3}
+      propertyPath: inputFieldText
+      value: 
+      objectReference: {fileID: 971377358}
     - target: {fileID: 3995039067281098389, guid: 7355517ac9712cb4a89fc2ef9b196b82,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -8827,6 +8845,11 @@ PrefabInstance:
       objectReference: {fileID: 1100729262}
     - target: {fileID: 6553192331953035010, guid: 7355517ac9712cb4a89fc2ef9b196b82,
         type: 3}
+      propertyPath: inputFieldText
+      value: 
+      objectReference: {fileID: 971377358}
+    - target: {fileID: 6553192331953035010, guid: 7355517ac9712cb4a89fc2ef9b196b82,
+        type: 3}
       propertyPath: inputField_Obj
       value: 
       objectReference: {fileID: 862800835}
@@ -8835,6 +8858,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6928610924739061721, guid: 7355517ac9712cb4a89fc2ef9b196b82,
+        type: 3}
+      propertyPath: inputFieldText
+      value: 
+      objectReference: {fileID: 971377358}
     - target: {fileID: 7194069382783596351, guid: 7355517ac9712cb4a89fc2ef9b196b82,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -8993,9 +9021,5 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 737221974420738375, guid: b5c5d0956e7c79d43a0c8ead5ca536c0,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5c5d0956e7c79d43a0c8ead5ca536c0, type: 3}

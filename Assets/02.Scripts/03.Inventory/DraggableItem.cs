@@ -16,10 +16,11 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public int bundle = 1;
     [HideInInspector] public Item item;
 
-    public void InitializeItem(Item newItem)
+    public void InitializeItem(Item newItem, int count)
     {
         item = newItem;
         image.sprite = item.icon;
+        bundle = count;
         RefreshCount();
     }
 
@@ -27,7 +28,6 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         countText.text = bundle.ToString();
         bool textActive = bundle > 1;
-
         countText.gameObject.SetActive(textActive);
     }
 

@@ -18,12 +18,13 @@ public class PlayerMovement : MonoBehaviour
 
     //구르기
     public bool IsRolling;
-    private float RollingTime = 0.5f; //구르는 시간
+    private float RollingTime = 0.667f; //구르는 시간
     private float RollSpeed = 20.0f; //구르는 속도
 
     //플레이어 스테미너
-    public int PlayerMaxSM;
-    public int PlayerSM;
+    public int PlayerSM { get; set; }
+
+    public int PlayerMaxSM { get; set; }
     public Slider slider;
 
     private float SMRecoveryTime = 0.4f; //SM 회복 시간 0.4초
@@ -61,21 +62,29 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //애니메이션
-        if (!IsRolling && !PlayerAttack.IsAttack && !_Health.IsInvincible)
+        if (!IsRolling && !PlayerAttack.IsAttack && !_Health.IsHit && !PlayerAttack.IsSkill)
         {
-            if (!IsMoving && !PlayerAttack.IsAttack && !_Health.IsInvincible)
+            if (!IsMoving && !PlayerAttack.IsAttack && !_Health.IsHit && !PlayerAttack.IsSkill)
             {
                 if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_idle_sword"))
                 {
                     Anim.AnimationState.SetAnimation(0, "sd_idle_sword", true);
                 }
             }
-            else if (IsMoving && !PlayerAttack.IsAttack && !_Health.IsInvincible)
+            else if (IsMoving && !PlayerAttack.IsAttack && !_Health.IsHit && !PlayerAttack.IsSkill)
             {
                 if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_run"))
                 {
                     Anim.AnimationState.SetAnimation(0, "sd_run", true);
                 }
+            }
+        }
+        if (_Health.IsHit && !PlayerAttack.IsSkill && !IsRolling)
+        {
+            if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_damage"))
+            {
+                Anim.AnimationState.SetAnimation(0, "sd_damage", false);
+                //무적
             }
         }
     }
@@ -95,10 +104,10 @@ public class PlayerMovement : MonoBehaviour
         IsMoving = (direction != Vector3.zero);
     }
 
-    private void ApplyMovement(Vector3 direction)
+    public void ApplyMovement(Vector3 direction)
     {
         {
-            if (!PlayerAttack.IsAttack)
+            if (!PlayerAttack.IsAttack && !PlayerAttack.IsSkill)
             {
                 //이동
                 direction = direction * 10;
@@ -107,11 +116,11 @@ public class PlayerMovement : MonoBehaviour
                 currentVelocity.z = direction.z;
                 _Rigidbody.velocity = currentVelocity;
 
-                if (direction.x < 0 && !PlayerAttack.IsAttack)
+                if (direction.x < 0 && !PlayerAttack.IsAttack && !PlayerAttack.IsSkill)
                 {
                     transform.localScale = new Vector3(1, 1, 1);
                 }
-                else if (direction.x > 0 && !PlayerAttack.IsAttack)
+                else if (direction.x > 0 && !PlayerAttack.IsAttack && !PlayerAttack.IsSkill)
                 {
                     transform.localScale = new Vector3(-1, 1, 1);
                 }
@@ -122,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
     //구르기
     private void Roll()
     {
-        if (!IsRolling && !_Health.IsInvincible)
+        if (!IsRolling && !_Health.IsHit)
         {
             StartCoroutine(RollCoroutine());
         }
@@ -185,5 +194,21 @@ public class PlayerMovement : MonoBehaviour
     {
         //스테미너 UI
         slider.value = PlayerSM;
+    }
+
+    public void ApplyMovementBuff(int buffAmount)
+    {
+        PlayerMaxSM += buffAmount;
+        PlayerSM = PlayerMaxSM;
+        SMRecoveryAmount++;
+        UIMaxSM(PlayerSM);
+    }
+
+    public void RemoveMovementBuff(int buffAmount)
+    {
+        PlayerMaxSM -= buffAmount;
+        PlayerSM = PlayerMaxSM;
+        SMRecoveryAmount--;
+        UIMaxSM(PlayerSM);
     }
 }
