@@ -34,7 +34,17 @@ public class QuestManager : MonoBehaviour
             {
                 QuestInformation qinfo = new();
                 qinfo.state = allQuests[keyList[i]].state;
-                qinfo.SOPath = $"Quests/CollectQuest/{allQuests[keyList[i]].q.QInfoName}.asset";
+                qinfo.type = allQuests[keyList[i]].q.QuestType;
+
+                if (qinfo.type == QuestType.COLLECT)
+                {
+                    
+                    qinfo.SOPath = $"Quests/CollectQuest/{allQuests[keyList[i]].q.QInfoName}.asset";
+                }
+                else
+                {
+                    qinfo.SOPath = $"Quests/DungeonClearQuest/{allQuests[keyList[i]].q.QInfoName}.asset";
+                }
                 SavedQuestInfo.Add(allQuests[keyList[i]].q.QuestId, qinfo);
             }
             else
@@ -57,6 +67,7 @@ public class QuestManager : MonoBehaviour
             if (q != null)
             {
                 q.state = SavedQuestInfo[keyList[i]].state;
+                q.q.QuestType = SavedQuestInfo[keyList[i]].type;
             }
         }
     }
@@ -160,7 +171,7 @@ public class QuestManager : MonoBehaviour
     {
         Quest quest = allQuests[id];
         quest.state = QuestState.IN_PROGRESS;
-        QuestStep obj = Instantiate(quest.q.questPrefabs);
+       // QuestStep obj = Instantiate(quest.q.questPrefabs);
       /*  if (quest.q.QuestType == QuestType.COLLECT)
         {
             CollectQuest cQuest = obj.GetComponent<CollectQuest>();

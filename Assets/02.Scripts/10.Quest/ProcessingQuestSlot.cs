@@ -16,6 +16,8 @@ public class ProcessingQuestSlot : MonoBehaviour
     private int itemIDToCollect;
     private int originalQuantityOfTargetItem;
     private int itemNumberToComplete;
+    private int animalId;
+
 
     public void Setting()
     {
@@ -23,12 +25,18 @@ public class ProcessingQuestSlot : MonoBehaviour
         {
             itemIDToCollect = quest.q.ItemId;
             itemNumberToComplete = quest.q.ItemQuantityToComplete;
+            Reward.text = $"{quest.q.goldReward} G";
             //originalQuantityOfTargetItem = SettingCollectQuest(quest);
+        }
+        else
+        {
+            animalId = quest.q.animalId;
+            Book b = LibraryManager.I.findBookWithId(quest.q.animalId);
+            Reward.text = $"{b.title} 스토리 북";
         }
         QName.text = quest.q.QuestName;
         QDesc.text = quest.q.QuestDesc;
         Lv.text = $"Lv. {quest.q.levelRequirement}";
-        Reward.text = $"{quest.q.goldReward} G";
         progress.text = "0%";
        confirmBtn.enabled = false;
     }
@@ -46,17 +54,17 @@ public class ProcessingQuestSlot : MonoBehaviour
             return  0;
         }
     }
-    public void UpdateProgress()
+    public void UpdateProgress() ///던전클리어 퀘스트 같은 경우 --> 퀘스트를 CAN_FINISH상태로 바꿔줘야함.
     {
 
-        if(quest.state == QuestState.CAN_FINISH)
+        if(quest.state == QuestState.CAN_FINISH) 
         {
             progress.text = "100%";
             confirmBtn.enabled = true;
                 
         }
 
-        if(quest.q.QuestType == QuestType.COLLECT && ItemManager.I.itemDic.ContainsKey(itemIDToCollect))
+        if(quest.q.QuestType == QuestType.COLLECT && ItemManager.I.itemDic.ContainsKey(itemIDToCollect)) //collect바께 없어서 
         {
             float progressFloat = ((float)(ItemManager.I.itemDic[itemIDToCollect]) / itemNumberToComplete) * 100;
             if(progressFloat >= 100)
@@ -71,26 +79,27 @@ public class ProcessingQuestSlot : MonoBehaviour
                 confirmBtn.enabled = true;
             }
         }
+
     }
     private bool IsQuestCompleted()
     {
-        Debug.Log(itemIDToCollect);
-        if (ItemManager.I.itemDic.ContainsKey(itemIDToCollect) &&
-            ItemManager.I.itemDic[itemIDToCollect] >= itemNumberToComplete)
+        if (quest.q.QuestType == QuestType.COLLECT)
         {
-            return true;
+            if (ItemManager.I.itemDic.ContainsKey(itemIDToCollect) &&
+                ItemManager.I.itemDic[itemIDToCollect] < itemNumberToComplete)
+            {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 
     public void CheckProgress()
     {
-        Debug.Log($"check progress- {IsQuestCompleted()} ");
         if (IsQuestCompleted())
         {
             quest.state = QuestState.CAN_FINISH;
             CompleteQuest(quest.q.QuestId);
-
         }
 
     }
@@ -102,6 +111,12 @@ public class ProcessingQuestSlot : MonoBehaviour
             ItemManager.I.itemDic[itemIDToCollect] -= itemNumberToComplete;
             ItemManager.I.RefreshInventorySlot();
         }
+        else
+        {
+            LibraryManager.I.AddBooks(animalId);
+          
+        }
+   
         Destroy(this.gameObject);
     }
 }
