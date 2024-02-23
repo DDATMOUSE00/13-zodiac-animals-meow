@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5681561456128987450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1135430099343513076}
+  - component: {fileID: 1135728032227253384}
+  m_Layer: 0
+  m_Name: Shrine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1135430099343513076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5681561456128987450}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 477, y: 298, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 32
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1135728032227253384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5681561456128987450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35cfefc8f82f73546996d95595d66e61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deck:
+  - _cardName: "\uB2ED \uC2A4\uD1A0\uB9AC \uC870\uAC01"
+    _cardImage: {fileID: 21300000, guid: 5eb955e73b893124c91b381030d4ede3, type: 3}
+    _cardGrade: 4
+    _weight: 15
+    _id: 9
+  - _cardName: "\uD1A0\uB07C \uC2A4\uD1A0\uB9AC \uC870\uAC01"
+    _cardImage: {fileID: 21300000, guid: 56b841ca2b061f743b395aaa70adf36d, type: 3}
+    _cardGrade: 4
+    _weight: 15
+    _id: 3
+  - _cardName: "\uAC1C \uC2A4\uD1A0\uB9AC \uC870\uAC01"
+    _cardImage: {fileID: 21300000, guid: dfb0250a0077d6642a98da865e6dbe57, type: 3}
+    _cardGrade: 4
+    _weight: 15
+    _id: 10
+  - _cardName: "\uC6D0\uC22D\uC774 \uC2A4\uD1A0\uB9AC \uC870\uAC01"
+    _cardImage: {fileID: 21300000, guid: f7dd27f1b37b9e44eabd03c5fa11465b, type: 3}
+    _cardGrade: 4
+    _weight: 15
+    _id: 8
+  - _cardName: "\uBC40 \uC2A4\uD1A0\uB9AC \uC870\uAC01"
+    _cardImage: {fileID: 21300000, guid: 4ed694b6088a8a24fb580626d7cad35f, type: 3}
+    _cardGrade: 3
+    _weight: 10
+    _id: 5
+  - _cardName: "\uC591 \uC2A4\uD1A0\uB9AC \uC870\uAC01"
+    _cardImage: {fileID: 21300000, guid: 54647463b9238fe47a84a68c93a96aeb, type: 3}
+    _cardGrade: 3
+    _weight: 10
+    _id: 7
+  - _cardName: "\uB3FC\uC9C0 \uC2A4\uD1A0\uB9AC \uC870\uAC01"
+    _cardImage: {fileID: 21300000, guid: fc6ea1f76e90e0641a3e8393042578b4, type: 3}
+    _cardGrade: 3
+    _weight: 10
+    _id: 11
+  - _cardName: "\uB9D0 \uC2A4\uD1A0\uB9AC \uC870\uAC01"
+    _cardImage: {fileID: 21300000, guid: 04711ef1d85effd4ba5ea6f6e7c84c64, type: 3}
+    _cardGrade: 2
+    _weight: 2
+    _id: 6
+  - _cardName: "\uC18C \uC2A4\uD1A0\uB9AC \uC870\uAC01"
+    _cardImage: {fileID: 21300000, guid: 580211baae62a1d4a9f05c9ed4a77a7d, type: 3}
+    _cardGrade: 2
+    _weight: 2
+    _id: 1
+  - _cardName: "\uC950 \uC2A4\uD1A0\uB9AC \uC870\uAC01"
+    _cardImage: {fileID: 21300000, guid: 8f081eccaddfc5742a97ebe7e0f3ea1c, type: 3}
+    _cardGrade: 2
+    _weight: 2
+    _id: 0
+  - _cardName: "\uD638\uB791\uC774 \uC2A4\uD1A0\uB9AC \uC870\uAC01"
+    _cardImage: {fileID: 21300000, guid: 96db6fdce6b080c46a75c57c0ab93087, type: 3}
+    _cardGrade: 1
+    _weight: 2
+    _id: 0
+  - _cardName: "\uC6A9 \uC2A4\uD1A0\uB9AC \uC870\uAC01"
+    _cardImage: {fileID: 21300000, guid: 282bd2e5baf403f4193723aa19c9e0b1, type: 3}
+    _cardGrade: 1
+    _weight: 1
+    _id: 4
+  - _cardName: "\uAC80 \uC138\uAC8C \uB0B4\uB824\uCE58\uAE30"
+    _cardImage: {fileID: 21300000, guid: 64cb3d0eaa8e0e043b3249818e51700b, type: 3}
+    _cardGrade: 0
+    _weight: 1
+    _id: 100
+  - _cardName: "\uBC29\uD328 \uB9C9\uAE30"
+    _cardImage: {fileID: 21300000, guid: 45e97ae98c3faaf44882624a00717ed2, type: 3}
+    _cardGrade: 0
+    _weight: 1
+    _id: 100
+  - _cardName: "\uBC84\uD504"
+    _cardImage: {fileID: 21300000, guid: 0b8e5c864c875234cbf1903e0d389e65, type: 3}
+    _cardGrade: 0
+    _weight: 1
+    _id: 100
+  total: 0
+  result: []
+  parent: {fileID: 0}
+  cardprefab: {fileID: 5623251028654498168, guid: c47559fad5a95fe40af4ebca4c6bb93a,
+    type: 3}

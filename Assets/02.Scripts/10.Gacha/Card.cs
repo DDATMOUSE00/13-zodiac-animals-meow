@@ -18,6 +18,7 @@ public class Card
     public Sprite _cardImage;
     public CardGrade _cardGrade;
     public int _weight; // 표라고 생각하면 댐 ㅇㅇ
+    public int _id;
 
     // 깊은 복사
     public Card(Card card)
@@ -26,6 +27,7 @@ public class Card
         _cardImage = card._cardImage;
         _cardGrade = card._cardGrade;
         _weight = card._weight;
+        _id = card._id;
     }
 
 }

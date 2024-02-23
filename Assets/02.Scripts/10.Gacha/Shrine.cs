@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
@@ -12,6 +13,12 @@ public class Shrine : MonoBehaviour
     public Transform parent;
     public GameObject cardprefab;
 
+    // 상태변수
+    private Boolean isActivated = false;
+
+    [SerializeField]
+    private GameObject go_BaseUI; // 기본 베이스 UI
+
     void Start()
     {
         for (int i = 0; i < deck.Count; i++)
@@ -22,16 +29,63 @@ public class Shrine : MonoBehaviour
         // 실행
         ResultSelect();
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+            Window();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Cancel();
+    }
+
+    #region Tab window
+    private void Window()
+    {
+        Debug.Log(isActivated);
+        if (!isActivated)
+        {
+            OpenWindow();
+        }
+        else
+        {
+            CloseWindow();
+        }
+    }
+
+    private void Cancel()
+    {
+        isActivated = false;
+
+        go_BaseUI.SetActive(false);
+    }
+
+    private void OpenWindow()
+    {
+        isActivated = true;
+        go_BaseUI.SetActive(true);
+    }
+
+    private void CloseWindow()
+    {
+        isActivated = false;
+        go_BaseUI.SetActive(false);
+    }
+    #endregion
 
     public void ResultSelect()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 5; i++)
         {
-            // 가중치 랜덤을 돌리면서 결과 리스트에 넣어쥼 ㅇㅇ
-            result.Add(RandomCard());
-            // 비어 있는 카드를 생성하고
+            Card selectedCard = RandomCard();
+
+            // 스토리 조각 업데이트
+            UpdateStoryPieces(selectedCard);
+
+            // 스킬 조각(?) 업데이트
+            // 구현~~~
+
+            result.Add(selectedCard);
             CardUI cardUI = Instantiate(cardprefab, parent).GetComponent<CardUI>();
-            // 생성 된 카드에 결과 리스트의 정보를 넣어줌 ㅋ
             cardUI.CardUISet(result[i]);
         }
     }
@@ -53,5 +107,14 @@ public class Shrine : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public void UpdateStoryPieces(Card card)
+    {
+        // 동물 카드인지 확인
+        if (card._id < 100)
+        {
+            LibraryManager.I.AddBooks(card._id);
+        }
     }
 }
