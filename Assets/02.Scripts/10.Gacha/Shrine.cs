@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
@@ -14,7 +13,7 @@ public class Shrine : MonoBehaviour
     public GameObject cardprefab;
 
     // 상태변수
-    private Boolean isActivated = false;
+    private bool isActivated = false;
 
     [SerializeField]
     private GameObject go_BaseUI; // 기본 베이스 UI
@@ -39,7 +38,7 @@ public class Shrine : MonoBehaviour
     }
 
     #region Tab window
-    private void Window()
+    public void Window()
     {
         Debug.Log(isActivated);
         if (!isActivated)
@@ -52,20 +51,20 @@ public class Shrine : MonoBehaviour
         }
     }
 
-    private void Cancel()
+    public void Cancel()
     {
         isActivated = false;
 
         go_BaseUI.SetActive(false);
     }
 
-    private void OpenWindow()
+    public void OpenWindow()
     {
         isActivated = true;
         go_BaseUI.SetActive(true);
     }
 
-    private void CloseWindow()
+    public void CloseWindow()
     {
         isActivated = false;
         go_BaseUI.SetActive(false);
@@ -112,9 +111,10 @@ public class Shrine : MonoBehaviour
     public void UpdateStoryPieces(Card card)
     {
         // 동물 카드인지 확인
-        if (card._id < 100)
+        if (card._id < 99)
         {
-            LibraryManager.I.AddBooks(card._id);
+            Debug.Log("CARD ID :" + card._id);
+            //LibraryManager.I.AddBooks(card._id);
         }
     }
 }
