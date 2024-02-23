@@ -761,6 +761,61 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4570488034434395990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3205989278624803278}
+  - component: {fileID: 1769504253654425318}
+  m_Layer: 0
+  m_Name: Temple
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3205989278624803278
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4570488034434395990}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8085646412342910970}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1769504253654425318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4570488034434395990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 549a160ab7a29fe449feb0f24a65a416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  temple: {fileID: 0}
+  findItems:
+  - {fileID: 0}
+  - {fileID: 0}
+  receivedCount: 0
+  resourcesNeededCount: 1
+  cheking: 0
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  selectBuffChekUI: {fileID: 0}
+  buffManager: {fileID: 0}
 --- !u!1 &4868897314398183083
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,8 +1309,9 @@ Transform:
   - {fileID: 7756028685545351805}
   - {fileID: 7570854171435775125}
   - {fileID: 8527472789009446678}
+  - {fileID: 3205989278624803278}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5709402561503708974
 MonoBehaviour:
@@ -1280,7 +1336,8 @@ MonoBehaviour:
   villigeDoor: {fileID: 0}
   enemys: []
   resources: {fileID: 4868897314398183083}
-  enemysCount: 0
+  templeProbability: 0.5
+  temple: {fileID: 4570488034434395990}
   playerchecking: 0
   claerchecking: 1
   enemySpwan: 0

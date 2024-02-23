@@ -185,4 +185,16 @@ public class PlayerAttack : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(AttackStart.position, AttackRange);
     }
+
+    public void ApplyAttackBuff(int buffAmount)
+    {
+        MinDamage += buffAmount;
+        MaxDamage += buffAmount;
+    }
+
+    public void RemoveAttackBuff(int buffAmount)
+    {
+        MinDamage -= buffAmount;
+        MaxDamage -= buffAmount;
+    }
 }

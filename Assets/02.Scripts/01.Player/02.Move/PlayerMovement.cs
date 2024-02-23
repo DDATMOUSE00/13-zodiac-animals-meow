@@ -187,4 +187,20 @@ public class PlayerMovement : MonoBehaviour
         //스테미너 UI
         slider.value = PlayerSM;
     }
+
+    public void ApplyMovementBuff(int buffAmount)
+    {
+        PlayerMaxSM += buffAmount;
+        PlayerSM = PlayerMaxSM;
+        SMRecoveryAmount++;
+        UIMaxSM(PlayerSM);
+    }
+
+    public void RemoveMovementBuff(int buffAmount)
+    {
+        PlayerMaxSM -= buffAmount;
+        PlayerSM = PlayerMaxSM;
+        SMRecoveryAmount--;
+        UIMaxSM(PlayerSM);
+    }
 }

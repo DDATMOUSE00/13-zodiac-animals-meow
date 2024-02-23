@@ -10,11 +10,13 @@ public class EnemyHealth : MonoBehaviour
     private PlayerAttack PAttack;
     public Animator Anim;
     public bool IsDead;
+    private DropItem dropItem;
 
     private void Awake()
     {
         PAttack = GetComponent<PlayerAttack>();
         Anim = transform.GetChild(0).GetComponent<Animator>();
+        dropItem = GetComponent<DropItem>();
     }
     private void Start()
     {
@@ -51,5 +53,6 @@ public class EnemyHealth : MonoBehaviour
     {
         //Destroy(gameObject);
         gameObject.SetActive(false);
+        dropItem.AllDropItems();
     }
 }

@@ -7,6 +7,7 @@ public class Door : MonoBehaviour
 {
     public Vector2Int direction;
     public GameObject targetPoint; //이동 할 위치
+    public BuffManager buffManager;
 
     [Header("#VilligeDoor")]
     //public GameObject villageDoor;
@@ -17,6 +18,7 @@ public class Door : MonoBehaviour
         {
             if (villageDoorChicking)
             {
+                buffManager.RemoveBuff(buffManager.selectBuff.GetComponent<BaseBuff>());
                 SceneManager.LoadScene("MainScene");
             }
             else
