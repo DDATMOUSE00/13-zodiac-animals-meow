@@ -942,6 +942,8 @@ MonoBehaviour:
   EnemyHP: 100
   Anim: {fileID: 0}
   IsDead: 0
+  HitDamageText: {fileID: 0}
+  HitDamagePoint: {fileID: 0}
 --- !u!114 &4555555943088188022
 MonoBehaviour:
   m_ObjectHideFlags: 0

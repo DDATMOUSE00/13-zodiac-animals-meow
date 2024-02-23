@@ -18,7 +18,7 @@ public class Door : MonoBehaviour
         {
             if (villageDoorChicking)
             {
-                buffManager.RemoveBuff(buffManager.selectBuff.GetComponent<BaseBuff>());
+                buffManager.AllDestroyBuff();
                 SceneManager.LoadScene("MainScene");
             }
             else

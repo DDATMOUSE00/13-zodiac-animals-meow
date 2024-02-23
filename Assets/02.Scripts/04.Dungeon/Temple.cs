@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -62,7 +63,7 @@ public class Temple : MonoBehaviour
             {
                 ItemManager.I.RemoveItem(findItems[i].itemData.id, totalvalue);
             }
-            buffManager.ApplyBuff();
+            buffManager.RandomBuff();
             StartCoroutine(BuffChekUI());
             receivedCount++;
             totalvalue = resourcesNeededCount + (resourcesNeededCount * receivedCount);
@@ -82,12 +83,11 @@ public class Temple : MonoBehaviour
     IEnumerator BuffChekUI()
     {
         var BuffChekUI = selectBuffChekUI.GetComponent<BuffChekUI>();
-        var _selectBuff = buffManager.selectBuff.GetComponent<BaseBuff>();
-        BuffChekUI.SelectBuffInfo(_selectBuff);
+        var _newBuff = buffManager.newBuff.GetComponent<BaseBuff>();
         selectBuffChekUI.SetActive(true);
+        BuffChekUI.SelectBuffInfo(_newBuff);
         yield return YieldInstructionCache.WaitForSeconds(1.5f);
         selectBuffChekUI.SetActive(false);
+        yield return null;
     }
-
-
 }
