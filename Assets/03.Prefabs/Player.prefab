@@ -430,7 +430,8 @@ MonoBehaviour:
     type: 3}
   HitDamagePoint: {fileID: 7574470628340092180}
   slider: {fileID: 0}
-  IsInvincible: 0
+  IsHit: 0
+  IsDead: 0
 --- !u!114 &7122378956978330209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,9 +445,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackStart: {fileID: 1190541570552172002}
+  IsSkill: 0
+  ComboCount: 0
   ComboTimeLimit: 1
+  ComboTimeLowLimit: 0
   MaxComboCount: 3
-  AttackDelay: 1
+  SkillCount: 0
+  SkillDelay: 2
   AttackRange: {x: 4, y: 5, z: 6}
 --- !u!1 &2237646302454403873
 GameObject:
