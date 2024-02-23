@@ -119,4 +119,18 @@ public class PlayerHealth : MonoBehaviour
         // 플레이어 사망
         Debug.Log("플레이어 사망");
     }
+
+    public void ApplyHealthBuff(int buffAmount)
+    {
+        PlayerMaxHP += buffAmount;
+        PlayerHP = PlayerMaxHP;
+        UIMaxHealth(PlayerHP);
+    }
+
+    public void RemoveHealthBuff(int buffAmount)
+    {
+        PlayerMaxHP -= buffAmount;
+        PlayerHP = PlayerMaxHP;
+        UIMaxHealth(PlayerHP);
+    }
 }

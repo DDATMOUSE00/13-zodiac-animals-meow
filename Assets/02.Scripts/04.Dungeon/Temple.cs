@@ -14,10 +14,18 @@ public class Temple : MonoBehaviour
     public bool cheking = false;
     public Button yesButton;
     public Button noButton;
+    public GameObject selectBuffChekUI;
+
+    public BuffManager buffManager;
 
     private void Start()
     {
         totalvalue = resourcesNeededCount + (resourcesNeededCount * receivedCount);
+        for (int i = 0; i < findItems.Count; i++)
+        {
+            findItems[i].findCount.text = totalvalue.ToString("##개");
+        }
+        selectBuffChekUI.SetActive(false);
     }
     private void Update()
     {
@@ -50,33 +58,36 @@ public class Temple : MonoBehaviour
 
         if (cheking)
         {
-            Debug.Log("아이템 확인");
             for (int i = 0; i < findItems.Count; i++)
             {
                 ItemManager.I.RemoveItem(findItems[i].itemData.id, totalvalue);
             }
-
+            buffManager.ApplyBuff();
+            StartCoroutine(BuffChekUI());
             receivedCount++;
             totalvalue = resourcesNeededCount + (resourcesNeededCount * receivedCount);
             for (int i = 0; i < findItems.Count; i++)
             {
                 findItems[i].findCount.text = totalvalue.ToString("##개");
-                Debug.Log(findItems[i].findCount.text);
-
             }
         }
     }
-
-    public void RamdomBuffe()
-    {
-
-    }
-
 
     public void NoButton()
     {
         Debug.Log("NoButton");
         temple.SetActive(false);
     }
-    
+
+    IEnumerator BuffChekUI()
+    {
+        var BuffChekUI = selectBuffChekUI.GetComponent<BuffChekUI>();
+        var _selectBuff = buffManager.selectBuff.GetComponent<BaseBuff>();
+        BuffChekUI.SelectBuffInfo(_selectBuff);
+        selectBuffChekUI.SetActive(true);
+        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+        selectBuffChekUI.SetActive(false);
+    }
+
+
 }

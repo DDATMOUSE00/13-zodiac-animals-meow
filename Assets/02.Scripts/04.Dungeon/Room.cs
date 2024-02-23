@@ -13,7 +13,11 @@ public class Room : MonoBehaviour
     public GameObject villigeDoor;
     public GameObject[] enemys;
     public GameObject resources;
-    public int enemysCount;
+
+    [Range(0f, 1f)]
+    public float templeProbability = 0.5f;
+    public GameObject temple;
+    private int enemysCount;
 
     public bool playerchecking; //플레이어가 있는지
     public bool claerchecking; //클리어 한 방인지
@@ -26,6 +30,7 @@ public class Room : MonoBehaviour
         if (roomData.roomType == RoomType.StartRoom)
         {
             Enter();
+            Temple();
             enemySpwan = true;
         }
 
@@ -87,6 +92,7 @@ public class Room : MonoBehaviour
         {
             Exit();
             playerchecking = false;
+            temple.SetActive(false);
         }
     }
 
@@ -178,6 +184,22 @@ public class Room : MonoBehaviour
             resources.SetActive(true);
         }
     }
+
+    public void Temple()
+    {
+        float roll = Random.Range(0f, 1f);
+        if (roll < templeProbability)
+        {
+            temple.SetActive(true);
+
+        }
+        else
+        {
+            temple.SetActive(false);
+
+        }
+    }
+
     // 이 방에 들어올 때 호출됩니다.
     public void Enter()
     {

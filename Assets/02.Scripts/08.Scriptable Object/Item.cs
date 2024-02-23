@@ -16,5 +16,6 @@ public enum ItemType
 {
     Resource,
     Weapon,
-    Consumable
+    Consumable,
+    Coin
 }

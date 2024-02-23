@@ -10,6 +10,7 @@ public class EnemyHealth : MonoBehaviour
     private PlayerAttack PAttack;
     public Animator Anim;
     public bool IsDead;
+    private DropItem dropItem;
 
     //데미지 표시 UI
     public GameObject HitDamageText;
@@ -19,6 +20,7 @@ public class EnemyHealth : MonoBehaviour
     {
         PAttack = GetComponent<PlayerAttack>();
         Anim = transform.GetChild(0).GetComponent<Animator>();
+        dropItem = GetComponent<DropItem>();
     }
     private void Start()
     {
@@ -55,5 +57,6 @@ public class EnemyHealth : MonoBehaviour
     {
         //Destroy(gameObject);
         gameObject.SetActive(false);
+        dropItem.AllDropItems();
     }
 }

@@ -6,29 +6,32 @@ using UnityEngine.UI;
 public class BaseBuff : MonoBehaviour
 {
     public string type;
-    public float percentage;
-    public float duration;
-    public Image icon;
+    public int buff;
+    public Sprite icon;
 
     private void Awake()
     {
-        icon = GetComponent<Image>();
+        icon = GetComponent<Sprite>();
+    }
+    private void Start()
+    {
+        //Init(this.icon);
+        Claer();
     }
 
-    public void Init(string type, float per, float du)
+    //public void Init(Sprite _icon)
+    //{
+    //    icon = _icon;
+    //}
+
+    public void Set()
     {
-        this.type = type;
-        percentage = per;
-        duration = du;
+        gameObject.SetActive(true);
+        Debug.Log(gameObject.activeInHierarchy);
     }
 
-    public void Execute()
+    public void Claer()
     {
-
-    }
-
-    public void DeACtivation()
-    {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

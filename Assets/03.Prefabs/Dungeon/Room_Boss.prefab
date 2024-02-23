@@ -1281,7 +1281,8 @@ MonoBehaviour:
   villigeDoor: {fileID: 3238575035456420381}
   enemys: []
   resources: {fileID: 1305039263874103787}
-  enemysCount: 0
+  templeProbability: 0.5
+  temple: {fileID: 0}
   playerchecking: 0
   claerchecking: 0
   enemySpwan: 0
