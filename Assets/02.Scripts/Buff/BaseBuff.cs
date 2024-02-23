@@ -11,12 +11,12 @@ public class BaseBuff : MonoBehaviour
 
     private void Awake()
     {
-        icon = GetComponent<Sprite>();
+
     }
     private void Start()
     {
         //Init(this.icon);
-        Claer();
+        Set();
     }
 
     //public void Init(Sprite _icon)
@@ -27,11 +27,15 @@ public class BaseBuff : MonoBehaviour
     public void Set()
     {
         gameObject.SetActive(true);
-        Debug.Log(gameObject.activeInHierarchy);
+        var _icon = GetComponent<Sprite>();
+        _icon = icon;
+        //Debug.Log(gameObject.activeInHierarchy);
     }
 
-    public void Claer()
+    public void Clear()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
+        Debug.Log("Á¦°Å");
     }
 }

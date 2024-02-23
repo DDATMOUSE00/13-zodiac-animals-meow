@@ -4,11 +4,11 @@ using UnityEngine;
 public class BuildingManager : MonoBehaviour
 {
     public GameObject[] buildingPrefabs; // 건물 프리팹 배열
-    private List<GameObject> buildings; // 생성된 건물 리스트
+    private List<Building> buildings; // 생성된 건물 리스트
 
     void Start()
     {
-        buildings = new List<GameObject>();
+        buildings = new List<Building>();
     }
 
     // 특정 위치에 건물 생성
@@ -23,11 +23,11 @@ public class BuildingManager : MonoBehaviour
         GameObject buildingObject = Instantiate(buildingPrefabs[buildingIndex], position, Quaternion.identity);
         Building building = buildingObject.GetComponent<Building>();
         //building.StartConstruction(5.0f); // ex) 건축 시간 5초
-        buildings.Add(buildingObject);
+        buildings.Add(building);
     }
 
     // 특정 건물 제거
-    public void RemoveBuilding(GameObject building)
+    public void RemoveBuilding(Building building)
     {
         if (buildings.Contains(building))
         {
