@@ -82,11 +82,6 @@ public class EnemyBossMouse : MonoBehaviour
         //몬스터 공격 사거리
         Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRange / 2f);
 
-        //if (IsSpecialAttack1 || IsSpecialAttack2 || IsAttack)
-        //{
-        //    return;
-        //}
-
         //플레이어와의 거리에 따라 상태 변경
         if (distanceToPlayer <= SpecialAttackRange && !IsAttack && !IsSpecialAttack1 && !IsSpecialAttack2)
         {
@@ -171,7 +166,7 @@ public class EnemyBossMouse : MonoBehaviour
 
     private IEnumerator RealAttackRandom(int RandomAttack)
     {
-        Debug.Log(RandomAttack);
+        //Debug.Log(RandomAttack);
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         if (RandomAttack <= 100 && RandomAttack > 40 && !IsAttack && !IsSpecialAttack2 && !IsSpecialAttack1)
@@ -259,7 +254,7 @@ public class EnemyBossMouse : MonoBehaviour
     //특수공격1
     private IEnumerator RealSpecialAttack1()
     {
-        Debug.Log("특수공격1");
+        //Debug.Log("특수공격1");
         GameObject bullet = Instantiate(Bullet, BulletPoint.position, BulletPoint.rotation);
         GameObject bullet2 = Instantiate(Bullet, BulletPoint2.position, BulletPoint2.rotation);
         Vector3 Playerdirection = player.position - BulletPoint.position;
@@ -296,7 +291,7 @@ public class EnemyBossMouse : MonoBehaviour
     //특수공격2
     private IEnumerator RealSpecialAttack2()
     {
-        Debug.Log("특수공격2");
+        //Debug.Log("특수공격2");
 
         Transform[] points = { Earthquakepoint1, Earthquakepoint2, Earthquakepoint3, Earthquakepoint4, Earthquakepoint5, Earthquakepoint6 };
 

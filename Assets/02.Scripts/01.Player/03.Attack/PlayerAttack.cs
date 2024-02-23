@@ -15,18 +15,22 @@ public class PlayerAttack : MonoBehaviour
     private PlayerMovement _movement;
     private PlayerHealth _Health;
     public bool IsAttack { get; set; }
-    private int ComboCount;
+    public bool IsSkill;
+    public int ComboCount;
     private float ComboTimer;
-    public float ComboTimeLimit = 1.0f;
+    public float ComboTimeLimit;
+    public float ComboTimeLowLimit;
     private bool IsCombo;
     public int MaxComboCount = 3;
+    public int SkillCount = 0;
 
-
+    //데미지
     public int MinDamage { get; set; }
     public int MaxDamage { get; set; }
 
     //공격속도
-    public float AttackDelay = 1f;
+    //public float AttackDelay = 1f;
+    public float SkillDelay = 2f;
 
     //공격범위
     public Vector3 AttackRange;
@@ -49,10 +53,15 @@ public class PlayerAttack : MonoBehaviour
         MaxDamage = 20;
         _controller.OnAttackEvent += AttackCheck;
         _controller.OnLookEvent += Look;
+        _controller.OnSkillEvent1 += Skill1;
+        _controller.OnSkillEvent2 += Skill2;
         ComboCount = 0;
         ComboTimer = 0f;
+        ComboTimeLimit = 0.9f; //0.9초안에 공격(후딜)
+        ComboTimeLowLimit = 0.3f; //최소 공격시간(공속)
         IsAttack = false;
         IsCombo = false;
+        IsSkill = false;
     }
     private void Update()
     {
@@ -65,14 +74,14 @@ public class PlayerAttack : MonoBehaviour
             {
                 // 콤보 시간이 지나면 콤보 초기화
                 ComboCount = 0;
-                IsCombo = false;
                 ComboTimer = 0f;
+                IsCombo = false;
                 IsAttack = false;
             }
         }
 
         //애니메이션
-        if (IsAttack && !_Health.IsInvincible)
+        if (IsAttack && !_Health.IsHit && !IsSkill)
         {
             if (!_movement.IsRolling && ComboCount == 1)
             {
@@ -96,6 +105,24 @@ public class PlayerAttack : MonoBehaviour
                 }
             }
         }
+
+        if (IsSkill)
+        {
+            if (!_movement.IsRolling && SkillCount == 1)
+            {
+                if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("skill_01"))
+                {
+                    Anim.AnimationState.SetAnimation(0, "skill_01", false);
+                }
+            }
+            else if (!_movement.IsRolling && SkillCount == 2)
+            {
+                if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("skill_02"))
+                {
+                    Anim.AnimationState.SetAnimation(0, "skill_02", false);
+                }
+            }
+        }
     }
 
     private void Look(Vector2 PlayerAim)
@@ -106,29 +133,31 @@ public class PlayerAttack : MonoBehaviour
 
     public void AttackCheck()
     {
-        if (IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && IsCombo && !_Health.IsInvincible)
+        ComboTimer += Time.deltaTime;
+
+        if (!IsAttack && ComboCount < MaxComboCount && ComboCount == 0 &&!_movement.IsRolling && !_Health.IsHit)
+        {
+            IsAttack = true;
+            IsCombo = true;
+            ComboCount++;
+            //ComboTimer = 0f;
+            Attack();
+            //Debug.Log("그냥공격");
+        }
+
+        if (IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && IsCombo && !_Health.IsHit && ComboTimer <= ComboTimeLimit && ComboTimer >= ComboTimeLowLimit)
         {
             ComboCount++;
             ComboTimer = 0f;
             Attack();
             //Debug.Log("콤보공격");
         }
-
-        if (!IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && !_Health.IsInvincible)
-        {
-            IsAttack = true;
-            ComboCount++;
-            IsCombo = true;
-            ComboTimer = 0f;
-            Attack();
-            //Debug.Log("그냥공격");
-        }
     }
     private void Attack()
     {
         //필요없으면 제거 공격방향
         //왼쪽으로 많이 땡겨야하는 버그있음
-        Vector2 PlayerAim = AimDirection.normalized;
+        //Vector2 PlayerAim = AimDirection.normalized;
 
         float normalizedX = (Input.mousePosition.x / Screen.width) * 2 - 1;
         //Debug.Log(PlayerAim.x);
@@ -165,12 +194,12 @@ public class PlayerAttack : MonoBehaviour
 
             if (collider.CompareTag("Resource"))
             {
-              //  Debug.Log("자원 공격!");
+                //  Debug.Log("자원 공격!");
                 Resource targetResource = collider.GetComponent<Resource>();
                 targetResource.Hit();
             }
         }
-        Invoke("EndAttack", AttackDelay);
+        //Invoke("EndAttack", AttackDelay);
     }
 
     private void EndAttack()
@@ -178,6 +207,76 @@ public class PlayerAttack : MonoBehaviour
         //다시 공격 가능한 상태로 만들기
         IsAttack = false;
     }
+    private void Skill1()
+    {
+        if (SkillCount == 0)
+        {
+            float normalizedX = (Input.mousePosition.x / Screen.width) * 2 - 1;
+
+            if (normalizedX < 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (normalizedX > 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            IsSkill = true;
+            SkillCount = 1;
+            Invoke("RealSkill1", 1.667f);
+        }
+    }
+
+    private void RealSkill1()
+    {
+
+        if (IsSkill && SkillCount == 1)
+        {
+            ;
+            IsSkill = false;
+            SkillCount = 0;
+        }
+        //능력치 상승 로직
+
+    }
+
+    private void Skill2()
+    {
+        if (SkillCount == 0)
+        {
+            float normalizedX = (Input.mousePosition.x / Screen.width) * 2 - 1;
+
+            if (normalizedX < 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (normalizedX > 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            IsSkill = true;
+            SkillCount = 2;
+            Invoke("RealSkill2", 1.667f);
+        }
+    }
+
+    private void RealSkill2()
+    {
+
+        if (IsSkill && SkillCount == 2)
+        {
+            ;
+            IsSkill = false;
+            SkillCount = 0;
+        }
+        //공격 로직
+    }
+
+    //private void EndSkill()
+    //{
+    //    IsSkill = false;
+    //    SkillCount = 0;
+    //}
 
     private void OnDrawGizmosSelected()
     {

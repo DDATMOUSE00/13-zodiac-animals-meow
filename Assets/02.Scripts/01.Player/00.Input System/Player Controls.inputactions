@@ -24,6 +24,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Skill1",
+                    "type": "Button",
+                    "id": "8381dca0-0c11-450f-87ff-16e70e9d4a00",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill2",
+                    "type": "Button",
+                    "id": "f92a9563-c97b-4ede-8038-2798dca70024",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Look",
                     "type": "Value",
                     "id": "d4d1bbbf-dc81-4711-a713-118dbbfd5aca",
@@ -168,6 +186,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2297f0d6-72cf-48f6-aece-04fb000e15d9",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7248cf4a-fad7-4401-8604-56023e7c6a22",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
