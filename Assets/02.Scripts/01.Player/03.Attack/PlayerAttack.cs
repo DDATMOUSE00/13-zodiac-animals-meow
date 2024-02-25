@@ -14,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerController _controller;
     private PlayerMovement _movement;
     private PlayerHealth _Health;
+    private Rigidbody _rigidbody;
     public bool IsAttack { get; set; }
     public bool IsSkill;
     public int ComboCount;
@@ -23,6 +24,9 @@ public class PlayerAttack : MonoBehaviour
     private bool IsCombo;
     public int MaxComboCount = 3;
     public int SkillCount = 0;
+
+    //공격할 때 앞으로 가는 시간
+    public float KnockbackTime;
 
     //데미지
     public int MinDamage { get; set; }
@@ -45,7 +49,8 @@ public class PlayerAttack : MonoBehaviour
         _controller = GetComponent<PlayerController>();
         _movement = GetComponent<PlayerMovement>();
         Anim = GetComponentInChildren<SkeletonAnimation>();
-        _Health = GetComponentInChildren<PlayerHealth>();
+        _Health = GetComponent<PlayerHealth>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
     private void Start()
     {
@@ -59,6 +64,7 @@ public class PlayerAttack : MonoBehaviour
         ComboTimer = 0f;
         ComboTimeLimit = 0.9f; //0.9초안에 공격(후딜)
         ComboTimeLowLimit = 0.3f; //최소 공격시간(공속)
+        KnockbackTime = ComboTimeLimit / 2;
         IsAttack = false;
         IsCombo = false;
         IsSkill = false;
@@ -134,6 +140,7 @@ public class PlayerAttack : MonoBehaviour
     public void AttackCheck()
     {
         ComboTimer += Time.deltaTime;
+        StartCoroutine(StopForce(KnockbackTime));
 
         if (!IsAttack && ComboCount < MaxComboCount && ComboCount == 0 &&!_movement.IsRolling && !_Health.IsHit)
         {
@@ -155,24 +162,30 @@ public class PlayerAttack : MonoBehaviour
     }
     private void Attack()
     {
-        //필요없으면 제거 공격방향
-        //왼쪽으로 많이 땡겨야하는 버그있음
-        //Vector2 PlayerAim = AimDirection.normalized;
-
         float normalizedX = (Input.mousePosition.x / Screen.width) * 2 - 1;
-        //Debug.Log(PlayerAim.x);
-        //Debug.Log(normalizedX);
+        //공격하면서 살짝 이동
+        float attackMoveForce = 4f;
         if (normalizedX < 0)
         {
             transform.localScale = new Vector3(1, 1, 1);
+            _rigidbody.AddForce(Vector3.left * attackMoveForce, ForceMode.VelocityChange);
         }
         else if (normalizedX > 0)
         {
             transform.localScale = new Vector3(-1, 1, 1);
+            _rigidbody.AddForce(Vector3.right * attackMoveForce, ForceMode.VelocityChange);
         }
 
         //공격 가능하면 공격
         RealAttack();
+    }
+    IEnumerator StopForce(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        //힘 제거
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
     }
 
     private void RealAttack()
