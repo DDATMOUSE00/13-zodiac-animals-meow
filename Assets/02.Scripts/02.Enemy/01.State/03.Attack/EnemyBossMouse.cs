@@ -82,7 +82,7 @@ public class EnemyBossMouse : MonoBehaviour
         //몬스터 공격 사거리
         Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRange / 2f);
 
-        //플레이어와의 거리에 따라 상태 변경
+        //플레이어 거리에 따라 상태 변경
         if (distanceToPlayer <= SpecialAttackRange && !IsAttack && !IsSpecialAttack1 && !IsSpecialAttack2)
         {
             Invoke("AttackRandom", 2f);
@@ -97,7 +97,7 @@ public class EnemyBossMouse : MonoBehaviour
             currentState = MonsterState.Idle;
         }
 
-        //상태에 따른 행동 수행
+        //상태 변경
         switch (currentState)
         {
             case MonsterState.Idle:
@@ -190,13 +190,12 @@ public class EnemyBossMouse : MonoBehaviour
         MovementDirection = direction;
         IsMoving = (direction != Vector3.zero);
 
-        // 이동 방향 벡터에 이동 속도를 곱하여 실제 이동량을 계산
         Vector3 movement = direction * MoveSpeed * Time.deltaTime;
 
-        // 몬스터를 이동량만큼 이동시킴
+        //몬스터 이동
         _Rigidbody.MovePosition(transform.position + movement);
 
-        // 이동 방향에 따라 몬스터의 좌우 방향을 조정
+        //좌우 반전
         if (direction.x < 0 && !IsAttack)
         {
             transform.localScale = new Vector3(3, 3, 1);
@@ -333,11 +332,9 @@ public class EnemyBossMouse : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        //chaseRange
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, ChaseRange);
 
-        //attackRange
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, ChaseMaxRange);
 

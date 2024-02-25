@@ -17,7 +17,7 @@ public class EnemyLongAttack : MonoBehaviour
     public Transform AttackStart;
     //public Vector3 AttackRange;
     public Vector3 AttackRangeSize;
-    public BoxCollider AttackRangeBox;
+    //public BoxCollider AttackRangeBox;
     public Animator Anim;
     public EnemyHealth _Health;
 
@@ -67,7 +67,7 @@ public class EnemyLongAttack : MonoBehaviour
         Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRangeSize / 2f);
 
 
-        //플레이어와의 거리에 따라 상태 변경
+        //플레이어 거리에 따라 상태 변경
         if (distanceToPlayer <= AttackRangeSize.magnitude / 2f)
         {
             //공격 사거리 안에 들어오면 공격
@@ -83,15 +83,17 @@ public class EnemyLongAttack : MonoBehaviour
             currentState = MonsterState.Idle;
         }
 
-        //상태에 따른 행동 수행
+        //상태변경
         switch (currentState)
         {
             case MonsterState.Idle:
                 //아무것도 안 함
+
                 Anim.SetBool("IsMove", false);
                 Anim.SetBool("IsAttack", false);
                 IsAttack = false;
                 IsMoving = false;
+
                 break;
             case MonsterState.Chase:
                 //플레이어를 향해 이동
@@ -122,13 +124,12 @@ public class EnemyLongAttack : MonoBehaviour
         MovementDirection = direction;
         IsMoving = (direction != Vector3.zero);
 
-        //시간당 이동량
         Vector3 movement = direction * MoveSpeed * Time.deltaTime;
 
         //몬스터 이동
         _Rigidbody.MovePosition(transform.position + movement);
 
-        //이동 방향 좌우 반전
+        //좌우 반전
         if (direction.x < 0)
         {
             transform.localScale = new Vector3(3, 3, 1);
@@ -145,13 +146,12 @@ public class EnemyLongAttack : MonoBehaviour
         Vector3 direction = Player.position - transform.position;
         if (direction.x < 0)
         {
-            transform.localScale = new Vector3(3, 3, 3);
+            transform.localScale = new Vector3(3, 3, 1);
         }
         else if (direction.x > 0)
         {
-            transform.localScale = new Vector3(-3, 3, 3);
+            transform.localScale = new Vector3(-3, 3, 1);
         }
-
 
         if (!_Health.IsDead)
         {
@@ -176,7 +176,7 @@ public class EnemyLongAttack : MonoBehaviour
         //다시 공격 가능한 상태로 만들기
         IsAttack = false;
         IsMoving = true;
-        Anim.SetBool("IsMove", true);
+        //Anim.SetBool("IsMove", true);
     }
 
     //랜덤한 방향으로 이동
@@ -202,11 +202,9 @@ public class EnemyLongAttack : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        //chaseRange를 그립니다.
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, ChaseRange);
 
-        //attackRange를 그립니다.
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, ChaseMaxRange);
 
