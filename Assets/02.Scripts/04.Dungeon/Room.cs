@@ -92,7 +92,11 @@ public class Room : MonoBehaviour
         {
             Exit();
             playerchecking = false;
-            temple.SetActive(false);
+            if (roomData.roomType == RoomType.StartRoom)
+            {
+                temple.SetActive(false);
+
+            }
         }
     }
 

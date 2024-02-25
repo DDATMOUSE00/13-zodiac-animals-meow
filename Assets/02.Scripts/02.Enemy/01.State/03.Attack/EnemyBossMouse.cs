@@ -66,7 +66,7 @@ public class EnemyBossMouse : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("player").transform;
         _Rigidbody = GetComponent<Rigidbody>();
         currentState = MonsterState.Idle;
         Anim = transform.GetChild(0).GetComponent<Animator>();
@@ -216,7 +216,7 @@ public class EnemyBossMouse : MonoBehaviour
             Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRange / 2f);
             foreach (Collider collider in EnemyAttack)
             {
-                if (collider.CompareTag("Player"))
+                if (collider.CompareTag("player"))
                 {
                     //데미지 계산
                     PlayerHealth PlayerHealth = collider.GetComponent<PlayerHealth>();

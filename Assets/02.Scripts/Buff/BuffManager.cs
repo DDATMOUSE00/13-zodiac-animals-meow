@@ -15,6 +15,7 @@ public class BuffManager : MonoBehaviour
     public GameObject newBuff;
     private void Start()
     {
+        player = GameObject.FindWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
         playerAttack = player.GetComponent<PlayerAttack>();
         playerMovement = player.GetComponent<PlayerMovement>();
@@ -54,21 +55,21 @@ public class BuffManager : MonoBehaviour
         switch (buff.type)
         {
             case "ATK":
-                Debug.Log($"B-Player Attack min, max{playerAttack.MinDamage}, {playerAttack.MaxDamage}");
+                Debug.Log($"B-player Attack min, max{playerAttack.MinDamage}, {playerAttack.MaxDamage}");
                 playerAttack.ApplyAttackBuff(buff.buff);
-                Debug.Log($"A-Player Attack min, max{playerAttack.MinDamage}, {playerAttack.MaxDamage}");
+                Debug.Log($"A-player Attack min, max{playerAttack.MinDamage}, {playerAttack.MaxDamage}");
                 break;
 
             case "SM":
-                Debug.Log($"A-Player PlayerMaxSM, PlayerSM{playerMovement.PlayerMaxSM}, {playerMovement.PlayerSM}");
+                Debug.Log($"A-player PlayerMaxSM, PlayerSM{playerMovement.PlayerMaxSM}, {playerMovement.PlayerSM}");
                 playerMovement.ApplyMovementBuff(buff.buff);
-                Debug.Log($"A-Player PlayerMaxSM, PlayerSM{playerMovement.PlayerMaxSM}, {playerMovement.PlayerSM}");
+                Debug.Log($"A-player PlayerMaxSM, PlayerSM{playerMovement.PlayerMaxSM}, {playerMovement.PlayerSM}");
                 break;
 
             case "HP":
-                Debug.Log($"A-Player Health cur,max{playerHealth.PlayerHP}, {playerHealth.PlayerMaxHP}");
+                Debug.Log($"A-player Health cur,max{playerHealth.PlayerHP}, {playerHealth.PlayerMaxHP}");
                 playerHealth.ApplyHealthBuff(buff.buff);
-                Debug.Log($"A-Player Health cur,max{playerHealth.PlayerHP}, {playerHealth.PlayerMaxHP}");
+                Debug.Log($"A-player Health cur,max{playerHealth.PlayerHP}, {playerHealth.PlayerMaxHP}");
                 break;
         }
     }
@@ -81,21 +82,21 @@ public class BuffManager : MonoBehaviour
         switch (baseBuff.type)
         {
             case "ATK":
-                Debug.Log($"B-Player Attack min, max{playerAttack.MinDamage}, {playerAttack.MaxDamage}");
+                Debug.Log($"B-player Attack min, max{playerAttack.MinDamage}, {playerAttack.MaxDamage}");
                 playerAttack.RemoveAttackBuff(baseBuff.buff);
-                Debug.Log($"A-Player Attack min, max{playerAttack.MinDamage}, {playerAttack.MaxDamage}");
+                Debug.Log($"A-player Attack min, max{playerAttack.MinDamage}, {playerAttack.MaxDamage}");
                 break;
 
             case "SM":
-                Debug.Log($"A-Player PlayerMaxSM, PlayerSM{playerMovement.PlayerMaxSM}, {playerMovement.PlayerSM}");
+                Debug.Log($"A-player PlayerMaxSM, PlayerSM{playerMovement.PlayerMaxSM}, {playerMovement.PlayerSM}");
                 playerMovement.RemoveMovementBuff(baseBuff.buff);
-                Debug.Log($"A-Player PlayerMaxSM, PlayerSM{playerMovement.PlayerMaxSM}, {playerMovement.PlayerSM}");
+                Debug.Log($"A-player PlayerMaxSM, PlayerSM{playerMovement.PlayerMaxSM}, {playerMovement.PlayerSM}");
                 break;
 
             case "HP":
-                Debug.Log($"A-Player Health cur,max{playerHealth.PlayerHP}, {playerHealth.PlayerMaxHP}");
+                Debug.Log($"A-player Health cur,max{playerHealth.PlayerHP}, {playerHealth.PlayerMaxHP}");
                 playerHealth.RemoveHealthBuff(baseBuff.buff);
-                Debug.Log($"A-Player Health cur,max{playerHealth.PlayerHP}, {playerHealth.PlayerMaxHP}");
+                Debug.Log($"A-player Health cur,max{playerHealth.PlayerHP}, {playerHealth.PlayerMaxHP}");
                 break;
         }
     }
