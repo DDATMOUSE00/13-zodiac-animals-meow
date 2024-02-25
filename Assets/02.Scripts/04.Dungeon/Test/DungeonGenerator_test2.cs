@@ -24,17 +24,17 @@ public class DungeonGenerator_test2 : MonoBehaviour
     {
         currentRoomCount = Random.Range(minRooms, maxRooms);
         rooms = new Room[dungeonWidth, dungeonHeight];
-        GenerateTestDungeon();
+        GenerateDungeonRoom();
 
         AddDoorsToAllRooms();
 
         AllConnecteDoors();
     }
 
-    void GenerateTestDungeon()
+    void GenerateDungeonRoom()
     {
         // 시작 방을 생성합니다.
-        CreateTestRoom(new Vector2Int(dungeonWidth / 2, dungeonHeight / 2), StartRoom);
+        CreateRoom(new Vector2Int(dungeonWidth / 2, dungeonHeight / 2), StartRoom);
         Room startRoom = rooms[dungeonWidth / 2, dungeonHeight / 2];
 
         // 시작 방을 기준으로 4가지 방향으로 무작위로 방을 생성
@@ -58,7 +58,7 @@ public class DungeonGenerator_test2 : MonoBehaviour
 
                 if (IsCoordinateInDungeon(nextRoomCoordinate) && rooms[nextRoomCoordinate.x, nextRoomCoordinate.y] == null)
                 {
-                    CreateTestRoom(nextRoomCoordinate);
+                    CreateRoom(nextRoomCoordinate);
                     currentRoom = rooms[nextRoomCoordinate.x, nextRoomCoordinate.y];
                 }
                 else
@@ -72,7 +72,7 @@ public class DungeonGenerator_test2 : MonoBehaviour
         ChangeRoomToBossRoom(furthestRoomFromStart);
     }
 
-    void CreateTestRoom(Vector2Int coordinates, GameObject roomPrefab = null)
+    void CreateRoom(Vector2Int coordinates, GameObject roomPrefab = null)
     {
         if (roomPrefab == null)
         {
@@ -106,42 +106,162 @@ public class DungeonGenerator_test2 : MonoBehaviour
     }
 
 
+    Dictionary<Room, int> CalculateDistances(Room startRoom)
+    {
+        Queue<Room> queue = new Queue<Room>();
+        Dictionary<Room, int> distances = new Dictionary<Room, int>();
+        distances[startRoom] = 0;
+        queue.Enqueue(startRoom);
+
+        while (queue.Count > 0)
+        {
+            Room currentRoom = queue.Dequeue();
+            List<Room> neighbors = GetNeighborRooms(currentRoom);
+
+            foreach (Room neighbor in neighbors)
+            {
+                if (neighbor != null && !distances.ContainsKey(neighbor))
+                {
+                    distances[neighbor] = distances[currentRoom] + 1;
+                    queue.Enqueue(neighbor);
+                }
+            }
+        }
+
+        return distances;
+    }
+
+
+    List<Room> GetNeighborRooms(Room currentRoom)
+    {
+        List<Room> neighbors = new List<Room>();
+
+        //상
+        if (currentRoom.coordinates.y - 1 >= 0)
+        {
+            neighbors.Add(rooms[currentRoom.coordinates.x, currentRoom.coordinates.y - 1]);
+        }
+        // 하
+        if (currentRoom.coordinates.y + 1 < rooms.GetLength(1))
+        {
+            neighbors.Add(rooms[currentRoom.coordinates.x, currentRoom.coordinates.y + 1]);
+        }
+        // 좌
+        if (currentRoom.coordinates.x - 1 >= 0)
+        {
+            neighbors.Add(rooms[currentRoom.coordinates.x - 1, currentRoom.coordinates.y]);
+        }
+        // 우
+        if (currentRoom.coordinates.x + 1 < rooms.GetLength(0))
+        {
+            neighbors.Add(rooms[currentRoom.coordinates.x + 1, currentRoom.coordinates.y]);
+        }
+
+
+        return neighbors;
+    }
 
     Room FindFurthestRoom(Room startRoom)
     {
-        Stack<Room> stack = new Stack<Room>();
-        Room furthestRoom = startRoom;
-        int furthestRoomDistance = 0;
-        Dictionary<Room, bool> visited = new Dictionary<Room, bool>();
-        visited[startRoom] = true;
-        stack.Push(startRoom);
+        Dictionary<Room, int> distances = CalculateDistances(startRoom);
+        Room furthestRoom = null;
+        int maxDistance = -1;
 
-        while (stack.Count > 0)
+        foreach (KeyValuePair<Room, int> entry in distances)
         {
-            Room currentRoom = stack.Peek();
-            List<Room> unvisitedNeighbors = GetUnvisitedNeighborRooms(currentRoom, visited);
-
-            if (unvisitedNeighbors.Count > 0)
+            if (entry.Value > maxDistance)
             {
-                Room selectedNeighbor = unvisitedNeighbors[Random.Range(0, unvisitedNeighbors.Count)];
-                visited[selectedNeighbor] = true;
-                stack.Push(selectedNeighbor);
-
-                int currentDistance = stack.Count;
-                if (currentDistance > furthestRoomDistance)
-                {
-                    furthestRoom = selectedNeighbor;
-                    furthestRoomDistance = currentDistance;
-                }
-            }
-            else
-            {
-                stack.Pop();
+                furthestRoom = entry.Key;
+                maxDistance = entry.Value;
             }
         }
 
         return furthestRoom;
     }
+
+
+
+    /// <summary>
+    /// /////////////////////////////////////
+    /// </summary>
+    /// <param name="startRoom"></param>
+    /// <returns></returns>
+    //Room FindFurthestRoom(Room startRoom)
+    //{
+    //    Queue<Room> queue = new Queue<Room>();
+    //    Room furthestRoom = startRoom;
+    //    int furthestRoomDistance = 0;
+    //    Dictionary<Room, bool> visited = new Dictionary<Room, bool>();
+    //    visited[startRoom] = true;
+    //    queue.Enqueue(startRoom);
+
+    //    while (queue.Count > 0)
+    //    {
+    //        Room currentRoom = queue.Dequeue();
+    //        List<Room> unvisitedNeighbors = GetUnvisitedNeighborRooms(currentRoom, visited);
+
+    //        foreach (Room neighbor in unvisitedNeighbors)
+    //        {
+    //            visited[neighbor] = true;
+    //            queue.Enqueue(neighbor);
+
+    //            int currentDistance = GetDistance(startRoom, neighbor);
+    //            if (currentDistance > furthestRoomDistance)
+    //            {
+    //                furthestRoom = neighbor;
+    //                furthestRoomDistance = currentDistance;
+    //            }
+    //        }
+    //    }
+
+    //    return furthestRoom;
+    //}
+
+    int GetDistance(Room startRoom, Room endRoom)
+    {
+        // 가정: Room 클래스에는 위치를 나타내는 x, y 속성이 있다.
+        int xDistance = Math.Abs(startRoom.coordinates.x - endRoom.coordinates.x);
+        int yDistance = Math.Abs(startRoom.coordinates.y - endRoom.coordinates.y);
+
+        return xDistance + yDistance;
+    }
+
+
+    //Room FindFurthestRoom(Room startRoom)
+    //{
+    //    Stack<Room> stack = new Stack<Room>();
+    //    Room furthestRoom = startRoom;
+    //    int furthestRoomDistance = 0;
+    //    Dictionary<Room, bool> visited = new Dictionary<Room, bool>();
+    //    visited[startRoom] = true;
+    //    stack.Push(startRoom);
+
+    //    while (stack.Count > 0)
+    //    {
+    //        Room currentRoom = stack.Peek();
+    //        List<Room> unvisitedNeighbors = GetUnvisitedNeighborRooms(currentRoom, visited);
+
+    //        if (unvisitedNeighbors.Count > 0)
+    //        {
+    //            Room selectedNeighbor = unvisitedNeighbors[Random.Range(0, unvisitedNeighbors.Count)];
+    //            visited[selectedNeighbor] = true;
+    //            stack.Push(selectedNeighbor);
+
+    //            int currentDistance = stack.Count;
+    //            if (currentDistance > furthestRoomDistance)
+    //            {
+    //                furthestRoom = selectedNeighbor;
+    //                furthestRoomDistance = currentDistance;
+    //            }
+    //        }
+    //        else
+    //        {
+    //            stack.Pop();
+    //        }
+    //    }
+
+    //    return furthestRoom;
+    //}
 
     int GetManhattanDistance(Vector2Int a, Vector2Int b)
     {
@@ -165,34 +285,8 @@ public class DungeonGenerator_test2 : MonoBehaviour
 
         return unvisitedNeighbors;
     }
-    void CreateRoom(Vector2Int coordinate, GameObject roomPrefab)
-    {
-        if (rooms[coordinate.x, coordinate.y] == null)
-        {
-            GameObject instance = Instantiate(roomPrefab, new Vector3(coordinate.x * roomSize, 0, coordinate.y * roomSize), Quaternion.identity);
-            Room room = instance.GetComponent<Room>();
-            room.coordinates = coordinate;
-            room.visited = false;
-            rooms[coordinate.x, coordinate.y] = room;
-        }
-    }
 
-    List<Vector2Int> GetUnvisitedNeighborCoordinates(Room room)
-    {
-        Vector2Int[] directions = new Vector2Int[] { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
-        List<Vector2Int> unvisitedNeighbors = new List<Vector2Int>();
-
-        foreach (var direction in directions)
-        {
-            Vector2Int neighborCoordinate = room.coordinates + direction;
-            if (IsCoordinateInDungeon(neighborCoordinate) && rooms[neighborCoordinate.x, neighborCoordinate.y] == null)
-            {
-                unvisitedNeighbors.Add(neighborCoordinate);
-            }
-        }
-
-        return unvisitedNeighbors;
-    }
+    
 
     void ChangeRoomToBossRoom(Room bossRoom)
     {
