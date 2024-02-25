@@ -51,13 +51,19 @@ public class ItemObject : MonoBehaviour
     {
         if (collision.CompareTag("player"))
         {
+            var playerGold = collision.GetComponent<PlayerGold>();
+
             if (item.type != ItemType.Coin)
             {
                 ItemManager.I.AddItem(item);
             }
+            else if (item.type == ItemType.Coin)
+            {
+                playerGold.AddGold(item.price);
+            }
             else
             {
-                //Coin += item.pice;
+
             }
             Destroy(gameObject);
         }

@@ -15,7 +15,7 @@ public class BuffManager : MonoBehaviour
     public GameObject newBuff;
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("player");
         playerHealth = player.GetComponent<PlayerHealth>();
         playerAttack = player.GetComponent<PlayerAttack>();
         playerMovement = player.GetComponent<PlayerMovement>();

@@ -1,12 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.VirtualTexturing.Debugging;
-//using static UnityEngine.Rendering.DebugUI;
-
 
 public class ShopSlot : MonoBehaviour
 {
@@ -28,6 +24,14 @@ public class ShopSlot : MonoBehaviour
     private void Start()
     {
         Setting();
+        if (IsSellShop) //판매
+        {
+            shopSlotButton.onClick.AddListener(ButtonSell);
+        }
+        else
+        {
+            shopSlotButton.onClick.AddListener(ButtonBuy);
+        }
     }
 
 
@@ -39,9 +43,17 @@ public class ShopSlot : MonoBehaviour
         if (IsSellShop) //판매
         {
             //판매 아이템은 Count 및 가격 조정
-           // Debug.Log("IsSellShop_Setting");
+            // Debug.Log("IsSellShop_Setting");
             itemPrice.text = (itemData.price / 2).ToString("#,##0G");
-            shopSlotButton.onClick.AddListener(ButtonSell);
+            //shopSlotButton.onClick.AddListener(ButtonSell);
+
+            for (int i = 0; i < ItemManager.I.itemDic.Count; i ++)
+            {
+                if (ItemManager.I.itemDic.ContainsKey(itemData.id))
+                {
+                    Int_Count = ItemManager.I.itemDic[itemData.id];
+                }
+            }
 
             itemCount.text = Int_Count.ToString();
             type = "sell";
@@ -50,7 +62,7 @@ public class ShopSlot : MonoBehaviour
         {
             //구매 아이템은 아이템의 데이터 그대로 받기!
             itemPrice.text = itemData.price.ToString("#,##0G");
-            shopSlotButton.onClick.AddListener(ButtonBuy);
+            //shopSlotButton.onClick.AddListener(ButtonBuy);
 
             itemCount.text = string.Empty;
             type = "buy";
@@ -82,36 +94,36 @@ public class ShopSlot : MonoBehaviour
 
     public void ButtonBuy()
     {
-        Shop.Instance.SelectItem(itemData);
-        Shop.Instance.SelectSlot(this);
+        ShopManager.Instance.buyShop.SelectSlot(this);
         if (!ThisEquipItam())
         {
-            Shop.Instance.BuyInputField();
-            //Debug.Log($"Item : {itemData.id} Buy {itemData.type}");
+            ShopManager.Instance.buyShop.BuyInputField();
+            Debug.Log($"Item : {itemData.id} Buy {itemData.type}");
         }
         else
         {
-            ItemManager.I.AddItem(itemData);
-            //Debug.Log($"Item : {itemData.id} Buy {itemData.type}");
+            if (!ShopManager.Instance.buyShop.cancel)
+            {
+                ItemManager.I.AddItem(itemData);
+                ShopManager.Instance.sellShop.ShowInventorySlot();
+                Debug.Log($"Item : {itemData.id} Buy {itemData.type}");
+            }
+           
         }
     }
 
     public void ButtonSell()
     {
-        Shop.Instance.SelectItem(itemData);
-        Shop.Instance.SelectSlot(this);
-        Debug.Log(Shop.Instance.selectShopSlot.itemData.id);
+        ShopManager.Instance.sellShop.SelectSlot(this);
         if (!ThisEquipItam())
         {
-            Shop.Instance.SellInputField();
+            ShopManager.Instance.sellShop.SellInputField();
             //갯수 입력 UI 뽕!
         }
         else
         {
             //inventory에서 찾아서 버리기
-            //ItemManager.I.UpdateBundle(itemData.id, 1, type);
-            //Shop.Instance.RemoveItem(itemData.id, 1);
-            Shop.Instance.RemoveSlot1(itemData.id, 1);
+            ShopManager.Instance.sellShop.RemoveSlot2(itemData.id,1);
             Debug.Log($"Item : {itemData.id} Sell");
         }
 

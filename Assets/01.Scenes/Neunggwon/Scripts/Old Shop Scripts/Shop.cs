@@ -277,7 +277,7 @@ public class Shop : MonoBehaviour
         inputField_Obj.SetActive(true);
 
         inputField.onEndEdit.AddListener(delegate { EndEditBuy(inputField); });
-        Debug.Log("delegate - EndEditBuy");
+        Debug.Log("delegate - Buy");
 
     }
 
@@ -286,7 +286,7 @@ public class Shop : MonoBehaviour
         inputField_Obj.SetActive(true);
 
         inputField.onEndEdit.AddListener(delegate { EndEditSell(inputField); });
-        Debug.Log("delegate - EndEditSell");
+        Debug.Log("delegate - Sell");
     }
 
     public void EndEditBuy(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트

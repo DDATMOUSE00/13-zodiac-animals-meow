@@ -202,7 +202,7 @@ public class ItemManager : MonoBehaviour
         GameObject newItem = Instantiate(itemPrefab, slot.transform);
 
         DraggableItem inventoryItem = newItem.GetComponent<DraggableItem>();
-       inventoryItem.InitializeItem(item, 0);
+       inventoryItem.InitializeItem(item, 1);
 
     }
     private void SpawnLoadItem(Item item, Slot slot)

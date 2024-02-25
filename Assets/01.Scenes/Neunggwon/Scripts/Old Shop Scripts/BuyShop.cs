@@ -21,18 +21,19 @@ public class BuyShop : MonoBehaviour
     [Header("#Shop_InventoryList")]
 
     [Header("#SlotList")]
-    public List<ShopSlot_Test> shopSlots = new List<ShopSlot_Test>();
+    public List<ShopSlot> shopSlots = new List<ShopSlot>();
     public List<int> inventorySlotKeyList = new List<int>();
 
     public Item selectItem;
-    public ShopSlot_Test selectShopSlot;
+    public ShopSlot selectShopSlot;
 
     [Header("#BuyInputField")]
     //[SerializeField] private GameObject inputField_UI;
     [SerializeField] private GameObject inputField_Obj;
     [SerializeField] private TMP_InputField inputField;
+    [SerializeField] private GameObject failedUI;
 
-    private bool cancel = false;
+    [HideInInspector] public bool cancel = false;
 
 
     private void Awake()
@@ -96,7 +97,7 @@ public class BuyShop : MonoBehaviour
         {
             if (shopSlots.Count < maxShopSloatCount)
             {
-                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot_Test>();
+                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
                 shopSlots.Add(newShopSlot);
 
                 float y = 100f;
@@ -114,7 +115,7 @@ public class BuyShop : MonoBehaviour
         }
     }
 
-    public void SelectSlot(ShopSlot_Test _slot)
+    public void SelectSlot(ShopSlot _slot)
     {
         selectShopSlot = _slot;
         selectItem = selectShopSlot.itemData;
@@ -124,28 +125,42 @@ public class BuyShop : MonoBehaviour
     {
         inputField_Obj.SetActive(true);
 
-        inputField.onEndEdit.AddListener(delegate { EndEditBuy(inputField); });
-        Debug.Log("delegate - EndEditBuy");
+        inputField.onSubmit.AddListener(delegate { Buy(inputField); });
+
+        //inputField.onEndEdit.AddListener(delegate { Buy(inputField); });
+        Debug.Log("delegate - Buy");
 
     }
 
-    public void EndEditBuy(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
+    public void Buy(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
     {
         int int_inputNum = int.Parse(inputField.text);
-        if (!cancel)
+        var playerGold = GameManager.Instance.player.GetComponent<PlayerGold>();
+        if (selectItem.price * int_inputNum <= playerGold.Gold)
         {
-
-            for (int i = 0; i < int_inputNum; i++)
+            if (!cancel)
             {
-                ItemManager.I.AddItem(selectItem);
+
+                for (int i = 0; i < int_inputNum; i++)
+                {
+                    ItemManager.I.AddItem(selectItem);
+                }
+                playerGold.RemoveGold(selectItem.price * int_inputNum);
+                ShopManager.Instance.ShopUpDate();
+                ShopManager.Instance.ShowInventorySlotManager();
             }
-            Debug.Log($" itemData.ID : {selectItem}.{selectItem.id} x {int_inputNum} / {type} ");
+            else
+            {
+                inputField.onSubmit.RemoveAllListeners();
+            }
         }
         else
         {
-            inputField.onEndEdit.RemoveAllListeners();
+            StartCoroutine(BuffChekUI());
+            Debug.Log($"플레이어 골드가 부족합니다.{playerGold.Gold}-{selectItem.price * int_inputNum}={selectItem.price * int_inputNum - playerGold.Gold}");
         }
-        inputField.onEndEdit.RemoveAllListeners();
+        
+        inputField.onSubmit.RemoveAllListeners();
         ExitButton();
         ShopManager.Instance.ShowInventorySlotManager();
     }
@@ -153,7 +168,7 @@ public class BuyShop : MonoBehaviour
     public void ExitButton()
     {
 
-        inputField.onEndEdit.RemoveAllListeners();
+        inputField.onSubmit.RemoveAllListeners();
         cancel = true;
         Debug.Log("InputField_Exit");
         inputField_Obj.SetActive(false);
@@ -161,5 +176,13 @@ public class BuyShop : MonoBehaviour
         {
             cancel = false;
         }
+    }
+
+    IEnumerator BuffChekUI()
+    {
+        failedUI.SetActive(true);
+        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+        failedUI.SetActive(false);
+        yield return null;
     }
 }

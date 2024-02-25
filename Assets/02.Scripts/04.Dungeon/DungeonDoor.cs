@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class DungeonDoor : MonoBehaviour
 {
+    public string sceneName;
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("player"))
         {
-            SceneManager.LoadScene("Map-NeunggwonScene");
+            SceneManager.LoadScene(sceneName);
         }
     }
 }
