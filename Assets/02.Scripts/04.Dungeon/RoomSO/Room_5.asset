@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 226ffe98a7b985c47a73d0f34fbb8f8b, type: 3}
-  m_Name: CheeseSlices
+  m_Script: {fileID: 11500000, guid: 86c5aec1ad2588e4fb955368e16c6f15, type: 3}
+  m_Name: Room_5
   m_EditorClassIdentifier: 
-  id: 5
-  itemName: Cheese Slices
-  itemDescription: This is Cheese Slices
-  icon: {fileID: 21300000, guid: 90b6d08ae4a075c40a89fa673de75b0d, type: 3}
-  type: 0
-  price: 300
-  stackable: 1
+  roomName: Room_4
+  minEnemyCount: 2
+  maxEnemyCount: 5
+  enemys:
+  - {fileID: 4391734069294947111, guid: edbe68ae8bd432c4cb3059802060feea, type: 3}
+  Boss: {fileID: 0}
+  roomType: 2
