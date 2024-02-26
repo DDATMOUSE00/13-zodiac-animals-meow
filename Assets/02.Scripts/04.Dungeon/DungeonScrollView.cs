@@ -50,5 +50,8 @@ public class DungeonScrollView : MonoBehaviour
         denguonDoorObj.SetActive(true);
     }
 
-
+    public void ExitButton()
+    {
+        this.gameObject.SetActive(false);
+    }
 }

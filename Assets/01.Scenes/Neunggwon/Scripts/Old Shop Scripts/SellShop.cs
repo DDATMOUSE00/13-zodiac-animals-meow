@@ -46,6 +46,7 @@ public class SellShop : MonoBehaviour
         {
             ShowInventorySlot();
         }
+        ShopManager.Instance.ShopUpDate();
     }
 
     private void Start()

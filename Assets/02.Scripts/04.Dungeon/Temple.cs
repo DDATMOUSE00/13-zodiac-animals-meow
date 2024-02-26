@@ -32,17 +32,17 @@ public class Temple : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (temple.activeInHierarchy)
-            {
-                temple.SetActive(false);
-            }
-            else
-            {
-                temple.SetActive(true);
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    if (temple.activeInHierarchy)
+        //    {
+        //        temple.SetActive(false);
+        //    }
+        //    else
+        //    {
+        //        temple.SetActive(true);
+        //    }
+        //}
     }
     public void YesButton()
     {
