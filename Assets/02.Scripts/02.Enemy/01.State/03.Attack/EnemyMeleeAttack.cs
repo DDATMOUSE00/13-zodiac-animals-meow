@@ -57,7 +57,7 @@ public class EnemyMeleeAttack : MonoBehaviour
         Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRange / 2f);
 
 
-        //플레이어와의 거리에 따라 상태 변경
+        //플레이어 거리에 따라 상태 변경
         if (distanceToPlayer <= AttackRange.magnitude / 2f)
         {
             //공격 사거리 안에 들어오면 공격
@@ -73,7 +73,7 @@ public class EnemyMeleeAttack : MonoBehaviour
             currentState = MonsterState.Idle;
         }
 
-        //상태에 따른 행동 수행
+        //상태 변경
         switch (currentState)
         {
             case MonsterState.Idle:
@@ -82,6 +82,7 @@ public class EnemyMeleeAttack : MonoBehaviour
                 Anim.SetBool("IsAttack", false);
                 IsAttack = false;
                 IsMoving = false;
+
                 break;
             case MonsterState.Chase:
                 //플레이어를 향해 이동
@@ -111,13 +112,12 @@ public class EnemyMeleeAttack : MonoBehaviour
         MovementDirection = direction;
         IsMoving = (direction != Vector3.zero);
 
-        // 이동 방향 벡터에 이동 속도를 곱하여 실제 이동량을 계산
         Vector3 movement = direction * MoveSpeed * Time.deltaTime;
 
-        // 몬스터를 이동량만큼 이동시킴
+        //몬스터 이동
         _Rigidbody.MovePosition(transform.position + movement);
 
-        // 이동 방향에 따라 몬스터의 좌우 방향을 조정
+        //좌우 반전
         if (direction.x < 0 && !IsAttack)
         {
             transform.localScale = new Vector3(3, 3, 1);
@@ -161,7 +161,7 @@ public class EnemyMeleeAttack : MonoBehaviour
     }
     IEnumerator DelayAnimation()
     {
-        //애니메이션
+        //애니메이션 딜레이
         yield return YieldInstructionCache.WaitForSeconds(1f);
         Anim.SetBool("IsAttack", true);
 
@@ -169,16 +169,14 @@ public class EnemyMeleeAttack : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        //chaseRange를 그립니다.
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, ChaseRange);
 
-        //attackRange를 그립니다.
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, ChaseMaxRange);
 
-
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(AttackStart.position, AttackRange);
+
     }
 }

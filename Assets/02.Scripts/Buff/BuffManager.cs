@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BuffManager : MonoBehaviour
@@ -10,42 +11,63 @@ public class BuffManager : MonoBehaviour
     public PlayerMovement playerMovement;
 
     public List<GameObject> buffList = new List<GameObject>(); // 버프 리스트
-    //public GameObject BuffIconUI;
-    public GameObject selectBuff;
+    public List<GameObject> playerBuffList = new List<GameObject>(); // 버프 리스트
+    public GameObject newBuff;
     private void Start()
     {
         playerHealth = player.GetComponent<PlayerHealth>();
         playerAttack = player.GetComponent<PlayerAttack>();
         playerMovement = player.GetComponent<PlayerMovement>();
     }
-    public void ApplyBuff()
-    {
-        int randomIndex = Random.Range(0, buffList.Count);
-        selectBuff = buffList[randomIndex];
-        var _selectBuff = selectBuff.GetComponent<BaseBuff>();
-        if (selectBuff != null) // 이미 버프가 있다면
-        {
-            RemoveBuff(_selectBuff); // 현재 버프를 제거
-        }
-        SetBuffIconUI();
 
-        switch (_selectBuff.type)
+    public void RandomBuff()
+    {
+        AllDestroyBuff();
+        int randomIndex = Random.Range(0, buffList.Count);
+        newBuff = buffList[randomIndex];
+
+        GameObject Buff = Instantiate(newBuff, transform);
+        playerBuffList.Add(Buff);
+        var _selectBuff = Buff.GetComponent<BaseBuff>();
+        ApplyBuff(_selectBuff);
+    }
+
+    public void AllDestroyBuff()
+    {
+        for (int i = playerBuffList.Count - 1; i >= 0; i--)
+        {
+            GameObject buff = playerBuffList[i];
+            BaseBuff baseBuffComponent = buff.GetComponent<BaseBuff>();
+
+            if (baseBuffComponent != null)
+            {
+                RemoveBuff(baseBuffComponent);
+                baseBuffComponent.Clear();
+
+                playerBuffList.RemoveAt(i);
+            }
+        }
+    }
+
+    public void ApplyBuff(BaseBuff buff)
+    {
+        switch (buff.type)
         {
             case "ATK":
                 Debug.Log($"B-Player Attack min, max{playerAttack.MinDamage}, {playerAttack.MaxDamage}");
-                playerAttack.ApplyAttackBuff(_selectBuff.buff);
+                playerAttack.ApplyAttackBuff(buff.buff);
                 Debug.Log($"A-Player Attack min, max{playerAttack.MinDamage}, {playerAttack.MaxDamage}");
                 break;
 
             case "SM":
                 Debug.Log($"A-Player PlayerMaxSM, PlayerSM{playerMovement.PlayerMaxSM}, {playerMovement.PlayerSM}");
-                playerMovement.ApplyMovementBuff(_selectBuff.buff);
+                playerMovement.ApplyMovementBuff(buff.buff);
                 Debug.Log($"A-Player PlayerMaxSM, PlayerSM{playerMovement.PlayerMaxSM}, {playerMovement.PlayerSM}");
                 break;
 
             case "HP":
                 Debug.Log($"A-Player Health cur,max{playerHealth.PlayerHP}, {playerHealth.PlayerMaxHP}");
-                playerHealth.ApplyHealthBuff(_selectBuff.buff);
+                playerHealth.ApplyHealthBuff(buff.buff);
                 Debug.Log($"A-Player Health cur,max{playerHealth.PlayerHP}, {playerHealth.PlayerMaxHP}");
                 break;
         }
@@ -53,9 +75,9 @@ public class BuffManager : MonoBehaviour
 
     public void RemoveBuff(BaseBuff baseBuff)
     {
-        var _selectBuff = selectBuff.GetComponent<BaseBuff>();
+        //var _selectBuff = selectBuff.GetComponent<BaseBuff>();
 
-        selectBuff = null;
+        //selectBuff = null;
         switch (baseBuff.type)
         {
             case "ATK":
@@ -78,18 +100,11 @@ public class BuffManager : MonoBehaviour
         }
     }
 
-    public void SetBuffIconUI()
-    {
-        //selectBuff.Set();
-        selectBuff.SetActive(true);
-        var _selectBuff = selectBuff.GetComponent<BaseBuff>();
-        Debug.Log(_selectBuff.type);
-        for (int i = 0; i < buffList.Count; i++)
-        {
-            if (!selectBuff)
-            {
-                buffList[i].SetActive(false);
-            }
-        }
-    }
+    //public void SetBuffIconUI()
+    //{
+    //    for (int i = 0; i < playerBuffList.Count; i++)
+    //    {
+    //        var buff = playerBuffList[i].GetComponent<GameObject>();
+    //    }
+    //}
 }

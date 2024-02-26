@@ -48,8 +48,6 @@ public class PlayerHealth : MonoBehaviour
         UIMaxHealth(PlayerMaxHP);
         IsHit = false;
         IsDead = false;
-        //MinHPTEXT.text = PlayerHP.ToString();
-        //MaxHPTEXT.text = PlayerMaxHP.ToString();
     }
 
     private void Update()
@@ -87,10 +85,9 @@ public class PlayerHealth : MonoBehaviour
             GameObject HitUI = Instantiate(HitDamageText);
             HitUI.transform.position = HitDamagePoint.position;
             HitUI.GetComponent<HitDamageUI>().EnemyDamage = EnemyDamage;
-            //플레이어가 맞았을 때 HP 닳는 양과 죽음처리
+            //플레이어가 맞았을 때
             if (PlayerHP > 0)
             {
-                // HP 감소
                 PlayerHP -= EnemyDamage;
 
                 //무적
@@ -116,7 +113,6 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        // 플레이어 사망
         Debug.Log("플레이어 사망");
     }
 
