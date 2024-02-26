@@ -13,6 +13,7 @@ public class LibraryManager : MonoBehaviour
     public List<BookSlot> bSlots = new List<BookSlot>();
     public Slider slider;
     public TMP_Text cntTxt;
+    public GameObject UI;
 
     private int cnt = 0;
    
@@ -64,6 +65,11 @@ public class LibraryManager : MonoBehaviour
         }
         return true;
     }
+
+    public void OpenUI()
+    {
+        UI.SetActive(true);
+    }
     public void AddBooks(int id)
     {
 
@@ -72,7 +78,6 @@ public class LibraryManager : MonoBehaviour
             Books[id] = true;
             BookSlot b = findBookSlotWithId(id);
             Book book = findBookWithId(id);
-            Debug.Log(book.title);
             b.AddStroyBook();
 
             cnt++;

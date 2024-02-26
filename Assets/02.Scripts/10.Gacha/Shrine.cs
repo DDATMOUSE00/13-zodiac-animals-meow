@@ -7,6 +7,7 @@ public class Shrine : MonoBehaviour
 {
     public List<Card> deck = new List<Card>();
     public int total = 0;
+    public static Shrine I;
 
     public List<Card> result = new List<Card>();  // 랜덤하게 선택된 카드를 담을 리스트
     public Transform parent;
@@ -27,6 +28,11 @@ public class Shrine : MonoBehaviour
         }
         // 실행
         ResultSelect();
+    }
+
+    private void Awake()
+    {
+        I = this;
     }
     void Update()
     {
@@ -113,8 +119,8 @@ public class Shrine : MonoBehaviour
         // 동물 카드인지 확인
         if (card._id < 99)
         {
-            Debug.Log("CARD ID :" + card._id);
-            //LibraryManager.I.AddBooks(card._id);
+
+            LibraryManager.I.AddBooks(card._id);
         }
     }
 }
