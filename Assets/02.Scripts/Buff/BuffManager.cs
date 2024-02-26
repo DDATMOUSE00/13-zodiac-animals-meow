@@ -13,6 +13,7 @@ public class BuffManager : MonoBehaviour
     public List<GameObject> buffList = new List<GameObject>(); // 버프 리스트
     public List<GameObject> playerBuffList = new List<GameObject>(); // 버프 리스트
     public GameObject newBuff;
+    public GameObject buffGroup;
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
@@ -27,7 +28,7 @@ public class BuffManager : MonoBehaviour
         int randomIndex = Random.Range(0, buffList.Count);
         newBuff = buffList[randomIndex];
 
-        GameObject Buff = Instantiate(newBuff, transform);
+        GameObject Buff = Instantiate(newBuff, buffGroup.transform);
         playerBuffList.Add(Buff);
         var _selectBuff = Buff.GetComponent<BaseBuff>();
         ApplyBuff(_selectBuff);

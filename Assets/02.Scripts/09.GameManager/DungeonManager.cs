@@ -10,6 +10,7 @@ public class DungeonManager : MonoBehaviour
     public GameObject player;
 
     public EnemyObjectPooling enemyPool;
+    public BuffManager buffManager;
     //오브젝트 풀링
     private void Awake()
     {
