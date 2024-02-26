@@ -14,7 +14,7 @@ public class Door : MonoBehaviour
     public bool villageDoorChicking;
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             if (villageDoorChicking)
             {

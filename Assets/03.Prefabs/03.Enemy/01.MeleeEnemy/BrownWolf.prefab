@@ -2588,6 +2588,7 @@ GameObject:
   - component: {fileID: 6083325468766731638}
   - component: {fileID: 1564163362011429500}
   - component: {fileID: 5152319480712331662}
+  - component: {fileID: 2546404644822074274}
   m_Layer: 8
   m_Name: BrownWolf
   m_TagString: Enemy
@@ -2714,6 +2715,25 @@ MonoBehaviour:
   HitDamageText: {fileID: 896372709270788677, guid: e0944626f35fb73439b35566590d19fc,
     type: 3}
   HitDamagePoint: {fileID: 5870435680068487905}
+--- !u!114 &2546404644822074274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622554228789582813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 719031a7159b8e847817255748b9aa07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinDropProbability: 1
+  coinDrop: {fileID: 3611454901610100875, guid: b0b49842325acb54f926138a4f0e6c90,
+    type: 3}
+  itemDropProbability: 0
+  itemDrop: {fileID: 0}
+  questItemDropProbability: 0
+  questItemDrop: {fileID: 0}
 --- !u!1 &8814957892736737583
 GameObject:
   m_ObjectHideFlags: 0

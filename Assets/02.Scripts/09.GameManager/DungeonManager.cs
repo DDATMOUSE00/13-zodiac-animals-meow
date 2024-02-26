@@ -19,7 +19,7 @@ public class DungeonManager : MonoBehaviour
     }
     private void Start()
     {
-        player = GameObject.FindWithTag("player");
+        player = GameObject.FindWithTag("Player");
         player = Instantiate(player, new Vector3(800, -35, 800), Quaternion.identity);
     }
     
