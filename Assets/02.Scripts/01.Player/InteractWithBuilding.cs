@@ -15,6 +15,7 @@ public class InteractWithBuilding : MonoBehaviour
 
     private void Update()
     {
+
         Ray ray = new Ray();
 
         ray.origin = tr.position;
@@ -22,28 +23,14 @@ public class InteractWithBuilding : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, distance, layerMask)) 
         {
-            if(hit.transform != null && Input.GetKeyDown(KeyCode.E))
+            Debug.Log(hit.transform);
+            if (hit.transform != null && Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log("Interact");
                 UIWindowOfBuilding ui = hit.transform.gameObject.GetComponent<UIWindowOfBuilding>();
                 
                 ui.OpenOrCloseUIWindow();
             }
         }
-       // OnDrawRayline();
     }
-    /*
-   public void OnDrawRayline()
-    {
-        if(hit.collider != null)
-        {
-            Debug.DrawLine(tr.position, tr.position + tr.forward * hit.distance , Color.red);
-        }
-        else
-        {
-            Debug.DrawLine(tr.position, tr.position + tr.forward * this.distance, Color.white);
-        }
 
-    }
-    */
 }

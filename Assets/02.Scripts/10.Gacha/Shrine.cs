@@ -113,8 +113,8 @@ public class Shrine : MonoBehaviour
         // 동물 카드인지 확인
         if (card._id < 99)
         {
-            Debug.Log("CARD ID :" + card._id);
-            //LibraryManager.I.AddBooks(card._id);
+
+            LibraryManager.I.AddBooks(card._id);
         }
     }
 }
