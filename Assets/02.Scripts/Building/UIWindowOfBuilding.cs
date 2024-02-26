@@ -13,8 +13,15 @@ public class UIWindowOfBuilding : MonoBehaviour
             QuestManager.I.RefreshAllQuest();
         else if (UI.name == "Shop")
         {
-            Debug.Log($"OBJName : { UI.name}");
             ShopManager.Instance.OnShopButton();
+        }
+        else if(UI.name == "CardCanvas")
+        {
+            Shrine.I.Window();
+        }
+        else if(UI.name == "LibraryUI")
+        {
+            LibraryManager.I.OpenUI();
         }
     }
 
