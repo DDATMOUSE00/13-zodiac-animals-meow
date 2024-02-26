@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     public void ApplyMovement(Vector3 direction)
     {
         {
-            if (!PlayerAttack.IsAttack && !PlayerAttack.IsSkill)
+            if (!PlayerAttack.IsAttack && !PlayerAttack.IsSkill && !IsRolling)
             {
                 //이동
                 direction = direction * 10;
@@ -131,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
     //구르기
     private void Roll()
     {
-        if (!IsRolling && !_Health.IsHit)
+        if (!IsRolling && !_Health.IsHit && IsMoving)
         {
             StartCoroutine(RollCoroutine());
         }
@@ -139,6 +139,8 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator RollCoroutine()
     {
         IsRolling = true;
+        PlayerAttack.IsAttack = false;
+        PlayerAttack.IsSkill = false;
         float elapsedTime = 0f;
         if (PlayerSM >= 20)
         {
@@ -150,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (MovementDirection != Vector3.zero)
             {
-                //이동 중인 방향을 정규화하여 구르는 방향으로 설정
+                //구르는 방향 설정
                 RollDirection = MovementDirection.normalized;
             }
             //구르기 시간계산
