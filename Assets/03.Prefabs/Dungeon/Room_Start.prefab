@@ -2367,6 +2367,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Temple
       objectReference: {fileID: 0}
+    - target: {fileID: 7824335396119537954, guid: c8698005d4c64a8489467389a785f2ed,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8284160663004396597, guid: c8698005d4c64a8489467389a785f2ed,
         type: 3}
       propertyPath: temple
@@ -2407,7 +2412,8 @@ PrefabInstance:
       propertyPath: findItems.Array.data[1]
       value: 
       objectReference: {fileID: 3022830338399295205}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7824335396119537954, guid: c8698005d4c64a8489467389a785f2ed, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -2230,7 +2230,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_SortAtRoot: 0
 --- !u!1 &8341043548081216612
 GameObject:
@@ -2615,7 +2615,7 @@ Transform:
   - {fileID: 5870435680068487905}
   - {fileID: 2279572284009793754}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1060616848285522452
 Rigidbody:

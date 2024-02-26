@@ -9,19 +9,34 @@ public class UIWindowOfBuilding : MonoBehaviour
     public void OpenOrCloseUIWindow()
     {
         Debug.Log(UI.name);
-        if (UI.name == "QuestUI")
-            QuestManager.I.RefreshAllQuest();
-        else if (UI.name == "Shop")
+        //if (UI.name == "QuestUI")
+        //    QuestManager.I.RefreshAllQuest();
+        //else if (UI.name == "Shop")
+        //{
+        //    ShopManager.Instance.OnShopButton();
+        //}
+        //else if(UI.name == "CardCanvas")
+        //{
+        //    Shrine.I.Window();
+        //}
+        //else if(UI.name == "LibraryUI")
+        //{
+        //    LibraryManager.I.OpenUI();
+        //}
+        Toggle();
+    }
+
+    public void Toggle()
+    {
+        if(UI.gameObject.activeInHierarchy)
         {
-            ShopManager.Instance.OnShopButton();
+            UI.gameObject.SetActive(false);
+            Debug.Log(UI.activeInHierarchy);
         }
-        else if(UI.name == "CardCanvas")
+        else
         {
-            Shrine.I.Window();
-        }
-        else if(UI.name == "LibraryUI")
-        {
-            LibraryManager.I.OpenUI();
+            UI.gameObject.SetActive(true);
+            Debug.Log(UI.activeInHierarchy);
         }
     }
 

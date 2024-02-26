@@ -18,25 +18,25 @@ public class DunguonNPC : MonoBehaviour
         dungeonDoor.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //other = capsuleCollider;
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("플레이어 옴");
-            //dungeonDoor.SetActive(true);
-            dungeonchoiceUI.SetActive(true);
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        //other = capsuleCollider;
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("플레이어 나감");
-            //dungeonDoor.SetActive(false);
-            dungeonchoiceUI.SetActive(false);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    //other = capsuleCollider;
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        Debug.Log("플레이어 옴");
+    //        //dungeonDoor.SetActive(true);
+    //        dungeonchoiceUI.SetActive(true);
+    //    }
+    //}
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    //other = capsuleCollider;
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        Debug.Log("플레이어 나감");
+    //        //dungeonDoor.SetActive(false);
+    //        dungeonchoiceUI.SetActive(false);
+    //    }
+    //}
     
 }
