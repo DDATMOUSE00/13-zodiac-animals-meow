@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopSlot : MonoBehaviour
+public class ShopSlotUI : MonoBehaviour
 {
     [Header("#bool")]
     public bool IsSellShop;

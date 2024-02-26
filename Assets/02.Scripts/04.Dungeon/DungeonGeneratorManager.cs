@@ -233,16 +233,16 @@ public class DungeonGenerator: MonoBehaviour
         Vector2Int[] neighborCoordinates = new Vector2Int[]
         {
         new Vector2Int(xzCoordinate.x, xzCoordinate.y + 1), // 위
-        new Vector2Int(xzCoordinate.x, xzCoordinate.y - 1), // 아래
         new Vector2Int(xzCoordinate.x - 1, xzCoordinate.y), // 왼쪽
+        new Vector2Int(xzCoordinate.x, xzCoordinate.y - 1), // 아래
         new Vector2Int(xzCoordinate.x + 1, xzCoordinate.y)  // 오른쪽
         };
 
         Vector3[] doorPositions = new Vector3[]
         {
         new Vector3(room.transform.position.x, -35, room.transform.position.z + roomSize / 3), // 위
-        new Vector3(room.transform.position.x, -35, room.transform.position.z - roomSize / 3), // 아래
         new Vector3(room.transform.position.x - roomSize / 3, -35, room.transform.position.z), // 왼쪽
+        new Vector3(room.transform.position.x, -35, room.transform.position.z - roomSize / 3), // 아래
         new Vector3(room.transform.position.x + roomSize / 3, -35, room.transform.position.z)  // 오른쪽
         };
 
@@ -251,7 +251,16 @@ public class DungeonGenerator: MonoBehaviour
             if (IsCoordinateInDungeon(neighborCoordinates[i]) && rooms[neighborCoordinates[i].x, neighborCoordinates[i].y] != null)
             {
                 // doors 배열에 Door 오브젝트를 추가합니다.
-                room.doors[i] = Instantiate(Door, doorPositions[i], Quaternion.Euler(0, 90 * i, 0), room.transform);
+                room.doors[i] = Instantiate(Door, doorPositions[i], Quaternion.Euler(0, 90 * (i + 1), 0), room.transform);
+
+                //if (i % 2 == 0)
+                //{
+                //    room.doors[i] = Instantiate(Door, doorPositions[i], Quaternion.Euler(0, 90 * i, 0), room.transform);
+                //}
+                //else
+                //{
+                //    room.doors[i] = Instantiate(Door, doorPositions[i], Quaternion.Euler(0, 90 * i, 0), room.transform);
+                //}
                 //room.doors[i].SetActive(false);
             }
         }
@@ -287,8 +296,8 @@ public class DungeonGenerator: MonoBehaviour
         // 주변의 방을 확인
         Room[] neighbors = new Room[4] {
         rooms[x, y+1], // 위
-        rooms[x, y-1], // 아래
         rooms[x-1, y], // 왼쪽
+        rooms[x, y-1], // 아래
         rooms[x+1, y]  // 오른쪽
     };
 
@@ -307,11 +316,11 @@ public class DungeonGenerator: MonoBehaviour
                     case 0: // 위
                         door2 = neighborRoom.doors[1] != null ? neighborRoom.doors[1].GetComponent<Door>() : null;
                         break;
-                    case 1: // 아래
-                        door2 = neighborRoom.doors[0] != null ? neighborRoom.doors[0].GetComponent<Door>() : null;
-                        break;
-                    case 2: // 왼쪽
+                    case 1: // 아래// 왼쪽
                         door2 = neighborRoom.doors[3] != null ? neighborRoom.doors[3].GetComponent<Door>() : null;
+                        break;
+                    case 2: // 왼쪽// 아래
+                        door2 = neighborRoom.doors[0] != null ? neighborRoom.doors[0].GetComponent<Door>() : null;
                         break;
                     case 3: // 오른쪽
                         door2 = neighborRoom.doors[2] != null ? neighborRoom.doors[2].GetComponent<Door>() : null;

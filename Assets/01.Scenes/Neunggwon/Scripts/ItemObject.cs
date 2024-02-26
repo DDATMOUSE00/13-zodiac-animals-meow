@@ -25,7 +25,7 @@ public class ItemObject : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("player");
+        player = GameObject.FindWithTag("Player");
         TextMeshPro TextUI = interactionText_And_ItemName.GetComponent<TextMeshPro>();
         if (item.type != ItemType.Coin)
         {
@@ -49,7 +49,7 @@ public class ItemObject : MonoBehaviour
 
     public void OnTriggerEnter(Collider collision)
     {
-        if (collision.CompareTag("player"))
+        if (collision.CompareTag("Player"))
         {
             var playerGold = collision.GetComponent<PlayerGold>();
 

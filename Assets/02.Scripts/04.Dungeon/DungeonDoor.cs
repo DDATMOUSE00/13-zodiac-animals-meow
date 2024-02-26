@@ -8,13 +8,13 @@ public class DungeonDoor : MonoBehaviour
     public string sceneName;
     private void Update()
     {
-        sceneName = SceneName();
+        
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneName());
+            SceneManager.LoadScene(sceneName);
         }
     }
 

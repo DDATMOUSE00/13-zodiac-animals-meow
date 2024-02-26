@@ -49,15 +49,21 @@ public class EnemyLongAttack : MonoBehaviour
 
     private void Awake()
     {
-        Player = GameObject.FindGameObjectWithTag("Player").transform;
+        //Player = GameObject.FindGameObjectWithTag("Player").transform;
         _Rigidbody = GetComponent<Rigidbody>();
         currentState = MonsterState.Idle;
         Anim = transform.GetChild(0).GetComponent<Animator>();
         _Health = GetComponent<EnemyHealth>();
+        //GameObject PlayerGameObject = GameObject.FindWithTag("Player");
+        //Transform PlayerTransform = PlayerGameObject.transform;
+    }
+    private void Start()
+    {
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
         GameObject PlayerGameObject = GameObject.FindWithTag("Player");
         Transform PlayerTransform = PlayerGameObject.transform;
-    }
 
+    }
     private void Update()
     {
         //몬스터 추적 사거리

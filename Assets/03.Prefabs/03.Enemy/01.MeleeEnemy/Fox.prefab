@@ -1615,10 +1615,12 @@ MonoBehaviour:
   coinDropProbability: 1
   coinDrop: {fileID: 3611454901610100875, guid: b0b49842325acb54f926138a4f0e6c90,
     type: 3}
-  itemDropProbability: 0
-  itemDrop: {fileID: 0}
-  questItemDropProbability: 0
-  questItemDrop: {fileID: 0}
+  itemDropProbability: 0.5
+  itemDrop: {fileID: 3611454901610100875, guid: 81343acb9f48aa24bbc611a58e1053c7,
+    type: 3}
+  questItemDropProbability: 0.3
+  questItemDrop: {fileID: 3611454901610100875, guid: b5c5d0956e7c79d43a0c8ead5ca536c0,
+    type: 3}
 --- !u!1 &4829704852132596661
 GameObject:
   m_ObjectHideFlags: 0

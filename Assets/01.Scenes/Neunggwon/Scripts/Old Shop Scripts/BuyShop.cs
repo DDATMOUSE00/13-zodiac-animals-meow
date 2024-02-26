@@ -21,11 +21,11 @@ public class BuyShop : MonoBehaviour
     [Header("#Shop_InventoryList")]
 
     [Header("#SlotList")]
-    public List<ShopSlot> shopSlots = new List<ShopSlot>();
+    public List<ShopSlotUI> shopSlots = new List<ShopSlotUI>();
     public List<int> inventorySlotKeyList = new List<int>();
 
     public Item selectItem;
-    public ShopSlot selectShopSlot;
+    public ShopSlotUI selectShopSlot;
 
     [Header("#BuyInputField")]
     //[SerializeField] private GameObject inputField_UI;
@@ -97,7 +97,7 @@ public class BuyShop : MonoBehaviour
         {
             if (shopSlots.Count < maxShopSloatCount)
             {
-                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlotUI>();
                 shopSlots.Add(newShopSlot);
 
                 float y = 100f;
@@ -115,7 +115,7 @@ public class BuyShop : MonoBehaviour
         }
     }
 
-    public void SelectSlot(ShopSlot _slot)
+    public void SelectSlot(ShopSlotUI _slot)
     {
         selectShopSlot = _slot;
         selectItem = selectShopSlot.itemData;

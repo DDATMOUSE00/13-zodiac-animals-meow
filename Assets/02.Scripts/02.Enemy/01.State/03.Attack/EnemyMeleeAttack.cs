@@ -41,13 +41,16 @@ public class EnemyMeleeAttack : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        //player = GameObject.FindGameObjectWithTag("Player").transform;
         _Rigidbody = GetComponent<Rigidbody>();
         currentState = MonsterState.Idle;
         Anim = transform.GetChild(0).GetComponent<Animator>();
         _Health = GetComponent<EnemyHealth>();
     }
-
+    public void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
     private void Update()
     {
         //몬스터 추적 사거리
@@ -138,7 +141,7 @@ public class EnemyMeleeAttack : MonoBehaviour
             Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRange / 2f);
             foreach (Collider collider in EnemyAttack)
             {
-                if (collider.CompareTag("player"))
+                if (collider.CompareTag("Player"))
                 {
                     //데미지 계산
                     PlayerHealth PlayerHealth = collider.GetComponent<PlayerHealth>();

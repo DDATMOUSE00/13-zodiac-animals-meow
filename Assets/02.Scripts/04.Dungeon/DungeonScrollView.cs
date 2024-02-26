@@ -10,15 +10,19 @@ public class DungeonScrollView : MonoBehaviour
     private ScrollRect scrollRect;
     public List<GameObject> DungeonSlots;
     public DenguonSlot selectDenguonSlot;
+    public GameObject denguonDoorObj;
+    public DungeonDoor denguonDoor;
     private void Awake()
     {
         Instance = this;
         scrollRect = GetComponentInChildren<ScrollRect>();
+        denguonDoor = denguonDoorObj.GetComponent<DungeonDoor>();
     }
 
     private void Start()
     {
         NewDungeonSlot();
+        denguonDoorObj.SetActive(false);
     }
     public void NewDungeonSlot()
     {
@@ -39,9 +43,12 @@ public class DungeonScrollView : MonoBehaviour
 
     public void SealectDenguonSlot(DenguonSlot denguonSlot)
     {
+        denguonDoorObj.SetActive(false);
         selectDenguonSlot = denguonSlot;
+        denguonDoor.sceneName = selectDenguonSlot.sceneName;
         Debug.Log(selectDenguonSlot.sceneName);
+        denguonDoorObj.SetActive(true);
     }
 
-    
+
 }

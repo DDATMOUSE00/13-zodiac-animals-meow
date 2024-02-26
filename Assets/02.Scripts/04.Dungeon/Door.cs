@@ -12,6 +12,11 @@ public class Door : MonoBehaviour
     [Header("#VilligeDoor")]
     //public GameObject villageDoor;
     public bool villageDoorChicking;
+
+    private void Start()
+    {
+        buffManager = GameObject.FindAnyObjectByType<BuffManager>();
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -19,7 +24,7 @@ public class Door : MonoBehaviour
             if (villageDoorChicking)
             {
                 buffManager.AllDestroyBuff();
-                SceneManager.LoadScene("MainScene");
+                SceneManager.LoadScene("Village-NeunggwonScene");
             }
             else
             {

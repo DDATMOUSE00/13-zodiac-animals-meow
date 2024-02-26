@@ -15,13 +15,13 @@ public class DungeonManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        //player = Instantiate(player, new Vector3(800, -35, 800), Quaternion.identity);
         enemyPool = GetComponentInChildren<EnemyObjectPooling>();
     }
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
-        player = Instantiate(player, new Vector3(800, -35, 800), Quaternion.identity);
+        player.transform.position = new Vector3(800, -35, 800);
+        //player = Instantiate(player, new Vector3(800, -35, 800), Quaternion.identity);
     }
     
 }

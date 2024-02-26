@@ -20,11 +20,11 @@ public class SellShop : MonoBehaviour
     public List<Item> items = new List<Item>();
 
     [Header("#SlotList")]
-    public List<ShopSlot> shopSlots = new List<ShopSlot>();
+    public List<ShopSlotUI> shopSlots = new List<ShopSlotUI>();
     public List<int> inventorySlotKeyList = new List<int>();
 
     public Item selectItem;
-    public ShopSlot selectShopSlot;
+    public ShopSlotUI selectShopSlot;
 
 
     [Header("#BuyInputField")]
@@ -84,7 +84,7 @@ public class SellShop : MonoBehaviour
 
                 if (!inventorySlotKeyList.Contains(keyList[i]) && bundle != 0)
                 {
-                    var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+                    var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlotUI>();
                     newShopSlot.itemData = item;
                     newShopSlot.Int_Count = bundle;
                     shopSlots.Add(newShopSlot);
@@ -209,7 +209,7 @@ public class SellShop : MonoBehaviour
 
     //Test
 
-    public void SelectSlot(ShopSlot _slot)
+    public void SelectSlot(ShopSlotUI _slot)
     {
         selectShopSlot = _slot;
         selectItem = selectShopSlot.itemData;

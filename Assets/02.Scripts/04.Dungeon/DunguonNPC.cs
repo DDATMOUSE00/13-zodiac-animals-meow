@@ -15,6 +15,7 @@ public class DunguonNPC : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
+        dungeonDoor.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,6 +24,7 @@ public class DunguonNPC : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("플레이어 옴");
+            //dungeonDoor.SetActive(true);
             dungeonchoiceUI.SetActive(true);
         }
     }
@@ -32,6 +34,7 @@ public class DunguonNPC : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("플레이어 나감");
+            //dungeonDoor.SetActive(false);
             dungeonchoiceUI.SetActive(false);
         }
     }
