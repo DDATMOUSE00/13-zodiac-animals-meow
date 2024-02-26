@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1626486758618810150}
   - component: {fileID: 3224336323432302916}
-  - component: {fileID: 1520980541894681470}
+  - component: {fileID: 1852394333114363705}
   m_Layer: 0
   m_Name: ShopManager
   m_TagString: Untagged
@@ -47,8 +47,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyShop: {fileID: 0}
   sellShop: {fileID: 0}
+  playerGoldText: {fileID: 0}
+  inputFeild_Obj: {fileID: 0}
+  inputField: {fileID: 0}
+  inputFieldPrefab: {fileID: 0}
   Shop: {fileID: 0}
---- !u!114 &1520980541894681470
+--- !u!114 &1852394333114363705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -6,15 +6,12 @@ public class DunguonNPC : MonoBehaviour
 {
     public GameObject dungeonDoor;
     public GameObject dungeonchoiceUI;
-    public GameObject player;
-    public CapsuleCollider capsuleCollider;
+    //public GameObject player;
+    //public BoxCollider boxCollider;
 
-    private void Awake()
-    {
-    }
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        //player = GameObject.FindWithTag("Player");
         dungeonDoor.SetActive(false);
     }
 
@@ -38,5 +35,5 @@ public class DunguonNPC : MonoBehaviour
     //        dungeonchoiceUI.SetActive(false);
     //    }
     //}
-    
+
 }
