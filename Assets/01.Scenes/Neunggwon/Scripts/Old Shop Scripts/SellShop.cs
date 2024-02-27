@@ -30,7 +30,8 @@ public class SellShop : MonoBehaviour
     [Header("#BuyInputField")]
     [SerializeField] private GameObject inputField_Obj;
     [SerializeField] private TMP_InputField inputField;
-    [SerializeField] private GameObject failedUI;
+    [SerializeField] private GameObject failedUI1;
+    [SerializeField] private GameObject failedUI2;
 
     //[SerializeField] private Button InputFeild_ExitButton;
     [HideInInspector] public bool cancel = false;
@@ -230,25 +231,35 @@ public class SellShop : MonoBehaviour
     public void Sell(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
     {
         int int_inputNum = int.Parse(inputField.text);
-        if (ItemManager.I.ChekInventoryItem(selectItem.id, int_inputNum))
+        if (int_inputNum <= 0)
         {
-            if (!cancel)
-            {
-                ItemManager.I.RemoveItem(selectItem.id, int_inputNum);
-                SelectShopSlotUpdate();
-                ShopManager.Instance.ShopUpDate();
-                var playerGold = GameManager.Instance.player.GetComponent<PlayerGold>();
-                playerGold.RemoveGold(selectShopSlot.Int_Count * int_inputNum);
-            }
-            else
-            {
-                inputField.onSubmit.RemoveAllListeners();
-            }
+            inputField.onSubmit.RemoveAllListeners();
+            StartCoroutine(ChekUI2());
+            ExitButton();
         }
         else
         {
-            StartCoroutine(BuffChekUI());
-            Debug.Log($"판매할 아이템이 부족합니다.{selectItem.id}/{selectShopSlot.Int_Count}-{int_inputNum}={selectShopSlot.Int_Count - int_inputNum}");
+            if (ItemManager.I.ChekInventoryItem(selectItem.id, int_inputNum))
+            {
+                if (!cancel)
+                {
+                    ItemManager.I.RemoveItem(selectItem.id, int_inputNum);
+                    SelectShopSlotUpdate();
+                    ShopManager.Instance.ShopUpDate();
+                    var playerGold = GameManager.Instance.player.GetComponent<PlayerGold>();
+                    playerGold.RemoveGold(selectShopSlot.Int_Count * int_inputNum);
+                }
+                else
+                {
+                    inputField.onSubmit.RemoveAllListeners();
+                }
+            }
+            else
+            {
+                StartCoroutine(ChekUI1());
+                Debug.Log($"판매할 아이템이 부족합니다.{selectItem.id}/{selectShopSlot.Int_Count}-{int_inputNum}={selectShopSlot.Int_Count - int_inputNum}");
+            }
+            
         }
         inputField.onSubmit.RemoveAllListeners();
         ExitButton();
@@ -267,11 +278,19 @@ public class SellShop : MonoBehaviour
         }
     }
 
-    IEnumerator BuffChekUI()
+    IEnumerator ChekUI1()
     {
-        failedUI.SetActive(true);
+        failedUI1.SetActive(true);
         yield return YieldInstructionCache.WaitForSeconds(1.5f);
-        failedUI.SetActive(false);
+        failedUI1.SetActive(false);
+        yield return null;
+    }
+
+    IEnumerator ChekUI2()
+    {
+        failedUI2.SetActive(true);
+        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+        failedUI2.SetActive(false);
         yield return null;
     }
 }

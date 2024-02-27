@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +32,8 @@ public class BuyShop : MonoBehaviour
     //[SerializeField] private GameObject inputField_UI;
     [SerializeField] private GameObject inputField_Obj;
     [SerializeField] private TMP_InputField inputField;
-    [SerializeField] private GameObject failedUI;
+    [SerializeField] private GameObject failedUI1;
+    [SerializeField] private GameObject failedUI2;
 
     [HideInInspector] public bool cancel = false;
 
@@ -135,29 +137,37 @@ public class BuyShop : MonoBehaviour
     public void Buy(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
     {
         int int_inputNum = int.Parse(inputField.text);
-        var playerGold = GameManager.Instance.player.GetComponent<PlayerGold>();
-        if (selectItem.price * int_inputNum <= playerGold.Gold)
+        if (int_inputNum <= 0)
         {
-            if (!cancel)
-            {
-
-                for (int i = 0; i < int_inputNum; i++)
-                {
-                    ItemManager.I.AddItem(selectItem);
-                }
-                playerGold.RemoveGold(selectItem.price * int_inputNum);
-                ShopManager.Instance.ShopUpDate();
-                ShopManager.Instance.ShowInventorySlotManager();
-            }
-            else
-            {
-                inputField.onSubmit.RemoveAllListeners();
-            }
+            StartCoroutine(ChekUI2());
+            inputField.onSubmit.RemoveAllListeners();
         }
         else
         {
-            StartCoroutine(BuffChekUI());
-            Debug.Log($"플레이어 골드가 부족합니다.{playerGold.Gold}-{selectItem.price * int_inputNum}={selectItem.price * int_inputNum - playerGold.Gold}");
+            var playerGold = GameManager.Instance.player.GetComponent<PlayerGold>();
+            if (selectItem.price * int_inputNum <= playerGold.Gold)
+            {
+                if (!cancel)
+                {
+
+                    for (int i = 0; i < int_inputNum; i++)
+                    {
+                        ItemManager.I.AddItem(selectItem);
+                    }
+                    playerGold.RemoveGold(selectItem.price * int_inputNum);
+                    ShopManager.Instance.ShopUpDate();
+                    ShopManager.Instance.ShowInventorySlotManager();
+                }
+                else
+                {
+                    inputField.onSubmit.RemoveAllListeners();
+                }
+            }
+            else
+            {
+                StartCoroutine(ChekUI1());
+                Debug.Log($"플레이어 골드가 부족합니다.{playerGold.Gold}-{selectItem.price * int_inputNum}={selectItem.price * int_inputNum - playerGold.Gold}");
+            }
         }
         
         inputField.onSubmit.RemoveAllListeners();
@@ -178,11 +188,19 @@ public class BuyShop : MonoBehaviour
         }
     }
 
-    IEnumerator BuffChekUI()
+    IEnumerator ChekUI1()
     {
-        failedUI.SetActive(true);
+        failedUI1.SetActive(true);
         yield return YieldInstructionCache.WaitForSeconds(1.5f);
-        failedUI.SetActive(false);
+        failedUI1.SetActive(false);
+        yield return null;
+    }
+
+    IEnumerator ChekUI2()
+    {
+        failedUI2.SetActive(true);
+        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+        failedUI2.SetActive(false);
         yield return null;
     }
 }

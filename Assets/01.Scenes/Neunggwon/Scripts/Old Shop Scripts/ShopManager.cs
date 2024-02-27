@@ -56,6 +56,10 @@ public class ShopManager : MonoBehaviour
         Debug.Log(Shop.activeInHierarchy);
         Toggle();
     }
+    public void Open()
+    {
+        Shop.SetActive(true);
+    }
 
     public void Toggle()
     {

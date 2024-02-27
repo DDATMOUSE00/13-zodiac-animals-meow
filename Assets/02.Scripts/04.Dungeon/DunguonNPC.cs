@@ -15,6 +15,15 @@ public class DunguonNPC : MonoBehaviour
         dungeonDoor.SetActive(false);
     }
 
+    public void Open()
+    {
+        dungeonchoiceUI.SetActive(true);
+    }
+
+    public void Close()
+    {
+        dungeonchoiceUI.SetActive(false);
+    }
     //private void OnTriggerEnter(Collider other)
     //{
     //    //other = capsuleCollider;

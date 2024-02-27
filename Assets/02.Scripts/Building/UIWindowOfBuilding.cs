@@ -24,10 +24,10 @@ public class UIWindowOfBuilding : MonoBehaviour
        {
           LibraryManager.I.OpenUI();
         }
-        //else if (UI.name == "dungeonchoiceUI")
-        //{
-        //    LibraryManager.I.OpenUI();
-        //}
+        else if (UI.name == "dungeonchoiceUI")
+        {
+            UI.SetActive(true);
+        }
 
         //Toggle();
         Debug.Log("¿­¸²");

@@ -12,11 +12,14 @@ public class DungeonScrollView : MonoBehaviour
     public DenguonSlot selectDenguonSlot;
     public GameObject denguonDoorObj;
     public DungeonDoor denguonDoor;
+    public GameObject dungeonScrollViewObj;
+
     private void Awake()
     {
         Instance = this;
         scrollRect = GetComponentInChildren<ScrollRect>();
         denguonDoor = denguonDoorObj.GetComponent<DungeonDoor>();
+        //dungeonScrollViewObj = GetComponent<GameObject>();
     }
 
     private void Start()
@@ -24,6 +27,8 @@ public class DungeonScrollView : MonoBehaviour
         NewDungeonSlot();
         denguonDoorObj.SetActive(false);
     }
+
+    
     public void NewDungeonSlot()
     {
         //리스트의 있는 던전 생성
@@ -48,6 +53,11 @@ public class DungeonScrollView : MonoBehaviour
         denguonDoor.sceneName = selectDenguonSlot.sceneName;
         Debug.Log(selectDenguonSlot.sceneName);
         denguonDoorObj.SetActive(true);
+    }
+
+    public void Open()
+    {
+        dungeonScrollViewObj.SetActive(true);
     }
 
     public void ExitButton()
