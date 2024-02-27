@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //애니메이션
-        if (!IsRolling && !PlayerAttack.IsAttack && !_Health.IsHit && !PlayerAttack.IsSkill)
+        if (!IsRolling && !PlayerAttack.IsAttack && !_Health.IsHit && !PlayerAttack.IsSkill && !_Health.IsDead)
         {
             if (!IsMoving && !PlayerAttack.IsAttack && !_Health.IsHit && !PlayerAttack.IsSkill)
             {
@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
                     Anim.AnimationState.SetAnimation(0, "sd_idle_sword", true);
                 }
             }
-            else if (IsMoving && !PlayerAttack.IsAttack && !_Health.IsHit && !PlayerAttack.IsSkill)
+            else if (IsMoving && !PlayerAttack.IsAttack && !_Health.IsHit && !PlayerAttack.IsSkill && !_Health.IsDead)
             {
                 if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_run"))
                 {
@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        if (_Health.IsHit && !PlayerAttack.IsSkill && !IsRolling)
+        if (_Health.IsHit && !PlayerAttack.IsSkill && !IsRolling && !_Health.IsDead)
         {
             if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_damage"))
             {
@@ -91,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!IsRolling)
+        if (!IsRolling && !_Health.IsDead)
         {
             ApplyMovement(MovementDirection);
         }
@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     public void ApplyMovement(Vector3 direction)
     {
         {
-            if (!PlayerAttack.IsAttack && !PlayerAttack.IsSkill && !IsRolling)
+            if (!PlayerAttack.IsAttack && !PlayerAttack.IsSkill && !IsRolling && !_Health.IsDead)
             {
                 //이동
                 direction = direction * 10;
@@ -116,11 +116,11 @@ public class PlayerMovement : MonoBehaviour
                 currentVelocity.z = direction.z;
                 _Rigidbody.velocity = currentVelocity;
 
-                if (direction.x < 0 && !PlayerAttack.IsAttack && !PlayerAttack.IsSkill)
+                if (direction.x < 0 && !PlayerAttack.IsAttack && !PlayerAttack.IsSkill && !_Health.IsDead)
                 {
                     transform.localScale = new Vector3(1, 1, 1);
                 }
-                else if (direction.x > 0 && !PlayerAttack.IsAttack && !PlayerAttack.IsSkill)
+                else if (direction.x > 0 && !PlayerAttack.IsAttack && !PlayerAttack.IsSkill && !_Health.IsDead)
                 {
                     transform.localScale = new Vector3(-1, 1, 1);
                 }
@@ -131,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
     //구르기
     private void Roll()
     {
-        if (!IsRolling && !_Health.IsHit && IsMoving)
+        if (!IsRolling && !_Health.IsHit && IsMoving && !_Health.IsDead)
         {
             StartCoroutine(RollCoroutine());
         }

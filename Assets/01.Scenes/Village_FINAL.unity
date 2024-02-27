@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10372253, g: 0.2933138, b: 0.36132318, a: 1}
+  m_IndirectSpecularColor: {r: 0.10372542, g: 0.2933159, b: 0.3613301, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9940,6 +9940,52 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1069719586}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1070839632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1070839633}
+  - component: {fileID: 1070839634}
+  m_Layer: 0
+  m_Name: FadeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1070839633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070839632}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1658668773}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1070839634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070839632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae094bb7d7a656458699fa5b93b43e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FadeOutTexture: {fileID: 0}
+  FadeSpeed: 0.8
 --- !u!1 &1072425852 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1074482753184668, guid: e86571f2f1251004b98a744302eca0b1,
@@ -14619,6 +14665,7 @@ Transform:
   - {fileID: 1163408333}
   - {fileID: 741844196}
   - {fileID: 484885367}
+  - {fileID: 1070839633}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18440,7 +18487,6 @@ MonoBehaviour:
   MaxComboCount: 3
   SkillCount: 0
   KnockbackTime: 0.5
-  SkillDelay: 2
   AttackRange: {x: 5, y: 5, z: 8.5}
 --- !u!136 &3115484537843224460
 CapsuleCollider:
@@ -18731,7 +18777,7 @@ MonoBehaviour:
   disableRenderingOnOverride: 1
   updateTiming: 1
   unscaledTime: 0
-  _animationName: sd_die
+  _animationName: sd_idle_sword
   loop: 1
   timeScale: 1
 --- !u!4 &6428231347035599499
