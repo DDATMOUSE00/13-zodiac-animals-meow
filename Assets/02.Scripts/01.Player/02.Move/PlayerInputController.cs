@@ -35,4 +35,8 @@ public class PlayerInputController : PlayerController
         Vector2 Aim = value.Get<Vector2>();
         CallLookEvent(Aim);
     }
+    public void OpenInventory(InputValue value)
+    {
+        ItemManager.I.RefreshInventorySlot();
+    }
 }

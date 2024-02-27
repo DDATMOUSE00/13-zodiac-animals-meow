@@ -25,7 +25,15 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void Start()
+    public void QuitGame()
+    {
+        ResourceManager.Instance.SaveData();
+        Application.Quit();
+
+    }
+
+
+void Start()
     {
         
     }
