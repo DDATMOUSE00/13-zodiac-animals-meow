@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         //player = GameObject.FindWithTag("Player");
+        AudioManager.instance.PlayBgm(true);
     }
 
     private void Info()
@@ -36,12 +37,12 @@ public class GameManager : MonoBehaviour
         //objectPoolManager = GetComponentInChildren<ObjectPoolManager>();
         fadeManager = GetComponentInChildren<FadeManager>();
         player = GameObject.FindWithTag("Player");
-
     }
 
     public void QuitGame()
     {
         //ResourceManager.Instance.SaveData();
+        AudioManager.instance.PlayBgm(false);
         Application.Quit();
 
     }

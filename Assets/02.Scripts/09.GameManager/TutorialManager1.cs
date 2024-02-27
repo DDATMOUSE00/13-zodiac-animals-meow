@@ -17,6 +17,8 @@ public class TutorialManager1 : MonoBehaviour
     //페이드 방향 -1 : 페이드 아웃, 1 : 페이드 인
     private int FadeDirect = -1;
 
+    public bool IsTutorial;
+
     //private int StartTxt = 0;
 
     private void Awake()
@@ -25,6 +27,7 @@ public class TutorialManager1 : MonoBehaviour
         FadeOutTexture = new Texture2D(1, 1);
         FadeOutTexture.SetPixel(0, 0, Color.black);
         FadeOutTexture.Apply();
+        IsTutorial = true;
     }
 
     private void Start()
