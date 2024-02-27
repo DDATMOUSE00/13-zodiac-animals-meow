@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        DontDestroyOnLoad(gameObject);
+
         Info();
     }
 
@@ -31,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     private void Info()
     {
-        objectPoolManager = GetComponentInChildren<ObjectPoolManager>();
+        //objectPoolManager = GetComponentInChildren<ObjectPoolManager>();
         fadeManager = GetComponentInChildren<FadeManager>();
         player = GameObject.FindWithTag("Player");
 
