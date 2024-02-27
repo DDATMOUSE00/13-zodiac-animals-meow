@@ -42,4 +42,9 @@ public class StartScene : MonoBehaviour
         SceneManager.LoadScene("Village_FINAL");
         isExistSaveData = true; 
     }
+
+    public void EixtGame()
+    {
+        Application.Quit();
+    }
 }

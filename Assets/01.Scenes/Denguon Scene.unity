@@ -2117,8 +2117,8 @@ MonoBehaviour:
   - {fileID: 3175922482111565644, guid: bb06875093d3e8943a8efc4cd7aa1f95, type: 3}
   Door: {fileID: 5287257391976957008, guid: 37783fa7d696fe24d82c848222d6cd0a, type: 3}
   roomSize: 80
-  minRooms: 2
-  maxRooms: 4
+  minRooms: 3
+  maxRooms: 7
   dungeonWidth: 20
   dungeonHeight: 20
   currentRoomCount: 0
@@ -2718,7 +2718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &908946322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2770,7 +2770,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1032449455
 PrefabInstance:
@@ -3752,7 +3752,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1667355447
 Transform:
   m_ObjectHideFlags: 0
@@ -3886,7 +3886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1782602412
 Transform:
   m_ObjectHideFlags: 0
@@ -3900,7 +3900,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1795020327
 GameObject:

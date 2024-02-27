@@ -42,18 +42,7 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         //ResourceManager.Instance.SaveData();
+        Debug.Log("게임 종료");
         Application.Quit();
-
-    }
-
-
-
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    Debug.Log("Pooling");
-        //    objectPoolManager.Get(1);
-        //}
     }
 }
