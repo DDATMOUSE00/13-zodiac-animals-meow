@@ -16,6 +16,7 @@ public class Temple : MonoBehaviour
     public Button yesButton;
     public Button noButton;
     public GameObject selectBuffChekUI;
+    public GameObject FailedChekUI;
 
     public BuffManager buffManager;
 
@@ -27,20 +28,21 @@ public class Temple : MonoBehaviour
             findItems[i].findCount.text = totalvalue.ToString("##개");
         }
         selectBuffChekUI.SetActive(false);
+        FailedChekUI.SetActive(false);
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (temple.activeInHierarchy)
-            {
-                temple.SetActive(false);
-            }
-            else
-            {
-                temple.SetActive(true);
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    if (temple.activeInHierarchy)
+        //    {
+        //        temple.SetActive(false);
+        //    }
+        //    else
+        //    {
+        //        temple.SetActive(true);
+        //    }
+        //}
     }
     public void YesButton()
     {
@@ -52,7 +54,7 @@ public class Temple : MonoBehaviour
             {
                 cheking = false;
                 Debug.Log("아이템 부족");
-
+                StartCoroutine(FailedUI());
                 break;
             }
         }
@@ -63,7 +65,8 @@ public class Temple : MonoBehaviour
             {
                 ItemManager.I.RemoveItem(findItems[i].itemData.id, totalvalue);
             }
-            buffManager.RandomBuff();
+            //buffManager.RandomBuff();
+            DungeonManager.Instance.buffManager.RandomBuff();
             StartCoroutine(BuffChekUI());
             receivedCount++;
             totalvalue = resourcesNeededCount + (resourcesNeededCount * receivedCount);
@@ -83,11 +86,24 @@ public class Temple : MonoBehaviour
     IEnumerator BuffChekUI()
     {
         var BuffChekUI = selectBuffChekUI.GetComponent<BuffChekUI>();
-        var _newBuff = buffManager.newBuff.GetComponent<BaseBuff>();
+        //var _newBuff = buffManager.newBuff.GetComponent<BaseBuff>();
+        var _newBuff = DungeonManager.Instance.buffManager.newBuff.GetComponent<BaseBuff>();
         selectBuffChekUI.SetActive(true);
         BuffChekUI.SelectBuffInfo(_newBuff);
         yield return YieldInstructionCache.WaitForSeconds(1.5f);
         selectBuffChekUI.SetActive(false);
+        yield return null;
+    }
+
+    IEnumerator FailedUI()
+    {
+        //var BuffChekUI = selectBuffChekUI.GetComponent<BuffChekUI>();
+        ////var _newBuff = buffManager.newBuff.GetComponent<BaseBuff>();
+        //var _newBuff = DungeonManager.Instance.buffManager.newBuff.GetComponent<BaseBuff>();
+        FailedChekUI.SetActive(true);
+        //BuffChekUI.SelectBuffInfo(_newBuff);
+        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+        FailedChekUI.SetActive(false);
         yield return null;
     }
 }

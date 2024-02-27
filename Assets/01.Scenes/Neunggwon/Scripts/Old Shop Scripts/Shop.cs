@@ -24,11 +24,11 @@ public class Shop : MonoBehaviour
     public List<Item> items = new List<Item>();
 
     [Header("#SlotList")]
-    public List<ShopSlot> shopSlots = new List<ShopSlot>();
+    public List<ShopSlotUI> shopSlots = new List<ShopSlotUI>();
     public List<int> inventorySlotKeyList = new List<int>();
 
     public Item selectItem;
-    public ShopSlot selectShopSlot;
+    public ShopSlotUI selectShopSlot;
 
     [Header("#BuyInputField")]
     [SerializeField] private GameObject inputField_Obj;
@@ -101,7 +101,7 @@ public class Shop : MonoBehaviour
 
                 if (!inventorySlotKeyList.Contains(keyList[i]))
                 {
-                    var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+                    var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlotUI>();
                     newShopSlot.itemData = item;
                     newShopSlot.Int_Count = bundle;
                     shopSlots.Add(newShopSlot);
@@ -134,7 +134,7 @@ public class Shop : MonoBehaviour
         {
             if (shopSlots.Count < items.Count)
             {
-                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlotUI>();
                 shopSlots.Add(newShopSlot);
 
                 float y = 100f;
@@ -267,7 +267,7 @@ public class Shop : MonoBehaviour
         //Debug.Log($"SelectItem :{selectItem.id}");
     }
 
-    public void SelectSlot(ShopSlot _slot)
+    public void SelectSlot(ShopSlotUI _slot)
     {
         selectShopSlot = _slot;
     }
@@ -277,7 +277,7 @@ public class Shop : MonoBehaviour
         inputField_Obj.SetActive(true);
 
         inputField.onEndEdit.AddListener(delegate { EndEditBuy(inputField); });
-        Debug.Log("delegate - EndEditBuy");
+        Debug.Log("delegate - Buy");
 
     }
 
@@ -286,7 +286,7 @@ public class Shop : MonoBehaviour
         inputField_Obj.SetActive(true);
 
         inputField.onEndEdit.AddListener(delegate { EndEditSell(inputField); });
-        Debug.Log("delegate - EndEditSell");
+        Debug.Log("delegate - Sell");
     }
 
     public void EndEditBuy(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트

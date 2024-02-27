@@ -176,7 +176,7 @@ PrefabInstance:
     - target: {fileID: 72624953302597268, guid: 29442c7b4e8a6ed4ca143188a9334f61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 132215.36
+      value: 151010.89
       objectReference: {fileID: 0}
     - target: {fileID: 143613041872173078, guid: 29442c7b4e8a6ed4ca143188a9334f61,
         type: 3}
@@ -5185,6 +5185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284c0aa2823d35f4898bf30760bd5696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
   objectPoolManager: {fileID: 0}
 --- !u!4 &1658668773
 Transform:

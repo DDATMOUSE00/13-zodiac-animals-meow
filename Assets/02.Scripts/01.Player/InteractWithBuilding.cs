@@ -24,11 +24,13 @@ public class InteractWithBuilding : MonoBehaviour
         //Debug.Log(hit.transform);
         if (Physics.Raycast(ray, out hit, distance, layerMask)) 
         {
-            if (hit.transform != null && Input.GetKeyDown(KeyCode.E))
+            if (hit.collider != null && Input.GetKeyDown(KeyCode.E))
             {
-                UIWindowOfBuilding ui = hit.transform.gameObject.GetComponent<UIWindowOfBuilding>();
-                
-                ui.OpenOrCloseUIWindow(); 
+                //UIWindowOfBuilding ui = hit.transform.gameObject.GetComponent<UIWindowOfBuilding>();
+                UIWindowOfBuilding disPlayUI = hit.collider.gameObject.GetComponent<UIWindowOfBuilding>();
+
+                //ui.OpenOrCloseUIWindow();
+                disPlayUI.OpenOrCloseUIWindow();
             }
         }
     }

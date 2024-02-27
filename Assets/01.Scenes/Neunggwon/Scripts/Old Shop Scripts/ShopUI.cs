@@ -10,7 +10,7 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private GameObject uiPrefab; 
 
     public List<Item> items = new List<Item>();
-    public List<ShopSlot> shopSlots = new List<ShopSlot>();
+    public List<ShopSlotUI> shopSlots = new List<ShopSlotUI>();
 
     private void Awake()
     {
@@ -27,7 +27,7 @@ public class ShopUI : MonoBehaviour
 
     public void AddNewUiObject()
     {
-        var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+        var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlotUI>();
         shopSlots.Add(newShopSlot);
 
         float y = 150f;

@@ -45,11 +45,11 @@ public class EnemyHealth : MonoBehaviour
         IsDead = false;
     }
 
-    //private void OnEnable()
-    //{
-    //    EnemyHP = EnemyMaxHP;
-    //    IsDead = false;
-    //}
+    private void OnEnable()
+    {
+        EnemyHP = EnemyMaxHP;
+        IsDead = false;
+    }
     private void Update()
     {
         if (slider != null)

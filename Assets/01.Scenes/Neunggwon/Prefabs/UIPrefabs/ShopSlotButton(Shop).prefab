@@ -68,8 +68,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Item_Description
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cb4ea8fe88e240c45a6f7490c5926576, type: 2}
+  m_sharedMaterial: {fileID: -7798210062283181721, guid: cb4ea8fe88e240c45a6f7490c5926576,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -282,8 +283,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 9,999 G
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cb4ea8fe88e240c45a6f7490c5926576, type: 2}
+  m_sharedMaterial: {fileID: -7798210062283181721, guid: cb4ea8fe88e240c45a6f7490c5926576,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -417,8 +419,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cb4ea8fe88e240c45a6f7490c5926576, type: 2}
+  m_sharedMaterial: {fileID: -7798210062283181721, guid: cb4ea8fe88e240c45a6f7490c5926576,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -552,8 +555,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Item_Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cb4ea8fe88e240c45a6f7490c5926576, type: 2}
+  m_sharedMaterial: {fileID: -7798210062283181721, guid: cb4ea8fe88e240c45a6f7490c5926576,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -583,7 +587,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -709,7 +713,7 @@ GameObject:
   - component: {fileID: 5972989177519938298}
   - component: {fileID: 25801585309051059}
   - component: {fileID: 5211067806237774239}
-  - component: {fileID: 3042592176452375860}
+  - component: {fileID: 173931519307180257}
   m_Layer: 5
   m_Name: ShopSlotButton(Shop)
   m_TagString: Untagged
@@ -847,7 +851,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3042592176452375860
+--- !u!114 &173931519307180257
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

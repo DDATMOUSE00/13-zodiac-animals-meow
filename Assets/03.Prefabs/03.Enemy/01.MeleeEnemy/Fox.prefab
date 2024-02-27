@@ -585,7 +585,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_SortAtRoot: 0
 --- !u!1 &1221416140296403933
 GameObject:
@@ -1473,6 +1473,7 @@ GameObject:
   - component: {fileID: 6613337721306986950}
   - component: {fileID: 743986196502908179}
   - component: {fileID: 1720595583107731487}
+  - component: {fileID: 832764365041747897}
   m_Layer: 8
   m_Name: Fox
   m_TagString: Enemy
@@ -1499,7 +1500,7 @@ Transform:
   - {fileID: 8664806545578554253}
   - {fileID: 7699569559824535518}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &6471965195312868635
 Rigidbody:
@@ -1599,6 +1600,27 @@ MonoBehaviour:
   HitDamageText: {fileID: 896372709270788677, guid: e0944626f35fb73439b35566590d19fc,
     type: 3}
   HitDamagePoint: {fileID: 8664806545578554253}
+--- !u!114 &832764365041747897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4156609464551966740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 719031a7159b8e847817255748b9aa07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinDropProbability: 1
+  coinDrop: {fileID: 3611454901610100875, guid: b0b49842325acb54f926138a4f0e6c90,
+    type: 3}
+  itemDropProbability: 0.5
+  itemDrop: {fileID: 3611454901610100875, guid: 81343acb9f48aa24bbc611a58e1053c7,
+    type: 3}
+  questItemDropProbability: 0.3
+  questItemDrop: {fileID: 3611454901610100875, guid: b5c5d0956e7c79d43a0c8ead5ca536c0,
+    type: 3}
 --- !u!1 &4829704852132596661
 GameObject:
   m_ObjectHideFlags: 0

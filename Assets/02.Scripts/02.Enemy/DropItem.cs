@@ -31,7 +31,7 @@ public class DropItem : MonoBehaviour
         float randomX = Random.Range(-randomPoint, randomPoint);
         float randomZ = Random.Range(-randomPoint, randomPoint);
 
-        Vector3 spawnPoint = new Vector3(randomX, 0, randomZ);
+        Vector3 spawnPoint = new Vector3(randomX, 1, randomZ);
 
         if (roll < coinDropProbability)
         {

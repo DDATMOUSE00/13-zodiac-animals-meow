@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1626486758618810150}
   - component: {fileID: 3224336323432302916}
+  - component: {fileID: 1852394333114363705}
   m_Layer: 0
   m_Name: ShopManager
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3224336323432302916
 MonoBehaviour:
@@ -46,3 +47,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyShop: {fileID: 0}
   sellShop: {fileID: 0}
+  playerGoldText: {fileID: 0}
+  inputFeild_Obj: {fileID: 0}
+  inputField: {fileID: 0}
+  inputFieldPrefab: {fileID: 0}
+  Shop: {fileID: 0}
+--- !u!114 &1852394333114363705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6358815365014005177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b27f84618dbaa40b501a9a2786489e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shop: {fileID: 0}
+  Shop_WeaponDisplay: {fileID: 0}
+  Shop_PotionDisplay: {fileID: 0}
+  inputFeild_Obj: {fileID: 0}
+  inputField: {fileID: 0}
+  InputFeild_ExitButton: {fileID: 0}

@@ -9,7 +9,7 @@ public class MovePlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("player"))
         { 
             player = other.gameObject;
 
@@ -18,7 +18,7 @@ public class MovePlayer : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("player"))
         {
             StartCoroutine(TeleportRoutin());
         }

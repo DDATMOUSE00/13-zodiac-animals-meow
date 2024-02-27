@@ -692,6 +692,7 @@ GameObject:
   - component: {fileID: 5030886495758625970}
   - component: {fileID: 9154730141347600397}
   - component: {fileID: 2476093055841592248}
+  - component: {fileID: -7422396056198238683}
   m_Layer: 8
   m_Name: Mouse
   m_TagString: Enemy
@@ -719,7 +720,7 @@ Transform:
   - {fileID: 198377018885071744}
   - {fileID: 6654269819697957567}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2101548110211930490
 Rigidbody:
@@ -837,6 +838,27 @@ MonoBehaviour:
   Earthquakepoint5: {fileID: 4683262119626973651}
   Earthquakepoint6: {fileID: 7413733852092122692}
   EarthquakeSpeed: 15
+--- !u!114 &-7422396056198238683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076915442368198238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 719031a7159b8e847817255748b9aa07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinDropProbability: 1
+  coinDrop: {fileID: 3611454901610100875, guid: b0b49842325acb54f926138a4f0e6c90,
+    type: 3}
+  itemDropProbability: 0.5
+  itemDrop: {fileID: 3611454901610100875, guid: 81343acb9f48aa24bbc611a58e1053c7,
+    type: 3}
+  questItemDropProbability: 0.3
+  questItemDrop: {fileID: 3611454901610100875, guid: b5c5d0956e7c79d43a0c8ead5ca536c0,
+    type: 3}
 --- !u!1 &2562973297676519269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,7 +1399,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_SortAtRoot: 0
 --- !u!1 &5521281514742822900
 GameObject:

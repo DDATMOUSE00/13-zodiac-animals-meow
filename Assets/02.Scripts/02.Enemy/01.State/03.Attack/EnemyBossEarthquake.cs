@@ -15,7 +15,7 @@ public class EnemyBossEarthquake : MonoBehaviour
     }
     public void OnTriggerEnter(Collider Colliders)
     {
-        if (Colliders.gameObject.CompareTag("Player"))
+        if (Colliders.gameObject.CompareTag("player"))
         {
             //데미지 계산
             PlayerHealth PlayerHealth = Colliders.gameObject.GetComponent<PlayerHealth>();

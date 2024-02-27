@@ -82,7 +82,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_SortAtRoot: 0
 --- !u!1 &153960446726178002
 GameObject:
@@ -1670,6 +1670,7 @@ GameObject:
   - component: {fileID: 5923063796237090954}
   - component: {fileID: 5059879189525787899}
   - component: {fileID: 950147888691813915}
+  - component: {fileID: -7052110252359434381}
   m_Layer: 8
   m_Name: Monkey
   m_TagString: Enemy
@@ -1695,7 +1696,7 @@ Transform:
   - {fileID: 595140220059507738}
   - {fileID: 4585224881121956246}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &714761467970150063
 Rigidbody:
@@ -1798,6 +1799,27 @@ MonoBehaviour:
   MaxDamage: 8
   AttackTime: 3.6
   AttackDelay: 1.3
+--- !u!114 &-7052110252359434381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5501043338242470247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 719031a7159b8e847817255748b9aa07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinDropProbability: 1
+  coinDrop: {fileID: 3611454901610100875, guid: b0b49842325acb54f926138a4f0e6c90,
+    type: 3}
+  itemDropProbability: 0.5
+  itemDrop: {fileID: 3611454901610100875, guid: 81343acb9f48aa24bbc611a58e1053c7,
+    type: 3}
+  questItemDropProbability: 0.3
+  questItemDrop: {fileID: 3611454901610100875, guid: b5c5d0956e7c79d43a0c8ead5ca536c0,
+    type: 3}
 --- !u!1 &6569537056425286945
 GameObject:
   m_ObjectHideFlags: 0

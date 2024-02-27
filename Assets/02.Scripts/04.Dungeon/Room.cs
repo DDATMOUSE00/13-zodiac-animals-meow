@@ -92,7 +92,11 @@ public class Room : MonoBehaviour
         {
             Exit();
             playerchecking = false;
-            temple.SetActive(false);
+            if (roomData.roomType == RoomType.StartRoom)
+            {
+                temple.SetActive(false);
+
+            }
         }
     }
 
@@ -100,8 +104,8 @@ public class Room : MonoBehaviour
     {
         Vector2Int[] doorDirections = new Vector2Int[4] {
         new Vector2Int(0, 1),   // 위쪽 문
-        new Vector2Int(0, -1),  // 아래쪽 문
         new Vector2Int(-1, 0),   // 왼쪽 문
+        new Vector2Int(0, -1),  // 아래쪽 문
         new Vector2Int(1, 0)   // 오른쪽 문
     };
         for (int i = 0; i < doors.Length; i++)

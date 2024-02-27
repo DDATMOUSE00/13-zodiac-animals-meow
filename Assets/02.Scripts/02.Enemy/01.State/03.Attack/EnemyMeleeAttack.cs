@@ -41,13 +41,16 @@ public class EnemyMeleeAttack : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        //player = GameObject.FindGameObjectWithTag("Player").transform;
         _Rigidbody = GetComponent<Rigidbody>();
         currentState = MonsterState.Idle;
         Anim = transform.GetChild(0).GetComponent<Animator>();
         _Health = GetComponent<EnemyHealth>();
     }
-
+    public void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
     private void Update()
     {
         //몬스터 추적 사거리
