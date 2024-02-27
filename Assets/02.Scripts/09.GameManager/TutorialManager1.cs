@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class TutorialManager : MonoBehaviour
+public class TutorialManager1 : MonoBehaviour
 {
     //검은 화면 텍스쳐
     public Texture2D FadeOutTexture;
+    public TalkUI TalkUI;
 
     //페이드 속도(알파값)
     public float FadeSpeed = 0.8f;
@@ -15,13 +17,11 @@ public class TutorialManager : MonoBehaviour
     //페이드 방향 -1 : 페이드 아웃, 1 : 페이드 인
     private int FadeDirect = -1;
 
-    private void Update()
-    {
-        Debug.Log(FadeDirect);
-        Debug.Log(Alpha);
-    }
+    //private int StartTxt = 0;
+
     private void Awake()
     {
+        TalkUI = GetComponent<TalkUI>();
         FadeOutTexture = new Texture2D(1, 1);
         FadeOutTexture.SetPixel(0, 0, Color.black);
         FadeOutTexture.Apply();
@@ -69,6 +69,7 @@ public class TutorialManager : MonoBehaviour
     public void BeginFadeIn()
     {
         FadeDirect = 1;
+        TalkUI.ShowTalk1();
         StartCoroutine("Fade");
     }
 }
