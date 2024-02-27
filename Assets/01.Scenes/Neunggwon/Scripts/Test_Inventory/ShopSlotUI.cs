@@ -23,6 +23,7 @@ public class ShopSlotUI : MonoBehaviour
 
     private void Start()
     {
+        GetComponents();
         Setting();
         if (IsSellShop) //ÆÇ¸Å
         {
@@ -32,6 +33,19 @@ public class ShopSlotUI : MonoBehaviour
         {
             shopSlotButton.onClick.AddListener(ButtonBuy);
         }
+    }
+
+    public void GetComponents()
+    {
+        var getChild0 = transform.GetChild(0).gameObject;
+        var getChild1 = transform.GetChild(1).gameObject;
+
+        shopSlotButton = GetComponent<Button>();
+        itemIcon = transform.GetChild(0).GetComponent<Image>();
+        itemName = getChild1.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        itemDescription = getChild1.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        itemPrice = getChild1.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        itemCount = getChild0.transform.GetChild(0).GetComponent<TMP_Text>();
     }
 
 
