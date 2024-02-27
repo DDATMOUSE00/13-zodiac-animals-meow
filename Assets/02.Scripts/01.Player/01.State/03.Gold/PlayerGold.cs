@@ -7,7 +7,7 @@ public class PlayerGold : MonoBehaviour
     public int Gold { get; set; }
     private void Awake()
     {
-        Gold = 0;
+        Gold = 100;
     }
 
     public void AddGold(int AddGold)

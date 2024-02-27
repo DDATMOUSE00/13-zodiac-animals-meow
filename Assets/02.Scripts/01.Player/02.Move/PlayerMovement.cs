@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
                     Anim.AnimationState.SetAnimation(0, "sd_idle_sword", true);
                 }
             }
-            else if (IsMoving && !PlayerAttack.IsAttack && !_Health.IsHit && !PlayerAttack.IsSkill && !_Health.IsDead)
+            else if (IsMoving && !PlayerAttack.IsAttack && !_Health.IsHit && !PlayerAttack.IsSkill)
             {
                 if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_run"))
                 {
