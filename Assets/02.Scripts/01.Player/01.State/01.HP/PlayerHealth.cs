@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -12,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
     private SkeletonAnimation Anim;
     private PlayerMovement _PlayerMovement;
     private PlayerAttack _PlayerAttack;
+    private PlayerGold _PlayerGold;
 
     //체력UI
     //public TextMeshProUGUI MinHPTEXT;
@@ -40,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
         Anim = GetComponentInChildren<SkeletonAnimation>();
         _PlayerMovement = GetComponent<PlayerMovement>();
         _PlayerAttack = GetComponent<PlayerAttack>();
+        _PlayerGold = GetComponent<PlayerGold>();
     }
 
     private void Start()
@@ -53,10 +56,10 @@ public class PlayerHealth : MonoBehaviour
     private void Update()
     {
         //테스트용
-        //if (Input.GetKeyDown(KeyCode.T))
-        //{
-        //    PlayerHP -= 10;
-        //}
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            PlayerHP -= 10;
+        }
 
         if (slider != null)
         {
@@ -124,11 +127,24 @@ public class PlayerHealth : MonoBehaviour
             if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_die"))
             {
                 Anim.AnimationState.SetAnimation(0, "sd_die", false);
-                Invoke("StopAnimation", 0.7f);
+                //Invoke("StopAnimation", 0.7f);
+                Invoke("RealDead", 5f);
             }
         }
     }
-    void StopAnimation()
+    private void RealDead()
+    {
+        if (IsDead)
+        {
+            IsDead = false;
+            PlayerHP = PlayerMaxHP;
+            _PlayerGold.RemoveGold(500);
+            SceneManager.LoadScene("Village_FINAL");
+            GameManager.Instance.player.transform.position = new Vector3(0, 0, -20);
+        }
+    }
+
+    private void StopAnimation()
     {
         Anim.AnimationState.ClearTracks();
     }
