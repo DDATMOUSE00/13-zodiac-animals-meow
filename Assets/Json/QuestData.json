@@ -1,14 +1,17 @@
 {
   "돌 모으기": {
     "SOPath": "Quests/CollectQuest/RockCollectQuest.asset",
-    "state": 1
+    "state": 1,
+    "type": 0
   },
   "나무 모으기": {
     "SOPath": "Quests/CollectQuest/WoodCollectQuest.asset",
-    "state": 1
+    "state": 1,
+    "type": 0
   },
   "던전": {
-    "SOPath": "Quests/CollectQuest/DungeonQuest.asset",
-    "state": 2
+    "SOPath": "Quests/DungeonClearQuest/DungeonQuest.asset",
+    "state": 1,
+    "type": 1
   }
 }

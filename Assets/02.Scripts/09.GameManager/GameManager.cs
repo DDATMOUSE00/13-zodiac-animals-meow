@@ -37,6 +37,15 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void QuitGame()
+    {
+        //ResourceManager.Instance.SaveData();
+        Application.Quit();
+
+    }
+
+
+
     void Update()
     {
         //if (Input.GetKeyDown(KeyCode.E))

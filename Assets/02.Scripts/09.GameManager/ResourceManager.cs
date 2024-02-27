@@ -20,6 +20,7 @@ public class ResourceManager : MonoBehaviour
 
     public void SaveData()
     {
+        Debug.Log("save");
         ItemManager.I.SaveInventoryData();
         QuestManager.I.SaveQuestData();
         PlayerManager.I.SavePlayerData();

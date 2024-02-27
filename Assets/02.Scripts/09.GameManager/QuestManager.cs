@@ -16,7 +16,7 @@ public class QuestManager : MonoBehaviour
     public GameObject completeBtn;
     public Dictionary<string, QuestInformation> SavedQuestInfo;
 
-    private int PlayerLevel = 2; // 나중에 바깥에서 가져올 정보.
+    private int PlayerLevel = 3; // 나중에 바깥에서 가져올 정보.
  
     private void Awake()
     {
@@ -56,13 +56,17 @@ public class QuestManager : MonoBehaviour
         DataManager.I.SaveJsonData(SavedQuestInfo, "QuestData");
 
     }
+
+  
     public void LoadQuestData()
     {
+        Debug.Log("load quest data");
         SavedQuestInfo = DataManager.I.LoadJsonData<Dictionary<string, QuestInformation>>("QuestData");
         List<string> keyList = new List<string>(SavedQuestInfo.Keys);
         for (int i = 0; i < keyList.Count; i++)
         {
             Quest q = allQuests[keyList[i]];
+            Debug.Log(q.q.QuestName);
             
             if (q != null)
             {
