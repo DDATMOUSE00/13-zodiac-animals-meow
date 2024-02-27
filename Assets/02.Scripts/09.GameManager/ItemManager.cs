@@ -189,11 +189,13 @@ public class ItemManager : MonoBehaviour
     public void ShowToolTip(DraggableItem draggableItem, Vector3 position)
     {
         Item item = findItemWithId(draggableItem.item.id);
+        Debug.Log(item.itemName);
         objContainer.SetActive(true);
       
        objContainer.transform.position = new Vector3(position.x , position.y-200 , position.z);
 
-        descbox.Setting(item);
+        descbox.Setting(item); 
+
     }
     public void HideToolTip()
     {

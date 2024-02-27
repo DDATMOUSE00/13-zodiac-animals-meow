@@ -9,6 +9,7 @@ public class ProcessingQuestSlot : MonoBehaviour
     public Quest quest;
     public TMP_Text QName;
     public TMP_Text QDesc;
+    public GameObject Player;
     public TMP_Text Lv;
     public TMP_Text Reward;
     public TMP_Text progress;
@@ -110,6 +111,7 @@ public class ProcessingQuestSlot : MonoBehaviour
         {
             ItemManager.I.itemDic[itemIDToCollect] -= itemNumberToComplete;
             ItemManager.I.RefreshInventorySlot();
+            GameManager.Instance.player.GetComponent<PlayerGold>().AddGold(quest.q.goldReward);
         }
         else
         {
