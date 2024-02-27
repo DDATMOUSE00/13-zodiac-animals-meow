@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
+    public static AudioManager Instance;
 
     [Header("BGM")]
     public AudioClip BGMClip;
@@ -22,8 +22,22 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
         Sound();
+
+    }
+    private void Start()
+    {
+        PlayBgm(true);
     }
 
     private void Sound()
@@ -77,7 +91,13 @@ public class AudioManager : MonoBehaviour
             SFXPlayer[0].Play();
             break;
         }
-
-
     }
+
+    //새로운 BGM을 설정
+    //public void ChangeBGM(AudioClip newClip)
+    //{
+    //    BGMClip = newClip;
+    //    BGMPlayer.clip = newClip;
+    //    BGMPlayer.Play();
+    //}
 }

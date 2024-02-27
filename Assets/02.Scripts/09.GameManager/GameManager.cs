@@ -29,10 +29,10 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         //player = GameObject.FindWithTag("Player");
-        AudioManager.instance.PlayBgm(true);
+        //AudioManager.Instance.PlayBgm(true);
     }
 
-    private void Info()
+    public void Info()
     {
         //objectPoolManager = GetComponentInChildren<ObjectPoolManager>();
         fadeManager = GetComponentInChildren<FadeManager>();
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         //ResourceManager.Instance.SaveData();
-        AudioManager.instance.PlayBgm(false);
+        AudioManager.Instance.PlayBgm(false);
         Application.Quit();
     }
 }

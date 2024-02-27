@@ -175,7 +175,7 @@ public class PlayerAttack : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
             _rigidbody.AddForce(Vector3.right * attackMoveForce, ForceMode.VelocityChange);
         }
-        AudioManager.instance.PlaySFX(AudioManager.SFX.Attack);
+        AudioManager.Instance.PlaySFX(AudioManager.SFX.Attack);
         //공격 가능하면 공격
         RealAttack();
     }

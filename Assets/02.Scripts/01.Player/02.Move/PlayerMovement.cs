@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
                 if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_run"))
                 {
                     Anim.AnimationState.SetAnimation(0, "sd_run", true);
-                    AudioManager.instance.PlaySFX(AudioManager.SFX.Footstep);
+                    AudioManager.Instance.PlaySFX(AudioManager.SFX.Footstep);
                 }
             }
         }
@@ -148,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
             Anim.AnimationState.SetAnimation(0, "sd_rolling", false);
             //Debug.Log("구르기 이벤트");
             PlayerSM -= 20;
-            AudioManager.instance.PlaySFX(AudioManager.SFX.Roll);
+            AudioManager.Instance.PlaySFX(AudioManager.SFX.Roll);
             //이동 방향에 따라 구르는 방향 결정
             Vector3 RollDirection = Vector3.zero;
 

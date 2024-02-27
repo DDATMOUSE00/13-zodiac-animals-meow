@@ -30,6 +30,7 @@ public class TutorialManager3 : MonoBehaviour
     private void Start()
     {
         BeginFadeIn();
+        GameManager.Instance.Info();
 
         Invoke("BeginFadeOut", 2f);
     }
