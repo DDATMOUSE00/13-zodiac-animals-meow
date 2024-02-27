@@ -25,9 +25,11 @@ public class Door : MonoBehaviour
             if (villageDoorChicking)
             {
                 buffManager.AllDestroyBuff();
-                StartCoroutine(GameManager.Instance.fadeManager.CLoadSceneFadeIn(1f, "Village_FINAL"));
+                //StartCoroutine(GameManager.Instance.fadeManager.CLoadSceneFadeIn(1f, "Village_FINAL"));
                 //GameManager.Instance.fadeManager.BeginFadeIn(1f);
                 //SceneManager.LoadScene("Village_FINAL");
+                //GameManager.Instance.player.transform.position = new Vector3(0, 0, -20);
+                StartCoroutine(CLoadScene());
             }
             else
             {
@@ -45,20 +47,17 @@ public class Door : MonoBehaviour
         direction = dir;
     }
 
-    IEnumerator CNextRoomFadeIn(float FadeTime)
+    IEnumerator CLoadScene()
     {
-        //other.transform.position = targetPoint.transform.position;
-        GameManager.Instance.fadeManager.BeginFadeIn(FadeTime);
-        yield return YieldInstructionCache.WaitForSeconds(FadeTime);
-        yield return YieldInstructionCache.WaitForSeconds(0.2f);
-        StartCoroutine(CNextRoomFadeOut(FadeTime));
-    }
-
-    IEnumerator CNextRoomFadeOut(float FadeTime)
-    {
-        int _FadeTime = 1;
-        GameManager.Instance.fadeManager.BeginFadeOut(_FadeTime);
+        //StartCoroutine(GameManager.Instance.fadeManager.CLoadSceneFadeIn(1f, "Village_FINAL"));
+        GameManager.Instance.fadeManager.BeginFadeIn(1f);
+        yield return YieldInstructionCache.WaitForSeconds(1f);
+        //yield return YieldInstructionCache.WaitForSeconds(2f);
+        SceneManager.LoadScene("Village_FINAL");
+        GameManager.Instance.player.transform.position = new Vector3(0, 0, -20);
+        GameManager.Instance.fadeManager.BeginFadeOut(1f);
         yield return null;
+
     }
 
 }

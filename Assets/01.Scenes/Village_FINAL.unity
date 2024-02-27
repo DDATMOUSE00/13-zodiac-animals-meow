@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 3598154}
   - component: {fileID: 3598153}
   - component: {fileID: 3598152}
-  - component: {fileID: 3598151}
   - component: {fileID: 3598150}
   m_Layer: 0
   m_Name: DungeonDoor
@@ -157,33 +156,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Denguon Scene
---- !u!54 &3598151
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3598149}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!65 &3598152
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12695,7 +12667,7 @@ MonoBehaviour:
   currentResourcesCount: 0
   maxResourcesCount: 30
   spawnDelay: 0
-  maxSpawnDelay: 3
+  maxSpawnDelay: 10
 --- !u!4 &1342389788
 Transform:
   m_ObjectHideFlags: 0
@@ -14101,7 +14073,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575933743}
-  m_LocalRotation: {x: 0.23746915, y: -0.000000008357099, z: 0.0000000020429929, w: 0.9713951}
+  m_LocalRotation: {x: 0.23746915, y: 0.000000008357095, z: -0.000000002042992, w: 0.9713951}
   m_LocalPosition: {x: 0, y: 13, z: -45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14124,7 +14096,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CollideAgainst:
     serializedVersion: 2
-    m_Bits: 3201
+    m_Bits: 2048
   m_IgnoreTag: 
   m_TransparentLayers:
     serializedVersion: 2
@@ -14890,6 +14862,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   objectPoolManager: {fileID: 0}
+  fadeManager: {fileID: 0}
 --- !u!4 &1658668773
 Transform:
   m_ObjectHideFlags: 0
@@ -14902,7 +14875,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 900645141}
   - {fileID: 702716994}
   - {fileID: 635335908}
   - {fileID: 1144869214}
@@ -14910,6 +14882,8 @@ Transform:
   - {fileID: 741844196}
   - {fileID: 484885367}
   - {fileID: 1286807272}
+  - {fileID: 2075301842}
+  - {fileID: 900645141}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15006,7 +14980,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1681490286}
-  m_LocalRotation: {x: 0.23746915, y: -0.000000008357099, z: 0.0000000020429929, w: 0.9713951}
+  m_LocalRotation: {x: 0.23746915, y: 0.000000008357095, z: -0.000000002042992, w: 0.9713951}
   m_LocalPosition: {x: 0, y: 13, z: -45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17879,6 +17853,53 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2061207446}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2075301841
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2075301842}
+  - component: {fileID: 2075301843}
+  m_Layer: 0
+  m_Name: FadeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2075301842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075301841}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1658668773}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2075301843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075301841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae094bb7d7a656458699fa5b93b43e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FadeOutTexture: {fileID: 0}
+  FadeSpeed: 0.8
+  fadeTime: 1
 --- !u!1 &2081829890
 GameObject:
   m_ObjectHideFlags: 0
@@ -18754,7 +18775,6 @@ MonoBehaviour:
   MaxComboCount: 3
   SkillCount: 0
   KnockbackTime: 0.5
-  SkillDelay: 2
   AttackRange: {x: 5, y: 5, z: 8.5}
 --- !u!136 &3115484537843224460
 CapsuleCollider:

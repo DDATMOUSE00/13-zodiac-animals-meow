@@ -15,7 +15,7 @@ public class DungeonDoor : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             StartCoroutine(GameManager.Instance.fadeManager.CLoadSceneFadeIn(1f, sceneName));
-            StartCoroutine(CLoadScene());
+            //StartCoroutine(CLoadScene());
             //GameManager.Instance.fadeManager.BeginFadeIn(1f);
             //SceneManager.LoadScene(sceneName);
         }
