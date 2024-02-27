@@ -74,6 +74,16 @@ public class Room : MonoBehaviour
                         {
                             Invoke("Enter", 2);
                             claerchecking = true;
+                            if (roomData.roomType == RoomType.BossRoom)
+                            {
+                                for (int i = 0; i < QuestManager.I.allQuests.Count; i++)
+                                {
+                                    if (QuestManager.I.allQuests.ContainsKey("던전"))
+                                    {
+                                        QuestManager.I.CheckCollectQuestProcess("던전");
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -150,6 +160,7 @@ public class Room : MonoBehaviour
         {
             GameObject bossEnemy = roomData.Boss;
             Instantiate(bossEnemy, this.transform.position, Quaternion.identity);
+            
         }
         
         if (roomData.roomType == RoomType.DungeonRoom)

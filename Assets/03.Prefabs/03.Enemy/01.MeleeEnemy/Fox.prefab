@@ -1616,9 +1616,9 @@ MonoBehaviour:
   coinDrop: {fileID: 3611454901610100875, guid: b0b49842325acb54f926138a4f0e6c90,
     type: 3}
   itemDropProbability: 0.5
-  itemDrop: {fileID: 3611454901610100875, guid: 81343acb9f48aa24bbc611a58e1053c7,
+  itemDrop: {fileID: 3611454901610100875, guid: 466be472e0e70934188e323bdae4f707,
     type: 3}
-  questItemDropProbability: 0.3
+  questItemDropProbability: 0
   questItemDrop: {fileID: 3611454901610100875, guid: b5c5d0956e7c79d43a0c8ead5ca536c0,
     type: 3}
 --- !u!1 &4829704852132596661
@@ -1803,7 +1803,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 85b377f69e87543dcb149058b9052f42, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5bfbb3a9d096a4201bbed760ead37678, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1829,7 +1829,7 @@ MonoBehaviour:
   m_CategoryHash: 1.4529322e-23
   m_labelHash: 2.7800827e-22
   m_SpriteKey: 0
-  m_SpriteHash: 736480356
+  m_SpriteHash: 999069732
 --- !u!1 &5236679432324981549
 GameObject:
   m_ObjectHideFlags: 0
