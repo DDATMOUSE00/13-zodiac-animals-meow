@@ -18,6 +18,7 @@ public class TalkUI : MonoBehaviour
     [SerializeField] TMP_Text txt_Talk;
     [SerializeField] SpriteRenderer Sprite_TalkBox;
     //[SerializeField] private TutorialManager _TutorialManager;
+    TutorialManager1 TutorialManager1;
 
     private bool IsTalk = false;
     public int ShowTextCount = 1;
@@ -71,6 +72,7 @@ public class TalkUI : MonoBehaviour
                     if (ShowTextCount == 4)
                     {
                         SceneManager.LoadScene("Village_FINAL");
+                        AudioManager.instance.PlayBgm(false);
                         GameManager.Instance.player.transform.position = new Vector3(0, 0, -20);
                     }
                 }
