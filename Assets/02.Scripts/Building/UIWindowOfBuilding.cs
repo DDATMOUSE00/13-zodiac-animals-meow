@@ -8,7 +8,7 @@ public class UIWindowOfBuilding : MonoBehaviour
     public GameObject UI;
     public void OpenOrCloseUIWindow()
     {
-        /*
+        
         Debug.Log(UI.name);
         if (UI.name == "QuestUI")
            QuestManager.I.RefreshAllQuest();
@@ -24,8 +24,13 @@ public class UIWindowOfBuilding : MonoBehaviour
        {
           LibraryManager.I.OpenUI();
         }
-        */
-        Toggle();
+        //else if (UI.name == "dungeonchoiceUI")
+        //{
+        //    LibraryManager.I.OpenUI();
+        //}
+
+        //Toggle();
+        Debug.Log("¿­¸²");
     }
 
     public void Toggle()

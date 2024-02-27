@@ -33,13 +33,6 @@ public class TalkUI : MonoBehaviour
         NextTalk();
     }
 
-    public void ShowTalk2()
-    {
-        OnOff(true);
-
-        count = 0;
-        NextTalk();
-    }
     private void OnOff(bool TF)
     {
         Sprite_TalkBox.gameObject.SetActive(TF);

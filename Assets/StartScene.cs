@@ -34,7 +34,7 @@ public class StartScene : MonoBehaviour
     }
     public void StartGame()
     {
-        SceneManager.LoadScene("Village_FINAL");
+        SceneManager.LoadScene("TutorialScene1");
     }
 
     public void LoadGame()
