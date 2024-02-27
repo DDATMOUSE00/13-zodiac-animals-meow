@@ -35,16 +35,12 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
-        ResourceManager.Instance.SaveData();
+        //ResourceManager.Instance.SaveData();
         Application.Quit();
 
     }
 
 
-void Start()
-    {
-        
-    }
 
     void Update()
     {

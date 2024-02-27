@@ -17,6 +17,7 @@ public class DataManager : MonoBehaviour
 
     public void SaveJsonData<T>(T data, string fileName)
     {
+        Debug.Log("save json data");
         string jsonData = JsonConvert.SerializeObject(data,Formatting.Indented,
                 new JsonSerializerSettings()
                 {
