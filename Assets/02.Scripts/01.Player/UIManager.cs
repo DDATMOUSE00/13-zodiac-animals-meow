@@ -38,10 +38,11 @@ public class UIManager : MonoBehaviour
             if (_instance != this) Destroy(this);
             if (SceneManager.GetActiveScene().buildIndex == 0) Destroy(this);
         }
-        settingUI = transform.Find("SettingUI").gameObject;
     }
     private void Start()
     {
+        settingUI = transform.GetChild(6).gameObject;
+
         settingUI.SetActive(false);
     }
 

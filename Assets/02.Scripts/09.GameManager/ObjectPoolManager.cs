@@ -68,4 +68,14 @@ public class ObjectPoolManager : MonoBehaviour
         return select;
     }
     
+    public void AllRemovePrefabs()
+    {
+        foreach (List<GameObject> list in pools)
+        {
+            foreach (GameObject obj in list)
+            {
+                obj.SetActive(false);
+            }
+        }
+    }
 }
