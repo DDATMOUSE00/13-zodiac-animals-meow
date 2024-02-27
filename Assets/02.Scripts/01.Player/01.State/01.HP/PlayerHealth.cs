@@ -52,6 +52,12 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
+        //테스트용
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    PlayerHP -= 10;
+        //}
+
         if (slider != null)
         {
             UIHealth(PlayerHP);
@@ -60,7 +66,6 @@ public class PlayerHealth : MonoBehaviour
         // HP가 0 이하일 경우 Die
         if (PlayerHP <= 0)
         {
-            IsDead = true;
             Die();
         }
     }
@@ -113,7 +118,19 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("플레이어 사망");
+        if (!IsDead)
+        {
+            IsDead = true;
+            if (!Anim.AnimationState.GetCurrent(0).Animation.Name.Equals("sd_die"))
+            {
+                Anim.AnimationState.SetAnimation(0, "sd_die", false);
+                Invoke("StopAnimation", 0.7f);
+            }
+        }
+    }
+    void StopAnimation()
+    {
+        Anim.AnimationState.ClearTracks();
     }
 
     public void ApplyHealthBuff(int buffAmount)
