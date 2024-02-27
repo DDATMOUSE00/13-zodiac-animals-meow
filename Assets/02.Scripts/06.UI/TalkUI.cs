@@ -72,7 +72,7 @@ public class TalkUI : MonoBehaviour
                     if (ShowTextCount == 4)
                     {
                         SceneManager.LoadScene("Village_FINAL");
-                        AudioManager.instance.PlayBgm(false);
+                        //AudioManager.instance.PlayBgm(false);
                         GameManager.Instance.player.transform.position = new Vector3(0, 0, -20);
                     }
                 }

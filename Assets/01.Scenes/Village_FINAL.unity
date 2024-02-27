@@ -13324,10 +13324,10 @@ MonoBehaviour:
   BGMVolume: 0.2
   SFXClip:
   - {fileID: 8300000, guid: 47861a1ae6d02ed4d9eee1142163f881, type: 3}
-  - {fileID: 8300000, guid: 223d38f6a54d4764ea38bc458171c6de, type: 3}
+  - {fileID: 8300000, guid: d1d2569fc54bf3043a8ba78737128c8b, type: 3}
   - {fileID: 8300000, guid: 26b19c01d15e877468a49bc1583e30bf, type: 3}
-  SFXVolume: 0.5
-  channels: 3
+  SFXVolume: 0.2
+  channels: 8
 --- !u!4 &1346531804
 Transform:
   m_ObjectHideFlags: 0
@@ -13341,7 +13341,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1374002985 stripped
 GameObject:
@@ -16496,7 +16496,7 @@ RectTransform:
   m_Children:
   - {fileID: 1576623523}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -16515,6 +16515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34a4be9dc95bdd409cd681336a723ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settingUI: {fileID: 0}
 --- !u!114 &1804669280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19111,7 +19112,7 @@ Transform:
   - {fileID: 1127363443}
   - {fileID: 858350142}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2134311180
 PrefabInstance:
