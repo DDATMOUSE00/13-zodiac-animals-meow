@@ -17,7 +17,15 @@ public class QuestManager : MonoBehaviour
     public Dictionary<string, QuestInformation> SavedQuestInfo;
 
     private int PlayerLevel = 3; // 나중에 바깥에서 가져올 정보.
- 
+
+    private void Start()
+    {
+        questUI.SetActive(false);
+    }
+    private void OnEnable()
+    {
+        RefreshAllQuest();
+    }
     private void Awake()
     {
         I = this;
