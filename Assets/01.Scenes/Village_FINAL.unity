@@ -9986,6 +9986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FadeOutTexture: {fileID: 0}
   FadeSpeed: 0.8
+  FadeTime: 5
 --- !u!1 &1072425852 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1074482753184668, guid: e86571f2f1251004b98a744302eca0b1,
@@ -14646,6 +14647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   objectPoolManager: {fileID: 0}
+  fadeManager: {fileID: 0}
 --- !u!4 &1658668773
 Transform:
   m_ObjectHideFlags: 0

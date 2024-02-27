@@ -145,7 +145,7 @@ public class Room : MonoBehaviour
         //Vector3 spawnPoint = new Vector3(randomX, 0, randomZ);
         Vector3 spawnPoint = new Vector3(randomX, 0, randomZ);
 
-        Debug.Log("利 家券");
+        //Debug.Log("利 家券");
         if (roomData.roomType == RoomType.BossRoom)
         {
             GameObject bossEnemy = roomData.Boss;
@@ -175,7 +175,7 @@ public class Room : MonoBehaviour
         int maxX = value;
         int minZ = -value;
         int maxZ = value;
-        Debug.Log("磊盔 积己");
+        //Debug.Log("磊盔 积己");
         for (int i = 0; i < transform.childCount; i++)
         {
             Transform child = resources.transform.GetChild(i);

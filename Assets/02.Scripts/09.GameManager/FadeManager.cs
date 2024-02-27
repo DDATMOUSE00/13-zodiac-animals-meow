@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 public class FadeManager : MonoBehaviour
 {
@@ -10,6 +13,7 @@ public class FadeManager : MonoBehaviour
     //페이드 속도(알파값)
     public float FadeSpeed = 0.8f;
 
+    public float fadeTime = 1.0f;
     private int DrawDepth = -1000;
     private float Alpha = 1.0f;
     //페이드 방향 -1 : 페이드 아웃, 1 : 페이드 인
@@ -17,7 +21,30 @@ public class FadeManager : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            StartCoroutine(Test());
+        }
+    }
+
+    IEnumerator Test()
+    {
+        //if (Alpha == 0)
+        //{
+        //    BeginFadeIn(1f);
+
+        //}
+        //else
+        //{
+        //    BeginFadeOut(1f);
+        //}
+        BeginFadeIn(1f);
+        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
+        Debug.Log("test");
+        BeginFadeOut(1f);
+
+        yield return null;
     }
     private void Awake()
     {
@@ -28,9 +55,9 @@ public class FadeManager : MonoBehaviour
 
     private void Start()
     {
-        BeginFadeIn();
-
-        Invoke("BeginFadeOut", 0.3f);
+        //BeginFadeIn(1f);
+        BeginFadeOut(1f);
+        //Invoke("BeginFadeOut", 0.3f);
     }
 
     private void OnGUI()
@@ -40,12 +67,14 @@ public class FadeManager : MonoBehaviour
         GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), FadeOutTexture);
     }
 
-    //화면 페이드 코루틴
+    private Coroutine fadeCoroutine;  // Fade 코루틴을 저장할 변수
+
     IEnumerator Fade()
     {
+        float testFadeSpeed = FadeSpeed;
         while (Alpha >= 0 && Alpha <= 1)
         {
-            Alpha += FadeDirect * FadeSpeed * Time.deltaTime;
+            Alpha += FadeDirect * testFadeSpeed * Time.deltaTime / fadeTime;
             Alpha = Mathf.Clamp01(Alpha);
             yield return null;
         }
@@ -53,21 +82,58 @@ public class FadeManager : MonoBehaviour
         if (FadeDirect == -1 && Alpha <= 0)
         {
             //페이드 끝나면 중단
-            StopCoroutine("Fade");
+            StopCoroutine(Fade());
         }
     }
 
-    //페이드 아웃
-    public void BeginFadeOut()
+    public void BeginFadeOut(float value)
     {
+        Debug.Log("BeginFadeOut");
+        fadeTime = value;
         FadeDirect = -1;
-        StartCoroutine("Fade");
+
+        if (fadeCoroutine != null)  // 이전에 시작된 Fade 코루틴이 있다면
+        {
+            StopCoroutine(fadeCoroutine);  // 해당 코루틴을 중지
+        }
+        fadeCoroutine = StartCoroutine(Fade());
     }
 
-    // 페이드 인
-    public void BeginFadeIn()
+    public void BeginFadeIn(float value)
     {
+        Debug.Log("BeginFadeIn");
+        fadeTime = value;
         FadeDirect = 1;
-        StartCoroutine("Fade");
+
+        if (fadeCoroutine != null)  // 이전에 시작된 Fade 코루틴이 있다면
+        {
+            StopCoroutine(fadeCoroutine);  // 해당 코루틴을 중지
+        }
+        fadeCoroutine = StartCoroutine(Fade());
     }
+
+    public IEnumerator FadeInOut(float fadeTime)
+    {
+        BeginFadeIn(fadeTime);
+        yield return new WaitForSeconds(fadeTime);
+        yield return new WaitForSeconds(0.2f);
+        BeginFadeOut(fadeTime);
+    }
+
+    public IEnumerator CLoadSceneFadeIn(float FadeTime, string LoadSceneName)
+    {
+        BeginFadeIn(FadeTime);
+        yield return YieldInstructionCache.WaitForSeconds(FadeTime);
+        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+        SceneManager.LoadScene(LoadSceneName);
+    }
+
+    public IEnumerator CLoadSceneFadeOut(float FadeTime, string LoadSceneName)
+    {
+        BeginFadeOut(FadeTime);
+        yield return YieldInstructionCache.WaitForSeconds(FadeTime);
+        yield return YieldInstructionCache.WaitForSeconds(0.2f);
+        SceneManager.LoadScene(LoadSceneName);
+    }
+
 }

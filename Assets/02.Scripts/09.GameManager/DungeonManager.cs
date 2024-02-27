@@ -19,9 +19,18 @@ public class DungeonManager : MonoBehaviour
     }
     private void Start()
     {
+        //GameManager.Instance.fadeManager.BeginFadeOut(5f);
+        StartCoroutine(CLoadScene());
         player = GameObject.FindWithTag("Player");
         player.transform.position = new Vector3(800, -35, 800);
+        var playerMovement = player.GetComponent<PlayerMovement>();
+        playerMovement.PlayerSM = playerMovement.PlayerMaxSM;
         //player = Instantiate(player, new Vector3(800, -35, 800), Quaternion.identity);
     }
     
+    IEnumerator CLoadScene()
+    {
+        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+        GameManager.Instance.fadeManager.BeginFadeOut(2f);
+    }
 }

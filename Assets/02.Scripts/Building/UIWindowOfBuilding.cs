@@ -31,12 +31,10 @@ public class UIWindowOfBuilding : MonoBehaviour
         if(UI.gameObject.activeInHierarchy)
         {
             UI.gameObject.SetActive(false);
-            Debug.Log(UI.activeInHierarchy);
         }
         else
         {
             UI.gameObject.SetActive(true);
-            Debug.Log(UI.activeInHierarchy);
         }
     }
 

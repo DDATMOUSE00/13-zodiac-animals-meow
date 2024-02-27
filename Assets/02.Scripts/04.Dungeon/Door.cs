@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,12 +25,16 @@ public class Door : MonoBehaviour
             if (villageDoorChicking)
             {
                 buffManager.AllDestroyBuff();
-                SceneManager.LoadScene("Village-NeunggwonScene");
+                StartCoroutine(GameManager.Instance.fadeManager.CLoadSceneFadeIn(1f, "Village_FINAL"));
+                //GameManager.Instance.fadeManager.BeginFadeIn(1f);
+                //SceneManager.LoadScene("Village_FINAL");
             }
             else
             {
+                //StartCoroutine(CNextRoomFadeIn(1f));
                 other.transform.position = targetPoint.transform.position;
                 DungeonManager.Instance.playerLocation += direction;
+                
                 Debug.Log(DungeonManager.Instance.playerLocation);
             }
         }
@@ -39,4 +44,21 @@ public class Door : MonoBehaviour
     {
         direction = dir;
     }
+
+    IEnumerator CNextRoomFadeIn(float FadeTime)
+    {
+        //other.transform.position = targetPoint.transform.position;
+        GameManager.Instance.fadeManager.BeginFadeIn(FadeTime);
+        yield return YieldInstructionCache.WaitForSeconds(FadeTime);
+        yield return YieldInstructionCache.WaitForSeconds(0.2f);
+        StartCoroutine(CNextRoomFadeOut(FadeTime));
+    }
+
+    IEnumerator CNextRoomFadeOut(float FadeTime)
+    {
+        int _FadeTime = 1;
+        GameManager.Instance.fadeManager.BeginFadeOut(_FadeTime);
+        yield return null;
+    }
+
 }
