@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         //ResourceManager.Instance.SaveData();
+        Debug.Log("종료합니다,");
         AudioManager.Instance.PlayBgm(false);
         Application.Quit();
     }

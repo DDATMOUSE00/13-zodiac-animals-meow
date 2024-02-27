@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10372542, g: 0.2933159, b: 0.3613301, a: 1}
+  m_IndirectSpecularColor: {r: 0.10372253, g: 0.2933138, b: 0.36132318, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5612,6 +5612,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: -17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125527831244599170, guid: 1673823e1806d084faae976472a1eca7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1679759145}
+    - target: {fileID: 8125527831244599170, guid: 1673823e1806d084faae976472a1eca7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputNumUI_Exit
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299104143135345351, guid: 1673823e1806d084faae976472a1eca7,
+        type: 3}
+      propertyPath: m_CharacterLimit
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8404025390541741823, guid: 1673823e1806d084faae976472a1eca7,
         type: 3}

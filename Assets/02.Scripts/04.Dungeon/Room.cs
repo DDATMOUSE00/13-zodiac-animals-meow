@@ -153,7 +153,7 @@ public class Room : MonoBehaviour
         int randomX = Random.Range(-25, 25);
         int randomZ = Random.Range(-25, 25);
         //Vector3 spawnPoint = new Vector3(randomX, 0, randomZ);
-        Vector3 spawnPoint = new Vector3(randomX, 0, randomZ);
+        Vector3 spawnPoint = new Vector3(randomX, -39, randomZ);
 
         //Debug.Log("Àû ¼ÒÈ¯");
         if (roomData.roomType == RoomType.BossRoom)

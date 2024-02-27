@@ -36,15 +36,15 @@ public class ItemObject : MonoBehaviour
 
     void Update()
     {
-        distance = Vector3.Distance(player.transform.position, transform.position);
-        if (distance < range && item.type != ItemType.Coin)
-        {
-            interactionText_And_ItemName.SetActive(true);
-        }
-        else
-        {
-            interactionText_And_ItemName.SetActive(false);
-        }
+        //distance = Vector3.Distance(player.transform.position, transform.position);
+        //if (distance < range && item.type != ItemType.Coin)
+        //{
+        //    interactionText_And_ItemName.SetActive(true);
+        //}
+        //else
+        //{
+        //    interactionText_And_ItemName.SetActive(false);
+        //}
     }
 
     public void OnTriggerEnter(Collider collision)
