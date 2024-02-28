@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
     public float SFXVolume;
     public int channels;
     AudioSource[] SFXPlayer;
-    int ChannelIndex;
+    public int ChannelIndex;
 
     public enum SFX { Attack, Footstep, Roll }
 
@@ -61,6 +61,7 @@ public class AudioManager : MonoBehaviour
             SFXPlayer[index] = SFXObject.AddComponent<AudioSource>();
             SFXPlayer[index].playOnAwake = false;
             SFXPlayer[index].volume = SFXVolume;
+            SFXPlayer[index].pitch = 0.83f;
         }
     }
 

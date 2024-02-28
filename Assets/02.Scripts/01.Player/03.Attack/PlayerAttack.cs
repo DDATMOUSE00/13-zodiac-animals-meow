@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.UIElements;
-using static UnityEditor.Progress;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -54,7 +53,7 @@ public class PlayerAttack : MonoBehaviour
     private void Start()
     {
         MinDamage = 8;
-        MaxDamage = 13;
+        MaxDamage = 14;
         _controller.OnAttackEvent += AttackCheck;
         _controller.OnLookEvent += Look;
         //_controller.OnSkillEvent1 += Skill1;

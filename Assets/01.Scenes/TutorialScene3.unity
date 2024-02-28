@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10372253, g: 0.2933138, b: 0.36132318, a: 1}
+  m_IndirectSpecularColor: {r: 0.10372542, g: 0.2933159, b: 0.3613301, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2307,7 +2307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &263300257
 Transform:
   m_ObjectHideFlags: 0
@@ -10836,6 +10836,13 @@ MonoBehaviour:
       \uC2E0 \uB2D8..."
   - talk: "\uACE0\uC591\uC774 : \uAF2D.. \uBAA8\uB450\uC5D0\uAC8C \uC778\uC815\uBC1B\uACE0
       13\uBC88\uC9F8 \uC2E0\uC774 \uB418\uACA0\uC5B4."
+  - talk: "\uC870\uC791\uBC95\nWASD : \uC774\uB3D9 / \uB9C8\uC6B0\uC2A4 \uC88C\uD074\uB9AD
+      : \uACF5\uACA9 / \uC2A4\uD398\uC774\uC2A4\uBC14 : \uAD6C\uB974\uAE30 / F :
+      \uB300\uD654, \uC0C1\uD638\uC791\uC6A9"
+  - talk: "          \uC0C1\uC810      \uB3C4\uC11C\uAD00    \uC758\uB8B0\uC18C\n               
+      \u2196          \u2191         \u2197\n   \uB358\uC804  \u2190     \uD50C\uB808\uC774\uC5B4   
+      \u2192  \uC232\n               \u2199                      \u2198\n       
+      \uCEA3\uD0C0\uC6CC                \uC0AC\uB2F9(\uBF51\uAE30)"
 --- !u!114 &1381339583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17966,7 +17973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &7940734466201089093
 SpriteRenderer:
   m_ObjectHideFlags: 0

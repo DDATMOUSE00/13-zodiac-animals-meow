@@ -31,9 +31,7 @@ public class InteractWithBuilding : MonoBehaviour
 
                 //ui.OpenOrCloseUIWindow();
                 disPlayUI.OpenOrCloseUIWindow();
-                Debug.Log("키 작동됨");
             }
-            Debug.Log("키 작동은 함");
         }
         //Debug.Log("키 작동 안됨");
     }

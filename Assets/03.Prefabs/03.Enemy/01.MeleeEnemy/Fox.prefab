@@ -1511,7 +1511,7 @@ MonoBehaviour:
   IsMoving: 0
   ChaseRange: 15
   ChaseMaxRange: 20
-  MoveSpeed: 18
+  MoveSpeed: 20
   MinDamage: 4
   MaxDamage: 6
   AttackTime: 2
@@ -1528,8 +1528,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4497ada7c872d694abc597ee1fdf29be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyMaxHP: 100
-  EnemyHP: 100
+  EnemyMaxHP: 120
+  EnemyHP: 120
   Anim: {fileID: 0}
   IsDead: 0
   player: {fileID: 0}
