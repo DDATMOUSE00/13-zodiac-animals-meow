@@ -56,10 +56,10 @@ public class PlayerHealth : MonoBehaviour
     private void Update()
     {
         //테스트용
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            PlayerHP -= 10;
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    PlayerHP -= 10;
+        //}
 
         if (slider != null)
         {
