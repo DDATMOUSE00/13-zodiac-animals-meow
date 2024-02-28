@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.UIElements;
-using static UnityEditor.Progress;
 
 public class PlayerAttack : MonoBehaviour
 {

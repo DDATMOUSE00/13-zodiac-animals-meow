@@ -6,8 +6,6 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
-using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 //using static UnityEngine.Rendering.DebugUI;
 
 public class Shop : MonoBehaviour
