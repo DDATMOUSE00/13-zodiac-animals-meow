@@ -30,7 +30,6 @@ public class UIWindowOfBuilding : MonoBehaviour
         }
 
         //Toggle();
-        Debug.Log("¿­¸²");
     }
 
     public void Toggle()

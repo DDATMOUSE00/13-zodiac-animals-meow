@@ -54,7 +54,7 @@ public class PlayerAttack : MonoBehaviour
     private void Start()
     {
         MinDamage = 8;
-        MaxDamage = 13;
+        MaxDamage = 14;
         _controller.OnAttackEvent += AttackCheck;
         _controller.OnLookEvent += Look;
         //_controller.OnSkillEvent1 += Skill1;
