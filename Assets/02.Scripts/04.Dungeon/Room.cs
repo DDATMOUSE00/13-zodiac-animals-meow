@@ -74,16 +74,7 @@ public class Room : MonoBehaviour
                         {
                             Invoke("Enter", 2);
                             claerchecking = true;
-                            if (roomData.roomType == RoomType.BossRoom)
-                            {
-                                for (int i = 0; i < QuestManager.I.allQuests.Count; i++)
-                                {
-                                    if (QuestManager.I.allQuests.ContainsKey("带傈"))
-                                    {
-                                        QuestManager.I.CheckCollectQuestProcess("带傈");
-                                    }
-                                }
-                            }
+                            DungeonQuest();
                         }
                     }
                 }
@@ -106,6 +97,24 @@ public class Room : MonoBehaviour
             {
                 temple.SetActive(false);
 
+            }
+        }
+    }
+
+    public void DungeonQuest()
+    {
+        if (roomData.roomType == RoomType.BossRoom)
+        {
+            for (int i = 0; i < QuestManager.I.allQuests.Count; i++)
+            {
+                if (QuestManager.I.allQuests.ContainsKey("带傈"))
+                {
+                    var quest = QuestManager.I.allQuests["带傈"];
+                    if (quest.state == QuestState.IN_PROGRESS)
+                    {
+                        QuestManager.I.CheckCollectQuestProcess("带傈");
+                    }
+                }
             }
         }
     }

@@ -35,7 +35,7 @@ public class DropItem : MonoBehaviour
 
         if (roll < coinDropProbability)
         {
-            Debug.Log("코인 드롭!");
+            //Debug.Log("코인 드롭!");
             Instantiate(coinDrop, transform.position + spawnPoint, Quaternion.identity);
         }
     }
@@ -49,7 +49,7 @@ public class DropItem : MonoBehaviour
         Vector3 spawnPoint = new Vector3(randomX, 0, randomZ);
         if (roll < itemDropProbability)
         {
-            Debug.Log("아이템 드롭!");
+            Debug.Log($"{itemDrop.name}");
             Instantiate(itemDrop, transform.position + spawnPoint, Quaternion.identity);
         }
     }

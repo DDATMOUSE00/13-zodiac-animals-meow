@@ -64,6 +64,12 @@ public class EnemyLongAttack : MonoBehaviour
         Transform PlayerTransform = PlayerGameObject.transform;
 
     }
+
+    private void OnEnable()
+    {
+        ReSetting();
+        
+    }
     private void Update()
     {
         //몬스터 추적 사거리
@@ -123,6 +129,12 @@ public class EnemyLongAttack : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void ReSetting()
+    {
+        Anim.Rebind();
+        Anim.Play("Idle");
     }
 
     private void Move(Vector3 direction)
