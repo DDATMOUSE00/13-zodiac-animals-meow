@@ -9,7 +9,7 @@ public class ShopManager : MonoBehaviour
     public static ShopManager Instance;
     public BuyShop buyShop;
     public SellShop sellShop;
-    public TMP_Text playerGoldText;
+    public TextMeshProUGUI playerGoldText;
     [SerializeField] private GameObject inputFeild_Obj;
     [SerializeField] private TMP_InputField inputField;
     public InputField inputFieldPrefab;

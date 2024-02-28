@@ -19,33 +19,33 @@ public class FadeManager : MonoBehaviour
     //페이드 방향 -1 : 페이드 아웃, 1 : 페이드 인
     private int FadeDirect = -1;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            StartCoroutine(Test());
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.X))
+    //    {
+    //        StartCoroutine(Test());
+    //    }
+    //}
 
-    IEnumerator Test()
-    {
-        //if (Alpha == 0)
-        //{
-        //    BeginFadeIn(1f);
+    //IEnumerator Test()
+    //{
+    //    //if (Alpha == 0)
+    //    //{
+    //    //    BeginFadeIn(1f);
 
-        //}
-        //else
-        //{
-        //    BeginFadeOut(1f);
-        //}
-        BeginFadeIn(1f);
-        yield return new WaitForSeconds(1f);
-        yield return new WaitForSeconds(3f);
-        Debug.Log("test");
-        BeginFadeOut(1f);
+    //    //}
+    //    //else
+    //    //{
+    //    //    BeginFadeOut(1f);
+    //    //}
+    //    BeginFadeIn(1f);
+    //    yield return new WaitForSeconds(1f);
+    //    yield return new WaitForSeconds(3f);
+    //    Debug.Log("test");
+    //    BeginFadeOut(1f);
 
-        yield return null;
-    }
+    //    yield return null;
+    //}
     private void Awake()
     {
         FadeOutTexture = new Texture2D(1, 1);

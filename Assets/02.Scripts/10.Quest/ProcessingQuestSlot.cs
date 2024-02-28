@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class ProcessingQuestSlot : MonoBehaviour
 {
     public Quest quest;
-    public TMP_Text QName;
-    public TMP_Text QDesc;
-    public TMP_Text Lv;
-    public TMP_Text Reward;
-    public TMP_Text progress;
+    public TextMeshProUGUI QName;
+    public TextMeshProUGUI QDesc;
+    public TextMeshProUGUI Lv;
+    public TextMeshProUGUI Reward;
+    public TextMeshProUGUI progress;
     public Button confirmBtn;
     private int itemIDToCollect;
     private int originalQuantityOfTargetItem;

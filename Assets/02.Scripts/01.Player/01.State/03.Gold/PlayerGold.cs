@@ -18,5 +18,6 @@ public class PlayerGold : MonoBehaviour
     public void RemoveGold(int RemoveGold)
     {
         Gold -= RemoveGold;
+        Gold = Mathf.Max(0, Gold);
     }
 }

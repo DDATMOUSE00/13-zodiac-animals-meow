@@ -241,13 +241,13 @@ public class SellShop : MonoBehaviour
         {
             if (ItemManager.I.ChekInventoryItem(selectItem.id, int_inputNum))
             {
+                var playerGold = GameManager.Instance.player.GetComponent<PlayerGold>();
                 if (!cancel)
                 {
                     ItemManager.I.RemoveItem(selectItem.id, int_inputNum);
                     SelectShopSlotUpdate();
+                    playerGold.AddGold(selectItem.price / 2 * int_inputNum);
                     ShopManager.Instance.ShopUpDate();
-                    var playerGold = GameManager.Instance.player.GetComponent<PlayerGold>();
-                    playerGold.RemoveGold(selectShopSlot.Int_Count * int_inputNum);
                 }
                 else
                 {

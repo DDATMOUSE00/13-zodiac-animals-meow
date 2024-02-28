@@ -15,7 +15,7 @@ public class Talk
 
 public class TalkUI : MonoBehaviour
 {
-    [SerializeField] TMP_Text txt_Talk;
+    [SerializeField] TextMeshProUGUI txt_Talk;
     [SerializeField] SpriteRenderer Sprite_TalkBox;
     //[SerializeField] private TutorialManager _TutorialManager;
     TutorialManager1 TutorialManager1;
