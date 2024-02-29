@@ -48,13 +48,8 @@ public class UIManager : MonoBehaviour
 
     public void SettingButton()
     {
-        if (settingUI.activeInHierarchy)
-        {
-            settingUI.SetActive(false);
-        }
-        else
-        {
+
             settingUI.SetActive(true);
-        }
+    
     }
 }
