@@ -28,6 +28,10 @@ public class UIWindowOfBuilding : MonoBehaviour
         {
             UI.SetActive(true);
         }
+        else if (UI.name == "Temple_UI")
+        {
+            UI.SetActive(true);
+        }
 
         //Toggle();
     }

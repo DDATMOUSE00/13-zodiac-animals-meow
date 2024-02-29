@@ -56,7 +56,8 @@ public class Resource : MonoBehaviour
 
     private void DropItem()
     {
-        Instantiate(itemprefab, transform.position, Quaternion.identity);
+        //Instantiate(itemprefab, transform.position, Quaternion.identity);
+        Instantiate(itemprefab, new Vector3(transform.position.x, -39, transform.position.z), Quaternion.identity);
     }
 
     private void RandomDropItem()

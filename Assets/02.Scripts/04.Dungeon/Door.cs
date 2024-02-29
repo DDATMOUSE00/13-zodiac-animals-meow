@@ -25,11 +25,15 @@ public class Door : MonoBehaviour
             if (villageDoorChicking)
             {
                 buffManager.AllDestroyBuff();
+                var playerHealth = GameManager.Instance.player.GetComponent<PlayerHealth>();
+                var playerSM = GameManager.Instance.player.GetComponent<PlayerMovement>();
                 //StartCoroutine(GameManager.Instance.fadeManager.CLoadSceneFadeIn(1f, "Village_FINAL"));
                 //GameManager.Instance.fadeManager.BeginFadeIn(1f);
                 //SceneManager.LoadScene("Village_FINAL");
                 //GameManager.Instance.player.transform.position = new Vector3(0, 0, -20);
                 StartCoroutine(CLoadScene());
+                playerHealth.ApplyHealthBuff(0);
+                playerSM.ApplyMovementBuff(0);
             }
             else
             {
