@@ -47,8 +47,14 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnEnable()
     {
+        //ReSetting();
+    }
+
+    private void OnDisable()
+    {
         ReSetting();
     }
+
     private void Update()
     {
         if (slider != null)
@@ -66,16 +72,27 @@ public class EnemyHealth : MonoBehaviour
     {
         EnemyHP = EnemyMaxHP;
         IsDead = false;
-        Anim.Rebind();
-        // 자기 자신의 로테이션 값을 (0,0,0)으로 설정
-        //this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
-
-        //// 자식 오브젝트의 로테이션 값을 모두 (0,0,0)으로 설정
-        //foreach (Transform child in transform)
+        var body = transform.GetChild(0).GetChild(0).gameObject;
+        body.transform.rotation = Quaternion.identity;
+        body.transform.localPosition = new Vector3(0f, 0.6f, 0f);
+        Debug.Log($"{Anim.runtimeAnimatorController.name} 애니메이터 초기화");
+        //if (Anim.runtimeAnimatorController.name != "Mongkey")
         //{
-        //    child.eulerAngles = new Vector3(0, 0, 0);
+        //    //늑대 애니메이터 초기화
+        //    var body = transform.GetChild(0).GetChild(0).gameObject;
+        //    Debug.Log($"{Anim.runtimeAnimatorController.name} 애니메이터 초기화");
+        //    body.transform.localPosition = new Vector3(0.12f, 0.568f, 0f);
         //}
-        Anim.Play("idle");
+        //else if (Anim.runtimeAnimatorController.name == "Mongkey")
+        //{
+        //    //원숭이 애니메이터 초기화
+        //    var body = transform.GetChild(0).GetChild(0).gameObject;
+        //    Debug.Log($"{Anim.runtimeAnimatorController.name} 애니메이터 초기화");
+        //    body.transform.rotation = Quaternion.identity;
+        //    body.transform.localPosition = new Vector3(-0.091f, 0.61f, 0f);
+        //}
+        Anim.SetBool("IsDead", false);
+
     }
 
     public void UIMaxHealth(int EnemyHP)

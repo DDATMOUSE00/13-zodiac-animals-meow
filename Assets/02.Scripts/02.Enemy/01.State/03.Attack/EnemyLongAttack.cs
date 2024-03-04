@@ -63,78 +63,71 @@ public class EnemyLongAttack : MonoBehaviour
         Transform PlayerTransform = PlayerGameObject.transform;
 
     }
-
-    private void OnEnable()
-    {
-        ReSetting();
-        
-    }
+    
     private void Update()
     {
-        //몬스터 추적 사거리
-        float distanceToPlayer = Vector3.Distance(transform.position, Player.position);
-
-        //몬스터 공격 사거리
-        Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRangeSize / 2f);
-
-
-        //플레이어 거리에 따라 상태 변경
-        if (distanceToPlayer <= AttackRangeSize.magnitude / 2f)
+        if (!_Health.IsDead)
         {
-            //공격 사거리 안에 들어오면 공격
-            currentState = MonsterState.Attack;
-        }
-        else if (distanceToPlayer <= ChaseRange)
-        {
-            //플레이어가 추적범위안에 들어오면 Chase상태
-            currentState = MonsterState.Chase;
-        }
-        else if ((currentState == MonsterState.Chase || currentState == MonsterState.Attack) && distanceToPlayer > ChaseMaxRange)
-        {
-            currentState = MonsterState.Idle;
-        }
+            //몬스터 추적 사거리
+            float distanceToPlayer = Vector3.Distance(transform.position, Player.position);
 
-        //상태변경
-        switch (currentState)
-        {
-            case MonsterState.Idle:
-                //아무것도 안 함
+            //몬스터 공격 사거리
+            Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRangeSize / 2f);
 
-                Anim.SetBool("IsMove", false);
-                Anim.SetBool("IsAttack", false);
-                IsAttack = false;
-                IsMoving = false;
 
-                break;
-            case MonsterState.Chase:
-                //플레이어를 향해 이동
-                if (!IsAttack && !_Health.IsDead)
-                {
-                    Anim.SetBool("IsMove", true);
-                    Vector3 directionToPlayer = (Player.position - transform.position).normalized;
-                    Move(directionToPlayer);
-                }
-                break;
-            case MonsterState.Attack:
-                //플레이어 공격
-                if (!IsAttack && !_Health.IsDead)
-                {
-                    IsAttack = true;
-                    Anim.SetBool("IsAttack", true);
-                    Invoke("Attack", AttackTime);
-                    IsMoving = false;
+            //플레이어 거리에 따라 상태 변경
+            if (distanceToPlayer <= AttackRangeSize.magnitude / 2f)
+            {
+                //공격 사거리 안에 들어오면 공격
+                currentState = MonsterState.Attack;
+            }
+            else if (distanceToPlayer <= ChaseRange)
+            {
+                //플레이어가 추적범위안에 들어오면 Chase상태
+                currentState = MonsterState.Chase;
+            }
+            else if ((currentState == MonsterState.Chase || currentState == MonsterState.Attack) && distanceToPlayer > ChaseMaxRange)
+            {
+                currentState = MonsterState.Idle;
+            }
+
+            //상태변경
+            switch (currentState)
+            {
+                case MonsterState.Idle:
+                    //아무것도 안 함
+
                     Anim.SetBool("IsMove", false);
-                    //StartCoroutine(DelayAnimation());
-                }
-                break;
+                    Anim.SetBool("IsAttack", false);
+                    IsAttack = false;
+                    IsMoving = false;
+
+                    break;
+                case MonsterState.Chase:
+                    //플레이어를 향해 이동
+                    if (!IsAttack && !_Health.IsDead)
+                    {
+                        Anim.SetBool("IsMove", true);
+                        Vector3 directionToPlayer = (Player.position - transform.position).normalized;
+                        Move(directionToPlayer);
+                    }
+                    break;
+                case MonsterState.Attack:
+                    //플레이어 공격
+                    if (!IsAttack && !_Health.IsDead)
+                    {
+                        IsAttack = true;
+                        Anim.SetBool("IsAttack", true);
+                        Invoke("Attack", AttackTime);
+                        IsMoving = false;
+                        Anim.SetBool("IsMove", false);
+                        //StartCoroutine(DelayAnimation());
+                    }
+                    break;
+            }
         }
     }
 
-    public void ReSetting()
-    {
-        Anim.Rebind();
-        Anim.Play("Idle");
-    }
 
     private void Move(Vector3 direction)
     {

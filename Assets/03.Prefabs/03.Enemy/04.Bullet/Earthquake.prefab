@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3879817269893118259}
   - component: {fileID: 2807520121689768886}
   - component: {fileID: 3527372733918800797}
+  - component: {fileID: 3677001783479616967}
   m_Layer: 9
   m_Name: Earthquake
   m_TagString: Untagged
@@ -98,6 +99,18 @@ MonoBehaviour:
   MinDamage: 5
   MaxDamage: 8
   BulletTime: 1
+--- !u!210 &3677001783479616967
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742183200945770852}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 10
+  m_SortAtRoot: 0
 --- !u!1 &1782494223661336648
 GameObject:
   m_ObjectHideFlags: 0

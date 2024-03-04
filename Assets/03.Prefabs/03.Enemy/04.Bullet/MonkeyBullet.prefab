@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8796572831630064746}
   - component: {fileID: 6152160252686119327}
   - component: {fileID: 8443409283260990704}
+  - component: {fileID: 4850879630940069311}
   m_Layer: 9
   m_Name: MonkeyBullet
   m_TagString: Untagged
@@ -99,6 +100,18 @@ MonoBehaviour:
   MinDamage: 4
   MaxDamage: 6
   BulletTime: 2
+--- !u!210 &4850879630940069311
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003558197580407115}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 10
+  m_SortAtRoot: 0
 --- !u!1 &3823598430422474809
 GameObject:
   m_ObjectHideFlags: 0

@@ -2444,6 +2444,7 @@ GameObject:
   - component: {fileID: 4991443632513292074}
   - component: {fileID: 4913818599383021163}
   - component: {fileID: 4529861532849643373}
+  - component: {fileID: 2173621090605940791}
   m_Layer: 5
   m_Name: HPbar
   m_TagString: Untagged
@@ -2535,3 +2536,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!210 &2173621090605940791
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9148658641643759867}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 10
+  m_SortAtRoot: 0

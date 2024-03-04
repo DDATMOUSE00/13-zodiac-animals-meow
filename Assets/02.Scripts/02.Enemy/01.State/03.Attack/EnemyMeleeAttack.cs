@@ -47,10 +47,6 @@ public class EnemyMeleeAttack : MonoBehaviour
         Anim = transform.GetChild(0).GetComponent<Animator>();
         _Health = GetComponent<EnemyHealth>();
     }
-    private void OnEnable()
-    {
-        ReSetting();
-    }
 
     public void Start()
     {
@@ -113,12 +109,6 @@ public class EnemyMeleeAttack : MonoBehaviour
                 }
                 break;
         }
-    }
-
-    public void ReSetting()
-    {
-        //Anim.Rebind();
-        Anim.Play("Idle");
     }
 
     private void Move(Vector3 direction)
