@@ -11,6 +11,8 @@ public class LibraryManager : MonoBehaviour
     private bool[] Books =new bool[12];
     public List<Book> totalBooks = new List<Book>();
     public List<BookSlot> bSlots = new List<BookSlot>();
+    public List<int> bookIDs;
+    public GameObject catSlot;
     public Slider slider;
     public TMP_Text cntTxt;
     public GameObject UI;
@@ -31,6 +33,19 @@ public class LibraryManager : MonoBehaviour
         I = this;
     }
 
+    public void SaveLibraryData()
+    {
+        DataManager.I.SaveJsonData<List<int>>(bookIDs, "BookData");
+    }
+    public void LoadLibraryData()
+    {
+        bookIDs = DataManager.I.LoadJsonData<List<int>>("BookData");
+        foreach(int i in bookIDs)
+        {
+            BookSlot b = findBookSlotWithId(i);
+            b.AddStroyBook();
+        }
+    }
     public Book findBookWithId(int id)
     {
         foreach(var b in totalBooks)
@@ -79,10 +94,17 @@ public class LibraryManager : MonoBehaviour
             BookSlot b = findBookSlotWithId(id);
             Book book = findBookWithId(id);
             b.AddStroyBook();
-
+            bookIDs.Add(id);
             cnt++;
             slider.value = cnt;
             cntTxt.text = $"{cnt}/12";
+
+            if(slider.value == 12)
+            {
+                BookSlot catSlot = findBookSlotWithId(13);
+                catSlot.AddStroyBook();
+                bookIDs.Add(13);
+            }
             
         }
         else

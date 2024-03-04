@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
         //ResourceManager.Instance.SaveData();
         Debug.Log("종료합니다,");
         AudioManager.Instance.PlayBgm(false);
+        ResourceManager.Instance.SaveData();
+        Debug.Log("정보 저장");
         Application.Quit();
     }
 }
