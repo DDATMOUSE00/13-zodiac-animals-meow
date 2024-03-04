@@ -13705,7 +13705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CollideAgainst:
     serializedVersion: 2
-    m_Bits: 2176
+    m_Bits: 2048
   m_IgnoreTag: 
   m_TransparentLayers:
     serializedVersion: 2
@@ -14981,6 +14981,7 @@ GameObject:
   - component: {fileID: 1681490290}
   - component: {fileID: 1681490291}
   - component: {fileID: 1681490292}
+  - component: {fileID: 1681490293}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -15153,6 +15154,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameObject: {fileID: 1681490286}
+--- !u!114 &1681490293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681490286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd52dbe63cf916448d0c0813d3821b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &1683212549
 GameObject:
   m_ObjectHideFlags: 0
