@@ -68,14 +68,14 @@ public class EnemyHealth : MonoBehaviour
         IsDead = false;
         Anim.Rebind();
         // 자기 자신의 로테이션 값을 (0,0,0)으로 설정
-        this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+        //this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
 
-        // 자식 오브젝트의 로테이션 값을 모두 (0,0,0)으로 설정
-        foreach (Transform child in transform)
-        {
-            child.eulerAngles = new Vector3(0, 0, 0);
-        }
-        Anim.Play("Idle");
+        //// 자식 오브젝트의 로테이션 값을 모두 (0,0,0)으로 설정
+        //foreach (Transform child in transform)
+        //{
+        //    child.eulerAngles = new Vector3(0, 0, 0);
+        //}
+        Anim.Play("idle");
     }
 
     public void UIMaxHealth(int EnemyHP)
