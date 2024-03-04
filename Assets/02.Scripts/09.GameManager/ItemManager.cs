@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
@@ -18,12 +19,15 @@ public class ItemManager : MonoBehaviour
     public GameObject splitContainer;
     public GameObject dropBtn;
 
+    public TMP_Text gold;
+
     int selectedSlot = -1;
 
 
     private void Start()
     {
         selectedSlot = 0;
+        gold.text = (GameManager.Instance.player.GetComponent<PlayerGold>().Gold).ToString();
     }
     void Awake()
     {
@@ -130,6 +134,7 @@ public class ItemManager : MonoBehaviour
                 }
             }
         }
+        gold.text = (GameManager.Instance.player.GetComponent<PlayerGold>().Gold).ToString();
     }
 
     public bool AddItem(Item item)
