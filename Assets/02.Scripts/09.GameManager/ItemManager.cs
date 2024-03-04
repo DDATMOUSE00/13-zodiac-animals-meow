@@ -19,7 +19,6 @@ public class ItemManager : MonoBehaviour
     public GameObject splitContainer;
     public GameObject dropBtn;
 
-    public TMP_Text gold;
 
     int selectedSlot = -1;
 
@@ -27,7 +26,7 @@ public class ItemManager : MonoBehaviour
     private void Start()
     {
         selectedSlot = 0;
-        gold.text = (GameManager.Instance.player.GetComponent<PlayerGold>().Gold).ToString();
+
     }
     void Awake()
     {
@@ -81,8 +80,6 @@ public class ItemManager : MonoBehaviour
     public void SaveInventoryData()
     {
 
-        Debug.Log(itemDic);
-
         DataManager.I.SaveJsonData(itemDic, "ItemData");
 
     }
@@ -90,7 +87,7 @@ public class ItemManager : MonoBehaviour
     public void LoadInventoryData()
     {
         itemDic = DataManager.I.LoadJsonData<Dictionary<int, int>>("ItemData");
-        gold.text = (GameManager.Instance.player.GetComponent<PlayerGold>().Gold).ToString();
+   
         if (itemDic.Count != 0)
         {
             List<int> keyList = new List<int>(itemDic.Keys);
@@ -135,7 +132,7 @@ public class ItemManager : MonoBehaviour
                 }
             }
         }
-        gold.text = (GameManager.Instance.player.GetComponent<PlayerGold>().Gold).ToString();
+
     }
 
     public bool AddItem(Item item)
