@@ -90,6 +90,7 @@ public class ItemManager : MonoBehaviour
     public void LoadInventoryData()
     {
         itemDic = DataManager.I.LoadJsonData<Dictionary<int, int>>("ItemData");
+        gold.text = (GameManager.Instance.player.GetComponent<PlayerGold>().Gold).ToString();
         if (itemDic.Count != 0)
         {
             List<int> keyList = new List<int>(itemDic.Keys);
