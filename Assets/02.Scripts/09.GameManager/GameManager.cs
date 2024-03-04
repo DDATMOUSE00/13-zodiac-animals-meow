@@ -39,13 +39,16 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
     }
 
+    public void SaveData()
+    {
+        ResourceManager.Instance.SaveData();
+        Debug.Log("정보 저장");
+    }
     public void QuitGame()
     {
         //ResourceManager.Instance.SaveData();
         Debug.Log("종료합니다,");
         AudioManager.Instance.PlayBgm(false);
-        ResourceManager.Instance.SaveData();
-        Debug.Log("정보 저장");
         Application.Quit();
     }
 }

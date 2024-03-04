@@ -19,6 +19,7 @@ public class TutorialManager3 : MonoBehaviour
 
     //private int StartTxt = 0;
 
+   
     private void Awake()
     {
         TalkUI = GetComponent<TalkUI>();
@@ -33,6 +34,8 @@ public class TutorialManager3 : MonoBehaviour
         GameManager.Instance.Info();
 
         Invoke("BeginFadeOut", 2f);
+
+        ResourceManager.Instance.LoadData();
     }
 
     private void OnGUI()
