@@ -48,6 +48,8 @@ public class EnemyHealth : MonoBehaviour
     private void OnEnable()
     {
         //ReSetting();
+        IsDead = false;
+        
     }
 
     private void OnDisable()
@@ -71,9 +73,23 @@ public class EnemyHealth : MonoBehaviour
     public void ReSetting()
     {
         EnemyHP = EnemyMaxHP;
-        IsDead = false;
+
+        Transform[] children = GetComponentsInChildren<Transform>();
+        foreach (Transform child in children)
+        {
+            if (child == transform) continue; // 부모 오브젝트는 건너뛴다
+            child.rotation = Quaternion.identity;
+        }
+
+        Transform[] children1 = GetComponentsInChildren<Transform>(true);
+        foreach (Transform child in children1)
+        {
+            if (child == transform) continue; // 부모 오브젝트는 건너뛴다
+            child.gameObject.SetActive(true);
+        }
+
         var body = transform.GetChild(0).GetChild(0).gameObject;
-        body.transform.rotation = Quaternion.identity;
+        //body.transform.rotation = Quaternion.identity;
         body.transform.localPosition = new Vector3(0f, 0.6f, 0f);
         Debug.Log($"{Anim.runtimeAnimatorController.name} 애니메이터 초기화");
         //if (Anim.runtimeAnimatorController.name != "Mongkey")

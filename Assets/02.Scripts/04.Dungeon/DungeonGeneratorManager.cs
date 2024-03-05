@@ -240,10 +240,10 @@ public class DungeonGenerator: MonoBehaviour
 
         Vector3[] doorPositions = new Vector3[]
         {
-        new Vector3(room.transform.position.x, -35, room.transform.position.z + roomSize / 3), // 위
-        new Vector3(room.transform.position.x - roomSize / 3, -35, room.transform.position.z), // 왼쪽
-        new Vector3(room.transform.position.x, -35, room.transform.position.z - roomSize / 3), // 아래
-        new Vector3(room.transform.position.x + roomSize / 3, -35, room.transform.position.z)  // 오른쪽
+        new Vector3(room.transform.position.x, -39, room.transform.position.z + roomSize / 3), // 위
+        new Vector3(room.transform.position.x - roomSize / 3, -39, room.transform.position.z), // 왼쪽
+        new Vector3(room.transform.position.x, -39, room.transform.position.z - roomSize / 3), // 아래
+        new Vector3(room.transform.position.x + roomSize / 3, -39, room.transform.position.z)  // 오른쪽
         };
 
         for (int i = 0; i < neighborCoordinates.Length; i++)
