@@ -106,7 +106,8 @@ public class EnemyHealth : MonoBehaviour
         //    Debug.Log($"{Anim.runtimeAnimatorController.name} 애니메이터 초기화");
         //    body.transform.rotation = Quaternion.identity;
         //    body.transform.localPosition = new Vector3(-0.091f, 0.61f, 0f);
-        //}
+
+        //Anim.Play("idle");
         Anim.SetBool("IsDead", false);
 
     }
