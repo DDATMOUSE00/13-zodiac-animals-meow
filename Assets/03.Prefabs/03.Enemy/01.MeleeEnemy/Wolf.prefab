@@ -1203,6 +1203,7 @@ GameObject:
   - component: {fileID: 5961730858554063696}
   - component: {fileID: 157960585361312619}
   - component: {fileID: -4857921561150572459}
+  - component: {fileID: 267600734067930142}
   m_Layer: 8
   m_Name: Wolf
   m_TagString: Enemy
@@ -1345,6 +1346,18 @@ MonoBehaviour:
   itemDropProbability: 0.5
   itemDrop: {fileID: 3611454901610100875, guid: fab48f6601066bb4595b34535528e70c,
     type: 3}
+--- !u!210 &267600734067930142
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4357985083244150462}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 10
+  m_SortAtRoot: 0
 --- !u!1 &4489297883931452307
 GameObject:
   m_ObjectHideFlags: 0

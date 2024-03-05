@@ -1428,6 +1428,7 @@ GameObject:
   - component: {fileID: 903641645234196566}
   - component: {fileID: 244846254843603920}
   - component: {fileID: -6180881450601549165}
+  - component: {fileID: 1604543696942955273}
   m_Layer: 8
   m_Name: Fox
   m_TagString: Enemy
@@ -1570,6 +1571,18 @@ MonoBehaviour:
   itemDropProbability: 0.5
   itemDrop: {fileID: 3611454901610100875, guid: 466be472e0e70934188e323bdae4f707,
     type: 3}
+--- !u!210 &1604543696942955273
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6347706933361315923}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 10
+  m_SortAtRoot: 0
 --- !u!1 &6384090207961340175
 GameObject:
   m_ObjectHideFlags: 0
