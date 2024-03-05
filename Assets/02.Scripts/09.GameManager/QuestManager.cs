@@ -157,7 +157,9 @@ public class QuestManager : MonoBehaviour
         {
             if(q.state == QuestState.CAN_START)
             {
+
                 GameObject questPrefab = Resources.Load("QuestSlot") as GameObject;
+                Debug.Log("load questslot");
                 GameObject newQuest = Instantiate(questPrefab, QuestContainerUI);
                 QuestSlot qslot = newQuest.GetComponent<QuestSlot>();
                 qslot.quest = q;
