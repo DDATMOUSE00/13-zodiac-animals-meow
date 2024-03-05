@@ -87,7 +87,8 @@ public class ItemManager : MonoBehaviour
     public void LoadInventoryData()
     {
         itemDic = DataManager.I.LoadJsonData<Dictionary<int, int>>("ItemData");
-   
+        Debug.Log("load inventory");
+        Debug.Log(itemDic);
         if (itemDic.Count != 0)
         {
             List<int> keyList = new List<int>(itemDic.Keys);

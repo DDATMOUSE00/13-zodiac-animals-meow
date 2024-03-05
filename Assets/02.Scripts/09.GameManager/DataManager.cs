@@ -12,7 +12,7 @@ public class DataManager : MonoBehaviour
 
     private string GetJsonSavePath(string fileName)
     {
-        return string.Format("Assets/Json/{0}.json", fileName);
+        return string.Format("Assets/Resources/Json/{0}.json", fileName);
     }
 
     public void SaveJsonData<T>(T data, string fileName)
@@ -25,8 +25,9 @@ public class DataManager : MonoBehaviour
                 }
             );
 
+        Debug.Log($"save = {jsonData} ");
         string path = GetJsonSavePath(fileName);
-        var file = new FileInfo(path);
+        var file = new FileInfo(path); //이쪽에서부터 문제가 생기는듯?? 
         File.WriteAllText(path, jsonData);
     }
 
@@ -34,9 +35,15 @@ public class DataManager : MonoBehaviour
     {
         string fullPath = GetJsonSavePath(fileName);
         if (!File.Exists(fullPath))
+        {
+            Debug.Log("doees not exist");
             return default(T);
-        string jsonData = File.ReadAllText(fullPath);
-        T loadData = JsonConvert.DeserializeObject<T>(jsonData);
+        }
+        Debug.Log("file exists");
+        //string jsonData = File.ReadAllText(fullPath);
+        var jsonData = Resources.Load($"Json/{fileName}");
+        Debug.Log(jsonData.ToString());
+        T loadData = JsonConvert.DeserializeObject<T>(jsonData.ToString());
 
         return loadData;
     }
