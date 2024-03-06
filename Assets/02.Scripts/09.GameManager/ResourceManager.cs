@@ -31,7 +31,6 @@ public class ResourceManager : MonoBehaviour
 
     public void LoadData()
     {
-        Debug.Log("load");
         ItemManager.I.LoadInventoryData();
         QuestManager.I.LoadQuestData();
         LibraryManager.I.LoadLibraryData();

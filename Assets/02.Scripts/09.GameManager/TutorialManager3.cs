@@ -35,7 +35,7 @@ public class TutorialManager3 : MonoBehaviour
 
         Invoke("BeginFadeOut", 2f);
 
-//        ResourceManager.Instance.LoadData();
+        ResourceManager.Instance.LoadData();
     }
 
     private void OnGUI()
