@@ -40,12 +40,17 @@ public class ShopSlotUI : MonoBehaviour
         var getChild0 = transform.GetChild(0).gameObject;
         var getChild1 = transform.GetChild(1).gameObject;
 
+        var getChild00 = getChild0.transform.GetChild(0).gameObject;
+        var getChild10 = getChild1.transform.GetChild(0).gameObject;
+
+
         shopSlotButton = GetComponent<Button>();
-        itemIcon = transform.GetChild(0).GetComponent<Image>();
-        itemName = getChild1.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        itemDescription = getChild1.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-        itemPrice = getChild1.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
-        itemCount = getChild0.transform.GetChild(0).GetComponent<TMP_Text>();
+        itemIcon = getChild0.transform.GetChild(0).GetComponent<Image>();
+        itemName = getChild10.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        itemDescription = getChild10.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        itemPrice = getChild10.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        itemCount = getChild00.transform.GetChild(0).GetComponent<TMP_Text>();
+        //itemCount = transform.Find("Item_Count").GetComponent<TMP_Text>();
     }
 
 
