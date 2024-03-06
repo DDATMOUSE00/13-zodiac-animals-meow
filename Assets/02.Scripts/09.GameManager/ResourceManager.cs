@@ -24,7 +24,8 @@ public class ResourceManager : MonoBehaviour
         ItemManager.I.SaveInventoryData();
         PlayerManager.I.SavePlayerData();
         QuestManager.I.SaveQuestData();
- 
+
+        Debug.Log("item,player,quest");
         LibraryManager.I.SaveLibraryData();
     }
 
@@ -33,8 +34,9 @@ public class ResourceManager : MonoBehaviour
         Debug.Log("load");
         ItemManager.I.LoadInventoryData();
         QuestManager.I.LoadQuestData();
-        PlayerManager.I.LoadPlayerData();
         LibraryManager.I.LoadLibraryData();
+        PlayerManager.I.LoadPlayerData();
+
     }
     public static ResourceManager Instance
     {

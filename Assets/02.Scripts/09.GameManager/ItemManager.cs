@@ -80,6 +80,7 @@ public class ItemManager : MonoBehaviour
     public void SaveInventoryData()
     {
 
+        Debug.Log("save inventory data");
         DataManager.I.SaveJsonData(itemDic, "ItemData");
 
     }

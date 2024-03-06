@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce920efe427423d4bb1d65bc324bee3c, type: 3}
   m_Name: DungeonQuest
   m_EditorClassIdentifier: 
+  QuestId: Mouse
   QuestName: "\uC950\uC758 \uC2DC\uB828"
   QuestDesc: "\uC950\uC758 \uB358\uC804\uC744 \uD074\uB9AC\uC5B4 \uD574\uBCF4\uC790 "
   QuestType: 1
   questPrefabs: {fileID: 0}
-  ItemId: 0
-  ItemQuantityToComplete: 0
+  ItemId: -1
+  ItemQuantityToComplete: -1
   QInfoName: DungeonQuest
   levelRequirement: 1
   goldReward: 0

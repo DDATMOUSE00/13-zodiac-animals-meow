@@ -11,18 +11,20 @@ public class UIWindowOfBuilding : MonoBehaviour
         
         Debug.Log(UI.name);
         if (UI.name == "QuestUI")
-           QuestManager.I.RefreshAllQuest();
+        {
+            QuestManager.I.RefreshAllQuest();
+        }
         else if (UI.name == "Shop")
-      {
-           ShopManager.Instance.OnShopButton();
+        {
+            ShopManager.Instance.OnShopButton();
         }
-       else if(UI.name == "CardCanvas")
-       {
-          Shrine.I.Window();
+        else if (UI.name == "CardCanvas")
+        {
+            Shrine.I.Window();
         }
-       else if(UI.name == "LibraryUI")
-       {
-          LibraryManager.I.OpenUI();
+        else if (UI.name == "LibraryUI")
+        {
+            LibraryManager.I.OpenUI();
         }
         else if (UI.name == "dungeonchoiceUI")
         {
