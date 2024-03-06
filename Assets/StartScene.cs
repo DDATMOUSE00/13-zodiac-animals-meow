@@ -14,8 +14,8 @@ public class StartScene : MonoBehaviour
     public void Start()
     {
         string IsFile = Path.Combine(Application.persistentDataPath, "Json", "PlayerData.json"); //파일 경로, 이름
-        Debug.Log(IsFile);
-        Debug.Log(File.Exists(IsFile));
+       // Debug.Log(IsFile);
+      //  Debug.Log(File.Exists(IsFile));
         if (File.Exists(IsFile)) 
         {
             LoadBtn.interactable = true;
@@ -37,11 +37,6 @@ public class StartScene : MonoBehaviour
         SceneManager.LoadScene("TutorialScene1");
     }
 
-    public void LoadGame()
-    {
-        SceneManager.LoadScene("Village_FINAL");
-        isExistSaveData = true; 
-    }
 
     public void EixtGame()
     {

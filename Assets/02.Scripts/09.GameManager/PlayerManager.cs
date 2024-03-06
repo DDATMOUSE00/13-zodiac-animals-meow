@@ -16,6 +16,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SavePlayerData()
     {
+        Debug.Log("save player data");
         int Gold = Player.GetComponent<PlayerGold>().Gold;
         int MinD = Player.GetComponent<PlayerAttack>().MinDamage;
         int MaxD = Player.GetComponent<PlayerAttack>().MaxDamage;

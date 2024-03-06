@@ -7,9 +7,9 @@ using UnityEngine;
 public class QuestManager : MonoBehaviour
 {
 
-    public static QuestManager I; 
+    public static QuestManager I;
     //private Dictionary<int, List<Quest>> questList;
-    public Dictionary<string, Quest> allQuests;
+    public Dictionary<string, Quest> allQuests = new Dictionary<string, Quest>();
     public Transform QuestContainerUI;
     public GameObject questUI;
     public GameObject backBtn;
@@ -21,10 +21,9 @@ public class QuestManager : MonoBehaviour
     private void Start()
     {
         questUI.SetActive(false);
-    }
-    private void OnEnable()
-    {
-        RefreshAllQuest();
+        allQuests = getAllQuests();
+
+        Debug.Log("QuestManager start");
     }
     private void Awake()
     {
@@ -35,7 +34,10 @@ public class QuestManager : MonoBehaviour
     }
     public void SaveQuestData()
     {
-        List<string> keyList = new List<string>(allQuests.Keys);
+        Debug.Log("save quest data");
+        Dictionary<string, Quest> tmpQuests = getAllQuests();
+        Debug.Log(tmpQuests.Count);
+        List<string> keyList = new List<string>(tmpQuests.Keys);
         for (int i = 0; i < keyList.Count; i++)
         {
             if (!SavedQuestInfo.ContainsKey(keyList[i]))
@@ -71,10 +73,12 @@ public class QuestManager : MonoBehaviour
         Debug.Log("load quest data");
         SavedQuestInfo = DataManager.I.LoadJsonData<Dictionary<string, QuestInformation>>("QuestData");
         List<string> keyList = new List<string>(SavedQuestInfo.Keys);
+        Debug.Log($"key list length - {keyList.Count}");
         for (int i = 0; i < keyList.Count; i++)
         {
+            
             Quest q = allQuests[keyList[i]];
-            Debug.Log(q.q.QuestName);
+            Debug.Log(allQuests[keyList[i]].q.QuestId);
             
             if (q != null)
             {
@@ -96,9 +100,16 @@ public class QuestManager : MonoBehaviour
             }
             else
             {
-                Quest newQ = new Quest(q);
+        
+                Quest newQ = new(q);
+                Debug.Log("newQ");
                 if (PlayerLevel >= newQ.q.levelRequirement)
-                    newQ.state = QuestState.CAN_START;  
+                {
+                    newQ.state = QuestState.CAN_START;
+                }
+
+                Debug.Log($"id - {newQ.q.QuestId}");
+
                 AllQuests.Add(newQ.q.QuestId, newQ);
             }
         }
@@ -139,6 +150,7 @@ public class QuestManager : MonoBehaviour
     */
     private void ClearAllChildUnderContent()
     {
+        Debug.Log("clear");
         foreach(Transform t in QuestContainerUI)
         {
             Destroy(t.gameObject);
@@ -146,27 +158,45 @@ public class QuestManager : MonoBehaviour
     }
     public void RefreshAllQuest()
     {
-        if (QuestContainerUI.childCount != 0)
+        Debug.Log("refresh all quest");
+        Debug.Log(QuestContainerUI);
+        if (QuestContainerUI == null || QuestContainerUI.childCount != 0)
+        {
+            Debug.Log(QuestContainerUI.childCount);
             ClearAllChildUnderContent();
+        }
 
-
+        Debug.Log(backBtn);
+        Debug.Log(questUI);
         questUI.SetActive(true);
         backBtn.SetActive(false);
-        List<Quest> tmp = allQuests.Values.ToList();
-        foreach (var q in tmp)
+        Debug.Log($"UI active true = {allQuests.Count} ");
+        if (allQuests.Count != 0)
         {
-            if(q.state == QuestState.CAN_START)
+            Debug.Log(allQuests.Count);
+            List<Quest> tmp = allQuests.Values.ToList();
+            
+            Debug.Log($"refesh all quests - {tmp.Count}");
+            foreach (var q in tmp)
             {
+                if (q.state == QuestState.CAN_START)
+                {
+                    Debug.Log(q.q.QuestName);
 
-                GameObject questPrefab = Resources.Load("QuestSlot") as GameObject;
-                Debug.Log("load questslot");
-                GameObject newQuest = Instantiate(questPrefab, QuestContainerUI);
-                QuestSlot qslot = newQuest.GetComponent<QuestSlot>();
-                qslot.quest = q;
-                qslot.Setting();
+                    GameObject questPrefab = Resources.Load("QuestSlot") as GameObject;
+                    Debug.Log("load questslot");
+                    GameObject newQuest = Instantiate(questPrefab, QuestContainerUI);
+                    QuestSlot qslot = newQuest.GetComponent<QuestSlot>();
+                    qslot.quest = q;
+                    qslot.Setting();
 
 
+                }
             }
+        }
+        else
+        {
+            Debug.Log("allQuests is empty");
         }
      
     }
