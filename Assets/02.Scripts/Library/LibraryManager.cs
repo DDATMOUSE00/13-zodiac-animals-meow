@@ -35,6 +35,7 @@ public class LibraryManager : MonoBehaviour
 
     public void SaveLibraryData()
     {
+        Debug.Log("save library data");
         DataManager.I.SaveJsonData<List<int>>(bookIDs, "BookData");
     }
     public void LoadLibraryData()

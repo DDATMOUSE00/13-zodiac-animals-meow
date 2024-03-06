@@ -22,18 +22,20 @@ public class ResourceManager : MonoBehaviour
     {
         Debug.Log("save");
         ItemManager.I.SaveInventoryData();
-        QuestManager.I.SaveQuestData();
         PlayerManager.I.SavePlayerData();
+        QuestManager.I.SaveQuestData();
+
+        Debug.Log("item,player,quest");
         LibraryManager.I.SaveLibraryData();
     }
 
     public void LoadData()
     {
-        Debug.Log("load");
         ItemManager.I.LoadInventoryData();
         QuestManager.I.LoadQuestData();
-        PlayerManager.I.LoadPlayerData();
         LibraryManager.I.LoadLibraryData();
+        PlayerManager.I.LoadPlayerData();
+
     }
     public static ResourceManager Instance
     {

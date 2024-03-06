@@ -6,9 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "QuestInfo", menuName = "08.Scriptable Object/QuestInfoSO")]
 public class QuestInfo : ScriptableObject
 {
-    public string QuestId { get; private set; }
-    
+
     [Header("General")]
+    public string QuestId;
     public string QuestName;
     public string QuestDesc;
     public QuestType QuestType;
@@ -25,13 +25,6 @@ public class QuestInfo : ScriptableObject
     public int goldReward;
     public int animalId;
 
-    private void OnValidate()
-    {
-#if UNITY_EDITOR
-        QuestId = QuestName;
-       // UnityEditor.EditorUtility.SetDirty(this);
-        #endif
-    }
 
 
 }
