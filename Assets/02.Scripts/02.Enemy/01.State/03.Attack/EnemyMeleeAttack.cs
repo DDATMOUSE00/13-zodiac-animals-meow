@@ -124,11 +124,15 @@ public class EnemyMeleeAttack : MonoBehaviour
         //ÁÂ¿ì ¹ÝÀü
         if (direction.x < 0 && !IsAttack)
         {
-            transform.localScale = new Vector3(3, 3, 1);
+            //transform.localScale = new Vector3(3, 3, 1);
+            transform.GetChild(0).localScale = new Vector3(-1, 1, 1);
+
         }
         else if (direction.x > 0 && !IsAttack)
         {
-            transform.localScale = new Vector3(-3, 3, 1);
+            //transform.localScale = new Vector3(-3, 3, 1);
+            transform.GetChild(0).localScale = new Vector3(-1, 1, 1);
+
         }
     }
 

@@ -156,11 +156,16 @@ public class EnemyLongAttack : MonoBehaviour
         Vector3 direction = Player.position - transform.position;
         if (direction.x < 0)
         {
-            transform.localScale = new Vector3(3, 3, 1);
+            //transform.localScale = new Vector3(3, 3, 1);
+            transform.GetChild(0).localScale = new Vector3(-1, 1, 1);
+            Debug.Log(transform.GetChild(0).localScale);
         }
         else if (direction.x > 0)
         {
-            transform.localScale = new Vector3(-3, 3, 1);
+            //transform.localScale = new Vector3(-3, 3, 1);
+            transform.GetChild(0).localScale = new Vector3(1, 1, 1);
+            Debug.Log(transform.GetChild(0).localScale);
+
         }
 
         if (!_Health.IsDead)
