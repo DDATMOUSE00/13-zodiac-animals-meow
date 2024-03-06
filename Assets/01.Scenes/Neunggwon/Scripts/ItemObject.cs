@@ -25,12 +25,12 @@ public class ItemObject : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");
-        TextMeshPro TextUI = interactionText_And_ItemName.GetComponent<TextMeshPro>();
-        if (item.type != ItemType.Coin)
-        {
-            TextUI.text = $"상호작용 [E] 키 \n {item.itemName}";
-        }
+        //player = GameObject.FindWithTag("Player");
+        //TextMeshPro TextUI = interactionText_And_ItemName.GetComponent<TextMeshPro>();
+        //if (item.type != ItemType.Coin)
+        //{
+        //    TextUI.text = $"상호작용 [E] 키 \n {item.itemName}";
+        //}
         interactionText_And_ItemName.SetActive(false);
     }
 

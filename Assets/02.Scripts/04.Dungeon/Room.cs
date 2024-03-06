@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Room : MonoBehaviour
 {
@@ -68,7 +69,7 @@ public class Room : MonoBehaviour
                 }
                 else
                 {
-                    if (enemysCount == 0)
+                    if (enemysCount <= 0)
                     {
                         if (!claerchecking)
                         {
@@ -103,14 +104,20 @@ public class Room : MonoBehaviour
 
     public void DungeonQuest()
     {
-        if (roomData.roomType == RoomType.BossRoom)
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName == "Denguon Scene")
         {
-            if (QuestManager.I.allQuests.ContainsKey("던전"))
+            if (roomData.roomType == RoomType.BossRoom)
             {
-                var quest = QuestManager.I.allQuests["던전"];
-                if (quest.state == QuestState.IN_PROGRESS)
+                if (QuestManager.I.allQuests.ContainsKey("Mouse"))
                 {
-                    QuestManager.I.CheckCollectQuestProcess("던전");
+
+                    var quest = QuestManager.I.allQuests["Mouse"];
+                    if (quest.state == QuestState.IN_PROGRESS)
+                    {
+                        QuestManager.I.CheckCollectQuestProcess("Mouse");
+                    }
                 }
             }
         }

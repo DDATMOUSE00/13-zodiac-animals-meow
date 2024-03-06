@@ -45,6 +45,8 @@ public class SellShop : MonoBehaviour
     {
         if (IsSellShop)
         {
+            //ResetChildObjects();
+
             ShowInventorySlot();
         }
         ShopManager.Instance.ShopUpDate();
@@ -56,6 +58,22 @@ public class SellShop : MonoBehaviour
         ShowInventorySlot();
         ExitButton();
     }
+
+    public void ResetChildObjects()
+    {
+        // 리스트의 모든 오브젝트를 파괴
+        foreach (ShopSlotUI shopSlotUI in shopSlots)
+        {
+            if (shopSlotUI != null)
+            {
+                Destroy(shopSlotUI.gameObject);
+            }
+        }
+
+        // 리스트를 초기화
+        shopSlots.Clear();
+    }
+
 
 
     private Item FindItem(int key)
