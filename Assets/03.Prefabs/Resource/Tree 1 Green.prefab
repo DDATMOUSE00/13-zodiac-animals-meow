@@ -522,7 +522,6 @@ GameObject:
   - component: {fileID: 929638658357530980}
   - component: {fileID: 5750617937355435984}
   - component: {fileID: 5855642183963566917}
-  - component: {fileID: 8687055579908397303}
   m_Layer: 7
   m_Name: Tree 1 Green
   m_TagString: Resource
@@ -644,27 +643,6 @@ MonoBehaviour:
     type: 3}
   randomItemprefab: {fileID: 0}
   ResourceHP: 0
---- !u!65 &8687055579908397303
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2886763901723393918}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 7.88, y: 12.63, z: 1}
-  m_Center: {x: -0.56, y: 4.92, z: 0}
 --- !u!1 &3581693359720348688
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,6 +652,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4284180800016336812}
+  - component: {fileID: 4053021962494947231}
   m_Layer: 7
   m_Name: Renderer
   m_TagString: Untagged
@@ -699,6 +678,27 @@ Transform:
   m_Father: {fileID: 8860066242878450523}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4053021962494947231
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581693359720348688}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 6, z: 1}
+  m_Center: {x: -0.35, y: 2.76, z: 0}
 --- !u!1 &4050852993673230715
 GameObject:
   m_ObjectHideFlags: 0

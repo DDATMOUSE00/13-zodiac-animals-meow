@@ -298,8 +298,8 @@ GameObject:
   - component: {fileID: 4528674691672460801}
   - component: {fileID: 1866144242151839968}
   - component: {fileID: 6212078333700612343}
-  - component: {fileID: 6202486203836406363}
   - component: {fileID: 2115447823100304258}
+  - component: {fileID: 3655287841130546706}
   m_Layer: 7
   m_Name: Stone 3 Brown
   m_TagString: Resource
@@ -377,7 +377,23 @@ MonoBehaviour:
   _lightAffectedRenderers:
   - {fileID: 7204611858408031081}
   - {fileID: 1471065723269131020}
---- !u!65 &6202486203836406363
+--- !u!114 &2115447823100304258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4617002347046128662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d72f32602fee5e543b7cb2ebe5a46986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemprefab: {fileID: 3611454901610100875, guid: 81343acb9f48aa24bbc611a58e1053c7,
+    type: 3}
+  randomItemprefab: {fileID: 0}
+  ResourceHP: 0
+--- !u!65 &3655287841130546706
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -398,19 +414,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.6, y: 2.5, z: 1}
   m_Center: {x: 0, y: 1.25, z: 0}
---- !u!114 &2115447823100304258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4617002347046128662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d72f32602fee5e543b7cb2ebe5a46986, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemprefab: {fileID: 3611454901610100875, guid: 81343acb9f48aa24bbc611a58e1053c7,
-    type: 3}
-  randomItemprefab: {fileID: 0}
-  ResourceHP: 0
