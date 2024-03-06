@@ -25,9 +25,9 @@ public class DataManager : MonoBehaviour
                 }
             );
 
-        Debug.Log($"save = {jsonData} ");
         string path = GetJsonSavePath(fileName);
-        var file = new FileInfo(path); //이쪽에서부터 문제가 생기는듯?? 
+        var file = new FileInfo(path); 
+        Debug.Log($"save = {file.Name} ");
         File.WriteAllText(path, jsonData);
     }
 

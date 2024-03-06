@@ -22,8 +22,9 @@ public class ResourceManager : MonoBehaviour
     {
         Debug.Log("save");
         ItemManager.I.SaveInventoryData();
-        QuestManager.I.SaveQuestData();
         PlayerManager.I.SavePlayerData();
+        QuestManager.I.SaveQuestData();
+ 
         LibraryManager.I.SaveLibraryData();
     }
 

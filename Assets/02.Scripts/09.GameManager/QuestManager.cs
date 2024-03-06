@@ -35,6 +35,7 @@ public class QuestManager : MonoBehaviour
     }
     public void SaveQuestData()
     {
+        Debug.Log("save quest data");
         List<string> keyList = new List<string>(allQuests.Keys);
         for (int i = 0; i < keyList.Count; i++)
         {
@@ -71,6 +72,7 @@ public class QuestManager : MonoBehaviour
         Debug.Log("load quest data");
         SavedQuestInfo = DataManager.I.LoadJsonData<Dictionary<string, QuestInformation>>("QuestData");
         List<string> keyList = new List<string>(SavedQuestInfo.Keys);
+        Debug.Log($"key list length - {keyList.Count}");
         for (int i = 0; i < keyList.Count; i++)
         {
             Quest q = allQuests[keyList[i]];
@@ -157,6 +159,7 @@ public class QuestManager : MonoBehaviour
         {
             if(q.state == QuestState.CAN_START)
             {
+                Debug.Log(q.q.QuestName);
 
                 GameObject questPrefab = Resources.Load("QuestSlot") as GameObject;
                 Debug.Log("load questslot");
