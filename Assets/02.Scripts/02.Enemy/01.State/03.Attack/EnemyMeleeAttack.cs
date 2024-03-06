@@ -54,60 +54,63 @@ public class EnemyMeleeAttack : MonoBehaviour
     }
     private void Update()
     {
-        //몬스터 추적 사거리
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        //몬스터 공격 사거리
-        Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRange / 2f);
-
-
-        //플레이어 거리에 따라 상태 변경
-        if (distanceToPlayer <= AttackRange.magnitude / 2f)
+        if(!_Health.IsDead)
         {
-            //공격 사거리 안에 들어오면 공격
-            currentState = MonsterState.Attack;
-        }
-        else if (distanceToPlayer <= ChaseRange)
-        {
-            //플레이어가 추적범위안에 들어오면 Chase상태
-            currentState = MonsterState.Chase;
-        }
-        else if ((currentState == MonsterState.Chase || currentState == MonsterState.Attack) && distanceToPlayer > ChaseMaxRange)
-        {
-            currentState = MonsterState.Idle;
-        }
+            //몬스터 추적 사거리
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        //상태 변경
-        switch (currentState)
-        {
-            case MonsterState.Idle:
-                //아무것도 안 함
-                Anim.SetBool("IsMove", false);
-                Anim.SetBool("IsAttack", false);
-                IsAttack = false;
-                IsMoving = false;
+            //몬스터 공격 사거리
+            Collider[] EnemyAttack = Physics.OverlapBox(AttackStart.position, AttackRange / 2f);
 
-                break;
-            case MonsterState.Chase:
-                //플레이어를 향해 이동
-                if (!IsAttack && !_Health.IsDead)
-                {
-                    Anim.SetBool("IsMove", true);
-                    Vector3 directionToPlayer = (player.position - transform.position).normalized;
-                    Move(directionToPlayer);
-                }
-                break;
-            case MonsterState.Attack:
-                //플레이어 공격
-                if (!IsAttack && !_Health.IsDead)
-                {
-                    IsAttack = true;
-                    IsMoving = false;
+
+            //플레이어 거리에 따라 상태 변경
+            if (distanceToPlayer <= AttackRange.magnitude / 2f)
+            {
+                //공격 사거리 안에 들어오면 공격
+                currentState = MonsterState.Attack;
+            }
+            else if (distanceToPlayer <= ChaseRange)
+            {
+                //플레이어가 추적범위안에 들어오면 Chase상태
+                currentState = MonsterState.Chase;
+            }
+            else if ((currentState == MonsterState.Chase || currentState == MonsterState.Attack) && distanceToPlayer > ChaseMaxRange)
+            {
+                currentState = MonsterState.Idle;
+            }
+
+            //상태 변경
+            switch (currentState)
+            {
+                case MonsterState.Idle:
+                    //아무것도 안 함
                     Anim.SetBool("IsMove", false);
-                    Invoke("Attack", AttackTime);
-                    StartCoroutine(DelayAnimation());
-                }
-                break;
+                    Anim.SetBool("IsAttack", false);
+                    IsAttack = false;
+                    IsMoving = false;
+
+                    break;
+                case MonsterState.Chase:
+                    //플레이어를 향해 이동
+                    if (!IsAttack && !_Health.IsDead)
+                    {
+                        Anim.SetBool("IsMove", true);
+                        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+                        Move(directionToPlayer);
+                    }
+                    break;
+                case MonsterState.Attack:
+                    //플레이어 공격
+                    if (!IsAttack && !_Health.IsDead)
+                    {
+                        IsAttack = true;
+                        IsMoving = false;
+                        Anim.SetBool("IsMove", false);
+                        Invoke("Attack", AttackTime);
+                        StartCoroutine(DelayAnimation());
+                    }
+                    break;
+            }
         }
     }
 
@@ -124,15 +127,11 @@ public class EnemyMeleeAttack : MonoBehaviour
         //좌우 반전
         if (direction.x < 0 && !IsAttack)
         {
-            //transform.localScale = new Vector3(3, 3, 1);
-            transform.GetChild(0).localScale = new Vector3(-1, 1, 1);
-
+            transform.localScale = new Vector3(3, 3, 1);
         }
         else if (direction.x > 0 && !IsAttack)
         {
-            //transform.localScale = new Vector3(-3, 3, 1);
-            transform.GetChild(0).localScale = new Vector3(-1, 1, 1);
-
+            transform.localScale = new Vector3(-3, 3, 1);
         }
     }
 

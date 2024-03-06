@@ -105,15 +105,12 @@ public class Room : MonoBehaviour
     {
         if (roomData.roomType == RoomType.BossRoom)
         {
-            for (int i = 0; i < QuestManager.I.allQuests.Count; i++)
+            if (QuestManager.I.allQuests.ContainsKey("带傈"))
             {
-                if (QuestManager.I.allQuests.ContainsKey("带傈"))
+                var quest = QuestManager.I.allQuests["带傈"];
+                if (quest.state == QuestState.IN_PROGRESS)
                 {
-                    var quest = QuestManager.I.allQuests["带傈"];
-                    if (quest.state == QuestState.IN_PROGRESS)
-                    {
-                        QuestManager.I.CheckCollectQuestProcess("带傈");
-                    }
+                    QuestManager.I.CheckCollectQuestProcess("带傈");
                 }
             }
         }
@@ -168,10 +165,10 @@ public class Room : MonoBehaviour
         if (roomData.roomType == RoomType.BossRoom)
         {
             GameObject bossEnemy = roomData.Boss;
-            Instantiate(bossEnemy, this.transform.position, Quaternion.identity);
-            
+            //Instantiate(bossEnemy, this.transform.position, Quaternion.identity);
+            Instantiate(bossEnemy, new Vector3(transform.position.x, -39f, transform.position.z), Quaternion.identity);
         }
-        
+
         if (roomData.roomType == RoomType.DungeonRoom)
         {
             GameObject selectEnemy1 = roomData.enemys[Random.Range(0,roomData.enemys.Length)];
@@ -201,7 +198,7 @@ public class Room : MonoBehaviour
             Transform child = resources.transform.GetChild(i);
             Vector3 randomPosition = new Vector3(
                 Random.Range(this.transform.position.x + minX, this.transform.position.x + maxX),
-                -40,
+                -39,
                 Random.Range(this.transform.position.z + minZ, this.transform.position.z + maxZ)
             );
             child.position = randomPosition;
