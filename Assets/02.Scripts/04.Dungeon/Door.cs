@@ -36,7 +36,7 @@ public class Door : MonoBehaviour
                 StartCoroutine(CLoadScene());
                 playerHealth.ApplyHealthBuff(0);
                 playerSM.ApplyMovementBuff(0);
-                ResourceManager.I.SaveData();
+                ResourceManager.Instance.SaveData();
             }
             else
             {
