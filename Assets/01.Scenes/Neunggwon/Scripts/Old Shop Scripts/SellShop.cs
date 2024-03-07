@@ -123,7 +123,7 @@ public class SellShop : MonoBehaviour
 
                     }
                 }
-                scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (100 + 20) * shopSlots.Count);
+                scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (120 + 20) * shopSlots.Count);
             }
 
         }
@@ -136,6 +136,7 @@ public class SellShop : MonoBehaviour
         {
             shopSlots[i].Setting();
         }
+        scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (120 + 20) * shopSlots.Count);
     }
 
     public void RemoveSlot2(int key, int value)

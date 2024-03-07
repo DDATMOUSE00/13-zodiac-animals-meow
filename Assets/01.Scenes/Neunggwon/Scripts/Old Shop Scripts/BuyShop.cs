@@ -102,7 +102,7 @@ public class BuyShop : MonoBehaviour
                 var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlotUI>();
                 shopSlots.Add(newShopSlot);
 
-                float y = 100f;
+                float y = 120f;
 
                 for (int i = 0; i < shopSlots.Count; i++)
                 {
