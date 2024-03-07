@@ -43,7 +43,7 @@ public class LibraryManager : MonoBehaviour
         Debug.Log("load library data");
         bookIDs = DataManager.I.LoadJsonData<List<int>>("BookData");
         Debug.Log(bookIDs.Count);
-        foreach(int i in bookIDs)
+        for(int i = bookIDs.Count-1; i>=0; i--)
         {
             Debug.Log(findBookWithId(i).title);
             BookSlot b = findBookSlotWithId(i);
@@ -106,8 +106,8 @@ public class LibraryManager : MonoBehaviour
 
             if(slider.value == 12)
             {
-                BookSlot catSlot = findBookSlotWithId(13);
-                catSlot.AddStroyBook();
+                //BookSlot catSlot = findBookSlotWithId(13);
+                catSlot.GetComponent<BookSlot>().AddStroyBook();
                 bookIDs.Add(13);
             }
             

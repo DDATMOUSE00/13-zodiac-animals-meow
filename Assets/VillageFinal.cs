@@ -5,7 +5,7 @@ using UnityEngine;
 public class VillageFinal : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
 
         ResourceManager.Instance.LoadData();
