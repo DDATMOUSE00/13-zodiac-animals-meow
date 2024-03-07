@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 
@@ -87,31 +88,33 @@ public class ItemManager : MonoBehaviour
 
     public void LoadInventoryData()
     {
-        itemDic = DataManager.I.LoadJsonData<Dictionary<int, int>>("ItemData");
-        Debug.Log("load inventory");
-        if (itemDic.Count != 0)
+        if (File.Exists("Assets/Resources/Json/ItemData.json"))
         {
-            List<int> keyList = new List<int>(itemDic.Keys);
- 
-
-            for (int i = 0; i < keyList.Count; i++)
+            itemDic = DataManager.I.LoadJsonData<Dictionary<int, int>>("ItemData");
+            if (itemDic.Count != 0)
             {
-                Item item = findItemWithIdInTotalItem(keyList[i]);
-                if (item != null)
-                {
-                    Debug.Log(item.id);
-                    for (int j = 0; j < slots.Length; j++)
-                    {
-                        DraggableItem itemInNewSlot = slots[j].GetComponentInChildren<DraggableItem>();
-                        if (itemInNewSlot == null)
-                        {
-                            SpawnLoadItem(item, slots[j]);
-                            break;
+                List<int> keyList = new List<int>(itemDic.Keys);
 
+
+                for (int i = 0; i < keyList.Count; i++)
+                {
+                    Item item = findItemWithIdInTotalItem(keyList[i]);
+                    if (item != null)
+                    {
+                        Debug.Log(item.id);
+                        for (int j = 0; j < slots.Length; j++)
+                        {
+                            DraggableItem itemInNewSlot = slots[j].GetComponentInChildren<DraggableItem>();
+                            if (itemInNewSlot == null)
+                            {
+                                SpawnLoadItem(item, slots[j]);
+                                break;
+
+                            }
                         }
                     }
-                }
 
+                }
             }
         }
     }

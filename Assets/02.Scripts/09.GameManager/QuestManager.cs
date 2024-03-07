@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -71,19 +72,23 @@ public class QuestManager : MonoBehaviour
     public void LoadQuestData()
     {
         Debug.Log("load quest data");
-        SavedQuestInfo = DataManager.I.LoadJsonData<Dictionary<string, QuestInformation>>("QuestData");
-        List<string> keyList = new List<string>(SavedQuestInfo.Keys);
-        Debug.Log($"key list length - {keyList.Count}");
-        for (int i = 0; i < keyList.Count; i++)
+
+        if (File.Exists("Assets/Resources/Json/QuestData.json"))
         {
-            
-            Quest q = allQuests[keyList[i]];
-            Debug.Log(allQuests[keyList[i]].q.QuestId);
-            
-            if (q != null)
+            SavedQuestInfo = DataManager.I.LoadJsonData<Dictionary<string, QuestInformation>>("QuestData");
+            List<string> keyList = new List<string>(SavedQuestInfo.Keys);
+            Debug.Log($"key list length - {keyList.Count}");
+            for (int i = 0; i < keyList.Count; i++)
             {
-                q.state = SavedQuestInfo[keyList[i]].state;
-                q.q.QuestType = SavedQuestInfo[keyList[i]].type;
+
+                Quest q = allQuests[keyList[i]];
+                Debug.Log(allQuests[keyList[i]].q.QuestId);
+
+                if (q != null)
+                {
+                    q.state = SavedQuestInfo[keyList[i]].state;
+                    q.q.QuestType = SavedQuestInfo[keyList[i]].type;
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -32,15 +33,18 @@ public class PlayerManager : MonoBehaviour
     public void LoadPlayerData()
     {
         Debug.Log("load palyer data");
-        pInfo = DataManager.I.LoadJsonData<PlayerInfo>("PlayerData");
+        if (File.Exists("Assets/Resources/Json/PlayerData.json"))
+        {
+            pInfo = DataManager.I.LoadJsonData<PlayerInfo>("PlayerData");
 
-        Player.GetComponent<PlayerGold>().Gold = pInfo.Gold;
-        Player.GetComponent<PlayerAttack>().MinDamage = pInfo.MinDamage;
-        Player.GetComponent<PlayerAttack>().MaxDamage = pInfo.MaxDamage;
-        Player.GetComponent<PlayerHealth>().PlayerHP = pInfo.HP;
-        Player.GetComponent<PlayerHealth>().PlayerMaxHP = pInfo.MaxHP;
-        Player.GetComponent<PlayerMovement>().PlayerSM = pInfo.SM;
-        Player.GetComponent<PlayerMovement>().PlayerMaxSM = pInfo.MaxSM;
+            Player.GetComponent<PlayerGold>().Gold = pInfo.Gold;
+            Player.GetComponent<PlayerAttack>().MinDamage = pInfo.MinDamage;
+            Player.GetComponent<PlayerAttack>().MaxDamage = pInfo.MaxDamage;
+            Player.GetComponent<PlayerHealth>().PlayerHP = pInfo.HP;
+            Player.GetComponent<PlayerHealth>().PlayerMaxHP = pInfo.MaxHP;
+            Player.GetComponent<PlayerMovement>().PlayerSM = pInfo.SM;
+            Player.GetComponent<PlayerMovement>().PlayerMaxSM = pInfo.MaxSM;
+        }
     }
 
 }

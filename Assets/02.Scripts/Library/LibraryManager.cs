@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
 public class LibraryManager : MonoBehaviour
 {
@@ -41,14 +42,17 @@ public class LibraryManager : MonoBehaviour
     public void LoadLibraryData()
     {
         Debug.Log("load library data");
-        bookIDs = DataManager.I.LoadJsonData<List<int>>("BookData");
-        Debug.Log(bookIDs.Count);
-        for(int i = bookIDs.Count-1; i>=0; i--)
+        if (File.Exists("Assets/Resources/Json/BookData.json"))
         {
-            Debug.Log(findBookWithId(i).title);
-            BookSlot b = findBookSlotWithId(i);
-            b.AddStroyBook();
-            AddBooks(i);
+            bookIDs = DataManager.I.LoadJsonData<List<int>>("BookData");
+            Debug.Log(bookIDs.Count);
+            for (int i = bookIDs.Count - 1; i >= 0; i--)
+            {
+                Debug.Log(findBookWithId(i).title);
+                BookSlot b = findBookSlotWithId(i);
+                b.AddStroyBook();
+                AddBooks(i);
+            }
         }
     }
     public Book findBookWithId(int id)
