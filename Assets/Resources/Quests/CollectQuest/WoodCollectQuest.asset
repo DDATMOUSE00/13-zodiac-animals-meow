@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: WoodCollectQuest
   m_EditorClassIdentifier: 
   QuestId: Tree
-  QuestName: "\uB098\uBB34 \uBAA8\uC73C\uAE30"
-  QuestDesc: "\uB098\uBB34\uB97C 1\uAC1C \uBAA8\uC544\uBCF4\uC790 "
+  QuestName: "\uB2ED \uC2DC\uB828"
+  QuestDesc: "\uB465\uC9C0\uB97C \uB9CC\uB4E4\uB54C \uD544\uC694\uD55C \uB098\uBB47\uAC00\uC9C0
+    2\uAC1C\uB97C \uBAA8\uC544\uBCF4\uC790 "
   QuestType: 0
   questPrefabs: {fileID: 4801915847239745544, guid: b612fbc13f359194f9f5186412c58db1,
     type: 3}
   ItemId: 0
-  ItemQuantityToComplete: 1
+  ItemQuantityToComplete: 2
   QInfoName: WoodCollectQuest
   levelRequirement: 2
   goldReward: 100
-  animalId: 0
+  animalId: 9

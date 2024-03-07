@@ -40,11 +40,15 @@ public class LibraryManager : MonoBehaviour
     }
     public void LoadLibraryData()
     {
+        Debug.Log("load library data");
         bookIDs = DataManager.I.LoadJsonData<List<int>>("BookData");
+        Debug.Log(bookIDs.Count);
         foreach(int i in bookIDs)
         {
+            Debug.Log(findBookWithId(i).title);
             BookSlot b = findBookSlotWithId(i);
             b.AddStroyBook();
+            AddBooks(i);
         }
     }
     public Book findBookWithId(int id)
@@ -59,7 +63,7 @@ public class LibraryManager : MonoBehaviour
         return null;
     }
 
-    private BookSlot findBookSlotWithId(int id)
+    public BookSlot findBookSlotWithId(int id)
     {
         foreach(var bSlot in bSlots)
         {

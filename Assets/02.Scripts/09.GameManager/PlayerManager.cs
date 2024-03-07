@@ -31,6 +31,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void LoadPlayerData()
     {
+        Debug.Log("load palyer data");
         pInfo = DataManager.I.LoadJsonData<PlayerInfo>("PlayerData");
 
         Player.GetComponent<PlayerGold>().Gold = pInfo.Gold;

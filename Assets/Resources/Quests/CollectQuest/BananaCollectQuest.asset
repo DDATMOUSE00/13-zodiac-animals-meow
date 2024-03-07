@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce920efe427423d4bb1d65bc324bee3c, type: 3}
-  m_Name: RockCollectQuest
+  m_Name: BananaCollectQuest
   m_EditorClassIdentifier: 
-  QuestId: Rock
-  QuestName: "\uD1A0\uB07C\uC758 \uC2DC\uB828"
-  QuestDesc: "\uD1A0\uB07C\uAD74\uC744 \uD30C\uAE30 \uC704\uD55C \uC7AC\uB8CC. \uB3CC
-    2\uAC1C\uB97C \uBAA8\uC544\uC624\uC790"
+  QuestId: Banana
+  QuestName: "\uC6D0\uC22D\uC774 \uC2DC\uB828 "
+  QuestDesc: "\uBC14\uB098\uB098\uAECD\uC9C8 1\uAC1C\uB97C \uBAA8\uC544\uC624\uC790"
   QuestType: 0
-  questPrefabs: {fileID: 2673422770498867929, guid: 58c45e8141af5da4ab79adda0d34e155,
-    type: 3}
-  ItemId: 1
+  questPrefabs: {fileID: 0}
+  ItemId: 4
   ItemQuantityToComplete: 1
-  QInfoName: RockCollectQuest
+  QInfoName: BananaCollectQuest
   levelRequirement: 1
-  goldReward: 50
-  animalId: 3
+  goldReward: 0
+  animalId: 8

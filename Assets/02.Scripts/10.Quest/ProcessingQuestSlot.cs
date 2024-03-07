@@ -21,19 +21,16 @@ public class ProcessingQuestSlot : MonoBehaviour
 
     public void Setting()
     {
-        if (quest.q.QuestType == QuestType.COLLECT)
-        {
+    
             itemIDToCollect = quest.q.ItemId;
             itemNumberToComplete = quest.q.ItemQuantityToComplete;
             Reward.text = $"{quest.q.goldReward} G";
             //originalQuantityOfTargetItem = SettingCollectQuest(quest);
-        }
-        else
-        {
+
             animalId = quest.q.animalId;
             Book b = LibraryManager.I.findBookWithId(quest.q.animalId);
-            Reward.text = $"{b.title} 스토리 북";
-        }
+            Reward.text = $"{b.title} 시련 조각";
+       
         QName.text = quest.q.QuestName;
         QDesc.text = quest.q.QuestDesc;
         Lv.text = $"Lv. {quest.q.levelRequirement}";
@@ -106,16 +103,16 @@ public class ProcessingQuestSlot : MonoBehaviour
     public void CompleteQuest(string id)
     {
         QuestManager.I.CompleteQuest(id);
-        if(quest.q.QuestType== QuestType.COLLECT)
-        {
+       
             ItemManager.I.itemDic[itemIDToCollect] -= itemNumberToComplete;
             ItemManager.I.RefreshInventorySlot();
-        }
-        else
-        {
-            LibraryManager.I.AddBooks(animalId);
+
+        BookSlot b = LibraryManager.I.findBookSlotWithId(animalId);
+        b.AddStroyBook();
+        LibraryManager.I.AddBooks(animalId);
           
-        }
+          
+      
    
         Destroy(this.gameObject);
     }
