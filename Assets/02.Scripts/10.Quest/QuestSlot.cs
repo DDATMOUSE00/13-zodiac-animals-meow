@@ -18,15 +18,10 @@ public class QuestSlot : MonoBehaviour
         QName.text = quest.q.QuestName;
         QDesc.text = quest.q.QuestDesc;
         Lv.text = $"Lv. {quest.q.levelRequirement}";
-        if (quest.q.QuestType == QuestType.COLLECT)
-        {
-            Reward.text = $"{quest.q.goldReward} G";
-        }
-        else
-        {
+ 
             Book b = LibraryManager.I.findBookWithId(quest.q.animalId);
-            Reward.text = $"{b.title} 스토리북";
-        }
+            Reward.text = $"{b.title} 의 시련의 증표";
+       
 
     }
 
