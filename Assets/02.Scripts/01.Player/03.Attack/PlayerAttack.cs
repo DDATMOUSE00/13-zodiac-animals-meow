@@ -40,6 +40,9 @@ public class PlayerAttack : MonoBehaviour
     //공격 방향 전환을 위해
     private Vector2 AimDirection = Vector2.zero;
 
+    //UI열면 공격 안되게
+    public bool IsUI { get; set; }
+
     private SkeletonAnimation Anim;
 
     private void Awake()
@@ -66,6 +69,7 @@ public class PlayerAttack : MonoBehaviour
         IsAttack = false;
         IsCombo = false;
         IsSkill = false;
+        IsUI = false;
     }
     private void Update()
     {
@@ -85,7 +89,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         //애니메이션
-        if (IsAttack && !_Health.IsHit && !IsSkill && !_Health.IsDead)
+        if (IsAttack && !_Health.IsHit && !IsSkill && !_Health.IsDead && !IsUI)
         {
             if (!_movement.IsRolling && ComboCount == 1)
             {
@@ -141,7 +145,7 @@ public class PlayerAttack : MonoBehaviour
         ComboTimer += Time.deltaTime;
         StartCoroutine(StopForce(KnockbackTime));
 
-        if (!IsAttack && ComboCount < MaxComboCount && ComboCount == 0 &&!_movement.IsRolling && !_Health.IsHit && !_Health.IsDead)
+        if (!IsAttack && ComboCount < MaxComboCount && ComboCount == 0 &&!_movement.IsRolling && !_Health.IsHit && !_Health.IsDead && !IsUI)
         {
             IsAttack = true;
             IsCombo = true;
@@ -151,7 +155,7 @@ public class PlayerAttack : MonoBehaviour
             //Debug.Log("그냥공격");
         }
 
-        if (IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && IsCombo && !_Health.IsHit && ComboTimer <= ComboTimeLimit && ComboTimer >= ComboTimeLowLimit && !_Health.IsDead)
+        if (IsAttack && ComboCount < MaxComboCount && !_movement.IsRolling && IsCombo && !_Health.IsHit && ComboTimer <= ComboTimeLimit && ComboTimer >= ComboTimeLowLimit && !_Health.IsDead && !IsUI)
         {
             ComboCount++;
             ComboTimer = 0f;
