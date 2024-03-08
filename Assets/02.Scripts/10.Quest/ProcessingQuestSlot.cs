@@ -24,12 +24,12 @@ public class ProcessingQuestSlot : MonoBehaviour
     
             itemIDToCollect = quest.q.ItemId;
             itemNumberToComplete = quest.q.ItemQuantityToComplete;
-            Reward.text = $"{quest.q.goldReward} G";
+            //Reward.text = $"{quest.q.goldReward} G";
             //originalQuantityOfTargetItem = SettingCollectQuest(quest);
 
             animalId = quest.q.animalId;
             Book b = LibraryManager.I.findBookWithId(quest.q.animalId);
-            Reward.text = $"{b.title} 시련 조각";
+            Reward.text = $"{b.title}의 시련의 증표";
        
         QName.text = quest.q.QuestName;
         QDesc.text = quest.q.QuestDesc;
