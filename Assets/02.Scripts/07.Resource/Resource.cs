@@ -17,7 +17,7 @@ public class Resource : MonoBehaviour
 
     public void Hit()
     {
-        Debug.Log("ÀÚ¿ø ‹šÂî");
+       // Debug.Log("ÀÚ¿ø ‹šÂî");
         if (!isHit)
         {
             if (ResourceHP > 0)
@@ -25,7 +25,7 @@ public class Resource : MonoBehaviour
                 isHit = true;
                 ResourceHP--;
                 //GetComponent<Renderer>().material.color = hitColor;
-                Debug.Log(ResourceHP);
+             //   Debug.Log(ResourceHP);
 
                 StartCoroutine(CoResetColorAfterDelay());
             }
@@ -57,6 +57,7 @@ public class Resource : MonoBehaviour
     private void DropItem()
     {
         Instantiate(itemprefab, transform.position, Quaternion.identity);
+        //Instantiate(itemprefab, new Vector3(transform.position.x, -39, transform.position.z), Quaternion.identity);
     }
 
     private void RandomDropItem()

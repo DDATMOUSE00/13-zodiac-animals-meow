@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,21 +14,28 @@ public class BuyShop : MonoBehaviour
 
     [Header("#Shop_List")]
     public List<Item> items = new List<Item>();
+    //public List<Item> selectItems = new List<Item>();
+    public List<Item> selectItems = new List<Item>();
+
+    public int maxShopSloatCount = 3;
 
     [Header("#Shop_InventoryList")]
 
     [Header("#SlotList")]
-    public List<ShopSlot> shopSlots = new List<ShopSlot>();
+    public List<ShopSlotUI> shopSlots = new List<ShopSlotUI>();
     public List<int> inventorySlotKeyList = new List<int>();
 
     public Item selectItem;
+    public ShopSlotUI selectShopSlot;
 
     [Header("#BuyInputField")]
     //[SerializeField] private GameObject inputField_UI;
     [SerializeField] private GameObject inputField_Obj;
     [SerializeField] private TMP_InputField inputField;
+    [SerializeField] private GameObject failedUI1;
+    [SerializeField] private GameObject failedUI2;
 
-    public bool cancel = false;
+    [HideInInspector] public bool cancel = false;
 
 
     private void Awake()
@@ -36,28 +44,69 @@ public class BuyShop : MonoBehaviour
     }
     private void Start()
     {
-        for (int i = 0; i < items.Count; i++)
+        SetSelecItems();
+    }
+
+    public void SelecItems()
+    {
+        // 셔플 알고리즘
+        for (int i = items.Count - 1; i > 0; i--)
+        {
+            int randIndex = Random.Range(0, i + 1);
+            Item temp = items[i];
+            items[i] = items[randIndex];
+            items[randIndex] = temp;
+        }
+
+        // 셔플된 리스트에서 첫 3개의 원소를 가져옴
+        for (int i = 0; i < maxShopSloatCount; i++)
+        {
+            selectItems.Add(items[i]);
+        }
+    }
+
+    //Reroll
+    #region Reroll
+    public void SetSelecItems()
+    {
+        ClearSelecItems();
+        SelecItems();
+        for (int i = 0; i < maxShopSloatCount; i++)
         {
             AddNewUiObject();
         }
-        
     }
-    
+
+    public void ClearSelecItems()
+    {
+        selectItems.Clear();
+        ClearShopSlots();
+    }
+
+    public void ClearShopSlots()
+    {
+        for (int i = 0; i < shopSlots.Count; i++)
+        {
+            Destroy(shopSlots[i].gameObject);
+        }
+        shopSlots.Clear();
+    }
+    #endregion
 
     public void AddNewUiObject()
     {
         if (!weaponShop)
         {
-            if (shopSlots.Count < items.Count)
+            if (shopSlots.Count < maxShopSloatCount)
             {
-                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+                var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlotUI>();
                 shopSlots.Add(newShopSlot);
 
-                float y = 100f;
+                float y = 120f;
 
                 for (int i = 0; i < shopSlots.Count; i++)
                 {
-                    shopSlots[i].itemData = items[i];
+                    shopSlots[i].itemData = selectItems[i];
                 }
                 scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (y + 20) * shopSlots.Count);
             }
@@ -68,48 +117,68 @@ public class BuyShop : MonoBehaviour
         }
     }
 
-    public void SelectItem(Item item)
+    public void SelectSlot(ShopSlotUI _slot)
     {
-        selectItem = item;
-        //Debug.Log($"SelectItem :{selectItem.id}");
+        selectShopSlot = _slot;
+        selectItem = selectShopSlot.itemData;
     }
 
-    public void InputField()
+    public void BuyInputField()
     {
-        //아이템의 타입의 따라 
         inputField_Obj.SetActive(true);
-        if (!weaponShop)
-        {
-            inputField.onEndEdit.AddListener(delegate { EndEditEvent(inputField); });
-        }
+
+        inputField.onSubmit.AddListener(delegate { Buy(inputField); });
+
+        //inputField.onEndEdit.AddListener(delegate { Buy(inputField); });
+        Debug.Log("delegate - Buy");
+
     }
 
-    public void EndEditEvent(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
+    public void Buy(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
     {
         int int_inputNum = int.Parse(inputField.text);
-        if (!cancel)
+        if (int_inputNum <= 0)
         {
-            if (!weaponShop)
-            {
-                for (int i = 0; i < int_inputNum; i++)
-                {
-                    ItemManager.I.AddItem(selectItem);
-                }
-            }
+            StartCoroutine(ChekUI2());
+            inputField.onSubmit.RemoveAllListeners();
         }
         else
         {
-            inputField.onEndEdit.RemoveAllListeners();
-        }
+            var playerGold = GameManager.Instance.player.GetComponent<PlayerGold>();
+            if (selectItem.price * int_inputNum <= playerGold.Gold)
+            {
+                if (!cancel)
+                {
 
-        Debug.Log($" itemData.ID : {selectItem}.{selectItem.id} x {int_inputNum} / {type} ");
+                    for (int i = 0; i < int_inputNum; i++)
+                    {
+                        ItemManager.I.AddItem(selectItem);
+                    }
+                    playerGold.RemoveGold(selectItem.price * int_inputNum);
+                    ShopManager.Instance.ShopUpDate();
+                    ShopManager.Instance.ShowInventorySlotManager();
+                }
+                else
+                {
+                    inputField.onSubmit.RemoveAllListeners();
+                }
+            }
+            else
+            {
+                StartCoroutine(ChekUI1());
+                Debug.Log($"플레이어 골드가 부족합니다.{playerGold.Gold}-{selectItem.price * int_inputNum}={selectItem.price * int_inputNum - playerGold.Gold}");
+            }
+        }
+        
+        inputField.onSubmit.RemoveAllListeners();
         ExitButton();
+        ShopManager.Instance.ShowInventorySlotManager();
     }
 
     public void ExitButton()
     {
 
-        inputField.onEndEdit.RemoveAllListeners();
+        inputField.onSubmit.RemoveAllListeners();
         cancel = true;
         Debug.Log("InputField_Exit");
         inputField_Obj.SetActive(false);
@@ -117,5 +186,21 @@ public class BuyShop : MonoBehaviour
         {
             cancel = false;
         }
+    }
+
+    IEnumerator ChekUI1()
+    {
+        failedUI1.SetActive(true);
+        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+        failedUI1.SetActive(false);
+        yield return null;
+    }
+
+    IEnumerator ChekUI2()
+    {
+        failedUI2.SetActive(true);
+        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+        failedUI2.SetActive(false);
+        yield return null;
     }
 }

@@ -522,7 +522,6 @@ GameObject:
   - component: {fileID: 929638658357530980}
   - component: {fileID: 5750617937355435984}
   - component: {fileID: 5855642183963566917}
-  - component: {fileID: 6188390466708572864}
   m_Layer: 7
   m_Name: Tree 1 Green
   m_TagString: Resource
@@ -556,7 +555,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_SortAtRoot: 0
 --- !u!95 &6922834344764272258
 Animator:
@@ -586,7 +585,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2886763901723393918}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c494370e1d90a8e478e491a14c408d12, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -598,8 +597,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 3, z: 1}
-  m_Center: {x: 0, y: 1.5, z: 0}
+  m_Size: {x: 2.63, y: 10, z: 1}
+  m_Center: {x: 0, y: 4, z: 0}
 --- !u!114 &5750617937355435984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,37 +639,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72f32602fee5e543b7cb2ebe5a46986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemprefab: {fileID: 3611454901610100875, guid: 81343acb9f48aa24bbc611a58e1053c7,
+  itemprefab: {fileID: 3611454901610100875, guid: b5c5d0956e7c79d43a0c8ead5ca536c0,
     type: 3}
   randomItemprefab: {fileID: 0}
   ResourceHP: 0
---- !u!54 &6188390466708572864
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2886763901723393918}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0
 --- !u!1 &3581693359720348688
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,6 +652,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4284180800016336812}
+  - component: {fileID: 4053021962494947231}
   m_Layer: 7
   m_Name: Renderer
   m_TagString: Untagged
@@ -705,6 +678,27 @@ Transform:
   m_Father: {fileID: 8860066242878450523}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4053021962494947231
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581693359720348688}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 6, z: 1}
+  m_Center: {x: -0.35, y: 2.76, z: 0}
 --- !u!1 &4050852993673230715
 GameObject:
   m_ObjectHideFlags: 0

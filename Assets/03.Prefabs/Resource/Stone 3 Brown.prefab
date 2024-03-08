@@ -298,9 +298,8 @@ GameObject:
   - component: {fileID: 4528674691672460801}
   - component: {fileID: 1866144242151839968}
   - component: {fileID: 6212078333700612343}
-  - component: {fileID: 6202486203836406363}
   - component: {fileID: 2115447823100304258}
-  - component: {fileID: -827690535268523749}
+  - component: {fileID: 3655287841130546706}
   m_Layer: 7
   m_Name: Stone 3 Brown
   m_TagString: Resource
@@ -334,7 +333,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_SortAtRoot: 0
 --- !u!95 &1866144242151839968
 Animator:
@@ -378,14 +377,30 @@ MonoBehaviour:
   _lightAffectedRenderers:
   - {fileID: 7204611858408031081}
   - {fileID: 1471065723269131020}
---- !u!65 &6202486203836406363
+--- !u!114 &2115447823100304258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4617002347046128662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d72f32602fee5e543b7cb2ebe5a46986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemprefab: {fileID: 3611454901610100875, guid: 81343acb9f48aa24bbc611a58e1053c7,
+    type: 3}
+  randomItemprefab: {fileID: 0}
+  ResourceHP: 0
+--- !u!65 &3655287841130546706
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4617002347046128662}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c494370e1d90a8e478e491a14c408d12, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -399,46 +414,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.6, y: 2.5, z: 1}
   m_Center: {x: 0, y: 1.25, z: 0}
---- !u!114 &2115447823100304258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4617002347046128662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d72f32602fee5e543b7cb2ebe5a46986, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemprefab: {fileID: 3611454901610100875, guid: b5c5d0956e7c79d43a0c8ead5ca536c0,
-    type: 3}
-  randomItemprefab: {fileID: 0}
-  ResourceHP: 0
---- !u!54 &-827690535268523749
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4617002347046128662}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0

@@ -20,9 +20,23 @@ public class PlayerInputController : PlayerController
         bool IsAttackPressed = value.isPressed;
         CallAttackEvent();
     }
+    public void OnSkill1(InputValue value)
+    {
+        bool IsSkillPressed1 = value.isPressed;
+        CallSkillEvent1();
+    }
+    public void OnSkill2(InputValue value)
+    {
+        bool IsSkillPressed2 = value.isPressed;
+        CallSkillEvent2();
+    }
     public void OnLook(InputValue value)
     {
         Vector2 Aim = value.Get<Vector2>();
         CallLookEvent(Aim);
+    }
+    public void OpenInventory(InputValue value)
+    {
+        ItemManager.I.RefreshInventorySlot();
     }
 }

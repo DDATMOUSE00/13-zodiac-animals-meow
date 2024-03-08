@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     private static UIManager _instance;
+    public GameObject settingUI;
+
     public static UIManager Instance
     {
         get
@@ -35,6 +37,24 @@ public class UIManager : MonoBehaviour
         {
             if (_instance != this) Destroy(this);
             if (SceneManager.GetActiveScene().buildIndex == 0) Destroy(this);
+        }
+    }
+    private void Start()
+    {
+        settingUI = transform.GetChild(6).gameObject;
+
+        settingUI.SetActive(false);
+    }
+
+    public void SettingButton()
+    {
+        if (settingUI.activeInHierarchy)
+        {
+            settingUI.SetActive(false);
+        }
+        else
+        {
+            settingUI.SetActive(true);
         }
     }
 }

@@ -1,41 +1,54 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public GameObject player;
     public ObjectPoolManager objectPoolManager;
+    public FadeManager fadeManager;
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+        DontDestroyOnLoad(gameObject);
+
         Info();
     }
 
-    private void Info()
+    public void Start()
     {
-        objectPoolManager = GetComponentInChildren<ObjectPoolManager>();
-
+        //player = GameObject.FindWithTag("Player");
+        //AudioManager.Instance.PlayBgm(true);
     }
 
-    void Start()
+    public void Info()
     {
-        
+        //objectPoolManager = GetComponentInChildren<ObjectPoolManager>();
+        fadeManager = GetComponentInChildren<FadeManager>();
+        player = GameObject.FindWithTag("Player");
     }
 
-    void Update()
+    public void SaveData()
     {
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    Debug.Log("Pooling");
-        //    objectPoolManager.Get(1);
-        //}
+        ResourceManager.Instance.SaveData();
+        Debug.Log("정보 저장");
+    }
+    public void QuitGame()
+    {
+        //ResourceManager.Instance.SaveData();
+        Debug.Log("종료합니다,");
+        AudioManager.Instance.PlayBgm(false);
+        Application.Quit();
     }
 }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce920efe427423d4bb1d65bc324bee3c, type: 3}
+  m_Name: BananaCollectQuest
+  m_EditorClassIdentifier: 
+  QuestId: Banana
+  QuestName: "\uC6D0\uC22D\uC774 \uC2DC\uB828 "
+  QuestDesc: "\uBC14\uB098\uB098\uAECD\uC9C8 1\uAC1C\uB97C \uBAA8\uC544\uC624\uC790"
+  QuestType: 0
+  questPrefabs: {fileID: 0}
+  ItemId: 4
+  ItemQuantityToComplete: 1
+  QInfoName: BananaCollectQuest
+  levelRequirement: 1
+  goldReward: 0
+  animalId: 8

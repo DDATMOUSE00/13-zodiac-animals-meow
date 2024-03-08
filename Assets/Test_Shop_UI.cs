@@ -25,29 +25,40 @@ public class Test_Shop_UI : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            OnShopButton();
-            //Debug.Log("OnShop");
-        }
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    OnShopButton();
+        //    //Debug.Log("OnShop");
+        //}
     }
 
-    public void OnShopButton()
+    //public void OnShopButton()
+    //{
+    //    Toggle();
+    //}
+
+    //public void Toggle()
+    //{
+    //    if (Shop.activeInHierarchy)
+    //    {
+    //        Shop.SetActive(false);
+    //    }
+    //    else
+    //    {
+    //        Shop.SetActive(true);
+    //    }
+    //}
+    public void OpenShop()
     {
-        Toggle();
+        Shop.SetActive(true);
     }
 
-    public void Toggle()
+    public void ExitShop()
     {
-        if (Shop.activeInHierarchy)
-        {
-            Shop.SetActive(false);
-        }
-        else
-        {
-            Shop.SetActive(true);
-        }
+        Shop.SetActive(false);
     }
+
+
 
     public void DisplayWeaponShop()
     {
@@ -65,10 +76,9 @@ public class Test_Shop_UI : MonoBehaviour
         //Outline_potionShopButton.enabled = true;
     }
 
-    //public void InputNumUI_Exit()
-    //{
-    //    Debug.Log("ExitEvent!!");
-    //    inputField.onEndEdit.RemoveAllListeners();
-    //    inputFeild_Obj.SetActive(false);
-    //}
+    public void InputNumUI_Exit()
+    {
+        inputField.onEndEdit.RemoveAllListeners();
+        inputFeild_Obj.SetActive(false);
+    }
 }

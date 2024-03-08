@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1135713646161762686}
   - component: {fileID: 7924872128589612583}
   - component: {fileID: 814587992008676744}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: interactionText_And_ItemName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7798210062283181721, guid: cb4ea8fe88e240c45a6f7490c5926576, type: 2}
+  - {fileID: 5706018507990988569, guid: cb4ea8fe88e240c45a6f7490c5926576, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
     Test'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cb4ea8fe88e240c45a6f7490c5926576, type: 2}
-  m_sharedMaterial: {fileID: -7798210062283181721, guid: cb4ea8fe88e240c45a6f7490c5926576,
+  m_sharedMaterial: {fileID: 5706018507990988569, guid: cb4ea8fe88e240c45a6f7490c5926576,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 3020371684163668195}
   - component: {fileID: 3460603367536292866}
   - component: {fileID: 7922969034260258708}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ItemObject_Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,8 +204,8 @@ Transform:
   m_GameObject: {fileID: 3611454901610100875}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1135713646161762686}
   m_Father: {fileID: 0}
@@ -288,7 +288,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!65 &3460603367536292866
 BoxCollider:
@@ -305,7 +305,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

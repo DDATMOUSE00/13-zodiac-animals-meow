@@ -1,43 +1,80 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
+//using static UnityEngine.Rendering.DebugUI;
 
 public class SellShop : MonoBehaviour
 {
+    [Header("#Bool")]
+    public bool IsSellShop;
+    public string type;
+    private ScrollRect scrollRect;
+    private Item itemInInventory;
     [SerializeField] private GameObject uiPrefab;
 
-    public ScrollRect scrollRect;
+    [Header("#Shop_List")]
+    public List<Item> items = new List<Item>();
 
-    private Item itemInInventory;
-    public Item selectItem;
-
-    public bool IsSellShop;
-    public bool cancel = false;
-    public string type = "sell";
     [Header("#SlotList")]
-    public List<ShopSlot> shopSlots = new List<ShopSlot>();
+    public List<ShopSlotUI> shopSlots = new List<ShopSlotUI>();
     public List<int> inventorySlotKeyList = new List<int>();
 
+    public Item selectItem;
+    public ShopSlotUI selectShopSlot;
+
+
     [Header("#BuyInputField")]
-    //[SerializeField] private GameObject inputField_UI;
     [SerializeField] private GameObject inputField_Obj;
     [SerializeField] private TMP_InputField inputField;
+    [SerializeField] private GameObject failedUI1;
+    [SerializeField] private GameObject failedUI2;
+
+    //[SerializeField] private Button InputFeild_ExitButton;
+    [HideInInspector] public bool cancel = false;
 
     private void Awake()
     {
-        scrollRect = GetComponentInChildren<ScrollRect>();
+        scrollRect = GetComponent<ScrollRect>();
     }
 
     public void OnEnable()
     {
         if (IsSellShop)
         {
+            //ResetChildObjects();
+
             ShowInventorySlot();
         }
+        ShopManager.Instance.ShopUpDate();
     }
+
+    private void Start()
+    {
+        type = "sell";
+        ShowInventorySlot();
+        ExitButton();
+    }
+
+    public void ResetChildObjects()
+    {
+        // 리스트의 모든 오브젝트를 파괴
+        foreach (ShopSlotUI shopSlotUI in shopSlots)
+        {
+            if (shopSlotUI != null)
+            {
+                Destroy(shopSlotUI.gameObject);
+            }
+        }
+
+        // 리스트를 초기화
+        shopSlots.Clear();
+    }
+
+
 
     private Item FindItem(int key)
     {
@@ -52,6 +89,7 @@ public class SellShop : MonoBehaviour
         }
         return itemInInventory;
     }
+
     public void ShowInventorySlot()
     {
         List<int> keyList = new List<int>(ItemManager.I.itemDic.Keys);
@@ -64,14 +102,14 @@ public class SellShop : MonoBehaviour
                 Item item = FindItem(keyList[i]);
                 int bundle = ItemManager.I.itemDic[keyList[i]];
 
-                if (!inventorySlotKeyList.Contains(keyList[i]))
+                if (!inventorySlotKeyList.Contains(keyList[i]) && bundle != 0)
                 {
-                    var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlot>();
+                    var newShopSlot = Instantiate(uiPrefab, scrollRect.content).GetComponent<ShopSlotUI>();
                     newShopSlot.itemData = item;
                     newShopSlot.Int_Count = bundle;
                     shopSlots.Add(newShopSlot);
                     inventorySlotKeyList.Add(keyList[i]);
-                    Debug.Log($"{item.itemName} - {bundle}");
+                    //Debug.Log($"{item.itemName} - {bundle}");
                 }
                 else
                 {
@@ -84,32 +122,172 @@ public class SellShop : MonoBehaviour
                         }
 
                     }
-                    Debug.Log($"{item.itemName} - {bundle}");
                 }
+                scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (120 + 20) * shopSlots.Count);
             }
 
         }
+        SlotUpDate();
     }
 
-    public void EndEditEvent(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
+    public void SlotUpDate()
     {
-        int int_inputNum = int.Parse(inputField.text);
-        if (!cancel)
+        for (int i = 0; i < shopSlots.Count; i++)
         {
-            ItemManager.I.UpdateBundle(selectItem.id, int_inputNum, type);
+            shopSlots[i].Setting();
+        }
+        scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, (120 + 20) * shopSlots.Count);
+    }
+
+    public void RemoveSlot2(int key, int value)
+    {
+        key = selectItem.id;
+        if (selectShopSlot.Int_Count > value)
+        {
+            for (int i = 0; i < ItemManager.I.itemDic.Count; i++)
+            {
+                if (ItemManager.I.itemDic.ContainsKey(selectShopSlot.itemData.id))
+                {
+                    ItemManager.I.itemDic[key] -= value;
+                    selectShopSlot.Int_Count = ItemManager.I.itemDic[key];
+                    selectShopSlot.Setting();
+                    ItemManager.I.RefreshInventorySlot();
+                    break;
+                }
+            }
+        }
+        else if (selectShopSlot.Int_Count == value)
+        {
+            for (int i = 0; i < ItemManager.I.itemDic.Count; i++)
+            {
+                if (ItemManager.I.itemDic.ContainsKey(selectShopSlot.itemData.id))
+                {
+                    ItemManager.I.itemDic[selectShopSlot.itemData.id] -= value;
+                    selectShopSlot.Int_Count = ItemManager.I.itemDic[selectShopSlot.itemData.id];
+                    selectShopSlot.Setting();
+                    ItemManager.I.RefreshInventorySlot();
+                    DestorySlot();
+                    break;
+                }
+            }
         }
         else
         {
-            inputField.onEndEdit.RemoveAllListeners();
+            Debug.Log("갯수가 부족합니다.");
         }
+    }
 
+    public void DestorySlot()
+    {
+        for (int i = 0; i < shopSlots.Count; i++)
+        {
+            if (shopSlots.Contains(selectShopSlot))
+            {
+                print("DestorySlot");
+                shopSlots.RemoveAt(i);
+                selectShopSlot.Clear();
+                inventorySlotKeyList.RemoveAt(i);
+            }
+        }
+    }
+
+
+    public void SelectShopSlotUpdate()
+    {
+        for (int i = 0; i < shopSlots.Count; i++)
+        {
+            if (shopSlots.Contains(selectShopSlot))
+            {
+                selectShopSlot.Setting();
+                if (selectShopSlot.Int_Count <= 0)
+                {
+                    shopSlots.RemoveAt(i);
+                    selectShopSlot.Clear();
+                    inventorySlotKeyList.RemoveAt(i);
+                }
+            }
+        }
+    }
+
+
+
+
+
+    //test-test
+
+    public void InventroySetting()
+    {
+        for (int i = 0; i < ItemManager.I.slots.Length; i++)
+        {
+            var inventorySlotItem = ItemManager.I.slots[i].GetComponentInChildren<DraggableItem>();
+            if (inventorySlotItem.item == selectShopSlot.itemData)
+            {
+                inventorySlotItem.RefreshCount();
+            }
+        }
+    }
+
+
+    //Test
+
+    public void SelectSlot(ShopSlotUI _slot)
+    {
+        selectShopSlot = _slot;
+        selectItem = selectShopSlot.itemData;
+    }
+
+    public void SellInputField()
+    {
+        inputField_Obj.SetActive(true);
+
+        inputField.onSubmit.AddListener(delegate { Sell(inputField); });
+
+        //inputField.onEndEdit.AddListener(delegate { Sell(inputField); });
+        Debug.Log($"delegate - Sell/{selectShopSlot.itemData}");
+    }
+
+
+    public void Sell(TMP_InputField inputField) //확인 버튼을 눌렀을떄 인벤토리 업데이트
+    {
+        int int_inputNum = int.Parse(inputField.text);
+        if (int_inputNum <= 0)
+        {
+            inputField.onSubmit.RemoveAllListeners();
+            StartCoroutine(ChekUI2());
+            ExitButton();
+        }
+        else
+        {
+            if (ItemManager.I.ChekInventoryItem(selectItem.id, int_inputNum))
+            {
+                var playerGold = GameManager.Instance.player.GetComponent<PlayerGold>();
+                if (!cancel)
+                {
+                    ItemManager.I.RemoveItem(selectItem.id, int_inputNum);
+                    SelectShopSlotUpdate();
+                    playerGold.AddGold(selectItem.price / 2 * int_inputNum);
+                    ShopManager.Instance.ShopUpDate();
+                }
+                else
+                {
+                    inputField.onSubmit.RemoveAllListeners();
+                }
+            }
+            else
+            {
+                StartCoroutine(ChekUI1());
+                Debug.Log($"판매할 아이템이 부족합니다.{selectItem.id}/{selectShopSlot.Int_Count}-{int_inputNum}={selectShopSlot.Int_Count - int_inputNum}");
+            }
+            
+        }
+        inputField.onSubmit.RemoveAllListeners();
         ExitButton();
     }
 
     public void ExitButton()
     {
-        ShowInventorySlot();
-        inputField.onEndEdit.RemoveAllListeners();
+
+        inputField.onSubmit.RemoveAllListeners();
         cancel = true;
         Debug.Log("InputField_Exit");
         inputField_Obj.SetActive(false);
@@ -117,5 +295,21 @@ public class SellShop : MonoBehaviour
         {
             cancel = false;
         }
+    }
+
+    IEnumerator ChekUI1()
+    {
+        failedUI1.SetActive(true);
+        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+        failedUI1.SetActive(false);
+        yield return null;
+    }
+
+    IEnumerator ChekUI2()
+    {
+        failedUI2.SetActive(true);
+        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+        failedUI2.SetActive(false);
+        yield return null;
     }
 }

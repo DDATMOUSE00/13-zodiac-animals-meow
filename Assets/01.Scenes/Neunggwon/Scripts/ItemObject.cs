@@ -25,31 +25,69 @@ public class ItemObject : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");
-        TextMeshPro TextUI = interactionText_And_ItemName.GetComponent<TextMeshPro>();
-        TextUI.text = $"상호작용 [E] 키 \n {item.itemName}";
-        Debug.Log(TextUI.text);
+        //player = GameObject.FindWithTag("Player");
+        //TextMeshPro TextUI = interactionText_And_ItemName.GetComponent<TextMeshPro>();
+        //if (item.type != ItemType.Coin)
+        //{
+        //    TextUI.text = $"상호작용 [E] 키 \n {item.itemName}";
+        //}
         interactionText_And_ItemName.SetActive(false);
     }
 
     void Update()
     {
-        distance = Vector3.Distance(player.transform.position, transform.position);
-        if (distance < range)
-        {
-            interactionText_And_ItemName.SetActive(true);
-        }
-        else
-        {
-            interactionText_And_ItemName.SetActive(false);
-        }
+        //distance = Vector3.Distance(player.transform.position, transform.position);
+        //if (distance < range && item.type != ItemType.Coin)
+        //{
+        //    interactionText_And_ItemName.SetActive(true);
+        //}
+        //else
+        //{
+        //    interactionText_And_ItemName.SetActive(false);
+        //}
     }
 
-    public void OnTriggerEnter(Collider collision)
+    //public void OnTriggerEnter(Collider collision)
+    //{
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        var playerGold = collision.GetComponent<PlayerGold>();
+
+    //        if (item.type != ItemType.Coin)
+    //        {
+    //            ItemManager.I.AddItem(item);
+    //        }
+    //        else if (item.type == ItemType.Coin)
+    //        {
+    //            playerGold.AddGold(item.price);
+    //        }
+    //        else
+    //        {
+
+    //        }
+    //        Destroy(gameObject);
+    //    }
+    //}
+
+
+    public void OnCollisionEnter(Collision collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
         {
-            ItemManager.I.AddItem(item);
+            var playerGold = collision.gameObject.GetComponent<PlayerGold>();
+
+            if (item.type != ItemType.Coin)
+            {
+                ItemManager.I.AddItem(item);
+            }
+            else if (item.type == ItemType.Coin)
+            {
+                playerGold.AddGold(item.price);
+            }
+            else
+            {
+
+            }
             Destroy(gameObject);
         }
     }

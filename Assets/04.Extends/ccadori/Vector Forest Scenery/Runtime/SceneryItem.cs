@@ -31,6 +31,23 @@ namespace VectorForestScenery
                 Shake();
             }
         }
+        public void OnEnable()
+        {
+            if (_particle != null)
+            {
+                _particle.gameObject.SetActive(false);
+            }
+
+            if (_randomizeSize)
+            {
+                RandomizeSize();
+            }
+
+            if (_shakeOnStart)
+            {
+                Shake();
+            }
+        }
 
         public void RandomizeSize()
         {
